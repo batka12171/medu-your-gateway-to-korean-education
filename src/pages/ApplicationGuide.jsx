@@ -108,7 +108,7 @@ export default function ApplicationGuide() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-16"
         >
-          <Badge className="mb-4 bg-orange-100 text-orange-700">Complete Guide</Badge>
+          <Badge className="mb-4 bg-[#4A90C5]/10 text-[#4A90C5]">Complete Guide</Badge>
           <h1 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
             Application Guide
           </h1>
@@ -116,7 +116,7 @@ export default function ApplicationGuide() {
             Everything you need to know about applying to Korean universities, 
             from requirements to visa application.
           </p>
-          <Button className="bg-orange-500 hover:bg-orange-600">
+          <Button className="bg-[#4A90C5] hover:bg-[#357AB8]">
             <Download className="w-4 h-4 mr-2" />
             Download PDF Guide
           </Button>
@@ -135,7 +135,7 @@ export default function ApplicationGuide() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
-                <div className="bg-white rounded-2xl p-6 border border-slate-100 hover:shadow-lg hover:border-orange-200 transition-all h-full">
+                <div className="bg-white rounded-2xl p-6 border border-slate-100 hover:shadow-lg hover:border-[#4A90C5]/30 transition-all h-full">
                   <div className="flex items-start gap-4">
                     <div className={`w-12 h-12 rounded-xl ${step.color} flex items-center justify-center text-white flex-shrink-0`}>
                       <step.icon className="w-6 h-6" />
@@ -159,7 +159,7 @@ export default function ApplicationGuide() {
           className="bg-white rounded-2xl p-8 border border-slate-100 mb-20"
         >
           <div className="flex items-center gap-3 mb-8">
-            <div className="w-10 h-10 rounded-xl bg-orange-100 flex items-center justify-center text-orange-600">
+            <div className="w-10 h-10 rounded-xl bg-[#4A90C5]/10 flex items-center justify-center text-[#4A90C5]">
               <Clock className="w-5 h-5" />
             </div>
             <h2 className="text-2xl font-bold text-slate-900">Application Timeline</h2>
@@ -233,7 +233,7 @@ export default function ApplicationGuide() {
           <Accordion type="single" collapsible className="w-full">
             {faqs.map((faq, index) => (
               <AccordionItem key={index} value={`item-${index}`}>
-                <AccordionTrigger className="text-left font-semibold text-slate-900 hover:text-orange-600">
+                <AccordionTrigger className="text-left font-semibold text-slate-900 hover:text-[#4A90C5]">
                   {faq.question}
                 </AccordionTrigger>
                 <AccordionContent className="text-slate-600">
@@ -248,15 +248,15 @@ export default function ApplicationGuide() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center bg-gradient-to-r from-orange-500 to-orange-600 rounded-2xl p-12 text-white"
+          className="text-center bg-gradient-to-r from-[#4A90C5] to-[#357AB8] rounded-2xl p-12 text-white"
         >
           <h2 className="text-3xl font-bold mb-4">Need Personalized Guidance?</h2>
-          <p className="text-orange-100 mb-8 max-w-xl mx-auto">
+          <p className="text-blue-100 mb-8 max-w-xl mx-auto">
             Connect with mentors who have successfully navigated the Korean university 
             admission process and can help you every step of the way.
           </p>
           <Link to={createPageUrl("Mentors")}>
-            <Button size="lg" className="bg-white text-orange-600 hover:bg-orange-50">
+            <Button size="lg" className="bg-white text-[#4A90C5] hover:bg-blue-50">
               Find a Mentor
             </Button>
           </Link>

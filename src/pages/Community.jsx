@@ -208,7 +208,7 @@ export default function Community() {
           </div>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="mt-4 md:mt-0 bg-orange-500 hover:bg-orange-600">
+              <Button className="mt-4 md:mt-0 bg-[#4A90C5] hover:bg-[#357AB8]">
                 <Plus className="w-4 h-4 mr-2" />
                 New Post
               </Button>
@@ -261,7 +261,7 @@ export default function Community() {
                 </div>
                 <Button 
                   type="submit" 
-                  className="w-full bg-orange-500 hover:bg-orange-600"
+                  className="w-full bg-[#4A90C5] hover:bg-[#357AB8]"
                   disabled={createPostMutation.isPending}
                 >
                   {createPostMutation.isPending ? (
@@ -309,9 +309,9 @@ export default function Community() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
               >
-                <div className="bg-white rounded-2xl border border-slate-100 p-6 hover:shadow-lg hover:border-orange-200 transition-all duration-300">
+                <div className="bg-white rounded-2xl border border-slate-100 p-6 hover:shadow-lg hover:border-[#4A90C5]/30 transition-all duration-300">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white font-medium flex-shrink-0">
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#4A90C5] to-[#357AB8] flex items-center justify-center text-white font-medium flex-shrink-0">
                       {post.author_name?.[0] || "A"}
                     </div>
                     <div className="flex-1 min-w-0">
@@ -325,7 +325,7 @@ export default function Community() {
                           {formatTimeAgo(post.created_date)}
                         </span>
                       </div>
-                      <h3 className="text-lg font-semibold text-slate-900 mb-2 hover:text-orange-600 cursor-pointer">
+                      <h3 className="text-lg font-semibold text-slate-900 mb-2 hover:text-[#4A90C5] cursor-pointer">
                         {post.title}
                       </h3>
                       <p className="text-slate-600 mb-4 line-clamp-2">{post.content}</p>

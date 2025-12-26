@@ -135,7 +135,7 @@ export default function Mentors() {
             </p>
           </div>
           <Link to={createPageUrl("BecomeMentor")} className="mt-4 md:mt-0">
-            <Button className="bg-orange-500 hover:bg-orange-600">
+            <Button className="bg-[#4A90C5] hover:bg-[#357AB8]">
               <UserPlus className="w-4 h-4 mr-2" />
               Become a Mentor
             </Button>
@@ -202,14 +202,14 @@ export default function Mentors() {
                       <span className="font-medium text-slate-900">{mentor.rating}</span>
                       <span className="text-slate-400">({mentor.review_count} reviews)</span>
                     </div>
-                    <div className="text-lg font-semibold text-orange-600">
+                    <div className="text-lg font-semibold text-[#4A90C5]">
                       ${mentor.hourly_rate}/hr
                     </div>
                   </div>
                 </div>
                 
                 <div className="flex items-center gap-2 text-sm text-slate-600 mb-2">
-                  <GraduationCap className="w-4 h-4 text-blue-500" />
+                  <GraduationCap className="w-4 h-4 text-[#4A90C5]" />
                   <span className="truncate">{mentor.university}</span>
                 </div>
                 <p className="text-sm text-slate-500 mb-3">{mentor.degree}</p>
@@ -220,7 +220,7 @@ export default function Mentors() {
                   <p className="text-xs uppercase tracking-wider text-slate-500 mb-2">Expertise</p>
                   <div className="flex flex-wrap gap-2">
                     {mentor.expertise?.slice(0, 3).map(exp => (
-                      <Badge key={exp} variant="secondary" className="bg-orange-50 text-orange-700">
+                      <Badge key={exp} variant="secondary" className="bg-[#4A90C5]/10 text-[#4A90C5]">
                         {exp}
                       </Badge>
                     ))}
@@ -228,11 +228,11 @@ export default function Mentors() {
                 </div>
 
                 <div className="flex gap-2">
-                  <Button className="flex-1 bg-orange-500 hover:bg-orange-600">
+                  <Button className="flex-1 bg-[#4A90C5] hover:bg-[#357AB8]">
                     <Calendar className="w-4 h-4 mr-2" />
                     Book Session
                   </Button>
-                  <Button variant="outline" size="icon">
+                  <Button variant="outline" size="icon" className="border-[#4A90C5] text-[#4A90C5] hover:bg-[#4A90C5]/5">
                     <MessageSquare className="w-4 h-4" />
                   </Button>
                 </div>
