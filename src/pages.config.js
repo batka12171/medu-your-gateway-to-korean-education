@@ -6,6 +6,8 @@ import Community from './pages/Community';
 import Rankings from './pages/Rankings';
 import ApplicationGuide from './pages/ApplicationGuide';
 import Profile from './pages/Profile';
+import UniversityMatcher from './pages/UniversityMatcher';
+import SavedUniversities from './pages/SavedUniversities';
 import __Layout from './Layout.jsx';
 
 
@@ -18,6 +20,8 @@ export const PAGES = {
     "Rankings": Rankings,
     "ApplicationGuide": ApplicationGuide,
     "Profile": Profile,
+    "UniversityMatcher": UniversityMatcher,
+    "SavedUniversities": SavedUniversities,
 }
 
 export const pagesConfig = {

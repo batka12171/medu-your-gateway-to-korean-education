@@ -5,7 +5,7 @@ import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
 import { 
   Menu, X, GraduationCap, Users, BookOpen, 
-  MessageSquare, Trophy, ChevronDown, LogOut, User
+  MessageSquare, Trophy, ChevronDown, LogOut, User, Bookmark
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -42,10 +42,10 @@ export default function Layout({ children, currentPageName }) {
 
   const navLinks = [
     { name: "Universities", href: createPageUrl("Universities"), icon: GraduationCap },
+    { name: "Find Match", href: createPageUrl("UniversityMatcher"), icon: Users },
     { name: "Mentors", href: createPageUrl("Mentors"), icon: Users },
     { name: "Community", href: createPageUrl("Community"), icon: MessageSquare },
     { name: "Rankings", href: createPageUrl("Rankings"), icon: Trophy },
-    { name: "Application Guide", href: createPageUrl("ApplicationGuide"), icon: BookOpen },
   ];
 
   const isHomePage = currentPageName === "Home";
@@ -113,6 +113,11 @@ export default function Layout({ children, currentPageName }) {
                     <DropdownMenuItem asChild>
                       <Link to={createPageUrl("Profile")} className="flex items-center gap-2">
                         <User className="w-4 h-4" /> Profile
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to={createPageUrl("SavedUniversities")} className="flex items-center gap-2">
+                        <Bookmark className="w-4 h-4" /> Saved Universities
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem 
