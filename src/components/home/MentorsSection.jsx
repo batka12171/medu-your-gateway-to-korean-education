@@ -4,6 +4,7 @@ import { createPageUrl } from "../../utils";
 import { motion } from "framer-motion";
 import { Star, GraduationCap, Users, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 const mentors = [
   {
