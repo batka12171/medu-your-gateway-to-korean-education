@@ -64,7 +64,7 @@ export default function Layout({ children, currentPageName }) {
             <Link to={createPageUrl("Home")} className="flex items-center gap-2">
               <div className={`flex items-center gap-2 ${isScrolled || !isHomePage ? 'text-slate-900' : 'text-white'}`}>
                 <div className="relative">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center shadow-lg">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#4A90C5] to-[#357AB8] flex items-center justify-center shadow-lg">
                     <GraduationCap className="w-6 h-6 text-white" />
                   </div>
                 </div>
@@ -85,7 +85,7 @@ export default function Layout({ children, currentPageName }) {
                   to={link.href}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                     isScrolled || !isHomePage
-                      ? 'text-slate-600 hover:text-orange-600 hover:bg-orange-50'
+                      ? 'text-slate-600 hover:text-[#4A90C5] hover:bg-[#4A90C5]/5'
                       : 'text-white/90 hover:text-white hover:bg-white/10'
                   }`}
                 >
@@ -103,7 +103,7 @@ export default function Layout({ children, currentPageName }) {
                       variant="ghost" 
                       className={`gap-2 ${isScrolled || !isHomePage ? 'text-slate-700' : 'text-white'}`}
                     >
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white text-sm font-medium">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#4A90C5] to-[#357AB8] flex items-center justify-center text-white text-sm font-medium">
                         {user.full_name?.[0] || user.email?.[0]?.toUpperCase()}
                       </div>
                       <ChevronDown className="w-4 h-4" />
@@ -126,7 +126,7 @@ export default function Layout({ children, currentPageName }) {
               ) : (
                 <Button 
                   onClick={() => base44.auth.redirectToLogin()}
-                  className="bg-orange-500 hover:bg-orange-600 text-white shadow-lg shadow-orange-500/25"
+                  className="bg-[#4A90C5] hover:bg-[#357AB8] text-white shadow-lg shadow-[#4A90C5]/25"
                 >
                   Get Started
                 </Button>
@@ -154,7 +154,7 @@ export default function Layout({ children, currentPageName }) {
                   key={link.name}
                   to={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 hover:bg-orange-50 hover:text-orange-600 transition-all"
+                  className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 hover:bg-[#4A90C5]/5 hover:text-[#4A90C5] transition-all"
                 >
                   <link.icon className="w-5 h-5" />
                   {link.name}
@@ -176,7 +176,7 @@ export default function Layout({ children, currentPageName }) {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="col-span-2 md:col-span-1">
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#4A90C5] to-[#357AB8] flex items-center justify-center">
                   <GraduationCap className="w-6 h-6 text-white" />
                 </div>
                 <div>
@@ -192,18 +192,18 @@ export default function Layout({ children, currentPageName }) {
             <div>
               <h4 className="font-semibold mb-4">Explore</h4>
               <ul className="space-y-2 text-sm text-slate-400">
-                <li><Link to={createPageUrl("Universities")} className="hover:text-orange-400 transition">Universities</Link></li>
-                <li><Link to={createPageUrl("Rankings")} className="hover:text-orange-400 transition">Rankings</Link></li>
-                <li><Link to={createPageUrl("ApplicationGuide")} className="hover:text-orange-400 transition">Application Guide</Link></li>
+                <li><Link to={createPageUrl("Universities")} className="hover:text-[#4A90C5] transition">Universities</Link></li>
+                <li><Link to={createPageUrl("Rankings")} className="hover:text-[#4A90C5] transition">Rankings</Link></li>
+                <li><Link to={createPageUrl("ApplicationGuide")} className="hover:text-[#4A90C5] transition">Application Guide</Link></li>
               </ul>
             </div>
 
             <div>
               <h4 className="font-semibold mb-4">Community</h4>
               <ul className="space-y-2 text-sm text-slate-400">
-                <li><Link to={createPageUrl("Mentors")} className="hover:text-orange-400 transition">Find Mentors</Link></li>
-                <li><Link to={createPageUrl("BecomeMentor")} className="hover:text-orange-400 transition">Become a Mentor</Link></li>
-                <li><Link to={createPageUrl("Community")} className="hover:text-orange-400 transition">Discussion Forum</Link></li>
+                <li><Link to={createPageUrl("Mentors")} className="hover:text-[#4A90C5] transition">Find Mentors</Link></li>
+                <li><Link to={createPageUrl("BecomeMentor")} className="hover:text-[#4A90C5] transition">Become a Mentor</Link></li>
+                <li><Link to={createPageUrl("Community")} className="hover:text-[#4A90C5] transition">Discussion Forum</Link></li>
               </ul>
             </div>
 

@@ -10,37 +10,41 @@ const mentors = [
     name: "Dr. Ji-won Kim",
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80",
     university: "Seoul National University",
-    degree: "Ph.D. in Computer Science",
+    degree: "Application Guide Mentor",
     rating: 4.9,
     reviews: 87,
-    bio: "Helped 100+ students get admitted to top Korean universities. Specializes in..."
+    bio: "Specializes in graduate school applications, personal statements, and admissions strategy...",
+    type: "Application Guide"
   },
   {
     name: "Sarah Chen",
     avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&q=80",
     university: "KAIST",
-    degree: "M.S. in Electrical Engineering",
+    degree: "Korean Language Mentor",
     rating: 4.8,
     reviews: 65,
-    bio: "International student from Singapore. Successfully navigated KAIST admissio..."
+    bio: "Expert in TOPIK preparation and Korean language learning strategies for international...",
+    type: "Language"
   },
   {
-    name: "Prof. Min-ho Park",
+    name: "Min-ho Park",
     avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80",
     university: "Yonsei University",
-    degree: "MBA, Business Administration",
+    degree: "Lifestyle & Culture Mentor",
     rating: 5.0,
     reviews: 92,
-    bio: "Former admissions committee member at Yonsei. Deep insights into..."
+    bio: "Helps students adjust to Korean culture, find housing, and navigate daily life in Korea...",
+    type: "Lifestyle"
   },
   {
     name: "Emily Johnson",
     avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80",
     university: "Korea University",
-    degree: "M.A. in International Studies",
+    degree: "Application Guide Mentor",
     rating: 4.7,
     reviews: 54,
-    bio: "American student who mastered Korean language requirements. Guides..."
+    bio: "Guides international students through visa applications and scholarship processes...",
+    type: "Application Guide"
   }
 ];
 
@@ -49,7 +53,7 @@ export default function MentorsSection() {
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 text-orange-600 font-medium mb-4">
+          <div className="inline-flex items-center gap-2 text-[#4A90C5] font-medium mb-4">
             <Users className="w-5 h-5" />
             Connect with Expert Mentors
           </div>
@@ -90,8 +94,17 @@ export default function MentorsSection() {
                 </div>
               </div>
               
+              <div className="flex items-center gap-2 mb-3">
+                <Badge className={`${
+                  mentor.type === 'Application Guide' ? 'bg-[#4A90C5] text-white' :
+                  mentor.type === 'Language' ? 'bg-purple-100 text-purple-700' :
+                  'bg-emerald-100 text-emerald-700'
+                }`}>
+                  {mentor.type}
+                </Badge>
+              </div>
               <div className="flex items-center gap-2 text-sm text-slate-600 mb-2">
-                <GraduationCap className="w-4 h-4 text-blue-500" />
+                <GraduationCap className="w-4 h-4 text-[#4A90C5]" />
                 <span className="truncate">{mentor.university}</span>
               </div>
               <p className="text-sm text-slate-500 mb-3">{mentor.degree}</p>
@@ -102,12 +115,12 @@ export default function MentorsSection() {
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link to={createPageUrl("Mentors")}>
-            <Button size="lg" className="bg-orange-500 hover:bg-orange-600">
+            <Button size="lg" className="bg-[#4A90C5] hover:bg-[#357AB8]">
               Find a Mentor <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </Link>
           <Link to={createPageUrl("BecomeMentor")}>
-            <Button size="lg" variant="outline" className="border-slate-300">
+            <Button size="lg" variant="outline" className="border-[#4A90C5] text-[#4A90C5] hover:bg-[#4A90C5]/5">
               Become a Mentor
             </Button>
           </Link>

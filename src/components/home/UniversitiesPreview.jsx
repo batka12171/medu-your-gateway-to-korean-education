@@ -54,7 +54,7 @@ export default function UniversitiesPreview() {
             </p>
           </div>
           <Link to={createPageUrl("Universities")} className="mt-4 md:mt-0">
-            <Button variant="ghost" className="text-orange-600 hover:text-orange-700 hover:bg-orange-50">
+            <Button variant="ghost" className="text-[#4A90C5] hover:text-[#357AB8] hover:bg-[#4A90C5]/5">
               View all universities <ArrowRight className="w-4 h-4 ml-1" />
             </Button>
           </Link>
@@ -81,7 +81,7 @@ export default function UniversitiesPreview() {
                   </Badge>
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-slate-900 mb-1 group-hover:text-orange-600 transition-colors">
+                  <h3 className="text-xl font-bold text-slate-900 mb-1 group-hover:text-[#4A90C5] transition-colors">
                     {uni.name}
                   </h3>
                   <p className="text-sm text-slate-500 mb-4">{uni.name_korean}</p>
@@ -113,7 +113,7 @@ export default function UniversitiesPreview() {
                   </div>
                 </div>
                 <div className="px-6 pb-6">
-                  <Button className="w-full bg-orange-500 hover:bg-orange-600">
+                  <Button className="w-full bg-[#4A90C5] hover:bg-[#357AB8]">
                     View Details
                   </Button>
                 </div>
