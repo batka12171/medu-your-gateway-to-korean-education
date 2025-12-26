@@ -3,6 +3,9 @@ import Universities from './pages/Universities';
 import Mentors from './pages/Mentors';
 import BecomeMentor from './pages/BecomeMentor';
 import Community from './pages/Community';
+import Rankings from './pages/Rankings';
+import ApplicationGuide from './pages/ApplicationGuide';
+import Profile from './pages/Profile';
 import __Layout from './Layout.jsx';
 
 
@@ -12,6 +15,9 @@ export const PAGES = {
     "Mentors": Mentors,
     "BecomeMentor": BecomeMentor,
     "Community": Community,
+    "Rankings": Rankings,
+    "ApplicationGuide": ApplicationGuide,
+    "Profile": Profile,
 }
 
 export const pagesConfig = {
