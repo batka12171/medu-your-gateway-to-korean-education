@@ -8,6 +8,7 @@ import ApplicationGuide from './pages/ApplicationGuide';
 import Profile from './pages/Profile';
 import UniversityMatcher from './pages/UniversityMatcher';
 import SavedUniversities from './pages/SavedUniversities';
+import FindMatch from './pages/FindMatch';
 import __Layout from './Layout.jsx';
 
 
@@ -22,6 +23,7 @@ export const PAGES = {
     "Profile": Profile,
     "UniversityMatcher": UniversityMatcher,
     "SavedUniversities": SavedUniversities,
+    "FindMatch": FindMatch,
 }
 
 export const pagesConfig = {

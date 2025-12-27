@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Select,
   SelectContent,
@@ -12,7 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Search, MapPin, Trophy, Users, Filter } from "lucide-react";
+import { Search, MapPin, Trophy, Users, Filter, Sparkles, TrendingUp, TrendingDown, Minus } from "lucide-react";
 
 const staticUniversities = [
   {
@@ -105,10 +106,22 @@ const staticUniversities = [
   }
 ];
 
+const rankingsData = [
+  { rank: 1, name: "Seoul National University", name_korean: "서울대학교", qs_world: 29, qs_asia: 8, location: "Seoul", trend: "up" },
+  { rank: 2, name: "KAIST", name_korean: "한국과학기술원", qs_world: 41, qs_asia: 5, location: "Daejeon", trend: "up" },
+  { rank: 3, name: "Yonsei University", name_korean: "연세대학교", qs_world: 73, qs_asia: 17, location: "Seoul", trend: "stable" },
+  { rank: 4, name: "Korea University", name_korean: "고려대학교", qs_world: 79, qs_asia: 21, location: "Seoul", trend: "up" },
+  { rank: 5, name: "POSTECH", name_korean: "포항공과대학교", qs_world: 100, qs_asia: 25, location: "Pohang", trend: "stable" },
+  { rank: 6, name: "Sungkyunkwan University", name_korean: "성균관대학교", qs_world: 145, qs_asia: 34, location: "Seoul & Suwon", trend: "up" },
+  { rank: 7, name: "Hanyang University", name_korean: "한양대학교", qs_world: 164, qs_asia: 40, location: "Seoul & Ansan", trend: "down" },
+  { rank: 8, name: "EWHA Womans University", name_korean: "이화여자대학교", qs_world: 346, qs_asia: 85, location: "Seoul", trend: "stable" },
+];
+
 export default function Universities() {
   const [search, setSearch] = useState("");
   const [locationFilter, setLocationFilter] = useState("all");
   const [typeFilter, setTypeFilter] = useState("all");
+  const [rankingType, setRankingType] = useState("qs_world");
 
   const { data: dbUniversities = [] } = useQuery({
     queryKey: ['universities'],
@@ -130,21 +143,34 @@ export default function Universities() {
   const locations = [...new Set(universities.map(u => u.location.split(' & ')[0]))];
   const types = [...new Set(universities.map(u => u.type))];
 
+  const sortedRankings = [...rankingsData].sort((a, b) => a[rankingType] - b[rankingType]);
+
   return (
     <div className="min-h-screen bg-slate-50 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-10">
           <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">
-            Explore Universities
+            Korean Universities
           </h1>
           <p className="text-slate-600 max-w-2xl">
-            Browse detailed information about Korean universities including rankings, 
-            programs, tuition, and admission requirements.
+            Explore universities, compare rankings, and find your perfect match.
           </p>
         </div>
 
-        {/* Filters */}
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-4 mb-8">
+        <Tabs defaultValue="browse" className="space-y-8">
+          <TabsList className="bg-white border border-slate-100">
+            <TabsTrigger value="browse">Browse Universities</TabsTrigger>
+            <TabsTrigger value="rankings">Rankings</TabsTrigger>
+            <TabsTrigger value="matcher">
+              <Sparkles className="w-4 h-4 mr-2" />
+              AI Match
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="browse" className="space-y-8">
+
+            {/* Filters */}
+            <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-4 mb-8">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1 relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
@@ -250,8 +276,101 @@ export default function Universities() {
                 </div>
               </div>
             </motion.div>
-          ))}
-        </div>
+            ))}
+          </div>
+        </TabsContent>
+
+        <TabsContent value="rankings" className="space-y-8">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-2xl font-bold text-black">University Rankings</h2>
+            <Select value={rankingType} onValueChange={setRankingType}>
+              <SelectTrigger className="w-48">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="qs_world">QS World Rankings</SelectItem>
+                <SelectItem value="qs_asia">QS Asia Rankings</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 mb-8">
+            {sortedRankings.slice(0, 3).map((uni, idx) => (
+              <motion.div
+                key={uni.name}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.1 }}
+                className={`bg-gradient-to-br ${
+                  idx === 0 ? 'from-amber-400 to-yellow-500' :
+                  idx === 1 ? 'from-slate-300 to-slate-400' :
+                  'from-orange-300 to-orange-400'
+                } rounded-2xl p-6 text-white`}
+              >
+                <div className="text-5xl font-bold mb-2">#{uni[rankingType]}</div>
+                <h3 className="text-xl font-bold mb-1">{uni.name}</h3>
+                <p className="text-sm opacity-90">{uni.name_korean}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="bg-white rounded-2xl border border-slate-100 overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-slate-50 border-b border-slate-200">
+                  <tr>
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">Rank</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">University</th>
+                    <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900">Location</th>
+                    <th className="px-6 py-4 text-center text-sm font-semibold text-slate-900">QS World</th>
+                    <th className="px-6 py-4 text-center text-sm font-semibold text-slate-900">QS Asia</th>
+                    <th className="px-6 py-4 text-center text-sm font-semibold text-slate-900">Trend</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100">
+                  {sortedRankings.map((uni) => (
+                    <tr key={uni.name} className="hover:bg-slate-50 transition-colors">
+                      <td className="px-6 py-4">
+                        <span className="text-2xl font-bold text-[#4A90C5]">{uni.rank}</span>
+                      </td>
+                      <td className="px-6 py-4">
+                        <div>
+                          <div className="font-semibold text-slate-900">{uni.name}</div>
+                          <div className="text-sm text-slate-500">{uni.name_korean}</div>
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 text-slate-600">{uni.location}</td>
+                      <td className="px-6 py-4 text-center">
+                        <Badge className="bg-[#4A90C5] text-white">#{uni.qs_world}</Badge>
+                      </td>
+                      <td className="px-6 py-4 text-center">
+                        <Badge className="bg-[#EB9441] text-white">#{uni.qs_asia}</Badge>
+                      </td>
+                      <td className="px-6 py-4 text-center">
+                        {uni.trend === 'up' && <TrendingUp className="w-5 h-5 text-green-500 inline" />}
+                        {uni.trend === 'down' && <TrendingDown className="w-5 h-5 text-red-500 inline" />}
+                        {uni.trend === 'stable' && <Minus className="w-5 h-5 text-slate-400 inline" />}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="matcher">
+          <div className="text-center py-12">
+            <div className="w-16 h-16 rounded-full bg-[#4A90C5]/10 flex items-center justify-center mx-auto mb-4">
+              <Sparkles className="w-8 h-8 text-[#4A90C5]" />
+            </div>
+            <h3 className="text-xl font-semibold text-black mb-2">AI University Matcher</h3>
+            <p className="text-slate-600 mb-6 max-w-md mx-auto">
+              Coming soon: Get personalized university recommendations based on your preferences and goals.
+            </p>
+          </div>
+        </TabsContent>
+      </Tabs>
       </div>
     </div>
   );

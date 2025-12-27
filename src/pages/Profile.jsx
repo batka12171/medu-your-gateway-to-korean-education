@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/select";
 import { 
   User, Settings, MessageSquare, Heart, Edit2, 
-  Save, Loader2, GraduationCap, MapPin
+  Save, Loader2, GraduationCap, MapPin, Sparkles
 } from "lucide-react";
 import { toast } from "sonner";
 import { format } from "date-fns";

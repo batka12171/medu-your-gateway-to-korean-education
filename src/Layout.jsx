@@ -42,10 +42,9 @@ export default function Layout({ children, currentPageName }) {
 
   const navLinks = [
     { name: "Universities", href: createPageUrl("Universities"), icon: GraduationCap },
-    { name: "Find Match", href: createPageUrl("UniversityMatcher"), icon: Users },
+    { name: "Find Match", href: createPageUrl("FindMatch"), icon: Users },
     { name: "Mentors", href: createPageUrl("Mentors"), icon: Users },
     { name: "Community", href: createPageUrl("Community"), icon: MessageSquare },
-    { name: "Rankings", href: createPageUrl("Rankings"), icon: Trophy },
   ];
 
   const isHomePage = currentPageName === "Home";
