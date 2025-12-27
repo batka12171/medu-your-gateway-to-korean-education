@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "../../utils";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Download, Sparkles } from "lucide-react";
+import { ArrowRight, Download, Sparkles, Users } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function HeroSection() {
@@ -12,7 +12,7 @@ export default function HeroSection() {
       <div 
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1538485399081-7191377e8241?w=1920&q=80')`,
+          backgroundImage: `url('https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/694e6255f87f952ccf7b0ebb/d515cf7a1_acae774e9864c9998a3ca9c644d3c570.jpg')`,
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-slate-900/70 via-slate-900/60 to-slate-900/80" />
@@ -74,14 +74,14 @@ export default function HeroSection() {
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </Link>
-            <Link to={createPageUrl("ApplicationGuide")}>
+            <Link to={createPageUrl("Mentors")}>
               <Button 
                 variant="outline" 
                 size="lg"
                 className="border-2 border-white/30 text-white hover:bg-white/10 px-8 py-6 text-lg rounded-xl backdrop-blur-sm"
               >
-                <Download className="mr-2 w-5 h-5" />
-                Download Guide
+                <Users className="mr-2 w-5 h-5" />
+                Explore Mentors
               </Button>
             </Link>
           </div>
