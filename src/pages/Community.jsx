@@ -201,6 +201,15 @@ export default function Community() {
     },
   });
 
+  const likePostMutation = useMutation({
+    mutationFn: (post) => base44.entities.CommunityPost.update(post.id, {
+      likes_count: (post.likes_count || 0) + 1
+    }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['community-posts'] });
+    },
+  });
+
   const createGroupMutation = useMutation({
     mutationFn: (data) => base44.entities.CommunityGroup.create({
       ...data,
@@ -432,36 +441,56 @@ export default function Community() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
               >
-                <div className="bg-white rounded-2xl border border-slate-100 p-6 hover:shadow-lg hover:border-[#4A90C5]/30 transition-all duration-300">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#4A90C5] to-[#357AB8] flex items-center justify-center text-white font-medium flex-shrink-0">
-                      {post.author_name?.[0] || "A"}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1 flex-wrap">
-                        <span className="font-medium text-slate-900">{post.author_name}</span>
-                        <Badge className={`text-xs ${userTypeColors[post.user_type]}`}>
-                          {post.user_type?.replace('_', ' ')}
-                        </Badge>
-                        <span className="text-sm text-slate-400 flex items-center gap-1">
-                          <Clock className="w-3 h-3" />
-                          {formatTimeAgo(post.created_date)}
-                        </span>
+                <div className="bg-white rounded-xl border border-slate-200 hover:border-slate-300 transition-all duration-200">
+                  <div className="flex items-start p-4 gap-2">
+                    <div className="flex gap-3 items-start">
+                      {/* Reddit-style voting */}
+                      <div className="flex flex-col items-center gap-1 pt-1">
+                        <button 
+                          onClick={() => user ? likePostMutation.mutate(post) : base44.auth.redirectToLogin()}
+                          className="p-1 hover:bg-[#4A90C5]/10 rounded transition-colors"
+                        >
+                          <svg className="w-5 h-5 text-slate-400 hover:text-[#4A90C5]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                          </svg>
+                        </button>
+                        <span className="text-sm font-semibold text-[#4A90C5]">{post.likes_count || 0}</span>
+                        <button className="p-1 hover:bg-slate-100 rounded transition-colors">
+                          <svg className="w-5 h-5 text-slate-400 hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </button>
                       </div>
-                      <h3 className="text-lg font-semibold text-slate-900 mb-2 hover:text-[#4A90C5] cursor-pointer">
-                        {post.title}
-                      </h3>
-                      <p className="text-slate-600 mb-4 line-clamp-2">{post.content}</p>
-                      <div className="flex items-center gap-4 flex-wrap">
-                        <Badge className={`border ${categoryColors[post.category]}`}>
-                          {post.category?.replace('_', ' ')}
-                        </Badge>
-                        <span className="flex items-center gap-1 text-sm text-slate-500 hover:text-rose-500 cursor-pointer transition-colors">
-                          <Heart className="w-4 h-4" /> {post.likes_count}
-                        </span>
-                        <span className="flex items-center gap-1 text-sm text-slate-500">
-                          <MessageSquare className="w-4 h-4" /> {post.comments_count}
-                        </span>
+
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1 flex-wrap">
+                          <span className="font-medium text-slate-900">{post.author_name}</span>
+                          <Badge className={`text-xs ${userTypeColors[post.user_type]}`}>
+                            {post.user_type?.replace('_', ' ')}
+                          </Badge>
+                          <span className="text-sm text-slate-400 flex items-center gap-1">
+                            <Clock className="w-3 h-3" />
+                            {formatTimeAgo(post.created_date)}
+                          </span>
+                        </div>
+                        <h3 className="text-lg font-semibold text-slate-900 mb-2 hover:text-[#4A90C5] cursor-pointer">
+                          {post.title}
+                        </h3>
+                        <p className="text-slate-600 mb-4 line-clamp-2">{post.content}</p>
+                        <div className="flex items-center gap-4 flex-wrap">
+                          <Badge className={`border ${categoryColors[post.category]}`}>
+                            {post.category?.replace('_', ' ')}
+                          </Badge>
+                          <button className="flex items-center gap-1 text-sm text-slate-500 hover:bg-slate-100 px-2 py-1 rounded transition-colors">
+                            <MessageSquare className="w-4 h-4" /> {post.comments_count || 0} comments
+                          </button>
+                          <button className="flex items-center gap-1 text-sm text-slate-500 hover:bg-slate-100 px-2 py-1 rounded transition-colors">
+                            Share
+                          </button>
+                          <button className="flex items-center gap-1 text-sm text-slate-500 hover:bg-slate-100 px-2 py-1 rounded transition-colors">
+                            Save
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
