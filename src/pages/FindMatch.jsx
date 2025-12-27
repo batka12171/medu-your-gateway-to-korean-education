@@ -42,6 +42,15 @@ export default function FindMatch() {
     refetchInterval: 3000,
   });
 
+  const { data: matchedUserProfile } = useQuery({
+    queryKey: ['matchedUser', activeMatch?.matched_user_email],
+    queryFn: async () => {
+      const users = await base44.entities.User.list();
+      return users.find(u => u.email === activeMatch.matched_user_email);
+    },
+    enabled: !!activeMatch,
+  });
+
   const { data: messages = [] } = useQuery({
     queryKey: ['chatMessages', activeMatch?.chat_room_id],
     queryFn: () => base44.entities.ChatMessage.filter({ 
@@ -170,36 +179,174 @@ export default function FindMatch() {
         )}
 
         {isMatching && (
-          <div className="bg-white rounded-2xl border border-slate-100 p-12 text-center">
-            <Loader2 className="w-12 h-12 text-[#4A90C5] animate-spin mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-black mb-2">Finding Your Match...</h3>
-            <p className="text-slate-600">Please wait while we connect you with someone</p>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-gradient-to-br from-[#4A90C5] to-[#357AB8] rounded-2xl border border-slate-100 p-12 text-center relative overflow-hidden"
+          >
+            <div className="absolute inset-0 overflow-hidden">
+              {[...Array(20)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute w-2 h-2 bg-white rounded-full"
+                  initial={{ 
+                    x: Math.random() * 400, 
+                    y: -20,
+                    opacity: 0.8 
+                  }}
+                  animate={{ 
+                    y: 500,
+                    opacity: 0,
+                    scale: [1, 1.5, 0]
+                  }}
+                  transition={{ 
+                    duration: 2 + Math.random() * 2,
+                    repeat: Infinity,
+                    delay: Math.random() * 2
+                  }}
+                />
+              ))}
+            </div>
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+              className="relative"
+            >
+              <Sparkles className="w-16 h-16 text-white mx-auto mb-4" />
+            </motion.div>
+            <h3 className="text-2xl font-bold text-white mb-2">Finding Your Match...</h3>
+            <p className="text-white/80">Searching for the perfect study partner</p>
+            <motion.div
+              className="flex justify-center gap-2 mt-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+            >
+              {[0, 1, 2].map((i) => (
+                <motion.div
+                  key={i}
+                  className="w-3 h-3 bg-white rounded-full"
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{
+                    duration: 0.6,
+                    repeat: Infinity,
+                    delay: i * 0.2
+                  }}
+                />
+              ))}
+            </motion.div>
+          </motion.div>
         )}
 
         {activeMatch && (
-          <div className="bg-white rounded-2xl border border-slate-100 overflow-hidden">
-            {/* Chat Header */}
-            <div className="bg-gradient-to-r from-[#4A90C5] to-[#357AB8] p-4 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
-                  <User className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-white">Connected with a student</h3>
-                  <Badge className="bg-white/20 text-white text-xs">Active</Badge>
-                </div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="space-y-6"
+          >
+            {/* Match Found Animation */}
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="bg-gradient-to-r from-[#EB9441] to-[#d88537] rounded-2xl p-6 text-center relative overflow-hidden"
+            >
+              <div className="absolute inset-0">
+                {[...Array(30)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute"
+                    initial={{ 
+                      x: '50%',
+                      y: '50%',
+                      scale: 0,
+                      opacity: 1
+                    }}
+                    animate={{ 
+                      x: `${Math.random() * 100}%`,
+                      y: `${Math.random() * 100}%`,
+                      scale: [0, 1, 0],
+                      opacity: [1, 1, 0]
+                    }}
+                    transition={{ 
+                      duration: 1.5,
+                      delay: i * 0.05,
+                      ease: "easeOut"
+                    }}
+                  >
+                    <Sparkles className="w-4 h-4 text-white" />
+                  </motion.div>
+                ))}
               </div>
-              <Button 
-                variant="ghost" 
-                size="sm"
-                onClick={() => endMatchMutation.mutate()}
-                className="text-white hover:bg-white/20"
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", duration: 0.6 }}
+                className="relative"
               >
-                <X className="w-4 h-4 mr-2" />
-                End Chat
-              </Button>
-            </div>
+                <h3 className="text-2xl font-bold text-white mb-2">Match Found! 🎉</h3>
+                <p className="text-white/90">You're now connected with a fellow student</p>
+              </motion.div>
+            </motion.div>
+
+            {/* Matched User Profile */}
+            {matchedUserProfile && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="bg-white rounded-2xl border border-slate-100 p-6"
+              >
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#4A90C5] to-[#357AB8] flex items-center justify-center text-white text-2xl font-bold">
+                    {matchedUserProfile.full_name?.[0] || matchedUserProfile.email?.[0]?.toUpperCase()}
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold text-black">
+                      {matchedUserProfile.full_name || "Anonymous Student"}
+                    </h3>
+                    {matchedUserProfile.university && (
+                      <p className="text-slate-600 text-sm">{matchedUserProfile.university}</p>
+                    )}
+                    {matchedUserProfile.student_status && (
+                      <Badge className="mt-1 bg-[#4A90C5]/10 text-[#4A90C5]">
+                        {matchedUserProfile.student_status.replace('_', ' ')}
+                      </Badge>
+                    )}
+                  </div>
+                </div>
+                {matchedUserProfile.bio && (
+                  <p className="text-slate-600 text-sm">{matchedUserProfile.bio}</p>
+                )}
+              </motion.div>
+            )}
+
+            {/* Chat Box */}
+            <div className="bg-white rounded-2xl border border-slate-100 overflow-hidden">
+              {/* Chat Header */}
+              <div className="bg-gradient-to-r from-[#4A90C5] to-[#357AB8] p-4 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
+                    <MessageSquare className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-white">Chat Room</h3>
+                    <Badge className="bg-white/20 text-white text-xs">Active</Badge>
+                  </div>
+                </div>
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  onClick={() => {
+                    if (confirm("Are you sure you want to leave this chat?")) {
+                      endMatchMutation.mutate();
+                    }
+                  }}
+                  className="text-white hover:bg-white/20"
+                >
+                  <X className="w-4 h-4 mr-2" />
+                  Leave Chat
+                </Button>
+              </div>
 
             {/* Messages */}
             <div className="h-96 overflow-y-auto p-6 space-y-4 bg-slate-50">
@@ -249,7 +396,24 @@ export default function FindMatch() {
                 </Button>
               </div>
             </form>
-          </div>
+            </div>
+
+            {/* Start Over Button */}
+            <div className="text-center">
+              <Button 
+                variant="outline"
+                onClick={() => {
+                  if (confirm("End this chat and find a new match?")) {
+                    endMatchMutation.mutate();
+                  }
+                }}
+                className="border-[#EB9441] text-[#EB9441] hover:bg-[#EB9441]/5"
+              >
+                <Sparkles className="w-4 h-4 mr-2" />
+                Start Over & Find New Match
+              </Button>
+            </div>
+          </motion.div>
         )}
       </div>
     </div>
