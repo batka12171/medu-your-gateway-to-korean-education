@@ -204,14 +204,14 @@ export default function Universities() {
               </SelectContent>
             </Select>
           </div>
-        </div>
+            </div>
 
-        <p className="text-sm text-slate-500 mb-6">
-          Showing {filteredUniversities.length} of {universities.length} universities
-        </p>
+            <p className="text-sm text-slate-500 mb-6">
+              Showing {filteredUniversities.length} of {universities.length} universities
+            </p>
 
-        {/* University Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* University Grid */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredUniversities.map((uni, index) => (
             <motion.div
               key={uni.id || uni.name}
@@ -273,12 +273,12 @@ export default function Universities() {
                   <Button className="w-full bg-[#4A90C5] hover:bg-[#357AB8]">
                     View Details
                   </Button>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-            ))}
-          </div>
-        </TabsContent>
+              </motion.div>
+              ))}
+            </div>
+          </TabsContent>
 
         <TabsContent value="rankings" className="space-y-8">
           <div className="flex justify-between items-center mb-6">
