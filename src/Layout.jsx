@@ -5,7 +5,7 @@ import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
 import { 
   Menu, X, GraduationCap, Users, BookOpen, 
-  MessageSquare, Trophy, ChevronDown, LogOut, User, Bookmark
+  MessageSquare, Trophy, ChevronDown, LogOut, User, Bookmark, Mail
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -117,6 +117,11 @@ export default function Layout({ children, currentPageName }) {
                     <DropdownMenuItem asChild>
                       <Link to={createPageUrl("SavedUniversities")} className="flex items-center gap-2">
                         <Bookmark className="w-4 h-4" /> Saved Universities
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to={createPageUrl("Messages")} className="flex items-center gap-2">
+                        <Mail className="w-4 h-4" /> Messages
                       </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem 
