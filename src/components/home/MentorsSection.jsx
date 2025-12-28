@@ -54,7 +54,7 @@ export default function MentorsSection() {
     <section className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 text-[#4A90C5] font-medium mb-4">
+          <div className="inline-flex items-center gap-2 text-[#2D3561] font-medium mb-4">
             <Users className="w-5 h-5" />
             Connect with Expert Mentors
           </div>
@@ -97,15 +97,15 @@ export default function MentorsSection() {
               
               <div className="flex items-center gap-2 mb-3">
                 <Badge className={`${
-                  mentor.type === 'Application Guide' ? 'bg-[#4A90C5] text-white' :
-                  mentor.type === 'Language' ? 'bg-purple-100 text-purple-700' :
-                  'bg-emerald-100 text-emerald-700'
+                  mentor.type === 'Application Guide' ? 'bg-[#2D3561] text-white' :
+                  mentor.type === 'Language' ? 'bg-[#D4A574] text-white' :
+                  'bg-[#F4845F] text-white'
                 }`}>
                   {mentor.type}
                 </Badge>
               </div>
               <div className="flex items-center gap-2 text-sm text-slate-600 mb-2">
-                <GraduationCap className="w-4 h-4 text-[#4A90C5]" />
+                <GraduationCap className="w-4 h-4 text-[#2D3561]" />
                 <span className="truncate">{mentor.university}</span>
               </div>
               <p className="text-sm text-slate-500 mb-3">{mentor.degree}</p>
@@ -116,12 +116,12 @@ export default function MentorsSection() {
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link to={createPageUrl("Mentors")}>
-            <Button size="lg" className="bg-[#4A90C5] hover:bg-[#357AB8]">
+            <Button size="lg" className="bg-[#2D3561] hover:bg-[#1a1f3a]">
               Find a Mentor <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </Link>
           <Link to={createPageUrl("BecomeMentor")}>
-            <Button size="lg" variant="outline" className="border-[#4A90C5] text-[#4A90C5] hover:bg-[#4A90C5]/5">
+            <Button size="lg" variant="outline" className="border-[#2D3561] text-[#2D3561] hover:bg-[#2D3561]/5">
               Become a Mentor
             </Button>
           </Link>

@@ -50,14 +50,14 @@ export default function CommunityPreview() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <div className="inline-flex items-center gap-2 text-[#4A90C5] font-medium mb-4">
+            <div className="inline-flex items-center gap-2 text-[#2D3561] font-medium mb-4">
               <Users2 className="w-5 h-5" />
               Student Community
             </div>
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
               Connect with students
               <br />
-              <span className="text-[#4A90C5]">who've been there</span>
+              <span className="text-[#2D3561]">who've been there</span>
             </h2>
             <p className="text-lg text-slate-600 mb-8">
               Join our vibrant community where current students in Korea share their 
@@ -80,7 +80,7 @@ export default function CommunityPreview() {
             </div>
 
             <Link to={createPageUrl("Community")}>
-              <Button size="lg" className="bg-[#4A90C5] hover:bg-[#357AB8]">
+              <Button size="lg" className="bg-[#2D3561] hover:bg-[#1a1f3a]">
                 Join Community <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
@@ -100,10 +100,10 @@ export default function CommunityPreview() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-xl border border-slate-100 p-5 hover:shadow-lg hover:border-[#4A90C5]/30 transition-all duration-300"
+                className="bg-white rounded-xl border border-slate-100 p-5 hover:shadow-lg hover:border-[#2D3561]/30 transition-all duration-300"
               >
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#4A90C5] to-[#357AB8] flex items-center justify-center text-white font-medium">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#2D3561] to-[#1a1f3a] flex items-center justify-center text-white font-medium">
                     {post.author[0]}
                   </div>
                   <div className="flex-1 min-w-0">
