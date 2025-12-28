@@ -45,14 +45,14 @@ export default function HeroSection() {
           transition={{ duration: 0.8 }}
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm mb-8">
-            <Sparkles className="w-4 h-4 text-[#4A90C5]" />
+            <Sparkles className="w-4 h-4 text-[#F4845F]" />
             <span>Your Guide to Korean Universities</span>
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6">
             Comprehensive information
             <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#4A90C5] to-[#357AB8]">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#F4845F] to-[#D4A574]">
               about top universities
             </span>
             <br />
@@ -68,7 +68,7 @@ export default function HeroSection() {
             <Link to={createPageUrl("Universities")}>
               <Button 
                 size="lg" 
-                className="bg-[#4A90C5] hover:bg-[#357AB8] text-white px-8 py-6 text-lg rounded-xl shadow-2xl shadow-[#4A90C5]/30 hover:shadow-[#4A90C5]/40 transition-all"
+                className="bg-[#2D3561] hover:bg-[#1a1f3a] text-white px-8 py-6 text-lg rounded-xl shadow-2xl shadow-[#2D3561]/30 hover:shadow-[#2D3561]/40 transition-all"
               >
                 Explore Universities
                 <ArrowRight className="ml-2 w-5 h-5" />

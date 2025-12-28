@@ -1,31 +1,31 @@
-import Home from './pages/Home';
-import Universities from './pages/Universities';
-import Mentors from './pages/Mentors';
+import ApplicationGuide from './pages/ApplicationGuide';
 import BecomeMentor from './pages/BecomeMentor';
 import Community from './pages/Community';
-import Rankings from './pages/Rankings';
-import ApplicationGuide from './pages/ApplicationGuide';
-import Profile from './pages/Profile';
-import UniversityMatcher from './pages/UniversityMatcher';
-import SavedUniversities from './pages/SavedUniversities';
 import FindMatch from './pages/FindMatch';
+import Home from './pages/Home';
+import Mentors from './pages/Mentors';
 import Messages from './pages/Messages';
+import Profile from './pages/Profile';
+import Rankings from './pages/Rankings';
+import SavedUniversities from './pages/SavedUniversities';
+import Universities from './pages/Universities';
+import UniversityMatcher from './pages/UniversityMatcher';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
-    "Home": Home,
-    "Universities": Universities,
-    "Mentors": Mentors,
+    "ApplicationGuide": ApplicationGuide,
     "BecomeMentor": BecomeMentor,
     "Community": Community,
-    "Rankings": Rankings,
-    "ApplicationGuide": ApplicationGuide,
-    "Profile": Profile,
-    "UniversityMatcher": UniversityMatcher,
-    "SavedUniversities": SavedUniversities,
     "FindMatch": FindMatch,
+    "Home": Home,
+    "Mentors": Mentors,
     "Messages": Messages,
+    "Profile": Profile,
+    "Rankings": Rankings,
+    "SavedUniversities": SavedUniversities,
+    "Universities": Universities,
+    "UniversityMatcher": UniversityMatcher,
 }
 
 export const pagesConfig = {
