@@ -87,7 +87,7 @@ export default function Profile() {
           className="bg-white rounded-2xl shadow-sm border border-slate-100 p-8 mb-8"
         >
           <div className="flex flex-col md:flex-row md:items-start gap-6">
-            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#4A90C5] to-[#357AB8] flex items-center justify-center text-white text-3xl font-bold">
+            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#2D3561] to-[#1a1f3a] flex items-center justify-center text-white text-3xl font-bold">
               {user.full_name?.[0] || user.email?.[0]?.toUpperCase()}
             </div>
             <div className="flex-1">
@@ -175,7 +175,7 @@ export default function Profile() {
                       </Badge>
                     )}
                     {user.student_status && (
-                      <Badge className="bg-[#4A90C5]/10 text-[#4A90C5]">
+                      <Badge className="bg-[#2D3561]/10 text-[#2D3561]">
                         {user.student_status.replace('_', ' ')}
                       </Badge>
                     )}

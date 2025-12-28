@@ -231,7 +231,7 @@ export default function Universities() {
                   </Badge>
                 </div>
                 <div className="p-6 flex-1 flex flex-col">
-                  <h3 className="text-xl font-bold text-slate-900 mb-1 group-hover:text-[#4A90C5] transition-colors">
+                  <h3 className="text-xl font-bold text-slate-900 mb-1 group-hover:text-[#2D3561] transition-colors">
                     {uni.name}
                   </h3>
                   <p className="text-sm text-slate-500 mb-4">{uni.name_korean}</p>
@@ -270,7 +270,7 @@ export default function Universities() {
                   </div>
                 </div>
                 <div className="px-6 pb-6">
-                  <Button className="w-full bg-[#4A90C5] hover:bg-[#357AB8]">
+                  <Button className="w-full bg-[#2D3561] hover:bg-[#1a1f3a]">
                     View Details
                   </Button>
                   </div>
@@ -331,7 +331,7 @@ export default function Universities() {
                   {sortedRankings.map((uni) => (
                     <tr key={uni.name} className="hover:bg-slate-50 transition-colors">
                       <td className="px-6 py-4">
-                        <span className="text-2xl font-bold text-[#4A90C5]">{uni.rank}</span>
+                        <span className="text-2xl font-bold text-[#2D3561]">{uni.rank}</span>
                       </td>
                       <td className="px-6 py-4">
                         <div>
@@ -341,10 +341,10 @@ export default function Universities() {
                       </td>
                       <td className="px-6 py-4 text-slate-600">{uni.location}</td>
                       <td className="px-6 py-4 text-center">
-                        <Badge className="bg-[#4A90C5] text-white">#{uni.qs_world}</Badge>
+                        <Badge className="bg-[#2D3561] text-white">#{uni.qs_world}</Badge>
                       </td>
                       <td className="px-6 py-4 text-center">
-                        <Badge className="bg-[#EB9441] text-white">#{uni.qs_asia}</Badge>
+                        <Badge className="bg-[#F4845F] text-white">#{uni.qs_asia}</Badge>
                       </td>
                       <td className="px-6 py-4 text-center">
                         {uni.trend === 'up' && <TrendingUp className="w-5 h-5 text-green-500 inline" />}
@@ -361,8 +361,8 @@ export default function Universities() {
 
         <TabsContent value="matcher">
           <div className="text-center py-12">
-            <div className="w-16 h-16 rounded-full bg-[#4A90C5]/10 flex items-center justify-center mx-auto mb-4">
-              <Sparkles className="w-8 h-8 text-[#4A90C5]" />
+            <div className="w-16 h-16 rounded-full bg-[#2D3561]/10 flex items-center justify-center mx-auto mb-4">
+              <Sparkles className="w-8 h-8 text-[#2D3561]" />
             </div>
             <h3 className="text-xl font-semibold text-black mb-2">AI University Matcher</h3>
             <p className="text-slate-600 mb-6 max-w-md mx-auto">

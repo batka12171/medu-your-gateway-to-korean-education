@@ -11,14 +11,14 @@ export default function EventCard({ event, isAttending, onRSVP, onCancel }) {
   return (
     <div className="bg-white rounded-xl border border-slate-100 p-6 hover:shadow-lg transition-all">
       <div className="flex items-start gap-4">
-        <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-[#EB9441] to-[#d88537] flex flex-col items-center justify-center text-white flex-shrink-0">
+        <div className="w-16 h-16 rounded-lg bg-gradient-to-br from-[#F4845F] to-[#D4A574] flex flex-col items-center justify-center text-white flex-shrink-0">
           <div className="text-2xl font-bold">{format(eventDate, 'd')}</div>
           <div className="text-xs uppercase">{format(eventDate, 'MMM')}</div>
         </div>
         <div className="flex-1">
           <div className="flex items-start justify-between mb-2">
             <h3 className="font-bold text-lg text-black">{event.title}</h3>
-            <Badge className="bg-[#4A90C5]/10 text-[#4A90C5]">
+            <Badge className="bg-[#2D3561]/10 text-[#2D3561]">
               {event.event_type?.replace('_', ' ')}
             </Badge>
           </div>
@@ -53,7 +53,7 @@ export default function EventCard({ event, isAttending, onRSVP, onCancel }) {
             <Button
               onClick={onRSVP}
               size="sm"
-              className="bg-[#EB9441] hover:bg-[#d88537]"
+              className="bg-[#F4845F] hover:bg-[#e06e46]"
               disabled={spotsLeft === 0}
             >
               {spotsLeft === 0 ? 'Event Full' : 'RSVP'}
