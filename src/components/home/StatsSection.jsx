@@ -7,25 +7,25 @@ const features = [
     icon: Users, 
     title: "Expert Mentors", 
     description: "Connect with students who've been through the process",
-    color: "text-[#4A90C5]"
+    color: "text-[#2D3561]"
   },
   { 
     icon: BookOpen, 
     title: "Comprehensive Guides", 
     description: "Step-by-step application and admission resources",
-    color: "text-orange-500"
+    color: "text-[#F4845F]"
   },
   { 
     icon: Globe, 
     title: "University Database", 
     description: "Detailed information on top Korean universities",
-    color: "text-emerald-500"
+    color: "text-[#D4A574]"
   },
   { 
     icon: MessageSquare, 
     title: "Active Community", 
     description: "Join discussions with current and prospective students",
-    color: "text-purple-500"
+    color: "text-[#2D3561]"
   },
 ];
 
