@@ -63,11 +63,15 @@ export default function Layout({ children, currentPageName }) {
             <Link to={createPageUrl("Home")} className="flex items-center gap-2">
               <div className={`flex items-center gap-2 ${isScrolled || !isHomePage ? 'text-slate-900' : 'text-white'}`}>
                 <div className="relative">
-                  <img 
-                    src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/694e6255f87f952ccf7b0ebb/f24e5734f_Screenshot2025-12-28231726.png"
-                    alt="MEDU"
-                    className="h-12 w-auto"
-                  />
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#4A90C5] to-[#357AB8] flex items-center justify-center shadow-lg">
+                    <GraduationCap className="w-6 h-6 text-white" />
+                  </div>
+                </div>
+                <div>
+                  <span className="text-xl font-bold tracking-tight">MEDU</span>
+                  <span className={`block text-[10px] -mt-1 ${isScrolled || !isHomePage ? 'text-slate-500' : 'text-white/80'}`}>
+                    한국 유학 가이드
+                  </span>
                 </div>
               </div>
             </Link>
@@ -80,7 +84,7 @@ export default function Layout({ children, currentPageName }) {
                   to={link.href}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                     isScrolled || !isHomePage
-                      ? 'text-slate-600 hover:text-[#2D3561] hover:bg-[#2D3561]/5'
+                      ? 'text-slate-600 hover:text-[#4A90C5] hover:bg-[#4A90C5]/5'
                       : 'text-white/90 hover:text-white hover:bg-white/10'
                   }`}
                 >
@@ -98,7 +102,7 @@ export default function Layout({ children, currentPageName }) {
                       variant="ghost" 
                       className={`gap-2 ${isScrolled || !isHomePage ? 'text-slate-700' : 'text-white'}`}
                     >
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#2D3561] to-[#1a1f3a] flex items-center justify-center text-white text-sm font-medium">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#4A90C5] to-[#357AB8] flex items-center justify-center text-white text-sm font-medium">
                         {user.full_name?.[0] || user.email?.[0]?.toUpperCase()}
                       </div>
                       <ChevronDown className="w-4 h-4" />
@@ -131,7 +135,7 @@ export default function Layout({ children, currentPageName }) {
               ) : (
                 <Button 
                   onClick={() => base44.auth.redirectToLogin()}
-                  className="bg-[#2D3561] hover:bg-[#1a1f3a] text-white shadow-lg shadow-[#2D3561]/25"
+                  className="bg-[#4A90C5] hover:bg-[#357AB8] text-white shadow-lg shadow-[#4A90C5]/25"
                 >
                   Get Started
                 </Button>
@@ -159,7 +163,7 @@ export default function Layout({ children, currentPageName }) {
                   key={link.name}
                   to={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 hover:bg-[#2D3561]/5 hover:text-[#2D3561] transition-all"
+                  className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 hover:bg-[#4A90C5]/5 hover:text-[#4A90C5] transition-all"
                 >
                   <link.icon className="w-5 h-5" />
                   {link.name}
@@ -180,12 +184,14 @@ export default function Layout({ children, currentPageName }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="col-span-2 md:col-span-1">
-              <div className="mb-4">
-                <img 
-                  src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/694e6255f87f952ccf7b0ebb/f24e5734f_Screenshot2025-12-28231726.png"
-                  alt="MEDU"
-                  className="h-16 w-auto"
-                />
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#4A90C5] to-[#357AB8] flex items-center justify-center">
+                  <GraduationCap className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <span className="text-xl font-bold">MEDU</span>
+                  <span className="block text-[10px] text-slate-400">한국 유학 가이드</span>
+                </div>
               </div>
               <p className="text-slate-400 text-sm">
                 Your comprehensive guide to studying in South Korea.
@@ -195,18 +201,18 @@ export default function Layout({ children, currentPageName }) {
             <div>
               <h4 className="font-semibold mb-4">Explore</h4>
               <ul className="space-y-2 text-sm text-slate-400">
-                <li><Link to={createPageUrl("Universities")} className="hover:text-[#F4845F] transition">Universities</Link></li>
-                <li><Link to={createPageUrl("Rankings")} className="hover:text-[#F4845F] transition">Rankings</Link></li>
-                <li><Link to={createPageUrl("ApplicationGuide")} className="hover:text-[#F4845F] transition">Application Guide</Link></li>
+                <li><Link to={createPageUrl("Universities")} className="hover:text-[#4A90C5] transition">Universities</Link></li>
+                <li><Link to={createPageUrl("Rankings")} className="hover:text-[#4A90C5] transition">Rankings</Link></li>
+                <li><Link to={createPageUrl("ApplicationGuide")} className="hover:text-[#4A90C5] transition">Application Guide</Link></li>
               </ul>
             </div>
 
             <div>
               <h4 className="font-semibold mb-4">Community</h4>
               <ul className="space-y-2 text-sm text-slate-400">
-                <li><Link to={createPageUrl("Mentors")} className="hover:text-[#F4845F] transition">Find Mentors</Link></li>
-                <li><Link to={createPageUrl("BecomeMentor")} className="hover:text-[#F4845F] transition">Become a Mentor</Link></li>
-                <li><Link to={createPageUrl("Community")} className="hover:text-[#F4845F] transition">Discussion Forum</Link></li>
+                <li><Link to={createPageUrl("Mentors")} className="hover:text-[#4A90C5] transition">Find Mentors</Link></li>
+                <li><Link to={createPageUrl("BecomeMentor")} className="hover:text-[#4A90C5] transition">Become a Mentor</Link></li>
+                <li><Link to={createPageUrl("Community")} className="hover:text-[#4A90C5] transition">Discussion Forum</Link></li>
               </ul>
             </div>
 
