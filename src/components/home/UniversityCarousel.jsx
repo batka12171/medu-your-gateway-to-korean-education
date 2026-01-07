@@ -69,7 +69,7 @@ export default function UniversityCarousel() {
   };
 
   return (
-    <section className="relative py-24 overflow-hidden bg-gradient-to-br from-[#8B1538] via-[#2D3561] to-[#1a1f3a]">
+    <section className="relative py-24 overflow-hidden bg-gradient-to-br from-[#E8D5FF] via-[#F0E5FF] to-[#FFE5F5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-5 gap-16 items-center">
           {/* Left Side - Content */}
@@ -77,41 +77,41 @@ export default function UniversityCarousel() {
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="text-white lg:col-span-2"
+            className="text-slate-900 lg:col-span-2"
           >
             <h2 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-              Discover<br />Universities
+              <span className="bg-gradient-to-r from-[#7C3AED] via-[#A855F7] to-[#EC4899] bg-clip-text text-transparent">Discover</span><br />Universities
             </h2>
-            <p className="text-lg text-white/70 mb-8 leading-relaxed">
+            <p className="text-lg text-slate-700 mb-8 leading-relaxed">
               Explore top Korean universities and find the perfect match for your academic journey.
             </p>
             
             {/* University Quick Info */}
             <div className="space-y-4 mb-8">
-              <div className="flex items-center gap-3 text-white/90">
-                <div className="w-10 h-10 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center">
-                  <MapPin className="w-5 h-5" />
+              <div className="flex items-center gap-3 text-slate-900">
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center">
+                  <MapPin className="w-5 h-5 text-purple-600" />
                 </div>
                 <div>
-                  <p className="text-sm text-white/60">Location</p>
+                  <p className="text-sm text-slate-600">Location</p>
                   <p className="font-semibold">{universities[currentIndex].location}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3 text-white/90">
-                <div className="w-10 h-10 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center">
-                  <Trophy className="w-5 h-5 text-[#F4845F]" />
+              <div className="flex items-center gap-3 text-slate-900">
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center">
+                  <Trophy className="w-5 h-5 text-purple-600" />
                 </div>
                 <div>
-                  <p className="text-sm text-white/60">Ranking</p>
+                  <p className="text-sm text-slate-600">Ranking</p>
                   <p className="font-semibold">{universities[currentIndex].ranking}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-3 text-white/90">
-                <div className="w-10 h-10 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center">
-                  <Users className="w-5 h-5" />
+              <div className="flex items-center gap-3 text-slate-900">
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center">
+                  <Users className="w-5 h-5 text-purple-600" />
                 </div>
                 <div>
-                  <p className="text-sm text-white/60">Students</p>
+                  <p className="text-sm text-slate-600">Students</p>
                   <p className="font-semibold">{universities[currentIndex].students}</p>
                 </div>
               </div>
@@ -120,7 +120,7 @@ export default function UniversityCarousel() {
             <Link to={createPageUrl("Universities")}>
               <Button 
                 size="lg"
-                className="bg-[#F4845F] hover:bg-[#e06e46] text-white px-8 py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all"
+                className="bg-gradient-to-r from-[#7C3AED] to-[#A855F7] hover:from-[#6D28D9] hover:to-[#9333EA] text-white px-8 py-6 text-lg rounded-xl shadow-lg hover:shadow-xl transition-all"
               >
                 Explore All Universities
               </Button>

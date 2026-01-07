@@ -75,8 +75,8 @@ export default function Layout({ children, currentPageName }) {
                   to={link.href}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                     isScrolled || !isHomePage
-                      ? 'text-slate-600 hover:text-[#4A90C5] hover:bg-[#4A90C5]/5'
-                      : 'text-white/90 hover:text-white hover:bg-white/10'
+                      ? 'text-slate-600 hover:text-purple-600 hover:bg-purple-50'
+                      : 'text-slate-800 hover:text-purple-600 hover:bg-purple-50'
                   }`}
                 >
                   {link.name}
@@ -126,7 +126,7 @@ export default function Layout({ children, currentPageName }) {
               ) : (
                 <Button 
                   onClick={() => base44.auth.redirectToLogin()}
-                  className="bg-[#4A90C5] hover:bg-[#357AB8] text-white shadow-lg shadow-[#4A90C5]/25"
+                  className="bg-gradient-to-r from-[#7C3AED] to-[#A855F7] hover:from-[#6D28D9] hover:to-[#9333EA] text-white shadow-lg"
                 >
                   Get Started
                 </Button>
