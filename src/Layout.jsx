@@ -60,22 +60,10 @@ export default function Layout({ children, currentPageName }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo */}
-            <Link to={createPageUrl("Home")} className="flex items-center gap-3">
-              <div className={`flex items-center gap-3 ${isScrolled || !isHomePage ? 'text-slate-900' : 'text-white'}`}>
-                <div className="relative">
-                  <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center shadow-lg">
-                    <div className="flex items-center gap-1">
-                      <div className="w-2 h-2 rounded-full bg-[#4A90C5]"></div>
-                      <span className="text-black font-bold text-sm">MEDU</span>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <span className="text-xl font-bold tracking-tight">MEDU</span>
-                  <span className={`block text-[10px] -mt-1 ${isScrolled || !isHomePage ? 'text-slate-500' : 'text-white/80'}`}>
-                    한국 유학 가이드
-                  </span>
-                </div>
+            <Link to={createPageUrl("Home")} className="flex items-center gap-2">
+              <div className={`flex items-center gap-1 ${isScrolled || !isHomePage ? 'text-slate-900' : 'text-white'}`}>
+                <div className="w-2 h-2 rounded-full bg-[#4169E1]"></div>
+                <span className="text-2xl font-bold tracking-tight">MEDU</span>
               </div>
             </Link>
 
@@ -188,15 +176,9 @@ export default function Layout({ children, currentPageName }) {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="col-span-2 md:col-span-1">
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center">
-                  <div className="flex items-center gap-1">
-                    <div className="w-2 h-2 rounded-full bg-[#4A90C5]"></div>
-                    <span className="text-black font-bold text-sm">MEDU</span>
-                  </div>
-                </div>
-                <div>
-                  <span className="text-xl font-bold">MEDU</span>
-                  <span className="block text-[10px] text-slate-400">한국 유학 가이드</span>
+                <div className="flex items-center gap-1">
+                  <div className="w-3 h-3 rounded-full bg-[#4169E1]"></div>
+                  <span className="text-2xl font-bold text-white">MEDU</span>
                 </div>
               </div>
               <p className="text-slate-400 text-sm">
