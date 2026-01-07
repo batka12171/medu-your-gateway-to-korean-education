@@ -176,6 +176,33 @@ export default function Universities() {
           </TabsList>
 
           <TabsContent value="browse" className="space-y-8">
+            
+            {/* Scholarship Banner */}
+            <div className="bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl p-8 text-white">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                  <DollarSign className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold">Scholarship Opportunities</h3>
+                  <p className="text-white/90">Multiple funding options available for international students</p>
+                </div>
+              </div>
+              <div className="grid md:grid-cols-3 gap-4">
+                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                  <div className="font-semibold mb-1">KGSP Scholarship</div>
+                  <div className="text-sm text-white/80">Full tuition + living expenses</div>
+                </div>
+                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                  <div className="font-semibold mb-1">Merit-based Aid</div>
+                  <div className="text-sm text-white/80">Up to 100% tuition coverage</div>
+                </div>
+                <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                  <div className="font-semibold mb-1">Research Grants</div>
+                  <div className="text-sm text-white/80">For graduate students</div>
+                </div>
+              </div>
+            </div>
 
             {/* Filters */}
             <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-4 mb-8">
