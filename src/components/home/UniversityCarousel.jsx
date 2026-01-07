@@ -1,30 +1,55 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { ChevronLeft, ChevronRight, MapPin, Users, Trophy, BookOpen } from "lucide-react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "../../utils";
 
 const universities = [
   {
     name: "Seoul National University",
+    korean: "서울대학교",
+    location: "Seoul",
+    ranking: "#29 QS World",
+    students: "28,000+",
+    type: "National",
     image: "https://images.unsplash.com/photo-1562774053-701939374585?w=800&q=80",
-    description: "South Korea's most prestigious national university"
+    description: "South Korea's most prestigious national university",
+    programs: ["Medicine", "Liberal Arts", "Science"]
   },
   {
     name: "KAIST",
+    korean: "한국과학기술원",
+    location: "Daejeon",
+    ranking: "#41 QS World",
+    students: "10,000+",
+    type: "Public Research",
     image: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800&q=80",
-    description: "Leading science and technology research university"
+    description: "Leading science and technology research university",
+    programs: ["Computer Science", "AI", "Robotics"]
   },
   {
     name: "Yonsei University",
+    korean: "연세대학교",
+    location: "Seoul",
+    ranking: "#73 QS World",
+    students: "39,000+",
+    type: "Private",
     image: "https://images.unsplash.com/photo-1592280771190-3e2e4d571952?w=800&q=80",
-    description: "One of Korea's oldest and most prestigious universities"
+    description: "One of Korea's oldest and most prestigious universities",
+    programs: ["International Studies", "Business", "Medicine"]
   },
   {
     name: "Korea University",
+    korean: "고려대학교",
+    location: "Seoul",
+    ranking: "#79 QS World",
+    students: "37,000+",
+    type: "Private",
     image: "https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=800&q=80",
-    description: "Elite private research university in Seoul"
+    description: "Elite private research university in Seoul",
+    programs: ["Law", "Business", "Political Science"]
   }
 ];
 
@@ -95,10 +120,44 @@ export default function UniversityCarousel() {
                       alt={universities[currentIndex].name}
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                      <h3 className="text-2xl font-bold mb-1">{universities[currentIndex].name}</h3>
-                      <p className="text-sm text-white/80">{universities[currentIndex].description}</p>
+                    <Badge className="absolute top-6 right-6 bg-white/90 text-slate-700 backdrop-blur-sm">
+                      {universities[currentIndex].type}
+                    </Badge>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-8 text-white space-y-4">
+                      <div>
+                        <h3 className="text-3xl font-bold mb-1">{universities[currentIndex].name}</h3>
+                        <p className="text-sm text-white/70 mb-3">{universities[currentIndex].korean}</p>
+                      </div>
+                      
+                      <div className="flex items-center gap-4 text-sm">
+                        <span className="flex items-center gap-1.5">
+                          <MapPin className="w-4 h-4" />
+                          {universities[currentIndex].location}
+                        </span>
+                        <span className="flex items-center gap-1.5">
+                          <Trophy className="w-4 h-4 text-[#F4845F]" />
+                          {universities[currentIndex].ranking}
+                        </span>
+                        <span className="flex items-center gap-1.5">
+                          <Users className="w-4 h-4" />
+                          {universities[currentIndex].students}
+                        </span>
+                      </div>
+
+                      <div>
+                        <div className="flex items-center gap-2 mb-2">
+                          <BookOpen className="w-4 h-4" />
+                          <span className="text-xs uppercase tracking-wider">Top Programs</span>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          {universities[currentIndex].programs.map(program => (
+                            <Badge key={program} variant="secondary" className="bg-white/20 backdrop-blur-sm text-white border-0">
+                              {program}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   </motion.div>
                 </AnimatePresence>
