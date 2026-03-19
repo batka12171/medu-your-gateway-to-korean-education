@@ -40,7 +40,7 @@ export default function GetAdmittedSection() {
             Let expert mentors simplify your application journey
             and maximize your chances of acceptance.
           </p>
-          <Link to={createPageUrl("Mentors")}>
+          <Link to="/AdmissionRoadmap">
             <button className="flex items-center gap-2 bg-[#00C9A7] hover:bg-[#00a88c] text-[#061614] font-semibold px-6 py-3 rounded-full transition-all text-sm w-fit">
               Start Your Application
               <ArrowRight className="w-4 h-4" />
