@@ -1,109 +1,58 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 
-const universities = [
-  {
-    name: "Seoul National University",
-    abbr: "SNU",
-    logo: "https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Seoul_National_University_emblem.svg/150px-Seoul_National_University_emblem.svg.png",
-    color: "#003478",
-  },
-  {
-    name: "Yonsei University",
-    abbr: "YONSEI",
-    logo: "https://upload.wikimedia.org/wikipedia/en/thumb/a/ac/Seal_of_Yonsei_University.svg/150px-Seal_of_Yonsei_University.svg.png",
-    color: "#00205B",
-  },
-  {
-    name: "Korea University",
-    abbr: "KU",
-    logo: "https://upload.wikimedia.org/wikipedia/en/thumb/2/29/Korea_University_seal.svg/150px-Korea_University_seal.svg.png",
-    color: "#820000",
-  },
-  {
-    name: "KAIST",
-    abbr: "KAIST",
-    logo: "https://upload.wikimedia.org/wikipedia/en/thumb/9/9e/KAIST_logo.svg/200px-KAIST_logo.svg.png",
-    color: "#003087",
-  },
-  {
-    name: "POSTECH",
-    abbr: "POSTECH",
-    logo: "https://upload.wikimedia.org/wikipedia/en/thumb/8/8b/POSTECH_logo.svg/200px-POSTECH_logo.svg.png",
-    color: "#003087",
-  },
-  {
-    name: "Sungkyunkwan University",
-    abbr: "SKKU",
-    logo: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b0/Sungkyunkwan_University_seal.svg/150px-Sungkyunkwan_University_seal.svg.png",
-    color: "#005EB8",
-  },
-  {
-    name: "Hanyang University",
-    abbr: "HYU",
-    logo: "https://upload.wikimedia.org/wikipedia/en/thumb/c/c5/Hanyang_University_logo.svg/200px-Hanyang_University_logo.svg.png",
-    color: "#005CAB",
-  },
-  {
-    name: "EWHA",
-    abbr: "EWHA",
-    logo: "https://upload.wikimedia.org/wikipedia/en/thumb/5/54/Ewha_Womans_University_seal.svg/150px-Ewha_Womans_University_seal.svg.png",
-    color: "#5B2D8E",
-  },
+const LOGOS = [
+  { url: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/cab5c127e_images-removebg-preview.png", alt: "KAIST" },
+  { url: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/cc90e8b1e_651677845_1210490084489611_9093132361968492518_n-removebg-preview.png", alt: "Inha University" },
+  { url: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/be147e66e_650342326_3250246938486370_6450545614957446111_n-removebg-preview.png", alt: "Chung-Ang University" },
+  { url: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/fe83dc76b_650048823_2433051990481193_1248016639329554724_n-removebg-preview.png", alt: "Kookmin University" },
+  { url: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/713610728_648844185_2728884820843446_9488595830072943_n-removebg-preview.png", alt: "Hanyang University" },
+  { url: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/f8d9a8c33_644223322_1277111504522198_1134560642862769065_n-removebg-preview.png", alt: "Korea University" },
+  { url: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/ffd64b749_639738479_898731099440851_7744893834772536013_n-removebg-preview.png", alt: "Seoul National University" },
+  { url: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/162efcb74_650354619_1498725804918011_1250998844806115673_n-removebg-preview.png", alt: "Yonsei University" },
+  { url: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/23bff501f_images.png", alt: "KAIST 2" },
 ];
 
-const TickerItem = ({ uni }) => (
-  <div className="flex items-center gap-3 px-8 py-4 group cursor-default flex-shrink-0">
-    <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center overflow-hidden border border-white/10 group-hover:border-[#00C9A7]/40 transition-colors">
-      <img
-        src={uni.logo}
-        alt={uni.name}
-        className="w-7 h-7 object-contain filter brightness-0 invert opacity-70 group-hover:opacity-100 transition-opacity"
-        onError={(e) => {
-          e.target.style.display = "none";
-          e.target.parentElement.innerHTML = `<span style="font-size:9px;color:#00C9A7;font-weight:700;">${uni.abbr}</span>`;
-        }}
-      />
-    </div>
-    <span className="text-white/50 text-sm font-medium whitespace-nowrap group-hover:text-white/90 transition-colors">
-      {uni.name}
-    </span>
-  </div>
-);
+// Duplicate for seamless loop
+const ALL_LOGOS = [...LOGOS, ...LOGOS];
 
 export default function UniversityTicker() {
-  const tickerRef = useRef(null);
-
-  useEffect(() => {
-    const style = document.createElement("style");
-    style.innerHTML = `
-      @keyframes ticker-scroll {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-      }
-      .ticker-track {
-        display: flex;
-        animation: ticker-scroll 30s linear infinite;
-        width: max-content;
-      }
-      .ticker-track:hover {
-        animation-play-state: paused;
-      }
-    `;
-    document.head.appendChild(style);
-    return () => document.head.removeChild(style);
-  }, []);
-
-  const doubled = [...universities, ...universities];
-
   return (
-    <div className="bg-[#020d0c] border-t border-b border-white/10 overflow-hidden py-2">
-      {/* Gradient edges */}
+    <div className="bg-[#020d0c] py-10 overflow-hidden">
+      <style>{`
+        @keyframes ticker {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .ticker-track {
+          display: flex;
+          width: max-content;
+          animation: ticker 30s linear infinite;
+        }
+        .ticker-track:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
+
+      {/* Gradient masks */}
       <div className="relative">
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#020d0c] to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-[#020d0c] to-transparent z-10 pointer-events-none" />
-        <div ref={tickerRef} className="ticker-track">
-          {doubled.map((uni, i) => (
-            <TickerItem key={i} uni={uni} />
+        <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+          style={{ background: "linear-gradient(to right, #020d0c, transparent)" }} />
+        <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+          style={{ background: "linear-gradient(to left, #020d0c, transparent)" }} />
+
+        <div className="ticker-track">
+          {ALL_LOGOS.map((logo, i) => (
+            <div
+              key={i}
+              className="mx-8 flex items-center justify-center shrink-0 group"
+              style={{ width: 110, height: 110 }}
+            >
+              <img
+                src={logo.url}
+                alt={logo.alt}
+                className="w-full h-full object-contain grayscale opacity-50 transition-all duration-400 group-hover:grayscale-0 group-hover:opacity-100 group-hover:drop-shadow-[0_0_12px_rgba(0,201,167,0.6)]"
+              />
+            </div>
           ))}
         </div>
       </div>
