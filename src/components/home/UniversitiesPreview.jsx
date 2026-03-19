@@ -113,7 +113,7 @@ export default function UniversitiesPreview() {
                   </div>
                 </div>
                 <div className="px-6 pb-6">
-                  <Button className="w-full bg-[#4A90C5] hover:bg-[#357AB8]">
+                  <Button className="w-full bg-gradient-to-r from-[#005F56] to-[#00C9A7] hover:from-[#004d47] hover:to-[#00a88c]">
                     View Details
                   </Button>
                 </div>
