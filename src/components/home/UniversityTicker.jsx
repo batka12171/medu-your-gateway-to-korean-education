@@ -1,7 +1,6 @@
 import React from "react";
 
 const LOGOS = [
-  { url: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/cab5c127e_images-removebg-preview.png", alt: "KAIST" },
   { url: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/cc90e8b1e_651677845_1210490084489611_9093132361968492518_n-removebg-preview.png", alt: "Inha University" },
   { url: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/be147e66e_650342326_3250246938486370_6450545614957446111_n-removebg-preview.png", alt: "Chung-Ang University" },
   { url: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/fe83dc76b_650048823_2433051990481193_1248016639329554724_n-removebg-preview.png", alt: "Kookmin University" },
@@ -9,7 +8,7 @@ const LOGOS = [
   { url: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/f8d9a8c33_644223322_1277111504522198_1134560642862769065_n-removebg-preview.png", alt: "Korea University" },
   { url: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/ffd64b749_639738479_898731099440851_7744893834772536013_n-removebg-preview.png", alt: "Seoul National University" },
   { url: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/162efcb74_650354619_1498725804918011_1250998844806115673_n-removebg-preview.png", alt: "Yonsei University" },
-  { url: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/23bff501f_images.png", alt: "KAIST 2" },
+  { url: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/095added2_images.png", alt: "KAIST" },
 ];
 
 // Duplicate for seamless loop
