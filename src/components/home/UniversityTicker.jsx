@@ -7,8 +7,7 @@ const LOGOS = [
   { url: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/713610728_648844185_2728884820843446_9488595830072943_n-removebg-preview.png", alt: "Hanyang University" },
   { url: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/f8d9a8c33_644223322_1277111504522198_1134560642862769065_n-removebg-preview.png", alt: "Korea University" },
   { url: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/ffd64b749_639738479_898731099440851_7744893834772536013_n-removebg-preview.png", alt: "Seoul National University" },
-  { url: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/162efcb74_650354619_1498725804918011_1250998844806115673_n-removebg-preview.png", alt: "Yonsei University" },
-  { url: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/095added2_images.png", alt: "KAIST" },
+
 ];
 
 // Duplicate for seamless loop
