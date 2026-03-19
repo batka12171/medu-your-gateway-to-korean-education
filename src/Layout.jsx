@@ -62,11 +62,11 @@ export default function Layout({ children, currentPageName }) {
           <div className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo */}
             <Link to={createPageUrl("Home")} className="flex items-center gap-2">
-              <div className={`flex items-center gap-2 ${isScrolled || !isHomePage ? 'text-slate-900' : 'text-white'}`}>
-                <MeduLogo size={44} dark={!(isScrolled || !isHomePage)} />
-                <div>
-                  <span className="text-xl font-bold tracking-tight">MEDU</span>
-                  <span className={`block text-[10px] -mt-1 ${isScrolled || !isHomePage ? 'text-slate-500' : 'text-white/80'}`}>
+              <div className={`flex items-center gap-3 ${isScrolled || !isHomePage ? 'text-slate-900' : 'text-white'}`}>
+                <MeduLogo size={48} dark={!(isScrolled || !isHomePage)} className="drop-shadow-sm" />
+                <div className="flex flex-col">
+                  <span className={`text-xl font-extrabold tracking-widest leading-none ${isScrolled || !isHomePage ? 'text-slate-800' : 'text-white'}`}>MEDU</span>
+                  <span className={`text-[10px] font-medium tracking-wider mt-0.5 ${isScrolled || !isHomePage ? 'text-[#00C9A7]' : 'text-white/70'}`}>
                     한국 유학 가이드
                   </span>
                 </div>
