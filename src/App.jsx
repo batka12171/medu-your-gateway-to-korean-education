@@ -59,6 +59,11 @@ const AuthenticatedApp = () => {
           }
         />
       ))}
+      <Route path="/AdmissionRoadmap" element={
+        <LayoutWrapper currentPageName="AdmissionRoadmap">
+          <AdmissionRoadmap />
+        </LayoutWrapper>
+      } />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
