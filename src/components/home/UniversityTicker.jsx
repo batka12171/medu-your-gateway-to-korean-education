@@ -36,14 +36,6 @@ export default function UniversityTicker() {
 
   return (
     <div className="bg-[#061614] py-6 overflow-hidden">
-      <div className="flex items-center gap-4 mb-4 px-8">
-        <div className="h-px flex-1 bg-white/5" />
-        <p className="text-white/25 text-[11px] uppercase tracking-[0.2em] font-medium shrink-0">
-          Trusted by students accepted to
-        </p>
-        <div className="h-px flex-1 bg-white/5" />
-      </div>
-
       <div className="relative">
         {/* Fade edges */}
         <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#061614] to-transparent z-10 pointer-events-none" />
