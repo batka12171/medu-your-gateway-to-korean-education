@@ -13,7 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Search, MapPin, Trophy, Users, Filter, Sparkles, TrendingUp, TrendingDown, Minus, DollarSign } from "lucide-react";
+import { Search, MapPin, Trophy, Users, Filter, Sparkles, TrendingUp, TrendingDown, Minus } from "lucide-react";
 
 const staticUniversities = [
   {
@@ -25,8 +25,7 @@ const staticUniversities = [
     qs_ranking: 29,
     student_count: "28,000+",
     top_programs: ["Medicine", "Liberal Arts", "Science", "Engineering", "Law", "Business"],
-    image_url: "https://images.unsplash.com/photo-1562774053-701939374585?w=600&q=80",
-    scholarships: ["Merit-based", "KGSP", "Need-based"]
+    image_url: "https://images.unsplash.com/photo-1562774053-701939374585?w=600&q=80"
   },
   {
     id: 2,
@@ -37,8 +36,7 @@ const staticUniversities = [
     qs_ranking: 41,
     student_count: "10,000+",
     top_programs: ["Computer Science", "AI", "Robotics", "Electrical Engineering", "Physics"],
-    image_url: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=600&q=80",
-    scholarships: ["Full Tuition", "KGSP", "Research Assistantship"]
+    image_url: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=600&q=80"
   },
   {
     id: 3,
@@ -49,8 +47,7 @@ const staticUniversities = [
     qs_ranking: 73,
     student_count: "39,000+",
     top_programs: ["International Studies", "Business", "Medicine", "Economics"],
-    image_url: "https://images.unsplash.com/photo-1592280771190-3e2e4d571952?w=600&q=80",
-    scholarships: ["Underwood Scholarship", "Merit-based", "International Student Aid"]
+    image_url: "https://images.unsplash.com/photo-1592280771190-3e2e4d571952?w=600&q=80"
   },
   {
     id: 4,
@@ -61,8 +58,7 @@ const staticUniversities = [
     qs_ranking: 79,
     student_count: "37,000+",
     top_programs: ["Law", "Business", "Political Science", "Media Studies"],
-    image_url: "https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=600&q=80",
-    scholarships: ["KU Scholarship", "KGSP", "Academic Excellence"]
+    image_url: "https://images.unsplash.com/photo-1564981797816-1043664bf78d?w=600&q=80"
   },
   {
     id: 5,
@@ -73,8 +69,7 @@ const staticUniversities = [
     qs_ranking: 100,
     student_count: "3,500+",
     top_programs: ["Materials Science", "Chemical Engineering", "Physics"],
-    image_url: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=600&q=80",
-    scholarships: ["Full Tuition", "Research Fellowship", "Living Stipend"]
+    image_url: "https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?w=600&q=80"
   },
   {
     id: 6,
@@ -85,8 +80,7 @@ const staticUniversities = [
     qs_ranking: 164,
     student_count: "35,000+",
     top_programs: ["Engineering", "Architecture", "Business", "Medicine"],
-    image_url: "https://images.unsplash.com/photo-1574958269340-fa927503f3dd?w=600&q=80",
-    scholarships: ["Merit Scholarship", "International Exchange", "KGSP"]
+    image_url: "https://images.unsplash.com/photo-1574958269340-fa927503f3dd?w=600&q=80"
   },
   {
     id: 7,
@@ -97,8 +91,7 @@ const staticUniversities = [
     qs_ranking: 145,
     student_count: "34,000+",
     top_programs: ["Business", "Engineering", "Natural Sciences"],
-    image_url: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&q=80",
-    scholarships: ["SKKU Global Scholarship", "Merit-based", "KGSP"]
+    image_url: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&q=80"
   },
   {
     id: 8,
@@ -109,8 +102,7 @@ const staticUniversities = [
     qs_ranking: 346,
     student_count: "20,000+",
     top_programs: ["Liberal Arts", "Medicine", "Business"],
-    image_url: "https://images.unsplash.com/photo-1580537659466-0a9bfa916a54?w=600&q=80",
-    scholarships: ["Ewha Global Scholarship", "Academic Merit", "KGSP"]
+    image_url: "https://images.unsplash.com/photo-1580537659466-0a9bfa916a54?w=600&q=80"
   }
 ];
 
@@ -261,43 +253,20 @@ export default function Universities() {
                     </span>
                   </div>
 
-                  <div className="flex-1 space-y-3">
-                    <div>
-                      <p className="text-xs uppercase tracking-wider text-slate-500 mb-2">Top Programs</p>
-                      <div className="flex flex-wrap gap-2">
-                        {uni.top_programs?.slice(0, 3).map(program => (
-                          <Badge key={program} variant="secondary" className="bg-slate-100 text-slate-600">
-                            {program}
-                          </Badge>
-                        ))}
-                        {uni.top_programs?.length > 3 && (
-                          <Badge variant="secondary" className="bg-slate-100 text-slate-600">
-                            +{uni.top_programs.length - 3} more
-                          </Badge>
-                        )}
-                      </div>
+                  <div className="flex-1">
+                    <p className="text-xs uppercase tracking-wider text-slate-500 mb-2">Top Programs</p>
+                    <div className="flex flex-wrap gap-2">
+                      {uni.top_programs?.slice(0, 3).map(program => (
+                        <Badge key={program} variant="secondary" className="bg-slate-100 text-slate-600">
+                          {program}
+                        </Badge>
+                      ))}
+                      {uni.top_programs?.length > 3 && (
+                        <Badge variant="secondary" className="bg-slate-100 text-slate-600">
+                          +{uni.top_programs.length - 3} more
+                        </Badge>
+                      )}
                     </div>
-                    
-                    {uni.scholarships && (
-                      <div>
-                        <p className="text-xs uppercase tracking-wider text-slate-500 mb-2 flex items-center gap-1">
-                          <DollarSign className="w-3 h-3" />
-                          Scholarships Available
-                        </p>
-                        <div className="flex flex-wrap gap-2">
-                          {uni.scholarships.slice(0, 2).map(scholarship => (
-                            <Badge key={scholarship} className="bg-[#F4845F]/10 text-[#F4845F] border border-[#F4845F]/20">
-                              {scholarship}
-                            </Badge>
-                          ))}
-                          {uni.scholarships.length > 2 && (
-                            <Badge className="bg-[#F4845F]/10 text-[#F4845F] border border-[#F4845F]/20">
-                              +{uni.scholarships.length - 2}
-                            </Badge>
-                          )}
-                        </div>
-                      </div>
-                    )}
                   </div>
                 </div>
                 <div className="px-6 pb-6">
