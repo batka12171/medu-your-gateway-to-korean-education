@@ -13,21 +13,14 @@ const universities = [
 ];
 
 const TickerItem = ({ uni }) => (
-  <div className="flex items-center gap-3 px-8 py-4 group cursor-default flex-shrink-0">
-    <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center overflow-hidden border border-white/10 group-hover:border-[#00C9A7]/40 transition-colors">
+  <div className="flex items-center px-10 py-4 group cursor-default flex-shrink-0">
+    <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center overflow-hidden border border-white/10 group-hover:border-[#00C9A7]/40 transition-colors">
       <img
         src={uni.logo}
         alt={uni.name}
-        className="w-7 h-7 object-contain filter brightness-0 invert opacity-70 group-hover:opacity-100 transition-opacity"
-        onError={(e) => {
-          e.target.style.display = "none";
-          e.target.parentElement.innerHTML = `<span style="font-size:9px;color:#00C9A7;font-weight:700;">${uni.abbr}</span>`;
-        }}
+        className="w-14 h-14 object-contain opacity-70 group-hover:opacity-100 transition-opacity"
       />
     </div>
-    <span className="text-white/50 text-sm font-medium whitespace-nowrap group-hover:text-white/90 transition-colors">
-      {uni.name}
-    </span>
   </div>
 );
 
