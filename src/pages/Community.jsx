@@ -340,7 +340,7 @@ export default function Community() {
               <h2 className="text-xl font-bold text-black">Community Discussions</h2>
               <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                 <DialogTrigger asChild>
-                  <Button className="bg-[#00C9A7] hover:bg-[#1a1f3a]">
+                  <Button className="bg-[#00C9A7] hover:bg-[#005F56]">
                     <Plus className="w-4 h-4 mr-2" />
                     New Post
                   </Button>
@@ -393,7 +393,7 @@ export default function Community() {
                 </div>
                 <Button 
                   type="submit" 
-                  className="w-full bg-[#00C9A7] hover:bg-[#1a1f3a]"
+                  className="w-full bg-[#00C9A7] hover:bg-[#005F56]"
                   disabled={createPostMutation.isPending}
                 >
                   {createPostMutation.isPending ? (
@@ -507,7 +507,7 @@ export default function Community() {
                 <h2 className="text-xl font-bold text-black">Community Groups</h2>
                 <Dialog open={groupDialogOpen} onOpenChange={setGroupDialogOpen}>
                 <DialogTrigger asChild>
-                <Button className="bg-[#00C9A7] hover:bg-[#1a1f3a]">
+                <Button className="bg-[#00C9A7] hover:bg-[#005F56]">
                   <Plus className="w-4 h-4 mr-2" />
                   Create Group
                 </Button>
@@ -526,7 +526,7 @@ export default function Community() {
                      <SelectItem value="general">General</SelectItem>
                    </SelectContent>
                  </Select>
-                 <Button type="submit" className="w-full bg-[#00C9A7] hover:bg-[#1a1f3a]">Create Group</Button>
+                 <Button type="submit" className="w-full bg-[#00C9A7] hover:bg-[#005F56]">Create Group</Button>
                 </form>
                 </DialogContent>
                 </Dialog>
@@ -549,7 +549,7 @@ export default function Community() {
                 <h2 className="text-xl font-bold text-black">Upcoming Events</h2>
                 <Dialog open={eventDialogOpen} onOpenChange={setEventDialogOpen}>
                 <DialogTrigger asChild>
-                <Button className="bg-[#F4845F] hover:bg-[#e06e46]">
+                <Button className="bg-[#00C9A7] hover:bg-[#e06e46]">
                   <Plus className="w-4 h-4 mr-2" />
                   Create Event
                 </Button>
@@ -571,7 +571,7 @@ export default function Community() {
                  </Select>
                  <Input type="datetime-local" value={newEvent.date} onChange={(e) => setNewEvent({...newEvent, date: e.target.value})} required />
                  <Input placeholder="Location or online link" value={newEvent.location} onChange={(e) => setNewEvent({...newEvent, location: e.target.value})} required />
-                 <Button type="submit" className="w-full bg-[#F4845F] hover:bg-[#e06e46]">Create Event</Button>
+                 <Button type="submit" className="w-full bg-[#00C9A7] hover:bg-[#e06e46]">Create Event</Button>
                 </form>
                 </DialogContent>
                 </Dialog>
@@ -594,7 +594,7 @@ export default function Community() {
                 <h2 className="text-xl font-bold text-black">Questions & Answers</h2>
                 <Dialog open={questionDialogOpen} onOpenChange={setQuestionDialogOpen}>
                 <DialogTrigger asChild>
-                <Button className="bg-[#00C9A7] hover:bg-[#1a1f3a]">
+                <Button className="bg-[#00C9A7] hover:bg-[#005F56]">
                   <Plus className="w-4 h-4 mr-2" />
                   Ask Question
                 </Button>
@@ -615,7 +615,7 @@ export default function Community() {
                      <SelectItem value="general">General</SelectItem>
                    </SelectContent>
                  </Select>
-                 <Button type="submit" className="w-full bg-[#00C9A7] hover:bg-[#1a1f3a]">Post Question</Button>
+                 <Button type="submit" className="w-full bg-[#00C9A7] hover:bg-[#005F56]">Post Question</Button>
                 </form>
                 </DialogContent>
                 </Dialog>
@@ -647,7 +647,7 @@ export default function Community() {
                          <div className="flex-1">
                            <div className="flex items-center gap-2 mb-2">
                              <span className="font-medium text-sm">{a.author_name}</span>
-                             {a.is_mentor && <Badge className="bg-[#F4845F] text-white text-xs">Mentor</Badge>}
+                             {a.is_mentor && <Badge className="bg-[#00C9A7] text-white text-xs">Mentor</Badge>}
                              {a.is_accepted && <CheckCircle className="w-4 h-4 text-green-600" />}
                            </div>
                            <p className="text-sm text-slate-700">{a.content}</p>
@@ -657,7 +657,7 @@ export default function Community() {
                    ))}
                    <form onSubmit={(e) => { e.preventDefault(); if (user) createAnswerMutation.mutate({ question_id: q.id, content: newAnswer, author_name: user.full_name || "Anonymous", author_email: user.email }); else base44.auth.redirectToLogin(); }} className="flex gap-2">
                      <Input placeholder="Write your answer..." value={newAnswer} onChange={(e) => setNewAnswer(e.target.value)} />
-                     <Button type="submit" className="bg-[#00C9A7] hover:bg-[#1a1f3a]">Answer</Button>
+                     <Button type="submit" className="bg-[#00C9A7] hover:bg-[#005F56]">Answer</Button>
                    </form>
                  </div>
                 )}

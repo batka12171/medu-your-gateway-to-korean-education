@@ -44,7 +44,7 @@ export default function UniversityCarousel() {
   };
 
   return (
-    <section className="relative py-20 overflow-hidden bg-gradient-to-br from-[#8B1538] via-[#2D3561] to-[#1a1f3a]">
+    <section className="relative py-20 overflow-hidden bg-gradient-to-br from-[#005F56] via-[#007a6e] to-[#00C9A7]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
 
@@ -65,7 +65,7 @@ export default function UniversityCarousel() {
             <Link to={createPageUrl("Universities")}>
               <Button 
                 size="lg"
-                className="bg-[#F4845F] hover:bg-[#e06e46] text-white px-8 py-6 text-lg rounded-xl shadow-lg"
+                className="bg-white hover:bg-slate-100 text-[#005F56] px-8 py-6 text-lg rounded-xl shadow-lg font-bold"
               >
                 Explore Now
               </Button>

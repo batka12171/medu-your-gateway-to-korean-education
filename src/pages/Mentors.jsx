@@ -135,7 +135,7 @@ export default function Mentors() {
             </p>
           </div>
           <Link to={createPageUrl("BecomeMentor")} className="mt-4 md:mt-0">
-            <Button className="bg-[#00C9A7] hover:bg-[#1a1f3a]">
+            <Button className="bg-[#00C9A7] hover:bg-[#005F56]">
               <UserPlus className="w-4 h-4 mr-2" />
               Become a Mentor
             </Button>
@@ -228,7 +228,7 @@ export default function Mentors() {
                 </div>
 
                 <div className="flex gap-2">
-                  <Button className="flex-1 bg-[#00C9A7] hover:bg-[#1a1f3a]">
+                  <Button className="flex-1 bg-[#00C9A7] hover:bg-[#005F56]">
                     <Calendar className="w-4 h-4 mr-2" />
                     Book Session
                   </Button>

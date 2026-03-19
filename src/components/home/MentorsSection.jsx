@@ -116,7 +116,7 @@ export default function MentorsSection() {
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link to={createPageUrl("Mentors")}>
-            <Button size="lg" className="bg-[#00C9A7] hover:bg-[#1a1f3a]">
+            <Button size="lg" className="bg-[#00C9A7] hover:bg-[#005F56]">
               Find a Mentor <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </Link>

@@ -106,7 +106,7 @@ export default function Messages() {
                     }`}
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#00C9A7] to-[#1a1f3a] flex items-center justify-center text-white font-semibold">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#00C9A7] to-[#005F56] flex items-center justify-center text-white font-semibold">
                         {conv.otherName?.[0] || 'U'}
                       </div>
                       <div className="flex-1 min-w-0">
@@ -126,7 +126,7 @@ export default function Messages() {
               <>
                 <div className="p-4 border-b border-slate-100">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#00C9A7] to-[#1a1f3a] flex items-center justify-center text-white font-semibold">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#00C9A7] to-[#005F56] flex items-center justify-center text-white font-semibold">
                       {selectedConversation.otherName?.[0] || 'U'}
                     </div>
                     <div>
@@ -163,7 +163,7 @@ export default function Messages() {
                       onChange={(e) => setNewMessage(e.target.value)}
                       placeholder="Type a message..."
                     />
-                    <Button type="submit" className="bg-[#00C9A7] hover:bg-[#1a1f3a]">
+                    <Button type="submit" className="bg-[#00C9A7] hover:bg-[#005F56]">
                       <Send className="w-4 h-4" />
                     </Button>
                   </div>

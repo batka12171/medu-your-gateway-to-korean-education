@@ -35,7 +35,7 @@ export default function GroupCard({ group, isMember, onJoin, onLeave }) {
         <Button
           onClick={onJoin}
           size="sm"
-          className="w-full bg-[#00C9A7] hover:bg-[#1a1f3a]"
+          className="w-full bg-[#00C9A7] hover:bg-[#005F56]"
         >
           <UserPlus className="w-4 h-4 mr-2" />
           Join Group

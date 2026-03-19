@@ -274,7 +274,7 @@ export default function BecomeMentor() {
                     variant={formData.languages.includes(lang) ? "default" : "outline"}
                     className={`cursor-pointer transition-all ${
                       formData.languages.includes(lang) 
-                        ? "bg-[#00C9A7] hover:bg-[#1a1f3a]" 
+                        ? "bg-[#00C9A7] hover:bg-[#005F56]" 
                         : "hover:bg-[#00C9A7]/5"
                     }`}
                     onClick={() => toggleLanguage(lang)}
@@ -297,7 +297,7 @@ export default function BecomeMentor() {
                     variant={formData.expertise_areas.includes(exp) ? "default" : "outline"}
                     className={`cursor-pointer transition-all ${
                       formData.expertise_areas.includes(exp) 
-                        ? "bg-[#00C9A7] hover:bg-[#1a1f3a]" 
+                        ? "bg-[#00C9A7] hover:bg-[#005F56]" 
                         : "hover:bg-[#00C9A7]/5"
                     }`}
                     onClick={() => toggleExpertise(exp)}
@@ -325,7 +325,7 @@ export default function BecomeMentor() {
             <Button 
               type="submit" 
               size="lg" 
-              className="bg-[#00C9A7] hover:bg-[#1a1f3a] w-full md:w-auto"
+              className="bg-[#00C9A7] hover:bg-[#005F56] w-full md:w-auto"
               disabled={submitMutation.isPending}
             >
               {submitMutation.isPending ? (

@@ -270,7 +270,7 @@ export default function Universities() {
                   </div>
                 </div>
                 <div className="px-6 pb-6">
-                  <Button className="w-full bg-[#00C9A7] hover:bg-[#1a1f3a]">
+                  <Button className="w-full bg-[#00C9A7] hover:bg-[#005F56]">
                     View Details
                   </Button>
                   </div>

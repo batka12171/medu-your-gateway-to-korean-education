@@ -80,7 +80,7 @@ export default function CommunityPreview() {
             </div>
 
             <Link to={createPageUrl("Community")}>
-              <Button size="lg" className="bg-[#00C9A7] hover:bg-[#1a1f3a]">
+              <Button size="lg" className="bg-[#00C9A7] hover:bg-[#005F56]">
                 Join Community <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
@@ -103,7 +103,7 @@ export default function CommunityPreview() {
                 className="bg-white rounded-xl border border-slate-100 p-5 hover:shadow-lg hover:border-[#00C9A7]/30 transition-all duration-300"
               >
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#00C9A7] to-[#1a1f3a] flex items-center justify-center text-white font-medium">
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#00C9A7] to-[#005F56] flex items-center justify-center text-white font-medium">
                     {post.author[0]}
                   </div>
                   <div className="flex-1 min-w-0">
