@@ -1,26 +1,72 @@
 import React, { useEffect, useRef } from "react";
 
 const universities = [
-  { name: "KAIST", logo: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/b6d7d380a_images.png" },
-  { name: "Inha University", logo: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/8755960da_651677845_1210490084489611_9093132361968492518_n.jpg" },
-  { name: "Gachon University", logo: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/3ed6bd80e_636769399_1666522894784343_5374186016198489079_n.jpg" },
-  { name: "Chung-Ang University", logo: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/268e3960c_650342326_3250246938486370_6450545614957446111_n.jpg" },
-  { name: "Kookmin University", logo: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/9af89e6c0_650048823_2433051990481193_1248016639329554724_n.jpg" },
-  { name: "Hanyang University", logo: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/217438b58_648844185_2728884820843446_9488595830072943_n.jpg" },
-  { name: "Korea University (Sejong)", logo: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/84383a4d9_639738479_898731099440851_7744893834772536013_n.jpg" },
-  { name: "Yonsei University", logo: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/3b2f8b656_650354619_1498725804918011_1250986844806115673_n.jpg" },
-  { name: "Korea University", logo: "https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/ef334b61b_644223322_1277111504522198_1134560642862769065_n.jpg" },
+  {
+    name: "Seoul National University",
+    abbr: "SNU",
+    logo: "https://upload.wikimedia.org/wikipedia/en/thumb/0/04/Seoul_National_University_emblem.svg/150px-Seoul_National_University_emblem.svg.png",
+    color: "#003478",
+  },
+  {
+    name: "Yonsei University",
+    abbr: "YONSEI",
+    logo: "https://upload.wikimedia.org/wikipedia/en/thumb/a/ac/Seal_of_Yonsei_University.svg/150px-Seal_of_Yonsei_University.svg.png",
+    color: "#00205B",
+  },
+  {
+    name: "Korea University",
+    abbr: "KU",
+    logo: "https://upload.wikimedia.org/wikipedia/en/thumb/2/29/Korea_University_seal.svg/150px-Korea_University_seal.svg.png",
+    color: "#820000",
+  },
+  {
+    name: "KAIST",
+    abbr: "KAIST",
+    logo: "https://upload.wikimedia.org/wikipedia/en/thumb/9/9e/KAIST_logo.svg/200px-KAIST_logo.svg.png",
+    color: "#003087",
+  },
+  {
+    name: "POSTECH",
+    abbr: "POSTECH",
+    logo: "https://upload.wikimedia.org/wikipedia/en/thumb/8/8b/POSTECH_logo.svg/200px-POSTECH_logo.svg.png",
+    color: "#003087",
+  },
+  {
+    name: "Sungkyunkwan University",
+    abbr: "SKKU",
+    logo: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b0/Sungkyunkwan_University_seal.svg/150px-Sungkyunkwan_University_seal.svg.png",
+    color: "#005EB8",
+  },
+  {
+    name: "Hanyang University",
+    abbr: "HYU",
+    logo: "https://upload.wikimedia.org/wikipedia/en/thumb/c/c5/Hanyang_University_logo.svg/200px-Hanyang_University_logo.svg.png",
+    color: "#005CAB",
+  },
+  {
+    name: "EWHA",
+    abbr: "EWHA",
+    logo: "https://upload.wikimedia.org/wikipedia/en/thumb/5/54/Ewha_Womans_University_seal.svg/150px-Ewha_Womans_University_seal.svg.png",
+    color: "#5B2D8E",
+  },
 ];
 
 const TickerItem = ({ uni }) => (
-  <div className="flex items-center px-10 py-4 group cursor-default flex-shrink-0">
-    <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center overflow-hidden border border-white/10 group-hover:border-[#00C9A7]/40 transition-colors">
+  <div className="flex items-center gap-3 px-8 py-4 group cursor-default flex-shrink-0">
+    <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center overflow-hidden border border-white/10 group-hover:border-[#00C9A7]/40 transition-colors">
       <img
         src={uni.logo}
         alt={uni.name}
-        className="w-14 h-14 object-contain opacity-70 group-hover:opacity-100 transition-opacity"
+        className="w-7 h-7 object-contain filter brightness-0 invert opacity-70 group-hover:opacity-100 transition-opacity"
+        onError={(e) => {
+          e.target.style.display = "none";
+          e.target.parentElement.innerHTML = `<span style="font-size:9px;color:#00C9A7;font-weight:700;">${uni.abbr}</span>`;
+        }}
       />
     </div>
+    <span className="text-white/50 text-sm font-medium whitespace-nowrap group-hover:text-white/90 transition-colors">
+      {uni.name}
+    </span>
   </div>
 );
 
