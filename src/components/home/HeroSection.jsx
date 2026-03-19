@@ -11,78 +11,77 @@ const steps = [
   { num: "04", label: "Apply with Confidence" },
 ];
 
-const logos = [
-  { name: "SEOUL NATIONAL UNIVERSITY", short: "SEOUL" },
-  { name: "KOREA UNIVERSITY", short: "KOREA" },
-  { name: "YONSEI UNIVERSITY", short: "YONSEI" },
-  { name: "KAIST", short: "KAIST" },
-];
+const logos = ["SEOUL", "KOREA", "YONSEI", "KAIST"];
 
 export default function HeroSection() {
   return (
-    <div className="bg-[#071a17] min-h-screen flex flex-col">
+    <div className="bg-[#061614] min-h-screen pb-6 px-4 pt-4">
       {/* Hero Card */}
-      <div className="flex-1 mx-4 mt-4 mb-0 rounded-3xl overflow-hidden relative min-h-[90vh] flex flex-col">
-        {/* Background: Korean university building */}
+      <div
+        className="relative rounded-3xl overflow-hidden"
+        style={{ minHeight: "75vh" }}
+      >
+        {/* Background image */}
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1400&q=80')`,
+            backgroundImage: `url('https://images.unsplash.com/photo-1592280771190-3e2e4d571952?w=1400&q=90')`,
           }}
         />
-        {/* Dark teal overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#071a17]/90 via-[#0a2e26]/80 to-[#0d3d30]/70" />
-        {/* Extra green glow top-center */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#00C9A7]/20 rounded-full blur-3xl pointer-events-none" />
+        {/* Dark teal overlay — heavier on left/bottom, lighter top-right so building shows */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#061614]/95 via-[#0a2920]/80 to-[#061614]/60" />
+        {/* Top-left green radial glow */}
+        <div className="absolute -top-20 -left-20 w-[400px] h-[400px] bg-[#00C9A7]/25 rounded-full blur-3xl pointer-events-none" />
 
-        {/* Content */}
-        <div className="relative z-10 flex-1 flex flex-col justify-between p-8 md:p-12 lg:p-16">
-          {/* Top: Badge */}
+        {/* Inner content */}
+        <div className="relative z-10 p-8 md:p-10 lg:p-12 flex flex-col h-full" style={{ minHeight: "75vh" }}>
+
+          {/* Badge */}
           <motion.p
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-[#00C9A7] text-sm font-medium tracking-wide"
+            transition={{ duration: 0.5 }}
+            className="text-white/70 text-sm mb-auto"
           >
             Your Journey to Korea Starts Here
           </motion.p>
 
-          {/* Main content row */}
-          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mt-8">
-            {/* Left: Headline + Buttons */}
+          {/* Main content */}
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mt-12">
+            {/* Left: headline + buttons */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-              className="max-w-xl"
+              transition={{ duration: 0.65, delay: 0.1 }}
+              className="max-w-lg"
             >
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-[1.05] mb-8">
+              <h1 className="text-5xl md:text-6xl font-extrabold text-white leading-[1.05] mb-8 tracking-tight">
                 Start Your<br />
                 Korea University<br />
                 Journey
               </h1>
 
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-row gap-4 flex-wrap">
                 <Link to={createPageUrl("Universities")}>
-                  <button className="flex items-center gap-2 bg-[#00C9A7] hover:bg-[#00a88c] text-[#071a17] font-semibold px-6 py-3 rounded-full transition-all text-sm">
+                  <button className="flex items-center gap-2 bg-[#00C9A7] hover:bg-[#00a88c] text-[#061614] font-semibold px-6 py-3 rounded-full transition-all text-sm">
                     Explore Universities
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </Link>
                 <Link to={createPageUrl("FindMatch")}>
-                  <button className="flex items-center gap-2 border border-white/30 text-white hover:bg-white/10 font-semibold px-6 py-3 rounded-full transition-all text-sm backdrop-blur-sm">
+                  <button className="flex items-center gap-2 text-white hover:text-[#00C9A7] font-medium px-2 py-3 transition-all text-sm">
                     Find Your Match
                   </button>
                 </Link>
               </div>
             </motion.div>
 
-            {/* Right: Description */}
+            {/* Right: description */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="text-white/70 text-sm md:text-base max-w-xs lg:text-right leading-relaxed"
+              transition={{ duration: 0.65, delay: 0.2 }}
+              className="text-white/60 text-sm max-w-[220px] lg:text-right leading-relaxed self-start lg:self-end"
             >
               Explore top Korean universities,
               understand admissions, and get
@@ -90,38 +89,38 @@ export default function HeroSection() {
             </motion.p>
           </div>
 
-          {/* Steps row */}
+          {/* Steps */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 pt-8 border-t border-white/10"
+            transition={{ duration: 0.65, delay: 0.3 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-14 pt-8 border-t border-white/10"
           >
             {steps.map((step) => (
               <div key={step.num}>
                 <p className="text-[#00C9A7] text-xs font-mono mb-1"># {step.num}</p>
-                <p className="text-white/80 text-sm font-medium">{step.label}</p>
+                <p className="text-white/75 text-sm">{step.label}</p>
               </div>
             ))}
           </motion.div>
         </div>
       </div>
 
-      {/* University logos strip */}
+      {/* Logos strip */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, delay: 0.4 }}
-        className="mx-4 mb-4 mt-2 bg-[#0d2b24] rounded-2xl px-8 py-5 flex flex-col sm:flex-row items-center gap-6"
+        transition={{ duration: 0.6, delay: 0.4 }}
+        className="mt-3 bg-[#0b211c] rounded-2xl px-8 py-5 flex flex-col sm:flex-row items-center gap-6"
       >
-        <p className="text-white/50 text-xs leading-tight whitespace-nowrap">
+        <p className="text-white/40 text-xs leading-snug whitespace-nowrap shrink-0">
           Trusted by students<br />from 30+ countries
         </p>
-        <div className="flex-1 h-px bg-white/10 hidden sm:block" />
-        <div className="flex flex-wrap items-center justify-center gap-8">
+        <div className="w-px h-8 bg-white/10 hidden sm:block" />
+        <div className="flex flex-wrap items-center justify-center sm:justify-start gap-10 flex-1">
           {logos.map((logo) => (
-            <span key={logo.name} className="text-white/60 font-bold text-sm tracking-widest uppercase hover:text-white/90 transition-colors">
-              {logo.short}
+            <span key={logo} className="text-white/50 font-bold text-sm tracking-[0.15em] uppercase hover:text-white/90 transition-colors cursor-default">
+              {logo}
             </span>
           ))}
         </div>
