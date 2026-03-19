@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <div>
       <HeroSection />
-      <UniversityTicker />
+      <div className="bg-[#020d0c] pt-12" /><UniversityTicker />
       <ExploreSection />
       <StatsSection />
       <UniversitiesPreview />
