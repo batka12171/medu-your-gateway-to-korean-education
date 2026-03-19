@@ -47,6 +47,7 @@ export default function UniversityCarousel() {
     <section className="relative py-20 overflow-hidden bg-gradient-to-br from-[#8B1538] via-[#2D3561] to-[#1a1f3a]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
+
           {/* Left Side - Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}

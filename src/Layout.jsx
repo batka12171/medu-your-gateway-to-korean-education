@@ -4,9 +4,10 @@ import { createPageUrl } from "./utils";
 import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
 import { 
-  Menu, X, GraduationCap, Users, BookOpen, 
-  MessageSquare, Trophy, ChevronDown, LogOut, User, Bookmark, Mail
+  Menu, X, Users, BookOpen, 
+  MessageSquare, ChevronDown, LogOut, User, Bookmark, Mail
 } from "lucide-react";
+import MeduLogo from "@/components/MeduLogo";
 import {
   DropdownMenu,
   DropdownMenuContent,
