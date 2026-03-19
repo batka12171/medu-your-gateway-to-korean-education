@@ -35,7 +35,7 @@ export default function UniversityTicker() {
   const doubled = [...universities, ...universities];
 
   return (
-    <div className="bg-[#061614] py-6 overflow-hidden">
+    <div className="bg-[#061614] py-2 overflow-hidden">
       <div className="relative">
         {/* Fade edges */}
         <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#061614] to-transparent z-10 pointer-events-none" />
