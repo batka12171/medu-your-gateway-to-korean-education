@@ -106,25 +106,7 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Logos strip */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.4 }}
-        className="mt-3 bg-[#0b211c] rounded-2xl px-8 py-5 flex flex-col sm:flex-row items-center gap-6"
-      >
-        <p className="text-white/40 text-xs leading-snug whitespace-nowrap shrink-0">
-          Trusted by students<br />from 30+ countries
-        </p>
-        <div className="w-px h-8 bg-white/10 hidden sm:block" />
-        <div className="flex flex-wrap items-center justify-center sm:justify-start gap-10 flex-1">
-          {logos.map((logo) => (
-            <span key={logo} className="text-white/50 font-bold text-sm tracking-[0.15em] uppercase hover:text-white/90 transition-colors cursor-default">
-              {logo}
-            </span>
-          ))}
-        </div>
-      </motion.div>
+
     </div>
   );
 }
