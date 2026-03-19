@@ -15,7 +15,7 @@ const ALL_LOGOS = [...LOGOS, ...LOGOS];
 
 export default function UniversityTicker() {
   return (
-    <div className="bg-[#020d0c] py-10 overflow-hidden">
+    <div className="bg-[#020d0c] py-10 overflow-hidden border-t border-b border-white/10">
       <style>{`
         @keyframes ticker {
           0% { transform: translateX(0); }
