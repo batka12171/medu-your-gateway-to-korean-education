@@ -44,7 +44,7 @@ export default function UniversityTicker() {
             <div
               key={i}
               className="mx-8 flex items-center justify-center shrink-0 group"
-              style={{ width: 110, height: 110 }}
+              style={{ width: 120, height: 120 }}
             >
               <img
                 src={logo.url}
