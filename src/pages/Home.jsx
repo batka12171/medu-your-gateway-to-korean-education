@@ -12,6 +12,7 @@ export default function Home() {
     <div>
       <HeroSection />
       <div className="bg-[#020d0c] pt-12" /><UniversityTicker />
+      <div className="bg-[#020d0c] py-8" />
       <ExploreSection />
       <StatsSection />
       <UniversitiesPreview />
