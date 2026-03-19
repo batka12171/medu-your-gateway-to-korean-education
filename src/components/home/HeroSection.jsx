@@ -18,17 +18,43 @@ export default function HeroSection() {
         className="relative rounded-3xl overflow-hidden"
         style={{ minHeight: "80vh" }}
       >
-        {/* Background image — Seoul National University */}
+        {/* Pure gradient background — no image */}
         <div
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=90')`,
+            background: "linear-gradient(135deg, #020d0c 0%, #003d35 30%, #005F56 50%, #003d35 70%, #020d0c 100%)",
           }}
         />
-        {/* Dark teal overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#020d0c]/95 via-[#00C9A7]/10 to-[#020d0c]/80" />
-        {/* Teal glow top-left */}
-        <div className="absolute -top-20 -left-20 w-[500px] h-[500px] bg-[#00C9A7]/15 rounded-full blur-3xl pointer-events-none" />
+        {/* Teal radial glow center-right */}
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#00C9A7]/20 rounded-full blur-[120px] pointer-events-none" />
+        {/* Teal glow bottom-left */}
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#00C9A7]/10 rounded-full blur-[100px] pointer-events-none" />
+
+        {/* University building image — centered with shadow & green light reflection */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="relative w-[55%] h-full max-w-2xl">
+            {/* Green light reflection glow behind the building */}
+            <div
+              className="absolute inset-x-0 bottom-0 h-[70%]"
+              style={{
+                background: "radial-gradient(ellipse at 50% 90%, rgba(0,201,167,0.22) 0%, transparent 70%)",
+              }}
+            />
+            <img
+              src="https://images.unsplash.com/photo-1590012314607-cda9d9b699ae?w=900&q=90"
+              alt="Korean university building"
+              className="w-full h-full object-cover object-top"
+              style={{
+                maskImage: "linear-gradient(to bottom, rgba(0,0,0,0.85) 40%, rgba(0,0,0,0) 100%), linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 15%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)",
+                WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,0.85) 40%, rgba(0,0,0,0) 100%), linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 15%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)",
+                WebkitMaskComposite: "source-in",
+                maskComposite: "intersect",
+                filter: "drop-shadow(0 0 60px rgba(0,201,167,0.35)) drop-shadow(0 20px 40px rgba(0,0,0,0.8))",
+                opacity: 0.6,
+              }}
+            />
+          </div>
+        </div>
 
         <div className="relative z-10 p-8 md:p-12 lg:p-16 flex flex-col" style={{ minHeight: "80vh" }}>
           {/* Badge */}
