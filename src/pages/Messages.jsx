@@ -101,12 +101,12 @@ export default function Messages() {
                     onClick={() => setSelectedConversation(conv)}
                     className={`w-full text-left p-3 rounded-lg transition-all ${
                       selectedConversation?.id === conv.id 
-                        ? 'bg-[#2D3561]/10 border border-[#2D3561]' 
+                        ? 'bg-[#00C9A7]/10 border border-[#00C9A7]' 
                         : 'hover:bg-slate-50 border border-transparent'
                     }`}
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#2D3561] to-[#1a1f3a] flex items-center justify-center text-white font-semibold">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#00C9A7] to-[#1a1f3a] flex items-center justify-center text-white font-semibold">
                         {conv.otherName?.[0] || 'U'}
                       </div>
                       <div className="flex-1 min-w-0">
@@ -126,7 +126,7 @@ export default function Messages() {
               <>
                 <div className="p-4 border-b border-slate-100">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#2D3561] to-[#1a1f3a] flex items-center justify-center text-white font-semibold">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#00C9A7] to-[#1a1f3a] flex items-center justify-center text-white font-semibold">
                       {selectedConversation.otherName?.[0] || 'U'}
                     </div>
                     <div>
@@ -143,7 +143,7 @@ export default function Messages() {
                     >
                       <div className={`max-w-xs rounded-2xl px-4 py-2 ${
                         msg.sender_email === user.email
-                          ? 'bg-[#2D3561] text-white'
+                          ? 'bg-[#00C9A7] text-white'
                           : 'bg-slate-100 text-slate-900'
                       }`}>
                         <p className="text-sm">{msg.message}</p>
@@ -163,7 +163,7 @@ export default function Messages() {
                       onChange={(e) => setNewMessage(e.target.value)}
                       placeholder="Type a message..."
                     />
-                    <Button type="submit" className="bg-[#2D3561] hover:bg-[#1a1f3a]">
+                    <Button type="submit" className="bg-[#00C9A7] hover:bg-[#1a1f3a]">
                       <Send className="w-4 h-4" />
                     </Button>
                   </div>

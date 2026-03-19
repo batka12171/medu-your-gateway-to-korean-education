@@ -11,7 +11,7 @@ export default function GroupCard({ group, isMember, onJoin, onLeave }) {
           <h3 className="font-bold text-lg text-black mb-2">{group.name}</h3>
           <p className="text-sm text-slate-600 mb-3">{group.description}</p>
           <div className="flex items-center gap-2">
-            <Badge className="bg-[#2D3561]/10 text-[#2D3561]">
+            <Badge className="bg-[#00C9A7]/10 text-[#00C9A7]">
               {group.category}
             </Badge>
             <span className="flex items-center gap-1 text-sm text-slate-500">
@@ -35,7 +35,7 @@ export default function GroupCard({ group, isMember, onJoin, onLeave }) {
         <Button
           onClick={onJoin}
           size="sm"
-          className="w-full bg-[#2D3561] hover:bg-[#1a1f3a]"
+          className="w-full bg-[#00C9A7] hover:bg-[#1a1f3a]"
         >
           <UserPlus className="w-4 h-4 mr-2" />
           Join Group

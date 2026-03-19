@@ -7,7 +7,7 @@ const features = [
     icon: Users, 
     title: "Expert Mentors", 
     description: "Connect with students who've been through the process",
-    color: "text-[#2D3561]"
+    color: "text-[#00C9A7]"
   },
   { 
     icon: BookOpen, 
@@ -25,7 +25,7 @@ const features = [
     icon: MessageSquare, 
     title: "Active Community", 
     description: "Join discussions with current and prospective students",
-    color: "text-[#2D3561]"
+    color: "text-[#00C9A7]"
   },
 ];
 

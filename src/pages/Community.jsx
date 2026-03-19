@@ -340,7 +340,7 @@ export default function Community() {
               <h2 className="text-xl font-bold text-black">Community Discussions</h2>
               <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                 <DialogTrigger asChild>
-                  <Button className="bg-[#2D3561] hover:bg-[#1a1f3a]">
+                  <Button className="bg-[#00C9A7] hover:bg-[#1a1f3a]">
                     <Plus className="w-4 h-4 mr-2" />
                     New Post
                   </Button>
@@ -393,7 +393,7 @@ export default function Community() {
                 </div>
                 <Button 
                   type="submit" 
-                  className="w-full bg-[#2D3561] hover:bg-[#1a1f3a]"
+                  className="w-full bg-[#00C9A7] hover:bg-[#1a1f3a]"
                   disabled={createPostMutation.isPending}
                 >
                   {createPostMutation.isPending ? (
@@ -448,13 +448,13 @@ export default function Community() {
                       <div className="flex flex-col items-center gap-1 pt-1">
                         <button 
                           onClick={() => user ? likePostMutation.mutate(post) : base44.auth.redirectToLogin()}
-                          className="p-1 hover:bg-[#2D3561]/10 rounded transition-colors"
+                          className="p-1 hover:bg-[#00C9A7]/10 rounded transition-colors"
                         >
-                          <svg className="w-5 h-5 text-slate-400 hover:text-[#2D3561]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <svg className="w-5 h-5 text-slate-400 hover:text-[#00C9A7]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
                           </svg>
                         </button>
-                        <span className="text-sm font-semibold text-[#2D3561]">{post.likes_count || 0}</span>
+                        <span className="text-sm font-semibold text-[#00C9A7]">{post.likes_count || 0}</span>
                         <button className="p-1 hover:bg-slate-100 rounded transition-colors">
                           <svg className="w-5 h-5 text-slate-400 hover:text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -473,7 +473,7 @@ export default function Community() {
                             {formatTimeAgo(post.created_date)}
                           </span>
                         </div>
-                        <h3 className="text-lg font-semibold text-slate-900 mb-2 hover:text-[#2D3561] cursor-pointer">
+                        <h3 className="text-lg font-semibold text-slate-900 mb-2 hover:text-[#00C9A7] cursor-pointer">
                           {post.title}
                         </h3>
                         <p className="text-slate-600 mb-4 line-clamp-2">{post.content}</p>
@@ -507,7 +507,7 @@ export default function Community() {
                 <h2 className="text-xl font-bold text-black">Community Groups</h2>
                 <Dialog open={groupDialogOpen} onOpenChange={setGroupDialogOpen}>
                 <DialogTrigger asChild>
-                <Button className="bg-[#2D3561] hover:bg-[#1a1f3a]">
+                <Button className="bg-[#00C9A7] hover:bg-[#1a1f3a]">
                   <Plus className="w-4 h-4 mr-2" />
                   Create Group
                 </Button>
@@ -526,7 +526,7 @@ export default function Community() {
                      <SelectItem value="general">General</SelectItem>
                    </SelectContent>
                  </Select>
-                 <Button type="submit" className="w-full bg-[#2D3561] hover:bg-[#1a1f3a]">Create Group</Button>
+                 <Button type="submit" className="w-full bg-[#00C9A7] hover:bg-[#1a1f3a]">Create Group</Button>
                 </form>
                 </DialogContent>
                 </Dialog>
@@ -594,7 +594,7 @@ export default function Community() {
                 <h2 className="text-xl font-bold text-black">Questions & Answers</h2>
                 <Dialog open={questionDialogOpen} onOpenChange={setQuestionDialogOpen}>
                 <DialogTrigger asChild>
-                <Button className="bg-[#2D3561] hover:bg-[#1a1f3a]">
+                <Button className="bg-[#00C9A7] hover:bg-[#1a1f3a]">
                   <Plus className="w-4 h-4 mr-2" />
                   Ask Question
                 </Button>
@@ -615,7 +615,7 @@ export default function Community() {
                      <SelectItem value="general">General</SelectItem>
                    </SelectContent>
                  </Select>
-                 <Button type="submit" className="w-full bg-[#2D3561] hover:bg-[#1a1f3a]">Post Question</Button>
+                 <Button type="submit" className="w-full bg-[#00C9A7] hover:bg-[#1a1f3a]">Post Question</Button>
                 </form>
                 </DialogContent>
                 </Dialog>
@@ -628,14 +628,14 @@ export default function Community() {
                    <h3 className="font-bold text-lg text-black mb-2">{q.title}</h3>
                    <p className="text-sm text-slate-600 mb-3 line-clamp-2">{q.content}</p>
                    <div className="flex items-center gap-3 text-sm text-slate-500">
-                     <Badge className="bg-[#2D3561]/10 text-[#2D3561]">{q.category}</Badge>
+                     <Badge className="bg-[#00C9A7]/10 text-[#00C9A7]">{q.category}</Badge>
                      <span>{q.answers_count || 0} answers</span>
                      <span>{q.views || 0} views</span>
                    </div>
                  </div>
                  {q.is_answered && <Badge className="bg-green-100 text-green-700">Answered</Badge>}
                 </div>
-                <Button size="sm" variant="outline" onClick={() => setSelectedQuestion(q)} className="border-[#2D3561] text-[#2D3561]">View Answers</Button>
+                <Button size="sm" variant="outline" onClick={() => setSelectedQuestion(q)} className="border-[#00C9A7] text-[#00C9A7]">View Answers</Button>
                 {selectedQuestion?.id === q.id && (
                  <div className="mt-4 pt-4 border-t space-y-4">
                    {answers.map(a => (
@@ -657,7 +657,7 @@ export default function Community() {
                    ))}
                    <form onSubmit={(e) => { e.preventDefault(); if (user) createAnswerMutation.mutate({ question_id: q.id, content: newAnswer, author_name: user.full_name || "Anonymous", author_email: user.email }); else base44.auth.redirectToLogin(); }} className="flex gap-2">
                      <Input placeholder="Write your answer..." value={newAnswer} onChange={(e) => setNewAnswer(e.target.value)} />
-                     <Button type="submit" className="bg-[#2D3561] hover:bg-[#1a1f3a]">Answer</Button>
+                     <Button type="submit" className="bg-[#00C9A7] hover:bg-[#1a1f3a]">Answer</Button>
                    </form>
                  </div>
                 )}

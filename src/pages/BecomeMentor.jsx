@@ -139,7 +139,7 @@ export default function BecomeMentor() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <div className="inline-flex items-center gap-2 text-[#2D3561] font-medium mb-4">
+            <div className="inline-flex items-center gap-2 text-[#00C9A7] font-medium mb-4">
               <Users className="w-5 h-5" />
               Join Our Mentor Community
             </div>
@@ -167,7 +167,7 @@ export default function BecomeMentor() {
               transition={{ delay: index * 0.1 }}
               className="bg-white rounded-2xl p-6 border border-slate-100"
             >
-              <div className="w-12 h-12 rounded-xl bg-[#2D3561]/10 flex items-center justify-center text-[#2D3561] mb-4">
+              <div className="w-12 h-12 rounded-xl bg-[#00C9A7]/10 flex items-center justify-center text-[#00C9A7] mb-4">
                 <benefit.icon className="w-6 h-6" />
               </div>
               <h3 className="font-semibold text-slate-900 mb-2">{benefit.title}</h3>
@@ -274,8 +274,8 @@ export default function BecomeMentor() {
                     variant={formData.languages.includes(lang) ? "default" : "outline"}
                     className={`cursor-pointer transition-all ${
                       formData.languages.includes(lang) 
-                        ? "bg-[#2D3561] hover:bg-[#1a1f3a]" 
-                        : "hover:bg-[#2D3561]/5"
+                        ? "bg-[#00C9A7] hover:bg-[#1a1f3a]" 
+                        : "hover:bg-[#00C9A7]/5"
                     }`}
                     onClick={() => toggleLanguage(lang)}
                   >
@@ -297,8 +297,8 @@ export default function BecomeMentor() {
                     variant={formData.expertise_areas.includes(exp) ? "default" : "outline"}
                     className={`cursor-pointer transition-all ${
                       formData.expertise_areas.includes(exp) 
-                        ? "bg-[#2D3561] hover:bg-[#1a1f3a]" 
-                        : "hover:bg-[#2D3561]/5"
+                        ? "bg-[#00C9A7] hover:bg-[#1a1f3a]" 
+                        : "hover:bg-[#00C9A7]/5"
                     }`}
                     onClick={() => toggleExpertise(exp)}
                   >
@@ -325,7 +325,7 @@ export default function BecomeMentor() {
             <Button 
               type="submit" 
               size="lg" 
-              className="bg-[#2D3561] hover:bg-[#1a1f3a] w-full md:w-auto"
+              className="bg-[#00C9A7] hover:bg-[#1a1f3a] w-full md:w-auto"
               disabled={submitMutation.isPending}
             >
               {submitMutation.isPending ? (

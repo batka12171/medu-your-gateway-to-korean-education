@@ -18,7 +18,7 @@ export default function EventCard({ event, isAttending, onRSVP, onCancel }) {
         <div className="flex-1">
           <div className="flex items-start justify-between mb-2">
             <h3 className="font-bold text-lg text-black">{event.title}</h3>
-            <Badge className="bg-[#2D3561]/10 text-[#2D3561]">
+            <Badge className="bg-[#00C9A7]/10 text-[#00C9A7]">
               {event.event_type?.replace('_', ' ')}
             </Badge>
           </div>
