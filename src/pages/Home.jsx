@@ -7,15 +7,12 @@ import UniversitiesPreview from "../components/home/UniversitiesPreview";
 import MentorsSection from "../components/home/MentorsSection";
 import CommunityPreview from "../components/home/CommunityPreview";
 import UniversityTicker from "../components/home/UniversityTicker";
-import RoadmapTeaser from "../components/home/RoadmapTeaser";
-
 export default function Home() {
   return (
     <div>
       <HeroSection />
       <UniversityTicker />
       <GetAdmittedSection />
-      <RoadmapTeaser />
       <UniversityCarousel />
       <StatsSection />
       <UniversitiesPreview />
