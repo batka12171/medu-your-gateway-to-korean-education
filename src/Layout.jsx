@@ -181,11 +181,11 @@ export default function Layout({ children, currentPageName }) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="col-span-2 md:col-span-1">
-              <div className="flex items-center gap-2 mb-4">
-                <MeduLogo size={40} dark={true} />
-                <div>
-                  <span className="text-xl font-bold">MEDU</span>
-                  <span className="block text-[10px] text-slate-400">한국 유학 가이드</span>
+              <div className="flex items-center gap-3 mb-4">
+                <MeduLogo size={44} dark={true} className="drop-shadow-sm" />
+                <div className="flex flex-col">
+                  <span className="text-xl font-extrabold tracking-widest leading-none text-white">MEDU</span>
+                  <span className="text-[10px] font-medium tracking-wider mt-0.5 text-[#38d9c0]">한국 유학 가이드</span>
                 </div>
               </div>
               <p className="text-slate-400 text-sm">
