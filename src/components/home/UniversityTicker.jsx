@@ -96,7 +96,7 @@ export default function UniversityTicker() {
   const doubled = [...universities, ...universities];
 
   return (
-    <div className="bg-[#020d0c] border-t border-b border-white/10 overflow-hidden py-2 mt-12">
+    <div className="bg-[#020d0c] border-t border-b border-white/10 overflow-hidden py-2">
       {/* Gradient edges */}
       <div className="relative">
         <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-[#020d0c] to-transparent z-10 pointer-events-none" />
