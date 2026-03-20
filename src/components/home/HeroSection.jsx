@@ -100,7 +100,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, delay: 0.35 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-14 pt-8 border-t border-white/10"
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-14 pt-8 border-t border-slate-200"
         >
           {steps.map((step) => (
             <div key={step.num}>
