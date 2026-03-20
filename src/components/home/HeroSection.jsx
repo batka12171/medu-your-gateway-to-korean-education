@@ -27,30 +27,25 @@ export default function HeroSection() {
         {/* Deep dark bottom-right corner */}
         <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[#020d0c]/80 rounded-full blur-[80px] pointer-events-none" />
 
-        {/* University building image — centered with shadow & green light reflection */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <div className="relative w-[55%] h-full max-w-2xl">
-            {/* Green light reflection glow behind the building */}
-            <div
-              className="absolute inset-x-0 bottom-0 h-[70%]"
-              style={{
-                background: "radial-gradient(ellipse at 50% 90%, rgba(0,201,167,0.22) 0%, transparent 70%)",
-              }}
-            />
-            <img
-              src="https://images.unsplash.com/photo-1590012314607-cda9d9b699ae?w=900&q=90"
-              alt="Korean university building"
-              className="w-full h-full object-cover object-top"
-              style={{
-                maskImage: "linear-gradient(to bottom, rgba(0,0,0,0.85) 40%, rgba(0,0,0,0) 100%), linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 15%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)",
-                WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,0.85) 40%, rgba(0,0,0,0) 100%), linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 15%, rgba(0,0,0,1) 85%, rgba(0,0,0,0) 100%)",
-                WebkitMaskComposite: "source-in",
-                maskComposite: "intersect",
-                filter: "drop-shadow(0 0 60px rgba(0,201,167,0.35)) drop-shadow(0 20px 40px rgba(0,0,0,0.8))",
-                opacity: 0.6,
-              }}
-            />
-          </div>
+        {/* University building image — bottom-centered with teal light effects */}
+        <div className="absolute inset-x-0 bottom-0 flex justify-center items-end pointer-events-none">
+          {/* Teal glow behind building */}
+          <div
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] pointer-events-none"
+            style={{
+              background: "radial-gradient(ellipse at 50% 100%, rgba(0,201,167,0.35) 0%, transparent 70%)",
+            }}
+          />
+          <img
+            src="https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/14e5abcee_ChatGPT_Image_Mar_20__2026__06_49_26_AM-removebg-preview.png"
+            alt="Korean university building"
+            className="relative w-[50%] max-w-2xl object-contain object-bottom"
+            style={{
+              maskImage: "linear-gradient(to top, black 60%, transparent 100%)",
+              WebkitMaskImage: "linear-gradient(to top, black 60%, transparent 100%)",
+              filter: "drop-shadow(0 0 80px rgba(0,201,167,0.5)) drop-shadow(0 -10px 40px rgba(0,100,80,0.6)) brightness(0.85) contrast(1.1)",
+            }}
+          />
         </div>
 
         <div className="relative z-10 p-8 md:p-12 lg:p-16 flex flex-col" style={{ minHeight: "80vh" }}>
