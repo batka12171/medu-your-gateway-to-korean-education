@@ -13,22 +13,19 @@ const steps = [
 
 export default function HeroSection() {
   return (
-    <div className="bg-[#020d0c] min-h-screen pb-6 px-4 pt-4">
-      <div
-        className="relative rounded-3xl overflow-hidden"
-        style={{ minHeight: "80vh" }}
-      >
-        {/* Pure gradient background — no image */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: "linear-gradient(135deg, #020d0c 0%, #003d35 30%, #005F56 50%, #003d35 70%, #020d0c 100%)",
-          }}
-        />
-        {/* Teal radial glow center-right */}
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#00C9A7]/20 rounded-full blur-[120px] pointer-events-none" />
-        {/* Teal glow bottom-left */}
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#00C9A7]/10 rounded-full blur-[100px] pointer-events-none" />
+    <div
+      className="relative min-h-screen pb-6"
+      style={{
+        background: "radial-gradient(ellipse at 20% 50%, #005F56 0%, #003d35 30%, #020d0c 60%, #011a17 80%, #020d0c 100%)",
+      }}
+    >
+      <div className="relative overflow-hidden" style={{ minHeight: "80vh" }}>
+        {/* Bright teal spotlight top-left */}
+        <div className="absolute top-0 left-0 w-[700px] h-[500px] bg-[#00C9A7]/30 rounded-full blur-[120px] pointer-events-none" />
+        {/* Darker teal glow top-right */}
+        <div className="absolute top-0 right-0 w-[500px] h-[400px] bg-[#005F56]/40 rounded-full blur-[150px] pointer-events-none" />
+        {/* Deep dark bottom-right corner */}
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[#020d0c]/80 rounded-full blur-[80px] pointer-events-none" />
 
         {/* University building image — centered with shadow & green light reflection */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
