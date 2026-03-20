@@ -87,7 +87,7 @@ export default function HeroSection() {
             transition={{ duration: 0.65, delay: 0.25 }}
             className="max-w-xs lg:text-right self-start lg:self-end"
           >
-            <p className="text-white text-xl font-bold leading-snug mb-3">
+            <p className="text-slate-800 text-xl font-bold leading-snug mb-3">
               Your dream campus<br />is within reach.
             </p>
             <p className="text-white/50 text-sm leading-relaxed">
