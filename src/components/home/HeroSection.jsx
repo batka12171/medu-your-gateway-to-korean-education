@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "../../utils";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
-import ParticleCanvas from "./ParticleCanvas";
 
 export default function HeroSection() {
   return (
@@ -13,8 +12,6 @@ export default function HeroSection() {
         background: "radial-gradient(ellipse at center, #f0faf8 0%, #e8f5f2 40%, #ddf0ec 100%)",
       }}
     >
-      <ParticleCanvas />
-
       {/* Content layer */}
       <div className="relative z-10 flex flex-1 items-center px-8 md:px-16 lg:px-24 py-24 gap-8">
 
@@ -43,8 +40,14 @@ export default function HeroSection() {
           </Link>
         </motion.div>
 
-        {/* Center spacer — particles fill this */}
-        <div className="flex-1 hidden md:block" />
+        {/* Center image */}
+        <div className="flex-1 hidden md:flex items-center justify-center relative">
+          <img 
+            src="https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/1d9ea4004_12a.jpg" 
+            alt="Hero graphic" 
+            className="w-full max-w-2xl object-contain mix-blend-multiply"
+          />
+        </div>
 
         {/* Right */}
         <motion.div
