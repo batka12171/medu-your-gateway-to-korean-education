@@ -67,8 +67,8 @@ export default function HeroSection() {
             transition={{ duration: 0.65, delay: 0.1 }}
             className="max-w-xl"
           >
-            <p className="text-white/60 text-lg mb-2">Start Your</p>
-            <h1 className="text-6xl md:text-7xl font-extrabold text-white leading-[1.0] mb-10 tracking-tight">
+            <p className="text-slate-500 text-lg mb-2">Start Your</p>
+            <h1 className="text-6xl md:text-7xl font-extrabold text-slate-900 leading-[1.0] mb-10 tracking-tight">
               Korea<br />
               University<br />
               Journey
