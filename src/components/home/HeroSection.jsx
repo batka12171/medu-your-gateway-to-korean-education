@@ -16,23 +16,9 @@ export default function HeroSection() {
   return (
     <div
       className="relative min-h-screen pb-6 overflow-hidden"
-      style={{
-        background: `
-          radial-gradient(ellipse at 20% 50%, #00997a 0%, transparent 55%),
-          radial-gradient(ellipse at 75% 10%, #00C9A7 0%, transparent 45%),
-          radial-gradient(ellipse at 80% 80%, #005F56 0%, transparent 50%),
-          #020d0c
-        `,
-      }}
+      style={{ background: "radial-gradient(circle at center, rgba(255,255,255,1) 0%, rgba(244,247,250,1) 100%)" }}
     >
-      {/* Dark vignette corners */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at 100% 0%, #020d0c 0%, transparent 50%), radial-gradient(ellipse at 0% 100%, #020d0c 0%, transparent 50%)",
-        }}
-      />
+      <ParticleBackground />
 
       {/* University building image */}
       <div className="absolute inset-0 flex items-end justify-center pointer-events-none">
