@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "../../utils";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import ParticleBackground from "./ParticleBackground";
 
 const steps = [
   { num: "01", label: "Research Universities" },
