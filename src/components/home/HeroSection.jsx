@@ -33,31 +33,6 @@ export default function HeroSection() {
         }}
       />
 
-      {/* University building image */}
-      <div className="absolute inset-0 flex items-end justify-center pointer-events-none">
-        <div className="relative w-[60%] max-w-2xl h-[90%]">
-          <div
-            className="absolute inset-x-0 bottom-0 h-[60%] z-10"
-            style={{
-              background:
-                "radial-gradient(ellipse at 50% 100%, rgba(0,201,167,0.35) 0%, transparent 65%)",
-            }}
-          />
-          <img
-            src="https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/14e5abcee_ChatGPT_Image_Mar_20__2026__06_49_26_AM-removebg-preview.png"
-            alt="Korean university building"
-            className="w-full h-full object-contain object-bottom"
-            style={{
-              maskImage:
-                "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.9) 20%, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%)",
-              WebkitMaskImage:
-                "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.9) 20%, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%)",
-              filter:
-                "drop-shadow(0 0 80px rgba(0,201,167,0.4)) drop-shadow(0 30px 60px rgba(0,0,0,0.9)) brightness(0.85) contrast(1.1)",
-            }}
-          />
-        </div>
-      </div>
 
       {/* Content */}
       <div
