@@ -90,7 +90,7 @@ export default function HeroSection() {
             <p className="text-slate-800 text-xl font-bold leading-snug mb-3">
               Your dream campus<br />is within reach.
             </p>
-            <p className="text-white/50 text-sm leading-relaxed">
+            <p className="text-slate-500 text-sm leading-relaxed"></p>
               Expert mentors, real guidance, and a community to support you every step of the way.
             </p>
           </motion.div>
