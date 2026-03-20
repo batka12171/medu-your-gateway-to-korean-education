@@ -105,7 +105,7 @@ export default function HeroSection() {
           {steps.map((step) => (
             <div key={step.num}>
               <p className="text-[#00C9A7] text-xs font-mono mb-1"># {step.num}</p>
-              <p className="text-white/75 text-sm">{step.label}</p>
+              <p className="text-slate-600 text-sm">{step.label}</p>
             </div>
           ))}
         </motion.div>
