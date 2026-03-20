@@ -55,7 +55,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-[#00C9A7] text-sm font-medium tracking-widest uppercase mb-auto"
+          className="text-[#00997a] text-sm font-medium tracking-widest uppercase mb-auto"
         >
           Your Journey to Korea Starts Here
         </motion.p>
