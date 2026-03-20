@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "../../utils";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
-import ParticleBackground from "./ParticleBackground";
 
 const steps = [
   { num: "01", label: "Research Universities" },
@@ -16,9 +15,23 @@ export default function HeroSection() {
   return (
     <div
       className="relative min-h-screen pb-6 overflow-hidden"
-      style={{ background: "radial-gradient(circle at center, rgba(255,255,255,1) 0%, rgba(244,247,250,1) 100%)" }}
+      style={{
+        background: `
+          radial-gradient(ellipse at 20% 50%, #00997a 0%, transparent 55%),
+          radial-gradient(ellipse at 75% 10%, #00C9A7 0%, transparent 45%),
+          radial-gradient(ellipse at 80% 80%, #005F56 0%, transparent 50%),
+          #020d0c
+        `,
+      }}
     >
-      <ParticleBackground />
+      {/* Dark vignette corners */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at 100% 0%, #020d0c 0%, transparent 50%), radial-gradient(ellipse at 0% 100%, #020d0c 0%, transparent 50%)",
+        }}
+      />
 
       {/* University building image */}
       <div className="absolute inset-0 flex items-end justify-center pointer-events-none">
@@ -55,7 +68,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-[#00997a] text-sm font-medium tracking-widest uppercase mb-auto"
+          className="text-[#00C9A7] text-sm font-medium tracking-widest uppercase mb-auto"
         >
           Your Journey to Korea Starts Here
         </motion.p>
@@ -67,8 +80,8 @@ export default function HeroSection() {
             transition={{ duration: 0.65, delay: 0.1 }}
             className="max-w-xl"
           >
-            <p className="text-slate-500 text-lg mb-2">Start Your</p>
-            <h1 className="text-6xl md:text-7xl font-extrabold text-slate-900 leading-[1.0] mb-10 tracking-tight">
+            <p className="text-white/60 text-lg mb-2">Start Your</p>
+            <h1 className="text-6xl md:text-7xl font-extrabold text-white leading-[1.0] mb-10 tracking-tight">
               Korea<br />
               University<br />
               Journey
@@ -87,10 +100,10 @@ export default function HeroSection() {
             transition={{ duration: 0.65, delay: 0.25 }}
             className="max-w-xs lg:text-right self-start lg:self-end"
           >
-            <p className="text-slate-800 text-xl font-bold leading-snug mb-3">
+            <p className="text-white text-xl font-bold leading-snug mb-3">
               Your dream campus<br />is within reach.
             </p>
-            <p className="text-slate-500 text-sm leading-relaxed">
+            <p className="text-white/50 text-sm leading-relaxed">
               Expert mentors, real guidance, and a community to support you every step of the way.
             </p>
           </motion.div>
@@ -100,12 +113,12 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, delay: 0.35 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-14 pt-8 border-t border-slate-200"
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-14 pt-8 border-t border-white/10"
         >
           {steps.map((step) => (
             <div key={step.num}>
               <p className="text-[#00C9A7] text-xs font-mono mb-1"># {step.num}</p>
-              <p className="text-slate-600 text-sm">{step.label}</p>
+              <p className="text-white/75 text-sm">{step.label}</p>
             </div>
           ))}
         </motion.div>
