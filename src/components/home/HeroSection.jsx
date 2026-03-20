@@ -3,101 +3,94 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "../../utils";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
-
-const steps = [
-  { num: "01", label: "Research Universities" },
-  { num: "02", label: "Prepare Documents" },
-  { num: "03", label: "Ace Admissions" },
-  { num: "04", label: "Visa & Travel" },
-];
+import ParticleCanvas from "./ParticleCanvas";
 
 export default function HeroSection() {
   return (
     <div
-      className="relative min-h-screen pb-6 overflow-hidden"
+      className="relative min-h-screen overflow-hidden flex flex-col"
       style={{
-        background: `
-          radial-gradient(ellipse at 20% 50%, #00997a 0%, transparent 55%),
-          radial-gradient(ellipse at 75% 10%, #00C9A7 0%, transparent 45%),
-          radial-gradient(ellipse at 80% 80%, #005F56 0%, transparent 50%),
-          #020d0c
-        `,
+        background: "radial-gradient(ellipse at center, #f0faf8 0%, #e8f5f2 40%, #ddf0ec 100%)",
       }}
     >
-      {/* Dark vignette corners */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(ellipse at 100% 0%, #020d0c 0%, transparent 50%), radial-gradient(ellipse at 0% 100%, #020d0c 0%, transparent 50%)",
-        }}
-      />
+      <ParticleCanvas />
 
+      {/* Content layer */}
+      <div className="relative z-10 flex flex-1 items-center px-8 md:px-16 lg:px-24 py-24 gap-8">
 
-      {/* Content */}
-      <div
-        className="relative z-10 p-8 md:p-12 lg:p-16 flex flex-col"
-        style={{ minHeight: "100vh" }}
-      >
-        <motion.p
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="text-[#00C9A7] text-sm font-medium tracking-widest uppercase mb-auto"
-        >
-          Your Journey to Korea Starts Here
-        </motion.p>
-
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-10 mt-12">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.1 }}
-            className="max-w-xl"
-          >
-            <p className="text-white/60 text-lg mb-2">Start Your</p>
-            <h1 className="text-6xl md:text-7xl font-extrabold text-white leading-[1.0] mb-10 tracking-tight">
-              Korea<br />
-              University<br />
-              Journey
-            </h1>
-            <Link to={createPageUrl("Universities")}>
-              <button className="flex items-center gap-2 bg-[#00C9A7] hover:bg-[#00a88c] text-[#020d0c] font-bold px-7 py-3.5 rounded-full transition-all text-sm">
-                Explore Universities
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </Link>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.25 }}
-            className="max-w-xs lg:text-right self-start lg:self-end"
-          >
-            <p className="text-white text-xl font-bold leading-snug mb-3">
-              Your dream campus<br />is within reach.
-            </p>
-            <p className="text-white/50 text-sm leading-relaxed">
-              Expert mentors, real guidance, and a community to support you every step of the way.
-            </p>
-          </motion.div>
-        </div>
-
+        {/* Left */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, delay: 0.35 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-14 pt-8 border-t border-white/10"
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="flex-1 max-w-sm"
         >
-          {steps.map((step) => (
-            <div key={step.num}>
-              <p className="text-[#00C9A7] text-xs font-mono mb-1"># {step.num}</p>
-              <p className="text-white/75 text-sm">{step.label}</p>
-            </div>
-          ))}
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/70 backdrop-blur-sm border border-[#00C9A7]/20 text-slate-500 text-xs mb-6">
+            Available now
+          </div>
+          <h1 className="text-4xl md:text-5xl font-semibold text-slate-900 leading-tight mb-4">
+            For students<br />
+            <span className="text-[#00997a]">Build your future</span>
+          </h1>
+          <p className="text-slate-500 text-sm leading-relaxed mb-8">
+            Expert mentors, real guidance, and a community to support you every step of the way to Korean universities.
+          </p>
+          <Link to={createPageUrl("Universities")}>
+            <button className="flex items-center gap-2 bg-slate-900 hover:bg-slate-700 text-white font-semibold px-6 py-3 rounded-full transition-all text-sm">
+              Get started
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </Link>
+        </motion.div>
+
+        {/* Center spacer — particles fill this */}
+        <div className="flex-1 hidden md:block" />
+
+        {/* Right */}
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+          className="flex-1 max-w-sm text-right"
+        >
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/70 backdrop-blur-sm border border-[#00C9A7]/20 text-slate-500 text-xs mb-6">
+            MEDU Platform
+          </div>
+          <h1 className="text-4xl md:text-5xl font-semibold text-slate-900 leading-tight mb-4">
+            Smarter<br />
+            <span className="text-[#00997a]">education guide</span>
+          </h1>
+          <p className="text-slate-500 text-sm leading-relaxed mb-8">
+            Discover top Korean universities, connect with mentors, and navigate the entire admissions process with confidence.
+          </p>
+          <Link to={createPageUrl("Mentors")}>
+            <button className="inline-flex items-center gap-2 bg-white/80 hover:bg-white text-slate-900 font-semibold px-6 py-3 rounded-full transition-all text-sm border border-slate-200 shadow-sm">
+              Meet mentors
+              <ArrowRight className="w-4 h-4" />
+            </button>
+          </Link>
         </motion.div>
       </div>
+
+      {/* Bottom steps bar */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.65, delay: 0.5 }}
+        className="relative z-10 flex justify-center gap-10 pb-10 px-8"
+      >
+        {[
+          { num: "01", label: "Research Universities" },
+          { num: "02", label: "Prepare Documents" },
+          { num: "03", label: "Ace Admissions" },
+          { num: "04", label: "Visa & Travel" },
+        ].map((step) => (
+          <div key={step.num} className="text-center">
+            <p className="text-[#00997a] text-xs font-mono mb-0.5"># {step.num}</p>
+            <p className="text-slate-500 text-xs">{step.label}</p>
+          </div>
+        ))}
+      </motion.div>
     </div>
   );
 }
