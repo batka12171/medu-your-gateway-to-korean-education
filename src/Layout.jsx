@@ -5,7 +5,7 @@ import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
 import { 
   Menu, X, GraduationCap, Users, BookOpen, 
-  MessageSquare, ChevronDown, LogOut, User, Bookmark, Mail
+  MessageSquare, ChevronDown, LogOut, User, Bookmark, Mail, Calendar
 } from "lucide-react";
 import MeduLogo from "@/components/MeduLogo";
 import {
@@ -42,10 +42,9 @@ export default function Layout({ children, currentPageName }) {
   }, []);
 
   const navLinks = [
-    { name: "Universities", href: createPageUrl("Universities"), icon: GraduationCap },
-    { name: "Find Match", href: createPageUrl("FindMatch"), icon: Users },
+    { name: "Application Process", href: createPageUrl("ApplicationGuide"), icon: BookOpen },
+    { name: "Events", href: createPageUrl("Events"), icon: Calendar },
     { name: "Mentors", href: createPageUrl("Mentors"), icon: Users },
-    { name: "Community", href: createPageUrl("Community"), icon: MessageSquare },
   ];
 
   const isHomePage = currentPageName === "Home";

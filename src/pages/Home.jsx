@@ -1,23 +1,16 @@
 import React from "react";
 import HeroSection from "../components/home/HeroSection";
-import UniversityTicker from "../components/home/UniversityTicker";
 import ExploreSection from "../components/home/ExploreSection";
-import StatsSection from "../components/home/StatsSection";
-import UniversitiesPreview from "../components/home/UniversitiesPreview";
+import EventsPreview from "../components/home/EventsPreview";
 import MentorsSection from "../components/home/MentorsSection";
-import CommunityPreview from "../components/home/CommunityPreview";
 
 export default function Home() {
   return (
     <div>
       <HeroSection />
-      <div className="bg-[#020d0c] pt-12" /><UniversityTicker />
-      <div className="bg-[#020d0c] py-8" />
       <ExploreSection />
-      <StatsSection />
-      <UniversitiesPreview />
+      <EventsPreview />
       <MentorsSection />
-      <CommunityPreview />
     </div>
   );
 }

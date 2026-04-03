@@ -54,9 +54,9 @@ export default function ExploreSection() {
             <div>
               <p className="text-white/40 text-xs mb-1">Let's Build Your Future</p>
               <p className="text-white/40 text-xs mb-5">Meaningful Together</p>
-              <Link to="/AdmissionRoadmap">
+              <Link to="/ApplicationGuide">
                 <button className="flex items-center gap-2 bg-[#00C9A7] hover:bg-[#00a88c] text-[#020d0c] font-bold px-6 py-3 rounded-full transition-all text-sm">
-                  Start Your Application
+                  View Application Process
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </Link>

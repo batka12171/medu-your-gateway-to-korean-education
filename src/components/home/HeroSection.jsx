@@ -32,9 +32,9 @@ export default function HeroSection() {
           <p className="text-slate-500 text-sm leading-relaxed mb-8">
             Expert mentors, real guidance, and a community to support you every step of the way to Korean universities.
           </p>
-          <Link to={createPageUrl("Universities")}>
+          <Link to={createPageUrl("ApplicationGuide")}>
             <button className="flex items-center gap-2 bg-slate-900 hover:bg-slate-700 text-white font-semibold px-6 py-3 rounded-full transition-all text-sm">
-              Get started
+              Application Process
               <ArrowRight className="w-4 h-4" />
             </button>
           </Link>
@@ -66,9 +66,9 @@ export default function HeroSection() {
           <p className="text-slate-500 text-sm leading-relaxed mb-8">
             Discover top Korean universities, connect with mentors, and navigate the entire admissions process with confidence.
           </p>
-          <Link to={createPageUrl("Mentors")}>
+          <Link to={createPageUrl("Events")}>
             <button className="inline-flex items-center gap-2 bg-white/80 hover:bg-white text-slate-900 font-semibold px-6 py-3 rounded-full transition-all text-sm border border-slate-200 shadow-sm">
-              Meet mentors
+              View Events
               <ArrowRight className="w-4 h-4" />
             </button>
           </Link>
@@ -83,10 +83,9 @@ export default function HeroSection() {
         className="relative z-10 flex justify-center gap-10 pb-10 px-8"
       >
         {[
-          { num: "01", label: "Research Universities" },
-          { num: "02", label: "Prepare Documents" },
-          { num: "03", label: "Ace Admissions" },
-          { num: "04", label: "Visa & Travel" },
+          { num: "01", label: "Application Process" },
+          { num: "02", label: "Community Events" },
+          { num: "03", label: "Expert Mentors" },
         ].map((step) => (
           <div key={step.num} className="text-center">
             <p className="text-[#00997a] text-xs font-mono mb-0.5"># {step.num}</p>
