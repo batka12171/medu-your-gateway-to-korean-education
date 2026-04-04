@@ -47,15 +47,6 @@ export default function HeroSection() {
         background: "radial-gradient(ellipse at center, #fff0e6 0%, #ffebd9 40%, #ffebd9 100%)",
       }}
     >
-      {/* Background Logo */}
-      <div className="absolute inset-0 z-0 flex items-center justify-center opacity-10 pointer-events-none">
-        <img 
-          src="https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/b149ec9c7_Gemini_Generated_Image_hzrnukhzrnukhzrn-removebg-preview.png" 
-          alt="Background Pattern" 
-          className="w-full h-full max-w-[1200px] object-contain scale-150 md:scale-100"
-        />
-      </div>
-
       {/* Header */}
       <div className="text-center z-10 px-4 mb-12">
         <motion.div
