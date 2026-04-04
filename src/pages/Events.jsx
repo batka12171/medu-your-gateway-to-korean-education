@@ -74,10 +74,10 @@ export default function Events() {
             >
               <div className="p-6 flex-1 flex flex-col">
                 <div className="flex justify-between items-start mb-4">
-                  <Badge variant="secondary" className="bg-[#00C9A7]/10 text-[#00C9A7] uppercase text-xs">
+                  <Badge variant="secondary" className="bg-[#ff7300]/10 text-[#ff7300] uppercase text-xs">
                     {event.event_type.replace('_', ' ')}
                   </Badge>
-                  <div className="flex flex-col items-end text-[#00C9A7]">
+                  <div className="flex flex-col items-end text-[#ff7300]">
                     <span className="text-2xl font-bold leading-none">{new Date(event.date).getDate()}</span>
                     <span className="text-xs uppercase font-medium">{new Date(event.date).toLocaleString('default', { month: 'short' })}</span>
                   </div>
@@ -108,7 +108,7 @@ export default function Events() {
                   )}
                 </div>
 
-                <Button className="w-full bg-[#00C9A7] hover:bg-[#005F56] text-white">
+                <Button className="w-full bg-[#ff7300] hover:bg-[#cc5c00] text-white">
                   RSVP Now
                 </Button>
               </div>

@@ -5,10 +5,10 @@
 @layer base {
   :root {
     /* MEDU Brand Palette — extracted from logo */
-    --brand-teal:       171 100% 39%;   /* #00C9A7 */
-    --brand-teal-light: 171 100% 55%;   /* #38d9c0 */
-    --brand-dark:       174 100% 19%;   /* #005F56 */
-    --brand-mid:        171 100% 30%;   /* #00997a */
+    --brand-teal:       27 100% 50%;   /* #ff7300 */
+    --brand-teal-light: 27 100% 60%;   /* #ff9933 */
+    --brand-dark:       27 100% 40%;   /* #cc5c00 */
+    --brand-mid:        27 100% 45%;   /* #e66800 */
 
     --background: 0 0% 100%;
     --foreground: 215 25% 15%;
@@ -17,26 +17,26 @@
     --popover: 0 0% 100%;
     --popover-foreground: 215 25% 15%;
     /* Primary → brand teal */
-    --primary: 171 100% 39%;
+    --primary: 27 100% 50%;
     --primary-foreground: 0 0% 100%;
     /* Secondary → very light teal tint */
-    --secondary: 171 40% 95%;
-    --secondary-foreground: 174 100% 19%;
+    --secondary: 27 40% 95%;
+    --secondary-foreground: 27 100% 40%;
     --muted: 210 20% 96%;
     --muted-foreground: 215 15% 50%;
     /* Accent → teal mid */
-    --accent: 171 40% 92%;
-    --accent-foreground: 174 100% 19%;
+    --accent: 27 40% 92%;
+    --accent-foreground: 27 100% 40%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 210 20% 90%;
     --input: 210 20% 90%;
-    --ring: 171 100% 39%;
-    --chart-1: 171 100% 39%;
-    --chart-2: 174 100% 19%;
-    --chart-3: 171 100% 55%;
-    --chart-4: 171 60% 65%;
-    --chart-5: 174 80% 30%;
+    --ring: 27 100% 50%;
+    --chart-1: 27 100% 50%;
+    --chart-2: 27 100% 40%;
+    --chart-3: 27 100% 60%;
+    --chart-4: 27 60% 65%;
+    --chart-5: 27 80% 30%;
     --radius: 0.5rem;
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -99,24 +99,24 @@
 @layer utilities {
   /* MEDU gradient — use as: className="btn-brand" */
   .btn-brand {
-    @apply bg-gradient-to-r from-[#005F56] to-[#00C9A7] text-white font-semibold
-           hover:from-[#004d47] hover:to-[#00a88c] transition-all shadow-md
-           shadow-[#00C9A7]/20;
+    @apply bg-gradient-to-r from-[#cc5c00] to-[#ff7300] text-white font-semibold
+           hover:from-[#b35000] hover:to-[#ff851a] transition-all shadow-md
+           shadow-[#ff7300]/20;
   }
 
   .text-brand {
-    @apply text-[#00C9A7];
+    @apply text-[#ff7300];
   }
 
   .bg-brand-subtle {
-    @apply bg-[#00C9A7]/8;
+    @apply bg-[#ff7300]/8;
   }
 
   .border-brand {
-    @apply border-[#00C9A7];
+    @apply border-[#ff7300];
   }
 
   .ring-brand {
-    @apply ring-[#00C9A7];
+    @apply ring-[#ff7300];
   }
 }

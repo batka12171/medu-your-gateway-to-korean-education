@@ -15,7 +15,7 @@ const STAGES = [
     id: "research",
     title: "Research & Shortlist",
     subtitle: "Foundation Phase",
-    color: "#00C9A7",
+    color: "#ff7300",
     icon: "🔍",
     deadline: "3–6 months before",
     items: [
@@ -157,7 +157,7 @@ export default function AdmissionRoadmap() {
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-10"
         >
-          <span className="inline-block bg-[#00C9A7]/10 border border-[#00C9A7]/20 text-[#00C9A7] text-xs font-semibold px-3 py-1 rounded-full mb-4 tracking-wider uppercase">
+          <span className="inline-block bg-[#ff7300]/10 border border-[#ff7300]/20 text-[#ff7300] text-xs font-semibold px-3 py-1 rounded-full mb-4 tracking-wider uppercase">
             Admission Roadmap
           </span>
           <h1 className="text-4xl font-extrabold text-white mb-3">Your Path to Korea</h1>
@@ -179,19 +179,19 @@ export default function AdmissionRoadmap() {
               <p className="text-white/40 text-xs">{totalDone} of {totalItems} tasks completed</p>
             </div>
             <div className="text-right">
-              <span className="text-3xl font-extrabold text-[#00C9A7]">{overallPct}%</span>
+              <span className="text-3xl font-extrabold text-[#ff7300]">{overallPct}%</span>
             </div>
           </div>
           <div className="h-2.5 bg-white/10 rounded-full overflow-hidden">
             <motion.div
-              className="h-full rounded-full bg-gradient-to-r from-[#005F56] to-[#00C9A7]"
+              className="h-full rounded-full bg-gradient-to-r from-[#cc5c00] to-[#ff7300]"
               initial={{ width: 0 }}
               animate={{ width: `${overallPct}%` }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             />
           </div>
           {overallPct === 100 && (
-            <div className="mt-4 flex items-center gap-2 text-[#00C9A7] text-sm font-semibold">
+            <div className="mt-4 flex items-center gap-2 text-[#ff7300] text-sm font-semibold">
               <Trophy className="w-4 h-4" /> Congratulations! You've completed all steps!
             </div>
           )}

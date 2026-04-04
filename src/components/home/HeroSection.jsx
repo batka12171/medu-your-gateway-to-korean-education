@@ -22,12 +22,12 @@ export default function HeroSection() {
           transition={{ duration: 0.7, delay: 0.2 }}
           className="flex-1 max-w-sm"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/70 backdrop-blur-sm border border-[#00C9A7]/20 text-slate-500 text-xs mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/70 backdrop-blur-sm border border-[#ff7300]/20 text-slate-500 text-xs mb-6">
             Available now
           </div>
           <h1 className="text-4xl md:text-5xl font-semibold text-slate-900 leading-tight mb-4">
             For students<br />
-            <span className="text-[#00997a]">Build your future</span>
+            <span className="text-[#e66800]">Build your future</span>
           </h1>
           <p className="text-slate-500 text-sm leading-relaxed mb-8">
             Expert mentors, real guidance, and a community to support you every step of the way to Korean universities.
@@ -56,12 +56,12 @@ export default function HeroSection() {
           transition={{ duration: 0.7, delay: 0.3 }}
           className="flex-1 max-w-sm text-right"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/70 backdrop-blur-sm border border-[#00C9A7]/20 text-slate-500 text-xs mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/70 backdrop-blur-sm border border-[#ff7300]/20 text-slate-500 text-xs mb-6">
             MEDU Platform
           </div>
           <h1 className="text-4xl md:text-5xl font-semibold text-slate-900 leading-tight mb-4">
             Smarter<br />
-            <span className="text-[#00997a]">education guide</span>
+            <span className="text-[#e66800]">education guide</span>
           </h1>
           <p className="text-slate-500 text-sm leading-relaxed mb-8">
             Discover top Korean universities, connect with mentors, and navigate the entire admissions process with confidence.
@@ -88,7 +88,7 @@ export default function HeroSection() {
           { num: "03", label: "Expert Mentors" },
         ].map((step) => (
           <div key={step.num} className="text-center">
-            <p className="text-[#00997a] text-xs font-mono mb-0.5"># {step.num}</p>
+            <p className="text-[#e66800] text-xs font-mono mb-0.5"># {step.num}</p>
             <p className="text-slate-500 text-xs">{step.label}</p>
           </div>
         ))}

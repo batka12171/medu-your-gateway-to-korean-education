@@ -47,21 +47,21 @@ export default function EventsPreview() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <div className="inline-flex items-center gap-2 text-[#00C9A7] font-medium mb-4">
+            <div className="inline-flex items-center gap-2 text-[#ff7300] font-medium mb-4">
               <Calendar className="w-5 h-5" />
               Upcoming Events
             </div>
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
               Join our exclusive
               <br />
-              <span className="text-[#00C9A7]">community events</span>
+              <span className="text-[#ff7300]">community events</span>
             </h2>
             <p className="text-lg text-slate-600 mb-8">
               From university info sessions to casual meetups, discover events designed to help you navigate your journey to Korea.
             </p>
 
             <Link to={createPageUrl("Events")}>
-              <Button size="lg" className="bg-[#00C9A7] hover:bg-[#005F56] text-white">
+              <Button size="lg" className="bg-[#ff7300] hover:bg-[#cc5c00] text-white">
                 View All Events <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
@@ -80,7 +80,7 @@ export default function EventsPreview() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-xl border border-slate-100 p-5 hover:shadow-lg hover:border-[#00C9A7]/30 transition-all duration-300"
+                className="bg-white rounded-xl border border-slate-100 p-5 hover:shadow-lg hover:border-[#ff7300]/30 transition-all duration-300"
               >
                 <div className="flex items-start gap-4">
                   <div className="flex-1 min-w-0">

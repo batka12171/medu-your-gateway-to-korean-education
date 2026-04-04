@@ -145,7 +145,7 @@ export default function FindMatch() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <div className="inline-flex items-center gap-2 text-[#00C9A7] font-medium mb-4">
+            <div className="inline-flex items-center gap-2 text-[#ff7300] font-medium mb-4">
               <Sparkles className="w-5 h-5" />
               Random Matching
             </div>
@@ -160,7 +160,7 @@ export default function FindMatch() {
 
         {!activeMatch && !isMatching && (
           <div className="bg-white rounded-2xl border border-slate-100 p-12 text-center">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#00C9A7] to-[#005F56] flex items-center justify-center mx-auto mb-6">
+            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#ff7300] to-[#cc5c00] flex items-center justify-center mx-auto mb-6">
               <Sparkles className="w-10 h-10 text-white" />
             </div>
             <h3 className="text-2xl font-bold text-black mb-3">Ready to Meet Someone New?</h3>
@@ -170,7 +170,7 @@ export default function FindMatch() {
             <Button 
               onClick={handleFindMatch}
               size="lg"
-              className="bg-[#00C9A7] hover:bg-[#e06e46] text-white"
+              className="bg-[#ff7300] hover:bg-[#e06e46] text-white"
             >
               <Sparkles className="w-5 h-5 mr-2" />
               Find a Match
@@ -182,7 +182,7 @@ export default function FindMatch() {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-gradient-to-br from-[#00C9A7] to-[#005F56] rounded-2xl border border-slate-100 p-12 text-center relative overflow-hidden"
+            className="bg-gradient-to-br from-[#ff7300] to-[#cc5c00] rounded-2xl border border-slate-100 p-12 text-center relative overflow-hidden"
           >
             <div className="absolute inset-0 overflow-hidden">
               {[...Array(20)].map((_, i) => (
@@ -248,7 +248,7 @@ export default function FindMatch() {
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-gradient-to-r from-[#00C9A7] to-[#D4A574] rounded-2xl p-6 text-center relative overflow-hidden"
+              className="bg-gradient-to-r from-[#ff7300] to-[#D4A574] rounded-2xl p-6 text-center relative overflow-hidden"
             >
               <div className="absolute inset-0">
                 {[...Array(30)].map((_, i) => (
@@ -297,7 +297,7 @@ export default function FindMatch() {
                 className="bg-white rounded-2xl border border-slate-100 p-6"
               >
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#00C9A7] to-[#005F56] flex items-center justify-center text-white text-2xl font-bold">
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#ff7300] to-[#cc5c00] flex items-center justify-center text-white text-2xl font-bold">
                     {matchedUserProfile.full_name?.[0] || matchedUserProfile.email?.[0]?.toUpperCase()}
                   </div>
                   <div className="flex-1">
@@ -308,7 +308,7 @@ export default function FindMatch() {
                       <p className="text-slate-600 text-sm">{matchedUserProfile.university}</p>
                     )}
                     {matchedUserProfile.student_status && (
-                      <Badge className="mt-1 bg-[#00C9A7]/10 text-[#00C9A7]">
+                      <Badge className="mt-1 bg-[#ff7300]/10 text-[#ff7300]">
                         {matchedUserProfile.student_status.replace('_', ' ')}
                       </Badge>
                     )}
@@ -323,7 +323,7 @@ export default function FindMatch() {
             {/* Chat Box */}
             <div className="bg-white rounded-2xl border border-slate-100 overflow-hidden">
               {/* Chat Header */}
-              <div className="bg-gradient-to-r from-[#00C9A7] to-[#005F56] p-4 flex items-center justify-between">
+              <div className="bg-gradient-to-r from-[#ff7300] to-[#cc5c00] p-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
                     <MessageSquare className="w-6 h-6 text-white" />
@@ -363,7 +363,7 @@ export default function FindMatch() {
                   >
                     <div className={`max-w-xs rounded-2xl px-4 py-2 ${
                       msg.sender_email === user.email 
-                        ? 'bg-[#00C9A7] text-white' 
+                        ? 'bg-[#ff7300] text-white' 
                         : 'bg-white border border-slate-200 text-slate-900'
                     }`}>
                       <p className="text-sm">{msg.message}</p>
@@ -390,7 +390,7 @@ export default function FindMatch() {
                 <Button 
                   type="submit"
                   disabled={!currentMessage.trim()}
-                  className="bg-[#00C9A7] hover:bg-[#005F56]"
+                  className="bg-[#ff7300] hover:bg-[#cc5c00]"
                 >
                   <Send className="w-4 h-4" />
                 </Button>
@@ -407,7 +407,7 @@ export default function FindMatch() {
                     endMatchMutation.mutate();
                   }
                 }}
-                className="border-[#00C9A7] text-[#00C9A7] hover:bg-[#00C9A7]/5"
+                className="border-[#ff7300] text-[#ff7300] hover:bg-[#ff7300]/5"
               >
                 <Sparkles className="w-4 h-4 mr-2" />
                 Start Over & Find New Match

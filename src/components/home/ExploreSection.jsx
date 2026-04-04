@@ -32,7 +32,7 @@ export default function ExploreSection() {
             transition={{ duration: 0.6 }}
             className="flex-1"
           >
-            <p className="text-[#00C9A7] text-sm font-medium mb-4 tracking-wide">Your Study Abroad Path</p>
+            <p className="text-[#ff7300] text-sm font-medium mb-4 tracking-wide">Your Study Abroad Path</p>
             <h2 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
               Shaping<br />
               Experiences That<br />
@@ -55,7 +55,7 @@ export default function ExploreSection() {
               <p className="text-white/40 text-xs mb-1">Let's Build Your Future</p>
               <p className="text-white/40 text-xs mb-5">Meaningful Together</p>
               <Link to="/ApplicationGuide">
-                <button className="flex items-center gap-2 bg-[#00C9A7] hover:bg-[#00a88c] text-[#020d0c] font-bold px-6 py-3 rounded-full transition-all text-sm">
+                <button className="flex items-center gap-2 bg-[#ff7300] hover:bg-[#ff851a] text-[#020d0c] font-bold px-6 py-3 rounded-full transition-all text-sm">
                   View Application Process
                   <ArrowRight className="w-4 h-4" />
                 </button>
@@ -84,7 +84,7 @@ export default function ExploreSection() {
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
               />
               {/* Teal tint overlay on hover */}
-              <div className="absolute inset-0 bg-[#00C9A7]/0 hover:bg-[#00C9A7]/10 transition-all duration-500" />
+              <div className="absolute inset-0 bg-[#ff7300]/0 hover:bg-[#ff7300]/10 transition-all duration-500" />
             </div>
           ))}
         </motion.div>

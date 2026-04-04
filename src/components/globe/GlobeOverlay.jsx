@@ -32,7 +32,7 @@ export default function GlobeOverlay() {
           className="flex items-center gap-3"
         >
           <span className="text-2xl font-extrabold tracking-widest text-white">MEDU</span>
-          <span className="text-[#00C9A7] text-xs tracking-wider font-medium">한국 유학 가이드</span>
+          <span className="text-[#ff7300] text-xs tracking-wider font-medium">한국 유학 가이드</span>
         </motion.div>
       </div>
 
@@ -45,7 +45,7 @@ export default function GlobeOverlay() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="text-[#00C9A7] text-sm font-medium tracking-widest uppercase mb-4"
+          className="text-[#ff7300] text-sm font-medium tracking-widest uppercase mb-4"
         >
           Your Journey Begins
         </motion.p>
@@ -56,7 +56,7 @@ export default function GlobeOverlay() {
           className="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6"
         >
           Study in<br />
-          <span style={{ color: "#00C9A7" }}>South Korea</span>
+          <span style={{ color: "#ff7300" }}>South Korea</span>
         </motion.h1>
         <motion.p
           initial={{ opacity: 0 }}
@@ -79,7 +79,7 @@ export default function GlobeOverlay() {
             animate={{ y: [0, 8, 0] }}
             transition={{ repeat: Infinity, duration: 1.5 }}
           >
-            <ArrowDown className="w-5 h-5 text-[#00C9A7]" />
+            <ArrowDown className="w-5 h-5 text-[#ff7300]" />
           </motion.div>
         </motion.div>
       </div>
@@ -89,7 +89,7 @@ export default function GlobeOverlay() {
         className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"
         style={{ opacity: arrivalOpacity, transition: "opacity 0.1s" }}
       >
-        <p className="text-[#00C9A7] text-sm font-medium tracking-widest uppercase mb-3">
+        <p className="text-[#ff7300] text-sm font-medium tracking-widest uppercase mb-3">
           You've arrived
         </p>
         <h2 className="text-5xl md:text-6xl font-extrabold text-white mb-4">
@@ -100,7 +100,7 @@ export default function GlobeOverlay() {
         {/* CTA button — pointer-events re-enabled */}
         <div style={{ pointerEvents: arrivalOpacity > 0.5 ? "auto" : "none" }}>
           <Link to="/Home">
-            <button className="flex items-center gap-3 bg-[#00C9A7] hover:bg-[#00a88c] text-[#020d0c] font-bold px-8 py-4 rounded-full transition-all text-base shadow-lg shadow-[#00C9A7]/30">
+            <button className="flex items-center gap-3 bg-[#ff7300] hover:bg-[#ff851a] text-[#020d0c] font-bold px-8 py-4 rounded-full transition-all text-base shadow-lg shadow-[#ff7300]/30">
               Explore the Platform
               <ArrowRight className="w-5 h-5" />
             </button>
@@ -111,7 +111,7 @@ export default function GlobeOverlay() {
       {/* Bottom progress bar */}
       <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-white/10">
         <div
-          className="h-full bg-[#00C9A7] transition-all duration-100"
+          className="h-full bg-[#ff7300] transition-all duration-100"
           style={{ width: `${scrollProgress * 100}%` }}
         />
       </div>
