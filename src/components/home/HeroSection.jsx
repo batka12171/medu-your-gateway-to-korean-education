@@ -48,7 +48,14 @@ export default function HeroSection() {
       }}
     >
       {/* Header */}
-      <div className="text-center z-10 px-4 mb-12">
+      <div className="text-center z-10 px-4 mb-12 relative w-full max-w-4xl mx-auto">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-xl -z-10 pointer-events-none opacity-20">
+          <img 
+            src="https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/b149ec9c7_Gemini_Generated_Image_hzrnukhzrnukhzrn-removebg-preview.png" 
+            alt="Background Logo" 
+            className="w-full h-auto object-contain"
+          />
+        </div>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
