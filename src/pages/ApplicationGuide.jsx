@@ -90,6 +90,7 @@ export default function ApplicationGuide() {
   const [user, setUser] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeView, setActiveView] = useState("dashboard"); // "dashboard" or "universities"
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [selectedUni, setSelectedUni] = useState("overview");
   const [activeAppSection, setActiveAppSection] = useState("profile");
   
@@ -194,10 +195,23 @@ export default function ApplicationGuide() {
         <div className="flex flex-col lg:flex-row gap-6 items-stretch h-full">
           
           {/* Left Sidebar Layout */}
-          {activeView === "dashboard" ? (
-            <div className="w-full lg:w-64 flex-shrink-0 flex flex-col h-full">
-              <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-y-auto flex-1">
-                <Link to={createPageUrl("Home")} className="p-4 flex items-center gap-3 hover:opacity-80 transition-opacity">
+          <motion.div 
+            layout
+            initial={false}
+            className={`hidden lg:flex flex-shrink-0 flex-col h-full transition-all duration-300 ease-in-out ${activeView === "dashboard" ? "w-64" : "w-[340px]"}`}
+          >
+            <AnimatePresence mode="wait">
+              {activeView === "dashboard" ? (
+                <motion.div
+                  key="dashboard-sidebar"
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -10 }}
+                  transition={{ duration: 0.2 }}
+                  className="w-full h-full flex flex-col"
+                >
+                  <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-y-auto flex-1">
+                    <Link to={createPageUrl("Home")} className="p-4 flex items-center gap-3 hover:opacity-80 transition-opacity">
                   <MeduLogo size={32} dark={true} className="drop-shadow-sm" />
                   <div className="flex flex-col">
                     <span className="text-lg font-extrabold tracking-widest leading-none text-slate-800">MEDU</span>
@@ -250,18 +264,25 @@ export default function ApplicationGuide() {
                   </Link>
                 )}
               </div>
-            </div>
+            </motion.div>
           ) : (
-            <div className="w-full lg:w-[340px] flex-shrink-0 flex bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden h-full">
+            <motion.div
+              key="secondary-sidebar"
+              initial={{ opacity: 0, x: 10, width: 340 }}
+              animate={{ opacity: 1, x: 0, width: isSidebarOpen ? 340 : 64 }}
+              exit={{ opacity: 0, x: 10, width: 340 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="hidden lg:flex flex-shrink-0 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden h-full"
+            >
               {/* Narrow Sidebar */}
               <div className="w-16 flex-shrink-0 bg-white border-r border-slate-200 flex flex-col items-center py-4 h-full">
                 <Link to={createPageUrl("Home")} className="mb-2 hover:opacity-80 transition-opacity">
                   <MeduLogo size={28} dark={true} className="drop-shadow-sm" />
                 </Link>
                 <div className="flex flex-col items-center space-y-1.5 flex-1 mt-4 w-full px-2">
-                  <NavItem active={activeView === "dashboard"} onClick={() => setActiveView("dashboard")} icon={Home} label="Dashboard" narrow={true} />
-                  <NavItem active={activeView === "application"} onClick={() => setActiveView("application")} icon={FileText} label="My Application" narrow={true} />
-                  <NavItem active={activeView === "universities"} onClick={() => setActiveView("universities")} icon={GraduationCap} label="My Universities" narrow={true} />
+                  <NavItem active={activeView === "dashboard"} onClick={() => { setActiveView("dashboard"); setIsSidebarOpen(true); }} icon={Home} label="Dashboard" narrow={true} />
+                  <NavItem active={activeView === "application"} onClick={() => { if (activeView === "application") setIsSidebarOpen(!isSidebarOpen); else { setActiveView("application"); setIsSidebarOpen(true); } }} icon={FileText} label="My Application" narrow={true} />
+                  <NavItem active={activeView === "universities"} onClick={() => { if (activeView === "universities") setIsSidebarOpen(!isSidebarOpen); else { setActiveView("universities"); setIsSidebarOpen(true); } }} icon={GraduationCap} label="My Universities" narrow={true} />
                   <NavLinkItem to={createPageUrl("Universities")} icon={Search} label="University search" narrow={true} />
                 </div>
 
@@ -288,7 +309,7 @@ export default function ApplicationGuide() {
 
               {/* Secondary Sidebar */}
               {activeView === "universities" ? (
-                <div className="flex-1 bg-white overflow-y-auto h-full">
+                <div className="w-[276px] flex-shrink-0 bg-white overflow-y-auto h-full">
                 <div className="p-4 border-b border-slate-100">
                   <h2 className="font-bold text-lg text-slate-800">My Universities</h2>
                 </div>
@@ -354,7 +375,7 @@ export default function ApplicationGuide() {
                 </div>
               </div>
               ) : (
-              <div className="flex-1 bg-white overflow-y-auto h-full">
+              <div className="w-[276px] flex-shrink-0 bg-white overflow-y-auto h-full">
                 <div className="p-4 border-b border-slate-100">
                   <h2 className="font-bold text-lg text-slate-800">My Application</h2>
                 </div>
@@ -430,8 +451,28 @@ export default function ApplicationGuide() {
                 </Accordion>
               </div>
               )}
-            </div>
+            </motion.div>
           )}
+            </AnimatePresence>
+          </motion.div>
+
+          {/* Mobile Sidebar Layout */}
+          <div className="flex lg:hidden w-full mb-4 flex-shrink-0">
+             {/* We can just put a simple mobile switcher here or rely on the same structure */}
+             {activeView === "dashboard" ? (
+               <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-y-auto w-full p-4 flex gap-2">
+                 <NavItem active={activeView === "dashboard"} onClick={() => setActiveView("dashboard")} icon={Home} label="Dashboard" narrow={true} />
+                 <NavItem active={activeView === "application"} onClick={() => setActiveView("application")} icon={FileText} label="App" narrow={true} />
+                 <NavItem active={activeView === "universities"} onClick={() => setActiveView("universities")} icon={GraduationCap} label="Uni" narrow={true} />
+               </div>
+             ) : (
+               <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-y-auto w-full p-4 flex gap-2">
+                 <NavItem active={activeView === "dashboard"} onClick={() => setActiveView("dashboard")} icon={Home} label="Dashboard" narrow={true} />
+                 <NavItem active={activeView === "application"} onClick={() => setActiveView("application")} icon={FileText} label="App" narrow={true} />
+                 <NavItem active={activeView === "universities"} onClick={() => setActiveView("universities")} icon={GraduationCap} label="Uni" narrow={true} />
+               </div>
+             )}
+          </div>
 
           {/* Main Content */}
           <div className="flex-1 min-w-0 flex flex-col bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden h-full relative">
