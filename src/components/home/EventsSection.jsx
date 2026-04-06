@@ -15,7 +15,7 @@ export default function EventsSection() {
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
           <div className="max-w-2xl">
-            <div className="text-emerald-600 font-semibold tracking-wide uppercase text-sm mb-3">Community Events</div>
+            <div className="text-orange-600 font-semibold tracking-wide uppercase text-sm mb-3">Community Events</div>
             <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4">
               Experience Korea before you even graduate.
             </h2>
@@ -24,7 +24,7 @@ export default function EventsSection() {
             </p>
           </div>
           <Link to={createPageUrl("Events")} className="shrink-0">
-            <button className="px-6 py-3 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 rounded-full font-medium transition-all flex items-center gap-2 border border-emerald-200">
+            <button className="px-6 py-3 bg-orange-50 hover:bg-orange-100 text-orange-700 rounded-full font-medium transition-all flex items-center gap-2 border border-orange-200">
               View All Events <ArrowRight className="w-4 h-4" />
             </button>
           </Link>
@@ -43,10 +43,10 @@ export default function EventsSection() {
                 <h3 className="text-xl font-bold text-slate-900 mb-4 flex-1">{ev.title}</h3>
                 <div className="space-y-2 mb-6">
                   <div className="flex items-center gap-2 text-slate-600 text-sm">
-                    <CalendarIcon className="w-4 h-4 text-emerald-500" /> {ev.date}
+                    <CalendarIcon className="w-4 h-4 text-orange-500" /> {ev.date}
                   </div>
                   <div className="flex items-center gap-2 text-slate-600 text-sm">
-                    <MapPin className="w-4 h-4 text-emerald-500" /> {ev.loc}, Seoul
+                    <MapPin className="w-4 h-4 text-orange-500" /> {ev.loc}, Seoul
                   </div>
                 </div>
                 <button className="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-medium transition-all flex items-center justify-center gap-2 mt-auto">

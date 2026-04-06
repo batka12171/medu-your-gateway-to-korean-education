@@ -16,12 +16,12 @@ export default function HomeHero() {
             transition={{ duration: 0.6 }}
             className="max-w-2xl"
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm font-medium mb-8">
-              <span className="flex w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-50 border border-orange-200 text-orange-700 text-sm font-medium mb-8">
+              <span className="flex w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
               The All-in-One Platform for Mongolia to Korea
             </div>
             <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight leading-tight mb-8 text-left">
-              Study, Connect, and Grow in <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-400">South Korea</span>
+              Study, Connect, and Grow in <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-amber-400">South Korea</span>
             </h1>
             <p className="text-xl text-slate-600 mb-12 max-w-2xl leading-relaxed text-left">
               Navigate the Korean university application process, attend local events, and find expert mentors to guide your journey.
@@ -29,21 +29,21 @@ export default function HomeHero() {
             
             <div className="flex flex-col sm:flex-row items-center gap-4">
               <Link to={createPageUrl("Universities")}>
-                <button className="w-full sm:w-auto px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full font-semibold shadow-lg shadow-emerald-600/30 transition-all flex items-center justify-center gap-2 group">
+                <button className="w-full sm:w-auto px-8 py-4 bg-orange-600 hover:bg-orange-700 text-white rounded-full font-semibold shadow-lg shadow-orange-600/30 transition-all flex items-center justify-center gap-2 group">
                   <GraduationCap className="w-5 h-5" />
                   Start Application
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
               </Link>
               <Link to={createPageUrl("Events")}>
-                <button className="w-full sm:w-auto px-8 py-4 bg-white border border-slate-200 hover:border-emerald-200 hover:bg-emerald-50 text-slate-700 rounded-full font-semibold transition-all flex items-center justify-center gap-2">
-                  <Calendar className="w-5 h-5 text-emerald-600" />
+                <button className="w-full sm:w-auto px-8 py-4 bg-white border border-slate-200 hover:border-orange-200 hover:bg-orange-50 text-slate-700 rounded-full font-semibold transition-all flex items-center justify-center gap-2">
+                  <Calendar className="w-5 h-5 text-orange-600" />
                   Explore Events
                 </button>
               </Link>
               <Link to={createPageUrl("Mentors")}>
-                <button className="w-full sm:w-auto px-8 py-4 bg-white border border-slate-200 hover:border-emerald-200 hover:bg-emerald-50 text-slate-700 rounded-full font-semibold transition-all flex items-center justify-center gap-2">
-                  <Users className="w-5 h-5 text-emerald-600" />
+                <button className="w-full sm:w-auto px-8 py-4 bg-white border border-slate-200 hover:border-orange-200 hover:bg-orange-50 text-slate-700 rounded-full font-semibold transition-all flex items-center justify-center gap-2">
+                  <Users className="w-5 h-5 text-orange-600" />
                   Find a Mentor
                 </button>
               </Link>
