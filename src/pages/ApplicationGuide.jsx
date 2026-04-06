@@ -107,13 +107,13 @@ export default function ApplicationGuide() {
           {activeView === "dashboard" ? (
             <div className="w-full lg:w-64 flex-shrink-0 flex flex-col h-full">
               <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-y-auto flex-1">
-                <div className="p-4 flex items-center gap-3">
+                <Link to={createPageUrl("Home")} className="p-4 flex items-center gap-3 hover:opacity-80 transition-opacity">
                   <MeduLogo size={32} dark={true} className="drop-shadow-sm" />
                   <div className="flex flex-col">
                     <span className="text-lg font-extrabold tracking-widest leading-none text-slate-800">MEDU</span>
                     <span className="text-[9px] font-medium tracking-wider mt-0.5 text-[#ff7300]">한국 유학 가이드</span>
                   </div>
-                </div>
+                </Link>
                 <div className="px-2 pb-2">
                   <button 
                     onClick={() => setActiveView("dashboard")}
@@ -174,7 +174,7 @@ export default function ApplicationGuide() {
                 </div>
 
                 {user && (
-                  <div className="border-t border-slate-100 p-4 flex items-center gap-3">
+                  <Link to={createPageUrl("Profile")} className="border-t border-slate-100 p-4 flex items-center gap-3 hover:bg-slate-50 transition-colors">
                     <div className="w-10 h-10 rounded-full bg-[#ff7300] flex items-center justify-center text-white font-bold flex-shrink-0">
                       {user.full_name?.[0] || user.email?.[0]?.toUpperCase()}
                     </div>
@@ -182,7 +182,7 @@ export default function ApplicationGuide() {
                       <p className="text-sm font-bold text-slate-900 truncate">{user.full_name}</p>
                       <p className="text-xs text-slate-500 truncate">{user.email}</p>
                     </div>
-                  </div>
+                  </Link>
                 )}
               </div>
             </div>
@@ -190,9 +190,9 @@ export default function ApplicationGuide() {
             <div className="w-full lg:w-[340px] flex-shrink-0 flex bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden h-full">
               {/* Narrow Sidebar */}
               <div className="w-16 flex-shrink-0 bg-white border-r border-slate-200 flex flex-col items-center py-4 h-full">
-                <div className="mb-2">
+                <Link to={createPageUrl("Home")} className="mb-2 hover:opacity-80 transition-opacity">
                   <MeduLogo size={28} dark={true} className="drop-shadow-sm" />
-                </div>
+                </Link>
                 <div className="flex flex-col items-center space-y-4 flex-1 mt-4 w-full">
                   <button onClick={() => setActiveView("dashboard")} className={`p-3 rounded-lg transition-colors ${activeView === "dashboard" ? "bg-slate-100 text-slate-900" : "hover:bg-slate-100 text-slate-500 hover:text-slate-900"}`} title="Dashboard">
                     <Home className="w-5 h-5" />
@@ -215,15 +215,17 @@ export default function ApplicationGuide() {
                   <button onClick={() => base44.auth.logout()} className="text-slate-500 hover:text-slate-900 transition-colors" title="Sign out">
                     <LogOut className="w-5 h-5" />
                   </button>
-                  {user ? (
-                    <div className="w-8 h-8 rounded-full bg-[#0077b6] flex items-center justify-center text-white font-bold text-xs" title={user.full_name}>
-                      {user.full_name?.[0] || user.email?.[0]?.toUpperCase()}
-                    </div>
-                  ) : (
-                    <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-500 font-bold text-xs">
-                      ?
-                    </div>
-                  )}
+                  <Link to={createPageUrl("Profile")} className="hover:opacity-80 transition-opacity">
+                    {user ? (
+                      <div className="w-8 h-8 rounded-full bg-[#ff7300] flex items-center justify-center text-white font-bold text-xs" title={user.full_name}>
+                        {user.full_name?.[0] || user.email?.[0]?.toUpperCase()}
+                      </div>
+                    ) : (
+                      <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-500 font-bold text-xs">
+                        ?
+                      </div>
+                    )}
+                  </Link>
                 </div>
               </div>
 
@@ -261,16 +263,16 @@ export default function ApplicationGuide() {
                               <CheckCircle className="w-4 h-4 text-green-600" /> General
                             </div>
                             <div className="flex items-center gap-3 text-sm text-slate-600">
-                              <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#4A90C5]/40 flex-shrink-0" /> Academics
+                              <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" /> Academics
                             </div>
                             <div className="flex items-center gap-3 text-sm text-slate-600">
-                              <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#4A90C5]/40 flex-shrink-0" /> Writing
+                              <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" /> Writing
                             </div>
                             <div className="flex items-center gap-3 text-sm text-slate-600">
-                              <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#4A90C5]/40 flex-shrink-0" /> Recommenders and FERPA
+                              <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" /> Recommenders and FERPA
                             </div>
                             <div className="flex items-center gap-3 text-sm text-slate-600">
-                              <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#4A90C5]/40 flex-shrink-0" /> Review and submit application
+                              <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" /> Review and submit application
                             </div>
                           </div>
                         </div>
@@ -412,10 +414,10 @@ export default function ApplicationGuide() {
                         <div className="flex flex-wrap sm:flex-nowrap justify-between gap-4">
                           {steps.map((step) => (
                             <div key={step.id} className="flex flex-col items-center gap-2 flex-1 min-w-[60px]">
-                              <div className="w-8 h-8 rounded-full border-2 border-dashed border-[#4A90C5]/40 flex items-center justify-center text-[#4A90C5]">
+                              <div className="w-8 h-8 rounded-full border-2 border-dashed border-[#ff9933]/40 flex items-center justify-center text-[#ff9933]">
                                 <div className="w-2 h-2 rounded-full bg-transparent" />
                               </div>
-                              <span className="text-xs font-medium text-[#4A90C5] hover:underline cursor-pointer">
+                              <span className="text-xs font-medium text-[#ff9933] hover:underline cursor-pointer">
                                 {step.label}
                               </span>
                             </div>
@@ -439,10 +441,10 @@ export default function ApplicationGuide() {
                           </div>
                         </div>
                         <div className="flex items-center gap-2 text-sm text-slate-500 mb-4">
-                          <div className="w-3 h-3 rounded-full border-2 border-dashed border-[#4A90C5]/40" />
+                          <div className="w-3 h-3 rounded-full border-2 border-dashed border-[#ff9933]/40" />
                           {savedUniversities.length} in progress
                         </div>
-                        <button onClick={() => setActiveView("universities")} className="text-sm font-medium text-[#0077b6] hover:underline flex items-center gap-1">
+                        <button onClick={() => setActiveView("universities")} className="text-sm font-medium text-[#ff7300] hover:underline flex items-center gap-1">
                           <ChevronDown className="w-4 h-4" />
                           Show universities
                         </button>
@@ -486,8 +488,8 @@ export default function ApplicationGuide() {
                       {activeAppSection === "activities" && "Activities"}
                       {activeAppSection === "writing" && "Personal Essay"}
                     </h1>
-                    <div className="flex items-center gap-2 text-sm text-[#0077b6]">
-                      <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#0077b6]/40 flex-shrink-0" />
+                    <div className="flex items-center gap-2 text-sm text-[#ff7300]">
+                      <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff7300]/40 flex-shrink-0" />
                       In progress
                     </div>
                   </div>
@@ -512,11 +514,11 @@ export default function ApplicationGuide() {
                         </label>
                         <div className="space-y-3 mb-5">
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="diffName" className="w-4 h-4 border-slate-300 text-[#0077b6]" />
+                            <input type="radio" name="diffName" className="w-4 h-4 border-slate-300 text-[#ff7300]" />
                             Yes
                           </label>
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="diffName" defaultChecked className="w-4 h-4 border-slate-300 text-[#0077b6]" />
+                            <input type="radio" name="diffName" defaultChecked className="w-4 h-4 border-slate-300 text-[#ff7300]" />
                             No
                           </label>
                         </div>
@@ -583,11 +585,11 @@ export default function ApplicationGuide() {
                         </label>
                         <div className="space-y-3 mb-5">
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="hasChildren" className="w-4 h-4 border-slate-300 text-[#0077b6]" />
+                            <input type="radio" name="hasChildren" className="w-4 h-4 border-slate-300 text-[#ff7300]" />
                             Yes
                           </label>
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="hasChildren" defaultChecked className="w-4 h-4 border-slate-300 text-[#0077b6]" />
+                            <input type="radio" name="hasChildren" defaultChecked className="w-4 h-4 border-slate-300 text-[#ff7300]" />
                             No
                           </label>
                         </div>
@@ -616,11 +618,11 @@ export default function ApplicationGuide() {
                         </label>
                         <div className="space-y-3 mb-5">
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="isBoarding" className="w-4 h-4 border-slate-300 text-[#0077b6]" />
+                            <input type="radio" name="isBoarding" className="w-4 h-4 border-slate-300 text-[#ff7300]" />
                             Yes
                           </label>
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="isBoarding" defaultChecked className="w-4 h-4 border-slate-300 text-[#0077b6]" />
+                            <input type="radio" name="isBoarding" defaultChecked className="w-4 h-4 border-slate-300 text-[#ff7300]" />
                             No
                           </label>
                         </div>
@@ -631,11 +633,11 @@ export default function ApplicationGuide() {
                         </label>
                         <div className="space-y-3 mb-5">
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="willGraduate" defaultChecked className="w-4 h-4 border-slate-300 text-[#0077b6]" />
+                            <input type="radio" name="willGraduate" defaultChecked className="w-4 h-4 border-slate-300 text-[#ff7300]" />
                             Yes
                           </label>
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="willGraduate" className="w-4 h-4 border-slate-300 text-[#0077b6]" />
+                            <input type="radio" name="willGraduate" className="w-4 h-4 border-slate-300 text-[#ff7300]" />
                             No
                           </label>
                         </div>
@@ -654,11 +656,11 @@ export default function ApplicationGuide() {
                         </label>
                         <div className="space-y-3 mb-5">
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="reportTests" className="w-4 h-4 border-slate-300 text-[#0077b6]" />
+                            <input type="radio" name="reportTests" className="w-4 h-4 border-slate-300 text-[#ff7300]" />
                             Yes
                           </label>
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="reportTests" defaultChecked className="w-4 h-4 border-slate-300 text-[#0077b6]" />
+                            <input type="radio" name="reportTests" defaultChecked className="w-4 h-4 border-slate-300 text-[#ff7300]" />
                             No
                           </label>
                         </div>
@@ -673,11 +675,11 @@ export default function ApplicationGuide() {
                         </p>
                         <div className="space-y-3 mb-5">
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="intlTests" className="w-4 h-4 border-slate-300 text-[#0077b6]" />
+                            <input type="radio" name="intlTests" className="w-4 h-4 border-slate-300 text-[#ff7300]" />
                             Yes
                           </label>
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="intlTests" defaultChecked className="w-4 h-4 border-slate-300 text-[#0077b6]" />
+                            <input type="radio" name="intlTests" defaultChecked className="w-4 h-4 border-slate-300 text-[#ff7300]" />
                             No
                           </label>
                         </div>
@@ -696,11 +698,11 @@ export default function ApplicationGuide() {
                         </label>
                         <div className="space-y-3 mb-5">
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="reportActivities" defaultChecked className="w-4 h-4 border-slate-300 text-[#0077b6]" />
+                            <input type="radio" name="reportActivities" defaultChecked className="w-4 h-4 border-slate-300 text-[#ff7300]" />
                             Yes
                           </label>
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="reportActivities" className="w-4 h-4 border-slate-300 text-[#0077b6]" />
+                            <input type="radio" name="reportActivities" className="w-4 h-4 border-slate-300 text-[#ff7300]" />
                             No
                           </label>
                         </div>
@@ -751,15 +753,15 @@ export default function ApplicationGuide() {
                         </label>
                         <div className="space-y-4 mb-8">
                           <label className="flex items-start gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="essayPrompt" className="mt-1 w-4 h-4 border-slate-300 text-[#0077b6] flex-shrink-0" />
+                            <input type="radio" name="essayPrompt" className="mt-1 w-4 h-4 border-slate-300 text-[#ff7300] flex-shrink-0" />
                             <span>Some students have a background, identity, interest, or talent that is so meaningful they believe their application would be incomplete without it. If this sounds like you, then please share your story.</span>
                           </label>
                           <label className="flex items-start gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="essayPrompt" className="mt-1 w-4 h-4 border-slate-300 text-[#0077b6] flex-shrink-0" />
+                            <input type="radio" name="essayPrompt" className="mt-1 w-4 h-4 border-slate-300 text-[#ff7300] flex-shrink-0" />
                             <span>The lessons we take from obstacles we encounter can be fundamental to later success. Recount a time when you faced a challenge, setback, or failure. How did it affect you, and what did you learn from the experience?</span>
                           </label>
                           <label className="flex items-start gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="essayPrompt" className="mt-1 w-4 h-4 border-slate-300 text-[#0077b6] flex-shrink-0" />
+                            <input type="radio" name="essayPrompt" className="mt-1 w-4 h-4 border-slate-300 text-[#ff7300] flex-shrink-0" />
                             <span>Reflect on a time when you questioned or challenged a belief or idea. What prompted your thinking? What was the outcome?</span>
                           </label>
                         </div>
@@ -789,7 +791,7 @@ export default function ApplicationGuide() {
                     </div>
                     
                     <div className="flex justify-between items-center mb-4 text-sm">
-                      <a href="#" className="text-[#0077b6] hover:underline flex items-center gap-1 font-medium">Compare application requirements <ExternalLink className="w-3.5 h-3.5" /></a>
+                      <a href="#" className="text-[#ff7300] hover:underline flex items-center gap-1 font-medium">Compare application requirements <ExternalLink className="w-3.5 h-3.5" /></a>
                       <span className="text-slate-500">Sort by: College name <ChevronDown className="w-4 h-4 inline" /></span>
                     </div>
 
@@ -802,13 +804,13 @@ export default function ApplicationGuide() {
                             </div>
                             <div className="flex-1 pt-1">
                               <h3 
-                                className="text-[#0077b6] font-medium text-lg hover:underline cursor-pointer pr-16"
+                                className="text-[#ff7300] font-medium text-lg hover:underline cursor-pointer pr-16"
                                 onClick={() => setSelectedUni(uni)}
                               >
                                 {uni.name}
                               </h3>
                               <p className="text-slate-800 font-bold text-sm mb-1.5">{uni.deadline}</p>
-                              <p className="text-sm text-slate-600 flex items-center gap-1.5 font-medium"><FileText className="w-4 h-4 text-purple-600" /> Application – <span className="italic font-normal">In progress</span></p>
+                              <p className="text-sm text-slate-600 flex items-center gap-1.5 font-medium"><FileText className="w-4 h-4 text-[#ff7300]" /> Application – <span className="italic font-normal">In progress</span></p>
                             </div>
                             <div className="absolute top-5 right-5 flex gap-3">
                               <button className="text-slate-500 hover:text-slate-700"><HelpCircle className="w-5 h-5 fill-slate-500 text-white" /></button>
@@ -825,19 +827,19 @@ export default function ApplicationGuide() {
                                   <div>
                                     <h4 className="text-[13px] text-slate-500 font-bold mb-3 uppercase tracking-wider">Application Status</h4>
                                     <ul className="space-y-2.5 text-sm text-slate-600 font-medium">
-                                      <li className="flex gap-2.5"><FileText className="w-4 h-4 text-purple-600 flex-shrink-0 mt-0.5" /> <span><a href="#" className="text-[#0077b6] hover:underline">My Application</a> – <span className="italic font-normal">In progress</span></span></li>
-                                      <li className="flex gap-2.5"><FileText className="w-4 h-4 text-purple-600 flex-shrink-0 mt-0.5" /> <span><a href="#" className="text-[#0077b6] hover:underline">Questions</a> – <span className="italic font-normal">In progress</span></span></li>
-                                      <li className="flex gap-2.5"><FileText className="w-4 h-4 text-purple-600 flex-shrink-0 mt-0.5" /> <span><a href="#" className="text-[#0077b6] hover:underline">Recommenders and FERPA</a> – <span className="italic font-normal">In progress</span></span></li>
+                                      <li className="flex gap-2.5"><FileText className="w-4 h-4 text-[#ff7300] flex-shrink-0 mt-0.5" /> <span><a href="#" className="text-[#ff7300] hover:underline">My Application</a> – <span className="italic font-normal">In progress</span></span></li>
+                                      <li className="flex gap-2.5"><FileText className="w-4 h-4 text-[#ff7300] flex-shrink-0 mt-0.5" /> <span><a href="#" className="text-[#ff7300] hover:underline">Questions</a> – <span className="italic font-normal">In progress</span></span></li>
+                                      <li className="flex gap-2.5"><FileText className="w-4 h-4 text-[#ff7300] flex-shrink-0 mt-0.5" /> <span><a href="#" className="text-[#ff7300] hover:underline">Recommenders and FERPA</a> – <span className="italic font-normal">In progress</span></span></li>
                                     </ul>
                                   </div>
                                   <div>
                                     <h4 className="text-[13px] text-slate-500 font-bold mb-3 uppercase tracking-wider">Writing Requirements</h4>
                                     <div className="mb-4">
-                                      <a href="#" className="text-sm font-medium text-[#0077b6] hover:underline block mb-1">Common App personal essay</a>
+                                      <a href="#" className="text-sm font-medium text-[#ff7300] hover:underline block mb-1">Common App personal essay</a>
                                       <div className="flex items-center gap-1.5 text-sm font-bold text-red-600"><span className="w-4 h-4 bg-red-600 text-white rounded flex items-center justify-center text-[10px] font-bold">!</span> Required</div>
                                     </div>
                                     <div className="mb-4">
-                                      <a href="#" className="text-sm font-medium text-[#0077b6] hover:underline block mb-1">College Questions</a>
+                                      <a href="#" className="text-sm font-medium text-[#ff7300] hover:underline block mb-1">College Questions</a>
                                       <div className="flex items-center gap-1.5 text-sm font-bold text-red-600"><span className="w-4 h-4 bg-red-600 text-white rounded flex items-center justify-center text-[10px] font-bold">!</span> 1 Required Question</div>
                                     </div>
                                     <div>
@@ -865,9 +867,9 @@ export default function ApplicationGuide() {
                     
                     <div className="text-sm text-slate-600 mb-10 space-y-1 font-medium">
                       <p>
-                        <a href={`mailto:${selectedUni.email}`} className="text-[#0077b6] hover:underline">{selectedUni.email}</a> 
+                        <a href={`mailto:${selectedUni.email}`} className="text-[#ff7300] hover:underline">{selectedUni.email}</a> 
                         {' '}• Phone{' '} 
-                        <a href={`tel:${selectedUni.phone}`} className="text-[#0077b6] hover:underline">{selectedUni.phone}</a>
+                        <a href={`tel:${selectedUni.phone}`} className="text-[#ff7300] hover:underline">{selectedUni.phone}</a>
                       </p>
                       <p className="max-w-xs text-slate-500 italic mt-2">{selectedUni.address}</p>
                     </div>
@@ -881,10 +883,10 @@ export default function ApplicationGuide() {
                       <div>
                         <h3 className="font-bold text-lg text-slate-900 mb-4">Links</h3>
                         <ul className="space-y-3 text-sm font-medium">
-                          <li><a href={selectedUni.website} target="_blank" rel="noopener noreferrer" className="text-[#0077b6] hover:underline flex items-center gap-1.5">College website <ExternalLink className="w-3.5 h-3.5" /></a></li>
-                          <li><a href="#" className="text-[#0077b6] hover:underline flex items-center gap-1.5">Admissions office <ExternalLink className="w-3.5 h-3.5" /></a></li>
-                          <li><a href="#" className="text-[#0077b6] hover:underline flex items-center gap-1.5">Financial aid <ExternalLink className="w-3.5 h-3.5" /></a></li>
-                          <li><a href="#" className="text-[#0077b6] hover:underline flex items-center gap-1.5">Virtual tour <ExternalLink className="w-3.5 h-3.5" /></a></li>
+                          <li><a href={selectedUni.website} target="_blank" rel="noopener noreferrer" className="text-[#ff7300] hover:underline flex items-center gap-1.5">College website <ExternalLink className="w-3.5 h-3.5" /></a></li>
+                          <li><a href="#" className="text-[#ff7300] hover:underline flex items-center gap-1.5">Admissions office <ExternalLink className="w-3.5 h-3.5" /></a></li>
+                          <li><a href="#" className="text-[#ff7300] hover:underline flex items-center gap-1.5">Financial aid <ExternalLink className="w-3.5 h-3.5" /></a></li>
+                          <li><a href="#" className="text-[#ff7300] hover:underline flex items-center gap-1.5">Virtual tour <ExternalLink className="w-3.5 h-3.5" /></a></li>
                         </ul>
                         
                         <div className="flex items-center gap-3 mt-6">
@@ -910,7 +912,7 @@ export default function ApplicationGuide() {
                           
                           <h4 className="font-bold text-slate-900 mb-2 flex items-center gap-2">
                             Standardized test policy: 
-                            <div className="w-3.5 h-3.5 rounded-full bg-[#0077b6] text-white flex items-center justify-center text-[9px] font-bold">?</div>
+                            <div className="w-3.5 h-3.5 rounded-full bg-[#ff7300] text-white flex items-center justify-center text-[9px] font-bold">?</div>
                           </h4>
                           <ul className="list-disc pl-5 text-sm text-slate-600 space-y-1 font-medium">
                             <li>Flexible</li>
@@ -964,7 +966,7 @@ export default function ApplicationGuide() {
                       <p className="text-sm text-slate-600 line-clamp-2">{faq.answer}</p>
                       <Accordion type="single" collapsible className="w-full border-none">
                         <AccordionItem value={`faq-${index}`} className="border-none">
-                          <AccordionTrigger className="py-1 hover:no-underline text-sm font-medium text-[#0077b6] flex gap-1 justify-start">
+                          <AccordionTrigger className="py-1 hover:no-underline text-sm font-medium text-[#ff7300] flex gap-1 justify-start">
                             Read full answer
                           </AccordionTrigger>
                           <AccordionContent className="text-sm text-slate-600 pt-2 pb-0 leading-relaxed">
@@ -978,7 +980,7 @@ export default function ApplicationGuide() {
                   <p className="text-sm text-slate-500">No FAQs found matching your search.</p>
                 )}
                 <div className="pt-4 border-t border-slate-100">
-                  <a href="#" className="text-sm font-medium text-[#0077b6] hover:underline flex items-center gap-1.5">
+                  <a href="#" className="text-sm font-medium text-[#ff7300] hover:underline flex items-center gap-1.5">
                     All help topics <ExternalLink className="w-3.5 h-3.5" />
                   </a>
                 </div>
