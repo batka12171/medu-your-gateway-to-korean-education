@@ -48,21 +48,7 @@ export default function HomeHero() {
           </div>
         </motion.div>
 
-        {/* Abstract Center Visual */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="relative max-w-5xl mx-auto rounded-[2.5rem] p-8 md:p-16 flex items-center justify-center overflow-hidden border border-slate-100 bg-white/50 backdrop-blur-3xl shadow-2xl shadow-emerald-900/5"
-        >
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 to-transparent opacity-50 z-0" />
-          <img 
-            src="https://media.base44.com/images/public/694e6255f87f952ccf7b0ebb/b149ec9c7_Gemini_Generated_Image_hzrnukhzrnukhzrn-removebg-preview.png"
-            alt="Abstract visual"
-            className="relative z-10 w-full max-w-2xl h-auto object-contain drop-shadow-2xl"
-            style={{ filter: "hue-rotate(120deg) saturate(1.5)" }}
-          />
-        </motion.div>
+
       </div>
     </section>
   );
