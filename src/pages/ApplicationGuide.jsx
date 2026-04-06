@@ -27,7 +27,8 @@ import {
   Instagram,
   Twitter,
   Youtube,
-  Plus
+  Plus,
+  X
 } from "lucide-react";
 import { toast } from "sonner";
 import MeduLogo from "@/components/MeduLogo";
