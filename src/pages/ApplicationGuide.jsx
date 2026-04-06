@@ -28,7 +28,10 @@ import {
   Twitter,
   Youtube,
   Plus,
-  X
+  X,
+  Upload,
+  Check,
+  Clock
 } from "lucide-react";
 import { toast } from "sonner";
 import MeduLogo from "@/components/MeduLogo";
@@ -69,9 +72,17 @@ const faqs = [
   }
 ];
 
-const savedUniversities = [
+const savedUniversitiesData = [
   { id: 1, name: "Seoul National University", email: "admission@snu.ac.kr", phone: "+82 2-880-5114", address: "1 Gwanak-ro, Gwanak-gu, Seoul, 08826, South Korea", deadline: "July 28, 2026", website: "https://en.snu.ac.kr", fee: 50 },
   { id: 2, name: "KAIST", email: "admission@kaist.ac.kr", phone: "+82 42-350-2114", address: "291 Daehak-ro, Yuseong-gu, Daejeon, 34141, South Korea", deadline: "August 15, 2026", website: "https://kaist.ac.kr", fee: 60 }
+];
+
+const checklistItemsTemplate = [
+  { id: "transcript", label: "Official Transcript", status: "pending", file: null },
+  { id: "recommendation1", label: "Recommendation Letter 1", status: "pending", file: null },
+  { id: "recommendation2", label: "Recommendation Letter 2", status: "pending", file: null },
+  { id: "personal_statement", label: "Personal Statement", status: "pending", file: null },
+  { id: "portfolio", label: "Portfolio (Optional)", status: "pending", file: null }
 ];
 
 export default function ApplicationGuide() {
@@ -80,6 +91,51 @@ export default function ApplicationGuide() {
   const [activeView, setActiveView] = useState("dashboard"); // "dashboard" or "universities"
   const [selectedUni, setSelectedUni] = useState("overview");
   const [activeAppSection, setActiveAppSection] = useState("profile");
+  
+  const [savedUniversities, setSavedUniversities] = useState(
+    savedUniversitiesData.map(uni => ({
+      ...uni,
+      checklist: JSON.parse(JSON.stringify(checklistItemsTemplate))
+    }))
+  );
+
+  const handleFileUpload = (uniId, itemId, e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setSavedUniversities(prev => prev.map(uni => {
+      if (uni.id === uniId) {
+        return {
+          ...uni,
+          checklist: uni.checklist.map(item => {
+            if (item.id === itemId) {
+              return { ...item, status: "uploaded", file: file.name };
+            }
+            return item;
+          })
+        };
+      }
+      return uni;
+    }));
+    toast.success(`${file.name} uploaded successfully!`);
+  };
+
+  const handleStatusChange = (uniId, itemId, newStatus) => {
+    setSavedUniversities(prev => prev.map(uni => {
+      if (uni.id === uniId) {
+        return {
+          ...uni,
+          checklist: uni.checklist.map(item => {
+            if (item.id === itemId) {
+              return { ...item, status: newStatus };
+            }
+            return item;
+          })
+        };
+      }
+      return uni;
+    }));
+  };
 
   useEffect(() => {
     const loadUser = async () => {
@@ -898,9 +954,86 @@ export default function ApplicationGuide() {
                       </div>
                     </div>
 
-                    <Accordion type="multiple" defaultValue={["info"]} className="w-full">
-                      <AccordionItem value="info" className="border border-slate-200 bg-slate-200/50 rounded-none overflow-hidden">
-                        <AccordionTrigger className="px-4 py-3 hover:no-underline font-bold text-slate-800 text-sm">
+                    <Accordion type="multiple" defaultValue={["checklist", "info"]} className="w-full space-y-4">
+                      
+                      <AccordionItem value="checklist" className="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
+                        <AccordionTrigger className="px-5 py-4 hover:no-underline font-bold text-slate-800 text-base border-b border-slate-100">
+                          <div className="flex items-center gap-2">
+                            <CheckCircle className="w-5 h-5 text-[#ff7300]" />
+                            Document Checklist
+                          </div>
+                        </AccordionTrigger>
+                        <AccordionContent className="p-0">
+                          <div className="divide-y divide-slate-100">
+                            {selectedUni.checklist?.map((item) => (
+                              <div key={item.id} className="p-4 flex items-center justify-between hover:bg-slate-50 transition-colors">
+                                <div className="flex items-center gap-3">
+                                  <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                                    item.status === 'verified' ? 'bg-green-100 text-green-600' :
+                                    item.status === 'uploaded' ? 'bg-blue-100 text-blue-600' :
+                                    'bg-slate-100 text-slate-400'
+                                  }`}>
+                                    {item.status === 'verified' ? <Check className="w-4 h-4" /> :
+                                     item.status === 'uploaded' ? <Clock className="w-4 h-4" /> :
+                                     <div className="w-2 h-2 rounded-full bg-slate-300" />}
+                                  </div>
+                                  <div>
+                                    <p className="font-medium text-slate-800 text-sm">{item.label}</p>
+                                    <div className="flex items-center gap-2 mt-0.5">
+                                      <span className={`text-xs font-bold uppercase tracking-wider ${
+                                        item.status === 'verified' ? 'text-green-600' :
+                                        item.status === 'uploaded' ? 'text-blue-600' :
+                                        'text-slate-400'
+                                      }`}>
+                                        {item.status === 'verified' ? 'Verified' :
+                                         item.status === 'uploaded' ? 'In Review' :
+                                         'Pending'}
+                                      </span>
+                                      {item.file && <span className="text-xs text-slate-500 truncate max-w-[150px]">• {item.file}</span>}
+                                    </div>
+                                  </div>
+                                </div>
+                                
+                                <div className="flex items-center gap-2">
+                                  {item.status === 'pending' ? (
+                                    <>
+                                      <input
+                                        type="file"
+                                        id={`file-${selectedUni.id}-${item.id}`}
+                                        className="hidden"
+                                        onChange={(e) => handleFileUpload(selectedUni.id, item.id, e)}
+                                      />
+                                      <label
+                                        htmlFor={`file-${selectedUni.id}-${item.id}`}
+                                        className="cursor-pointer flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-300 text-slate-600 hover:bg-slate-50 hover:text-slate-900 text-xs font-bold rounded-lg transition-colors shadow-sm"
+                                      >
+                                        <Upload className="w-3.5 h-3.5" /> Upload
+                                      </label>
+                                    </>
+                                  ) : item.status === 'uploaded' ? (
+                                    <button 
+                                      onClick={() => handleStatusChange(selectedUni.id, item.id, 'verified')}
+                                      className="px-3 py-1.5 bg-green-50 text-green-700 hover:bg-green-100 text-xs font-bold rounded-lg transition-colors border border-green-200"
+                                    >
+                                      Mark Verified
+                                    </button>
+                                  ) : (
+                                    <button 
+                                      onClick={() => handleStatusChange(selectedUni.id, item.id, 'pending')}
+                                      className="px-3 py-1.5 text-slate-400 hover:text-slate-600 text-xs font-medium underline"
+                                    >
+                                      Reset
+                                    </button>
+                                  )}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+
+                      <AccordionItem value="info" className="border border-slate-200 bg-slate-200/50 rounded-xl overflow-hidden">
+                        <AccordionTrigger className="px-5 py-4 hover:no-underline font-bold text-slate-800 text-base">
                           Application information
                         </AccordionTrigger>
                         <AccordionContent className="p-5 bg-white border-t border-slate-200">
