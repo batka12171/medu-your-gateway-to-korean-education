@@ -97,6 +97,10 @@
 }
 
 @layer utilities {
+  .mask-image-vertical-fade {
+    mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+  }
   /* MEDU gradient — Orange Theme */
   .btn-brand {
     @apply bg-gradient-to-r from-[#cc5c00] to-[#ff7300] text-white font-semibold
