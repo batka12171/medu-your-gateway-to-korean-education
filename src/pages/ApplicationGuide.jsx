@@ -77,6 +77,7 @@ export default function ApplicationGuide() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeView, setActiveView] = useState("dashboard"); // "dashboard" or "universities"
   const [selectedUni, setSelectedUni] = useState(savedUniversities[0]);
+  const [activeAppSection, setActiveAppSection] = useState("profile");
 
   useEffect(() => {
     const loadUser = async () => {
@@ -265,11 +266,11 @@ export default function ApplicationGuide() {
                 </div>
                 <Accordion type="single" collapsible defaultValue="profile" className="w-full">
                   <AccordionItem value="profile" className="border-b border-slate-100">
-                    <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
+                    <AccordionTrigger onClick={() => setActiveAppSection("profile")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
                       Profile
                     </AccordionTrigger>
                     <AccordionContent className="pb-2 pt-0 px-0">
-                      <div className="px-4 py-2 text-sm font-medium cursor-pointer transition-colors bg-slate-200/50 text-slate-800 border-l-4 border-slate-400">
+                      <div onClick={() => setActiveAppSection("profile")} className={`px-4 py-2 text-sm font-medium cursor-pointer transition-colors ${activeAppSection === "profile" ? "bg-slate-200/50 text-slate-800 border-l-4 border-slate-400" : "text-slate-600 hover:bg-slate-50 border-l-4 border-transparent"}`}>
                         Personal Information
                       </div>
                       <div className="px-4 py-2 text-sm font-medium cursor-pointer transition-colors text-slate-600 hover:bg-slate-50 border-l-4 border-transparent">
@@ -294,7 +295,7 @@ export default function ApplicationGuide() {
                   </AccordionItem>
                   
                   <AccordionItem value="family" className="border-b border-slate-100">
-                    <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
+                    <AccordionTrigger onClick={() => setActiveAppSection("family")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
                       Family
                     </AccordionTrigger>
                     <AccordionContent className="pb-2 pt-0 px-0">
@@ -302,7 +303,7 @@ export default function ApplicationGuide() {
                   </AccordionItem>
 
                   <AccordionItem value="education" className="border-b border-slate-100">
-                    <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
+                    <AccordionTrigger onClick={() => setActiveAppSection("education")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
                       Education
                     </AccordionTrigger>
                     <AccordionContent className="pb-2 pt-0 px-0">
@@ -310,8 +311,24 @@ export default function ApplicationGuide() {
                   </AccordionItem>
 
                   <AccordionItem value="testing" className="border-b border-slate-100">
-                    <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
+                    <AccordionTrigger onClick={() => setActiveAppSection("testing")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
                       Testing
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-2 pt-0 px-0">
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="activities" className="border-b border-slate-100">
+                    <AccordionTrigger onClick={() => setActiveAppSection("activities")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
+                      Activities
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-2 pt-0 px-0">
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="writing" className="border-b border-slate-100">
+                    <AccordionTrigger onClick={() => setActiveAppSection("writing")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
+                      Writing
                     </AccordionTrigger>
                     <AccordionContent className="pb-2 pt-0 px-0">
                     </AccordionContent>
@@ -426,7 +443,14 @@ export default function ApplicationGuide() {
                 <div className="flex justify-between items-start mb-6">
                   <div>
                     <p className="text-sm text-slate-500 mb-1 font-medium">Complete your Application</p>
-                    <h1 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-2">Personal Information</h1>
+                    <h1 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-2">
+                      {activeAppSection === "profile" && "Personal Information"}
+                      {activeAppSection === "family" && "Family Details"}
+                      {activeAppSection === "education" && "Education History"}
+                      {activeAppSection === "testing" && "Standardized Testing"}
+                      {activeAppSection === "activities" && "Activities"}
+                      {activeAppSection === "writing" && "Personal Essay"}
+                    </h1>
                     <div className="flex items-center gap-2 text-sm text-[#0077b6]">
                       <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#0077b6]/40 flex-shrink-0" />
                       In progress
@@ -438,52 +462,283 @@ export default function ApplicationGuide() {
                 </div>
 
                 <div className="max-w-2xl mt-8">
-                  <div className="mb-8">
-                    <label className="block text-sm font-bold text-slate-700 mb-2">
-                      Legal first/given name<span className="text-red-500">*</span>
-                    </label>
-                    <Input defaultValue="Bat" className="w-full" />
-                  </div>
+                  {activeAppSection === "profile" && (
+                    <>
+                      <div className="mb-8">
+                        <label className="block text-sm font-bold text-slate-700 mb-2">
+                          Legal first/given name<span className="text-red-500">*</span>
+                        </label>
+                        <Input defaultValue="Bat" className="w-full" />
+                      </div>
 
-                  <div className="mb-8">
-                    <label className="block text-sm font-bold text-slate-700 mb-3">
-                      Would you like to share a different first name that people call you?
-                    </label>
-                    <div className="space-y-3 mb-5">
-                      <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                        <input type="radio" name="diffName" className="w-4 h-4 border-slate-300 text-[#0077b6]" />
-                        Yes
-                      </label>
-                      <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                        <input type="radio" name="diffName" defaultChecked className="w-4 h-4 border-slate-300 text-[#0077b6]" />
-                        No
-                      </label>
-                    </div>
-                    <button className="px-4 py-1.5 border border-slate-300 rounded-full text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
-                      Clear answer
-                    </button>
-                  </div>
+                      <div className="mb-8">
+                        <label className="block text-sm font-bold text-slate-700 mb-3">
+                          Would you like to share a different first name that people call you?
+                        </label>
+                        <div className="space-y-3 mb-5">
+                          <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="diffName" className="w-4 h-4 border-slate-300 text-[#0077b6]" />
+                            Yes
+                          </label>
+                          <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="diffName" defaultChecked className="w-4 h-4 border-slate-300 text-[#0077b6]" />
+                            No
+                          </label>
+                        </div>
+                        <button className="px-4 py-1.5 border border-slate-300 rounded-full text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                          Clear answer
+                        </button>
+                      </div>
 
-                  <div className="mb-8">
-                    <label className="block text-sm font-bold text-slate-700 mb-2">
-                      Middle name
-                    </label>
-                    <Input className="w-full" />
-                  </div>
+                      <div className="mb-8">
+                        <label className="block text-sm font-bold text-slate-700 mb-2">
+                          Middle name
+                        </label>
+                        <Input className="w-full" />
+                      </div>
 
-                  <div className="mb-8">
-                    <label className="block text-sm font-bold text-slate-700 mb-2">
-                      Last/family/surname<span className="text-red-500">*</span>
-                    </label>
-                    <Input defaultValue="Bold" className="w-full" />
-                  </div>
-                  
-                  <div className="mb-8">
-                    <label className="block text-sm font-bold text-slate-700 mb-2">
-                      Suffix
-                    </label>
-                    <Input className="w-full" />
-                  </div>
+                      <div className="mb-8">
+                        <label className="block text-sm font-bold text-slate-700 mb-2">
+                          Last/family/surname<span className="text-red-500">*</span>
+                        </label>
+                        <Input defaultValue="Bold" className="w-full" />
+                      </div>
+                      
+                      <div className="mb-8">
+                        <label className="block text-sm font-bold text-slate-700 mb-2">
+                          Suffix
+                        </label>
+                        <Input className="w-full" />
+                      </div>
+                    </>
+                  )}
+
+                  {activeAppSection === "family" && (
+                    <>
+                      <div className="mb-8">
+                        <label className="block text-sm font-bold text-slate-700 mb-2">
+                          Parents' marital status
+                        </label>
+                        <select className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                          <option value="">Select status...</option>
+                          <option value="married">Married</option>
+                          <option value="separated">Separated</option>
+                          <option value="divorced">Divorced</option>
+                          <option value="never_married">Never married</option>
+                          <option value="widowed">Widowed</option>
+                        </select>
+                      </div>
+                      <div className="mb-8">
+                        <label className="block text-sm font-bold text-slate-700 mb-2">
+                          With whom do you make your permanent home?
+                        </label>
+                        <select className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                          <option value="">Select...</option>
+                          <option value="both_parents">Both parents</option>
+                          <option value="parent_1">Parent 1</option>
+                          <option value="parent_2">Parent 2</option>
+                          <option value="legal_guardian">Legal Guardian</option>
+                          <option value="ward_of_court">Ward of the Court/State</option>
+                          <option value="other">Other</option>
+                        </select>
+                      </div>
+                      <div className="mb-8">
+                        <label className="block text-sm font-bold text-slate-700 mb-2">
+                          Do you have any children?
+                        </label>
+                        <div className="space-y-3 mb-5">
+                          <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="hasChildren" className="w-4 h-4 border-slate-300 text-[#0077b6]" />
+                            Yes
+                          </label>
+                          <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="hasChildren" defaultChecked className="w-4 h-4 border-slate-300 text-[#0077b6]" />
+                            No
+                          </label>
+                        </div>
+                      </div>
+                    </>
+                  )}
+
+                  {activeAppSection === "education" && (
+                    <>
+                      <div className="mb-8">
+                        <label className="block text-sm font-bold text-slate-700 mb-2">
+                          Current or most recent secondary/high school
+                        </label>
+                        <Input placeholder="Find school..." className="w-full" />
+                        <p className="text-xs text-slate-500 mt-2">Search by school name, city, state, or CEEB code</p>
+                      </div>
+                      <div className="mb-8">
+                        <label className="block text-sm font-bold text-slate-700 mb-2">
+                          Date of entry
+                        </label>
+                        <Input type="month" className="w-full" />
+                      </div>
+                      <div className="mb-8">
+                        <label className="block text-sm font-bold text-slate-700 mb-2">
+                          Is this a boarding school?
+                        </label>
+                        <div className="space-y-3 mb-5">
+                          <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="isBoarding" className="w-4 h-4 border-slate-300 text-[#0077b6]" />
+                            Yes
+                          </label>
+                          <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="isBoarding" defaultChecked className="w-4 h-4 border-slate-300 text-[#0077b6]" />
+                            No
+                          </label>
+                        </div>
+                      </div>
+                      <div className="mb-8">
+                        <label className="block text-sm font-bold text-slate-700 mb-2">
+                          Did or will you graduate from this school?
+                        </label>
+                        <div className="space-y-3 mb-5">
+                          <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="willGraduate" defaultChecked className="w-4 h-4 border-slate-300 text-[#0077b6]" />
+                            Yes
+                          </label>
+                          <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="willGraduate" className="w-4 h-4 border-slate-300 text-[#0077b6]" />
+                            No
+                          </label>
+                        </div>
+                      </div>
+                    </>
+                  )}
+
+                  {activeAppSection === "testing" && (
+                    <>
+                      <div className="mb-8">
+                        <p className="text-sm text-slate-700 mb-4 leading-relaxed">
+                          In addition to sending official score reports as required by colleges, you have the option to self-report scores or future test dates for any of the following standardized tests: ACT, SAT/SAT Subject Tests, AP, IB, TOEFL, PTE Academic, and IELTS.
+                        </p>
+                        <label className="block text-sm font-bold text-slate-700 mb-3">
+                          Do you wish to self-report scores or future test dates for any of these standardized tests?
+                        </label>
+                        <div className="space-y-3 mb-5">
+                          <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="reportTests" className="w-4 h-4 border-slate-300 text-[#0077b6]" />
+                            Yes
+                          </label>
+                          <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="reportTests" defaultChecked className="w-4 h-4 border-slate-300 text-[#0077b6]" />
+                            No
+                          </label>
+                        </div>
+                      </div>
+
+                      <div className="mb-8 border-t border-slate-200 pt-8">
+                        <label className="block text-sm font-bold text-slate-700 mb-2">
+                          International Applicants
+                        </label>
+                        <p className="text-sm text-slate-700 mb-4 leading-relaxed">
+                          Is promotion within your educational system based upon standard leaving examinations given at the end of lower and/or senior secondary school by a state or national leaving examinations board? (Students studying in the US typically answer no to this question.)
+                        </p>
+                        <div className="space-y-3 mb-5">
+                          <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="intlTests" className="w-4 h-4 border-slate-300 text-[#0077b6]" />
+                            Yes
+                          </label>
+                          <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="intlTests" defaultChecked className="w-4 h-4 border-slate-300 text-[#0077b6]" />
+                            No
+                          </label>
+                        </div>
+                      </div>
+                    </>
+                  )}
+
+                  {activeAppSection === "activities" && (
+                    <>
+                      <div className="mb-8">
+                        <p className="text-sm text-slate-700 mb-4 leading-relaxed">
+                          Reporting activities can help a college better understand your life outside of the classroom. Your activities may include arts, athletics, clubs, employment, personal commitments, and other pursuits.
+                        </p>
+                        <label className="block text-sm font-bold text-slate-700 mb-3">
+                          Do you have any activities that you wish to report?
+                        </label>
+                        <div className="space-y-3 mb-5">
+                          <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="reportActivities" defaultChecked className="w-4 h-4 border-slate-300 text-[#0077b6]" />
+                            Yes
+                          </label>
+                          <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="reportActivities" className="w-4 h-4 border-slate-300 text-[#0077b6]" />
+                            No
+                          </label>
+                        </div>
+                      </div>
+
+                      <div className="mb-8 p-6 bg-slate-50 rounded-xl border border-slate-200">
+                        <div className="mb-6">
+                          <label className="block text-sm font-bold text-slate-700 mb-2">Activity type</label>
+                          <select className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                            <option value="">Select type...</option>
+                            <option value="art">Art</option>
+                            <option value="athletics">Athletics</option>
+                            <option value="club">Club/Organization</option>
+                            <option value="community">Community Service</option>
+                            <option value="work">Work/Employment</option>
+                          </select>
+                        </div>
+                        <div className="mb-6">
+                          <label className="block text-sm font-bold text-slate-700 mb-2">Position/Leadership description</label>
+                          <Input placeholder="e.g., President, Captain, Founder" className="w-full bg-white" />
+                        </div>
+                        <div className="mb-6">
+                          <label className="block text-sm font-bold text-slate-700 mb-2">Organization name</label>
+                          <Input className="w-full bg-white" />
+                        </div>
+                        <div className="mb-2">
+                          <label className="block text-sm font-bold text-slate-700 mb-2">Description</label>
+                          <textarea className="flex min-h-[80px] w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Please describe this activity, including what you accomplished and any recognition you received, etc."></textarea>
+                        </div>
+                      </div>
+                      
+                      <button className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-bold rounded-xl transition-colors">
+                        <Plus className="w-4 h-4" />
+                        Add another activity
+                      </button>
+                    </>
+                  )}
+
+                  {activeAppSection === "writing" && (
+                    <>
+                      <div className="mb-8">
+                        <p className="text-sm text-slate-700 mb-6 leading-relaxed">
+                          The essay demonstrates your ability to write clearly and concisely on a selected topic and helps you distinguish yourself in your own voice. What do you want the readers of your application to know about you apart from courses, grades, and test scores?
+                        </p>
+                        
+                        <label className="block text-sm font-bold text-slate-700 mb-4">
+                          Please select an essay prompt:
+                        </label>
+                        <div className="space-y-4 mb-8">
+                          <label className="flex items-start gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="essayPrompt" className="mt-1 w-4 h-4 border-slate-300 text-[#0077b6] flex-shrink-0" />
+                            <span>Some students have a background, identity, interest, or talent that is so meaningful they believe their application would be incomplete without it. If this sounds like you, then please share your story.</span>
+                          </label>
+                          <label className="flex items-start gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="essayPrompt" className="mt-1 w-4 h-4 border-slate-300 text-[#0077b6] flex-shrink-0" />
+                            <span>The lessons we take from obstacles we encounter can be fundamental to later success. Recount a time when you faced a challenge, setback, or failure. How did it affect you, and what did you learn from the experience?</span>
+                          </label>
+                          <label className="flex items-start gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="essayPrompt" className="mt-1 w-4 h-4 border-slate-300 text-[#0077b6] flex-shrink-0" />
+                            <span>Reflect on a time when you questioned or challenged a belief or idea. What prompted your thinking? What was the outcome?</span>
+                          </label>
+                        </div>
+
+                        <div className="mb-2">
+                          <div className="flex justify-between items-end mb-2">
+                            <label className="block text-sm font-bold text-slate-700">Essay text</label>
+                            <span className="text-xs text-slate-500">250 - 650 words</span>
+                          </div>
+                          <textarea className="flex min-h-[300px] w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Type or paste your essay here..."></textarea>
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             ) : (
