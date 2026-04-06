@@ -94,14 +94,14 @@ export default function ApplicationGuide() {
   );
 
   return (
-    <div className="min-h-screen bg-slate-50 pt-6 pb-12">
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col lg:flex-row gap-6 items-start">
+    <div className="h-[calc(100vh-80px)] bg-slate-50 py-6 lg:overflow-hidden">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-full">
+        <div className="flex flex-col lg:flex-row gap-6 items-stretch h-full">
           
           {/* Left Sidebar Layout */}
           {activeView === "dashboard" ? (
-            <div className="w-full lg:w-64 flex-shrink-0">
-              <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden lg:sticky lg:top-24">
+            <div className="w-full lg:w-64 flex-shrink-0 flex flex-col h-full">
+              <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-y-auto flex-1">
                 <div className="p-2">
                   <button 
                     onClick={() => setActiveView("dashboard")}
@@ -172,7 +172,7 @@ export default function ApplicationGuide() {
               </div>
             </div>
           ) : (
-            <div className="w-full lg:w-[340px] flex-shrink-0 flex bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden lg:sticky lg:top-24 lg:h-[calc(100vh-120px)]">
+            <div className="w-full lg:w-[340px] flex-shrink-0 flex bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden h-full">
               {/* Narrow Sidebar */}
               <div className="w-16 flex-shrink-0 bg-white border-r border-slate-200 flex flex-col items-center py-4 space-y-4 h-full">
                 <button onClick={() => setActiveView("dashboard")} className="p-3 hover:bg-slate-100 rounded-lg text-slate-500 hover:text-slate-900 transition-colors" title="Dashboard">
@@ -241,7 +241,8 @@ export default function ApplicationGuide() {
           )}
 
           {/* Main Content */}
-          <div className="flex-1 min-w-0">
+          <div className="flex-1 min-w-0 flex flex-col bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden h-full">
+            <div className="flex-1 overflow-y-auto p-6 md:p-8">
             {activeView === "dashboard" ? (
               <>
                 {/* Banner */}
@@ -323,7 +324,7 @@ export default function ApplicationGuide() {
                 </div>
               </>
             ) : (
-              <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-8 min-h-[600px]">
+              <div className="min-h-full">
                 {selectedUni ? (
                   <div>
                     <p className="text-sm text-slate-500 mb-1 font-medium">Apply to {selectedUni.name}</p>
@@ -399,11 +400,12 @@ export default function ApplicationGuide() {
                 )}
               </div>
             )}
+            </div>
           </div>
 
           {/* Right Sidebar */}
-          <div className="w-full lg:w-80 flex-shrink-0">
-            <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 lg:sticky lg:top-24">
+          <div className="w-full lg:w-80 flex-shrink-0 flex flex-col h-full">
+            <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 flex-1 flex flex-col overflow-hidden">
               <div className="flex items-center gap-2 font-bold text-slate-800 text-lg mb-6">
                 <HelpCircle className="w-5 h-5" />
                 Help & support
@@ -426,7 +428,7 @@ export default function ApplicationGuide() {
                 <p className="text-xs text-slate-500 mt-2">Search takes you to the student solution center</p>
               </div>
 
-              <div className="space-y-4 max-h-[calc(100vh-320px)] overflow-y-auto pr-2">
+              <div className="space-y-4 flex-1 overflow-y-auto pr-2">
                 {filteredFaqs.length > 0 ? (
                   filteredFaqs.map((faq, index) => (
                     <div key={index} className="pt-4 border-t border-slate-100 first:border-0 first:pt-0">
