@@ -97,7 +97,7 @@ export default function ApplicationGuide() {
   );
 
   return (
-    <div className="h-[calc(100vh-80px)] bg-slate-50 py-6 lg:overflow-hidden">
+    <div className="h-[calc(100vh-80px)] bg-gradient-to-br from-orange-50 via-amber-50/50 to-orange-100/40 py-6 lg:overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-full">
         <div className="flex flex-col lg:flex-row gap-6 items-stretch h-full">
           
