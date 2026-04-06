@@ -117,7 +117,10 @@ export default function ApplicationGuide() {
                     Apply
                   </div>
                   <div className="space-y-1 mb-6">
-                    <button className="w-full flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 rounded-md transition-colors">
+                    <button 
+                      onClick={() => setActiveView("application")}
+                      className="w-full flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 rounded-md transition-colors"
+                    >
                       <FileText className="w-5 h-5" />
                       My Application
                     </button>
@@ -177,13 +180,13 @@ export default function ApplicationGuide() {
             <div className="w-full lg:w-[340px] flex-shrink-0 flex bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden h-full">
               {/* Narrow Sidebar */}
               <div className="w-16 flex-shrink-0 bg-white border-r border-slate-200 flex flex-col items-center py-4 space-y-4 h-full">
-                <button onClick={() => setActiveView("dashboard")} className="p-3 hover:bg-slate-100 rounded-lg text-slate-500 hover:text-slate-900 transition-colors" title="Dashboard">
+                <button onClick={() => setActiveView("dashboard")} className={`p-3 rounded-lg transition-colors ${activeView === "dashboard" ? "bg-slate-100 text-slate-900" : "hover:bg-slate-100 text-slate-500 hover:text-slate-900"}`} title="Dashboard">
                   <Home className="w-5 h-5" />
                 </button>
-                <button className="p-3 hover:bg-slate-100 rounded-lg text-slate-500 hover:text-slate-900 transition-colors" title="My Application">
+                <button onClick={() => setActiveView("application")} className={`p-3 rounded-lg transition-colors ${activeView === "application" ? "bg-slate-100 text-slate-900" : "hover:bg-slate-100 text-slate-500 hover:text-slate-900"}`} title="My Application">
                   <FileText className="w-5 h-5" />
                 </button>
-                <button onClick={() => setActiveView("universities")} className="p-3 bg-slate-100 rounded-lg text-slate-900 transition-colors" title="My Universities">
+                <button onClick={() => setActiveView("universities")} className={`p-3 rounded-lg transition-colors ${activeView === "universities" ? "bg-slate-100 text-slate-900" : "hover:bg-slate-100 text-slate-500 hover:text-slate-900"}`} title="My Universities">
                   <GraduationCap className="w-5 h-5" />
                 </button>
                 <Link to={createPageUrl("Universities")} className="p-3 hover:bg-slate-100 rounded-lg text-slate-500 hover:text-slate-900 transition-colors" title="University Search">
@@ -191,8 +194,9 @@ export default function ApplicationGuide() {
                 </Link>
               </div>
 
-              {/* Secondary Sidebar (Universities List) */}
-              <div className="flex-1 bg-white overflow-y-auto h-full">
+              {/* Secondary Sidebar */}
+              {activeView === "universities" ? (
+                <div className="flex-1 bg-white overflow-y-auto h-full">
                 <div className="p-4 border-b border-slate-100">
                   <h2 className="font-bold text-lg text-slate-800">My Universities</h2>
                 </div>
@@ -254,6 +258,67 @@ export default function ApplicationGuide() {
                   </button>
                 </div>
               </div>
+              ) : (
+              <div className="flex-1 bg-white overflow-y-auto h-full">
+                <div className="p-4 border-b border-slate-100">
+                  <h2 className="font-bold text-lg text-slate-800">My Application</h2>
+                </div>
+                <Accordion type="single" collapsible defaultValue="profile" className="w-full">
+                  <AccordionItem value="profile" className="border-b border-slate-100">
+                    <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
+                      Profile
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-2 pt-0 px-0">
+                      <div className="px-4 py-2 text-sm font-medium cursor-pointer transition-colors bg-slate-200/50 text-slate-800 border-l-4 border-slate-400">
+                        Personal Information
+                      </div>
+                      <div className="px-4 py-2 text-sm font-medium cursor-pointer transition-colors text-slate-600 hover:bg-slate-50 border-l-4 border-transparent">
+                        Address
+                      </div>
+                      <div className="px-4 py-2 text-sm font-medium cursor-pointer transition-colors text-slate-600 hover:bg-slate-50 border-l-4 border-transparent">
+                        Contact Details
+                      </div>
+                      <div className="px-4 py-2 text-sm font-medium cursor-pointer transition-colors text-slate-600 hover:bg-slate-50 border-l-4 border-transparent">
+                        Demographics
+                      </div>
+                      <div className="px-4 py-2 text-sm font-medium cursor-pointer transition-colors text-slate-600 hover:bg-slate-50 border-l-4 border-transparent">
+                        Language
+                      </div>
+                      <div className="px-4 py-2 text-sm font-medium cursor-pointer transition-colors text-slate-600 hover:bg-slate-50 border-l-4 border-transparent">
+                        Geography and Nationality
+                      </div>
+                      <div className="px-4 py-2 text-sm font-medium cursor-pointer transition-colors text-slate-600 hover:bg-slate-50 border-l-4 border-transparent">
+                        Common App Fee Waiver
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                  
+                  <AccordionItem value="family" className="border-b border-slate-100">
+                    <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
+                      Family
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-2 pt-0 px-0">
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="education" className="border-b border-slate-100">
+                    <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
+                      Education
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-2 pt-0 px-0">
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="testing" className="border-b border-slate-100">
+                    <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
+                      Testing
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-2 pt-0 px-0">
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </div>
+              )}
             </div>
           )}
 
@@ -356,6 +421,71 @@ export default function ApplicationGuide() {
                   </Accordion>
                 </div>
               </>
+            ) : activeView === "application" ? (
+              <div className="min-h-full">
+                <div className="flex justify-between items-start mb-6">
+                  <div>
+                    <p className="text-sm text-slate-500 mb-1 font-medium">Complete your Application</p>
+                    <h1 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-2">Personal Information</h1>
+                    <div className="flex items-center gap-2 text-sm text-[#0077b6]">
+                      <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#0077b6]/40 flex-shrink-0" />
+                      In progress
+                    </div>
+                  </div>
+                  <button className="px-4 py-2 border border-slate-300 rounded-full font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
+                    Preview
+                  </button>
+                </div>
+
+                <div className="max-w-2xl mt-8">
+                  <div className="mb-8">
+                    <label className="block text-sm font-bold text-slate-700 mb-2">
+                      Legal first/given name<span className="text-red-500">*</span>
+                    </label>
+                    <Input defaultValue="Bat" className="w-full" />
+                  </div>
+
+                  <div className="mb-8">
+                    <label className="block text-sm font-bold text-slate-700 mb-3">
+                      Would you like to share a different first name that people call you?
+                    </label>
+                    <div className="space-y-3 mb-5">
+                      <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                        <input type="radio" name="diffName" className="w-4 h-4 border-slate-300 text-[#0077b6]" />
+                        Yes
+                      </label>
+                      <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                        <input type="radio" name="diffName" defaultChecked className="w-4 h-4 border-slate-300 text-[#0077b6]" />
+                        No
+                      </label>
+                    </div>
+                    <button className="px-4 py-1.5 border border-slate-300 rounded-full text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                      Clear answer
+                    </button>
+                  </div>
+
+                  <div className="mb-8">
+                    <label className="block text-sm font-bold text-slate-700 mb-2">
+                      Middle name
+                    </label>
+                    <Input className="w-full" />
+                  </div>
+
+                  <div className="mb-8">
+                    <label className="block text-sm font-bold text-slate-700 mb-2">
+                      Last/family/surname<span className="text-red-500">*</span>
+                    </label>
+                    <Input defaultValue="Bold" className="w-full" />
+                  </div>
+                  
+                  <div className="mb-8">
+                    <label className="block text-sm font-bold text-slate-700 mb-2">
+                      Suffix
+                    </label>
+                    <Input className="w-full" />
+                  </div>
+                </div>
+              </div>
             ) : (
               <div className="min-h-full">
                 {selectedUni ? (
