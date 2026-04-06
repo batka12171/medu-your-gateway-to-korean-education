@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "../utils";
 import { base44 } from "@/api/base44Client";
 import { Input } from "@/components/ui/input";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Accordion,
   AccordionContent,
@@ -154,6 +155,39 @@ export default function ApplicationGuide() {
     faq.answer.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const NavItem = ({ active, onClick, icon: Icon, label, narrow }) => (
+    <button 
+      onClick={onClick}
+      className={`relative w-full flex items-center ${narrow ? 'justify-center p-3' : 'gap-3 px-3 py-2.5'} text-sm font-medium rounded-lg transition-all duration-200 group ${active ? "text-slate-900 bg-slate-50" : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"}`}
+      title={narrow ? label : undefined}
+    >
+      {active && (
+        <motion.div 
+          layoutId="activeTab" 
+          className={`absolute left-0 top-1.5 bottom-1.5 w-1 bg-[#ff7300] rounded-r-md`} 
+          transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }} 
+        />
+      )}
+      <motion.div className="flex items-center justify-center transition-transform duration-200 group-hover:scale-105 group-active:scale-95">
+        <Icon className={`w-5 h-5 ${active ? "text-[#ff7300]" : ""}`} />
+      </motion.div>
+      {!narrow && label && <span>{label}</span>}
+    </button>
+  );
+
+  const NavLinkItem = ({ to, icon: Icon, label, narrow }) => (
+    <Link 
+      to={to}
+      className={`relative w-full flex items-center ${narrow ? 'justify-center p-3' : 'gap-3 px-3 py-2.5'} text-sm font-medium rounded-lg transition-all duration-200 group text-slate-500 hover:bg-slate-50 hover:text-slate-900`}
+      title={narrow ? label : undefined}
+    >
+      <motion.div className="flex items-center justify-center transition-transform duration-200 group-hover:scale-105 group-active:scale-95">
+        <Icon className="w-5 h-5 group-hover:text-[#ff7300] transition-colors" />
+      </motion.div>
+      {!narrow && label && <span>{label}</span>}
+    </Link>
+  );
+
   return (
     <div className="h-screen bg-gradient-to-br from-orange-50 via-amber-50/50 to-orange-100/40 py-6 lg:overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-full">
@@ -171,50 +205,25 @@ export default function ApplicationGuide() {
                   </div>
                 </Link>
                 <div className="px-2 pb-2">
-                  <button 
-                    onClick={() => setActiveView("dashboard")}
-                    className="w-full bg-slate-100 rounded-lg p-3 flex items-center gap-3 font-semibold text-slate-800 mb-4"
-                  >
-                    <Home className="w-5 h-5" />
-                    Dashboard
-                  </button>
+                  <div className="space-y-0.5 mb-6 mt-2">
+                    <NavItem active={activeView === "dashboard"} onClick={() => setActiveView("dashboard")} icon={Home} label="Dashboard" />
+                  </div>
                   
-                  <div className="px-3 mb-2 text-xs font-bold text-slate-400 tracking-wider uppercase">
+                  <div className="px-3 mb-2 text-[10px] font-bold text-slate-400 tracking-wider uppercase">
                     Apply
                   </div>
-                  <div className="space-y-1 mb-6">
-                    <button 
-                      onClick={() => setActiveView("application")}
-                      className="w-full flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 rounded-md transition-colors"
-                    >
-                      <FileText className="w-5 h-5" />
-                      My Application
-                    </button>
-                    <button 
-                      onClick={() => setActiveView("universities")}
-                      className="w-full flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 rounded-md transition-colors"
-                    >
-                      <GraduationCap className="w-5 h-5" />
-                      My Universities
-                    </button>
+                  <div className="space-y-0.5 mb-6">
+                    <NavItem active={activeView === "application"} onClick={() => setActiveView("application")} icon={FileText} label="My Application" />
+                    <NavItem active={activeView === "universities"} onClick={() => setActiveView("universities")} icon={GraduationCap} label="My Universities" />
                   </div>
 
-                  <div className="px-3 mb-2 text-xs font-bold text-slate-400 tracking-wider uppercase">
+                  <div className="px-3 mb-2 text-[10px] font-bold text-slate-400 tracking-wider uppercase">
                     Explore
                   </div>
-                  <div className="space-y-1 mb-6">
-                    <Link to={createPageUrl("Universities")} className="w-full flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 rounded-md transition-colors">
-                      <Search className="w-5 h-5" />
-                      University search
-                    </Link>
-                    <Link to={createPageUrl("Events")} className="w-full flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 rounded-md transition-colors">
-                      <Calendar className="w-5 h-5" />
-                      Events
-                    </Link>
-                    <Link to={createPageUrl("Mentors")} className="w-full flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 rounded-md transition-colors">
-                      <Users className="w-5 h-5" />
-                      Mentors
-                    </Link>
+                  <div className="space-y-0.5 mb-6">
+                    <NavLinkItem to={createPageUrl("Universities")} icon={Search} label="University search" />
+                    <NavLinkItem to={createPageUrl("Events")} icon={Calendar} label="Events" />
+                    <NavLinkItem to={createPageUrl("Mentors")} icon={Users} label="Mentors" />
                   </div>
                 </div>
                 
@@ -249,19 +258,11 @@ export default function ApplicationGuide() {
                 <Link to={createPageUrl("Home")} className="mb-2 hover:opacity-80 transition-opacity">
                   <MeduLogo size={28} dark={true} className="drop-shadow-sm" />
                 </Link>
-                <div className="flex flex-col items-center space-y-4 flex-1 mt-4 w-full">
-                  <button onClick={() => setActiveView("dashboard")} className={`p-3 rounded-lg transition-colors ${activeView === "dashboard" ? "bg-slate-100 text-slate-900" : "hover:bg-slate-100 text-slate-500 hover:text-slate-900"}`} title="Dashboard">
-                    <Home className="w-5 h-5" />
-                  </button>
-                  <button onClick={() => setActiveView("application")} className={`p-3 rounded-lg transition-colors ${activeView === "application" ? "bg-slate-100 text-slate-900" : "hover:bg-slate-100 text-slate-500 hover:text-slate-900"}`} title="My Application">
-                    <FileText className="w-5 h-5" />
-                  </button>
-                  <button onClick={() => setActiveView("universities")} className={`p-3 rounded-lg transition-colors ${activeView === "universities" ? "bg-slate-100 text-slate-900" : "hover:bg-slate-100 text-slate-500 hover:text-slate-900"}`} title="My Universities">
-                    <GraduationCap className="w-5 h-5" />
-                  </button>
-                  <Link to={createPageUrl("Universities")} className="p-3 hover:bg-slate-100 rounded-lg text-slate-500 hover:text-slate-900 transition-colors" title="University Search">
-                    <Search className="w-5 h-5" />
-                  </Link>
+                <div className="flex flex-col items-center space-y-1.5 flex-1 mt-4 w-full px-2">
+                  <NavItem active={activeView === "dashboard"} onClick={() => setActiveView("dashboard")} icon={Home} label="Dashboard" narrow={true} />
+                  <NavItem active={activeView === "application"} onClick={() => setActiveView("application")} icon={FileText} label="My Application" narrow={true} />
+                  <NavItem active={activeView === "universities"} onClick={() => setActiveView("universities")} icon={GraduationCap} label="My Universities" narrow={true} />
+                  <NavLinkItem to={createPageUrl("Universities")} icon={Search} label="University search" narrow={true} />
                 </div>
 
                 <div className="flex flex-col items-center space-y-4 mt-auto pt-4 w-full">
@@ -433,19 +434,39 @@ export default function ApplicationGuide() {
           )}
 
           {/* Main Content */}
-          <div className="flex-1 min-w-0 flex flex-col bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden h-full">
+          <div className="flex-1 min-w-0 flex flex-col bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden h-full relative">
             <div className="flex-1 overflow-y-auto p-6 md:p-8">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeView}
+                  initial={{ opacity: 0, y: 12, scale: 0.99 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.99, transition: { duration: 0.15 } }}
+                  transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                  className="min-h-full"
+                >
             {activeView === "dashboard" ? (
               <>
                 {/* Banner */}
-                <div className="bg-[#fff0e6] rounded-2xl p-8 mb-8 flex items-center justify-between relative overflow-hidden">
+                <motion.div 
+                  initial={{ opacity: 0, y: -12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  className="bg-[#fff0e6] rounded-2xl p-8 mb-8 flex items-center justify-between relative overflow-hidden"
+                >
                   <div className="relative z-10">
                     <h1 className="text-3xl md:text-4xl font-bold text-[#cc5c00] flex items-center gap-3">
-                      <Sun className="w-8 h-8 text-[#ff7300]" />
+                      <motion.div
+                        initial={{ rotate: -45, scale: 0.8 }}
+                        animate={{ rotate: 0, scale: 1 }}
+                        transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
+                      >
+                        <Sun className="w-8 h-8 text-[#ff7300]" />
+                      </motion.div>
                       Good morning{user?.full_name ? `, ${user.full_name.split(' ')[0]}` : ""}!
                     </h1>
                   </div>
-                </div>
+                </motion.div>
 
                 <h2 className="text-3xl font-bold text-slate-900 mb-6">Dashboard</h2>
 
@@ -458,26 +479,58 @@ export default function ApplicationGuide() {
                         <span className="text-xl font-bold text-slate-800">My Application</span>
                       </AccordionTrigger>
                       <AccordionContent className="px-6 pb-6 pt-2">
-                        <div className="mb-6">
-                          <div className="flex justify-between text-xs text-slate-500 mb-2">
-                            <span>0/6 sections complete</span>
+                        <div className="mb-6 relative">
+                          <div className="flex justify-between text-xs font-bold text-slate-500 mb-2">
+                            <span>2/6 sections complete</span>
                           </div>
                           <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
-                            <div className="h-full bg-slate-200 w-0" />
+                            <motion.div 
+                              initial={{ width: 0 }}
+                              animate={{ width: '33%' }}
+                              transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+                              className="h-full bg-[#ff7300]" 
+                            />
                           </div>
                         </div>
                         
-                        <div className="flex flex-wrap sm:flex-nowrap justify-between gap-4">
-                          {steps.map((step) => (
-                            <div key={step.id} className="flex flex-col items-center gap-2 flex-1 min-w-[60px]">
-                              <div className="w-8 h-8 rounded-full border-2 border-dashed border-[#ff9933]/40 flex items-center justify-center text-[#ff9933]">
-                                <div className="w-2 h-2 rounded-full bg-transparent" />
-                              </div>
-                              <span className="text-xs font-medium text-[#ff9933] hover:underline cursor-pointer">
+                        <div className="flex flex-wrap sm:flex-nowrap justify-between gap-4 relative z-10">
+                          {steps.map((step, idx) => {
+                            const isCompleted = idx < 2; // Simulate completed steps
+                            const isActive = idx === 2;
+                            return (
+                            <motion.div 
+                              key={step.id} 
+                              className="flex flex-col items-center gap-2 flex-1 min-w-[60px] group cursor-pointer"
+                              whileHover={{ y: -2 }}
+                              transition={{ duration: 0.15 }}
+                            >
+                              <motion.div 
+                                initial={{ scale: 0.95 }}
+                                animate={{ scale: 1 }}
+                                transition={{ duration: 0.24, delay: idx * 0.05 }}
+                                className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-colors duration-200 ${
+                                  isCompleted ? 'bg-[#ff7300] border-[#ff7300] text-white shadow-sm' : 
+                                  isActive ? 'border-[#ff7300] text-[#ff7300]' : 
+                                  'border-dashed border-slate-300 text-slate-400 group-hover:border-[#ff7300]/50'
+                                }`}
+                              >
+                                {isCompleted ? (
+                                  <motion.div initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.2 }}>
+                                    <CheckCircle className="w-4 h-4" />
+                                  </motion.div>
+                                ) : isActive ? (
+                                  <div className="w-2 h-2 rounded-full bg-[#ff7300]" />
+                                ) : (
+                                  <div className="w-2 h-2 rounded-full bg-transparent" />
+                                )}
+                              </motion.div>
+                              <span className={`text-xs font-medium transition-colors duration-200 ${
+                                isCompleted || isActive ? 'text-slate-800' : 'text-slate-500 group-hover:text-slate-700'
+                              }`}>
                                 {step.label}
                               </span>
-                            </div>
-                          ))}
+                            </motion.div>
+                          )})}
                         </div>
                       </AccordionContent>
                     </AccordionItem>
@@ -841,7 +894,7 @@ export default function ApplicationGuide() {
                     <p className="text-sm text-slate-500 mb-1 font-medium">My Colleges</p>
                     <div className="flex justify-between items-start mb-6 pb-6 border-b border-slate-200 border-dashed">
                       <h1 className="text-3xl lg:text-4xl font-bold text-slate-900">Overview</h1>
-                      <button className="px-4 py-2 border border-slate-300 rounded-full text-sm font-semibold text-slate-700 hover:bg-slate-50 transition-colors flex items-center gap-2">
+                      <button className="px-4 py-2 border border-slate-300 rounded-full text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:-translate-y-0.5 hover:shadow-sm active:scale-[0.98] transition-all duration-150 flex items-center gap-2">
                         <Plus className="w-4 h-4" /> Add a college
                       </button>
                     </div>
@@ -1063,11 +1116,18 @@ export default function ApplicationGuide() {
                 )}
               </div>
             )}
+                </motion.div>
+              </AnimatePresence>
             </div>
           </div>
 
           {/* Right Sidebar */}
-          <div className="w-full lg:w-80 flex-shrink-0 flex flex-col h-full">
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            className="w-full lg:w-80 flex-shrink-0 flex flex-col h-full"
+          >
             <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 flex-1 flex flex-col overflow-hidden">
               <div className="flex items-center gap-2 font-bold text-slate-800 text-lg mb-6">
                 <HelpCircle className="w-5 h-5" />
@@ -1119,7 +1179,7 @@ export default function ApplicationGuide() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
         </div>
       </div>

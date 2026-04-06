@@ -44,9 +44,9 @@ export default function UniversitySection() {
             </Link>
           </div>
           
-          <div className="relative">
-            <div className="absolute inset-0 bg-gradient-to-tr from-orange-200 to-amber-100 rounded-[3rem] transform rotate-3 scale-105 opacity-50 z-0" />
-            <div className="relative bg-white rounded-[2.5rem] shadow-xl border border-slate-100 p-8 z-10">
+          <div className="relative group">
+            <div className="absolute inset-0 bg-gradient-to-tr from-orange-200 to-amber-100 rounded-[3rem] transform rotate-3 scale-105 opacity-50 z-0 transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110" />
+            <div className="relative bg-white rounded-[2.5rem] shadow-xl border border-slate-100 p-8 z-10 transition-transform duration-500 group-hover:-translate-y-2">
               <img 
                 src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80" 
                 alt="Students" 
