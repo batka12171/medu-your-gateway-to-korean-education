@@ -15,6 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Search, MapPin, Trophy, Users, Filter, Sparkles, TrendingUp, TrendingDown, Minus, Plus, Check } from "lucide-react";
+import UniversityDetails from "@/components/universities/UniversityDetails";
 
 const staticUniversities = [
   {
@@ -161,6 +162,7 @@ export default function Universities() {
   const [locationFilter, setLocationFilter] = useState("all");
   const [typeFilter, setTypeFilter] = useState("all");
   const [rankingType, setRankingType] = useState("qs_world");
+  const [selectedUniversity, setSelectedUniversity] = useState(null);
 
   const { data: dbUniversities = [] } = useQuery({
     queryKey: ['universities'],
@@ -183,6 +185,18 @@ export default function Universities() {
   const types = [...new Set(universities.map(u => u.type))];
 
   const sortedRankings = [...rankingsData].sort((a, b) => a[rankingType] - b[rankingType]);
+
+  if (selectedUniversity) {
+    return (
+      <UniversityDetails 
+        uni={selectedUniversity}
+        onBack={() => setSelectedUniversity(null)}
+        onSave={handleSave}
+        savedUnis={savedUnis}
+        isSaving={saveMutation.isPending}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 py-12">
@@ -309,7 +323,10 @@ export default function Universities() {
                   </div>
                 </div>
                 <div className="px-6 pb-6 flex gap-2">
-                  <Button className="flex-1 bg-[#ff7300] hover:bg-[#cc5c00] text-white">
+                  <Button 
+                    className="flex-1 bg-[#ff7300] hover:bg-[#cc5c00] text-white"
+                    onClick={() => setSelectedUniversity(uni)}
+                  >
                     View Details
                   </Button>
                   <Button 
