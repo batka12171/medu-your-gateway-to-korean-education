@@ -8,7 +8,7 @@ import BecomeMentorCTA from "../components/home/BecomeMentorCTA";
 
 export default function Home() {
   return (
-    <div className="bg-white overflow-hidden min-h-screen font-sans">
+    <div className="bg-white dark:bg-slate-950 transition-colors duration-300 overflow-hidden min-h-screen font-sans">
       <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, black 1px, transparent 0)', backgroundSize: '32px 32px' }} />
       <HomeHero />
       <UniversitySection />

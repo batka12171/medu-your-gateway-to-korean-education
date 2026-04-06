@@ -210,19 +210,19 @@ export default function Universities() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 py-12">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 py-12 transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-10">
-          <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">
+          <h1 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3">
             Korean Universities
           </h1>
-          <p className="text-slate-600 max-w-2xl">
+          <p className="text-slate-600 dark:text-slate-400 max-w-2xl">
             Explore universities, compare rankings, and find your perfect match.
           </p>
         </div>
 
         <Tabs defaultValue="browse" className="space-y-8">
-          <TabsList className="bg-white border border-slate-100">
+          <TabsList className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800">
             <TabsTrigger value="browse">Browse Universities</TabsTrigger>
             <TabsTrigger value="rankings">Rankings</TabsTrigger>
             <TabsTrigger value="matcher">
@@ -234,7 +234,7 @@ export default function Universities() {
           <TabsContent value="browse" className="space-y-8">
 
             {/* Filters */}
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-4 mb-8">
+            <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 p-4 mb-8">
           <div className="flex flex-col md:flex-row gap-4">
             <div className="flex-1 relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
@@ -242,11 +242,11 @@ export default function Universities() {
                 placeholder="Search universities, programs..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="pl-10 bg-slate-50 border-0"
+                className="pl-10 bg-slate-50 dark:bg-slate-800 border-0"
               />
             </div>
             <Select value={locationFilter} onValueChange={setLocationFilter}>
-              <SelectTrigger className="w-full md:w-48 bg-slate-50 border-0">
+              <SelectTrigger className="w-full md:w-48 bg-slate-50 dark:bg-slate-800 border-0">
                 <SelectValue placeholder="All Locations" />
               </SelectTrigger>
               <SelectContent>
@@ -257,7 +257,7 @@ export default function Universities() {
               </SelectContent>
             </Select>
             <Select value={typeFilter} onValueChange={setTypeFilter}>
-              <SelectTrigger className="w-full md:w-48 bg-slate-50 border-0">
+              <SelectTrigger className="w-full md:w-48 bg-slate-50 dark:bg-slate-800 border-0">
                 <SelectValue placeholder="All Types" />
               </SelectTrigger>
               <SelectContent>
@@ -283,7 +283,7 @@ export default function Universities() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
             >
-              <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group h-full flex flex-col">
+              <div className="bg-white dark:bg-slate-900 border border-transparent dark:border-slate-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 group h-full flex flex-col">
                 <div className="relative h-48 overflow-hidden">
                   <img 
                     src={uni.image_url || "https://images.unsplash.com/photo-1562774053-701939374585?w=600&q=80"} 
@@ -295,12 +295,12 @@ export default function Universities() {
                   </Badge>
                 </div>
                 <div className="p-6 flex-1 flex flex-col">
-                  <h3 className="text-xl font-bold text-slate-900 mb-1 group-hover:text-[#ff7300] transition-colors">
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1 group-hover:text-[#ff7300] dark:group-hover:text-[#ff7300] transition-colors">
                     {uni.name}
                   </h3>
-                  <p className="text-sm text-slate-500 mb-4">{uni.name_korean}</p>
+                  <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">{uni.name_korean}</p>
                   
-                  <div className="flex items-center gap-4 text-sm text-slate-600 mb-4">
+                  <div className="flex items-center gap-4 text-sm text-slate-600 dark:text-slate-300 mb-4">
                     <span className="flex items-center gap-1">
                       <MapPin className="w-4 h-4 text-slate-400" />
                       {uni.location}

@@ -8,6 +8,7 @@ import {
   MessageSquare, ChevronDown, LogOut, User, Bookmark, Mail, Calendar
 } from "lucide-react";
 import MeduLogo from "@/components/MeduLogo";
+import { ModeToggle } from "@/components/ModeToggle";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -54,21 +55,21 @@ export default function Layout({ children, currentPageName }) {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
       {/* Header */}
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled || !isHomePage 
-          ? 'bg-white/95 backdrop-blur-md shadow-sm' 
+          ? 'bg-white/95 dark:bg-slate-900/95 backdrop-blur-md shadow-sm border-b border-transparent dark:border-slate-800' 
           : 'bg-transparent'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo */}
             <Link to={createPageUrl("Home")} className="flex items-center gap-2">
-              <div className={`flex items-center gap-3 ${isScrolled || !isHomePage ? 'text-slate-900' : 'text-white'}`}>
+              <div className={`flex items-center gap-3 ${isScrolled || !isHomePage ? 'text-slate-900 dark:text-white' : 'text-white'}`}>
                 <MeduLogo size={48} dark={!(isScrolled || !isHomePage)} className="drop-shadow-sm" />
                 <div className="flex flex-col">
-                  <span className={`text-xl font-extrabold tracking-widest leading-none ${isScrolled || !isHomePage ? 'text-slate-800' : 'text-white'}`}>MEDU</span>
+                  <span className={`text-xl font-extrabold tracking-widest leading-none ${isScrolled || !isHomePage ? 'text-slate-800 dark:text-slate-100' : 'text-white'}`}>MEDU</span>
                   <span className={`text-[10px] font-medium tracking-wider mt-0.5 ${isScrolled || !isHomePage ? 'text-[#ff7300]' : 'text-white/70'}`}>
                     한국 유학 가이드
                   </span>
@@ -84,7 +85,7 @@ export default function Layout({ children, currentPageName }) {
                   to={link.href}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                     isScrolled || !isHomePage
-                      ? 'text-slate-600 hover:text-[#ff7300] hover:bg-[#ff7300]/5'
+                      ? 'text-slate-600 dark:text-slate-300 hover:text-[#ff7300] dark:hover:text-[#ff7300] hover:bg-[#ff7300]/5'
                       : 'text-white/90 hover:text-white hover:bg-white/10'
                   }`}
                 >
@@ -95,12 +96,13 @@ export default function Layout({ children, currentPageName }) {
 
             {/* Right Side */}
             <div className="flex items-center gap-3">
+              <ModeToggle />
               {user ? (
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <Button 
                       variant="ghost" 
-                      className={`gap-2 ${isScrolled || !isHomePage ? 'text-slate-700' : 'text-white'}`}
+                      className={`gap-2 ${isScrolled || !isHomePage ? 'text-slate-700 dark:text-slate-300' : 'text-white'}`}
                     >
                       <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#ff7300] to-[#cc5c00] flex items-center justify-center text-white text-sm font-medium">
                         {user.full_name?.[0] || user.email?.[0]?.toUpperCase()}
@@ -144,7 +146,7 @@ export default function Layout({ children, currentPageName }) {
               {/* Mobile Menu Button */}
               <button
                 className={`lg:hidden p-2 rounded-lg ${
-                  isScrolled || !isHomePage ? 'text-slate-700' : 'text-white'
+                  isScrolled || !isHomePage ? 'text-slate-700 dark:text-slate-300' : 'text-white'
                 }`}
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               >
@@ -156,14 +158,14 @@ export default function Layout({ children, currentPageName }) {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="lg:hidden bg-white border-t shadow-lg">
+          <div className="lg:hidden bg-white dark:bg-slate-900 border-t dark:border-slate-800 shadow-lg">
             <div className="px-4 py-4 space-y-2">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   to={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 hover:bg-[#ff7300]/5 hover:text-[#ff7300] transition-all"
+                  className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-[#ff7300]/5 hover:text-[#ff7300] dark:hover:text-[#ff7300] transition-all"
                 >
                   <link.icon className="w-5 h-5" />
                   {link.name}
@@ -180,7 +182,7 @@ export default function Layout({ children, currentPageName }) {
       </main>
 
       {/* Footer */}
-      <footer className="bg-slate-900 text-white mt-20">
+      <footer className="bg-slate-900 dark:bg-slate-950 border-t border-transparent dark:border-slate-800 text-white mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             <div className="col-span-2 md:col-span-1">

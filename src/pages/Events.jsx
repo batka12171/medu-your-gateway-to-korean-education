@@ -73,15 +73,15 @@ export default function Events() {
   }, {});
 
   return (
-    <div className="min-h-screen bg-slate-50 pb-20 lg:pb-0">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300 pb-20 lg:pb-0">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">
+          <h1 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
             Сонирхолтой соёлын эвент
           </h1>
           <Button variant="ghost" size="icon" className="-mr-2 md:hidden">
-            <MoreVertical className="w-5 h-5 text-slate-600" />
+            <MoreVertical className="w-5 h-5 text-slate-600 dark:text-slate-400" />
           </Button>
         </div>
 
@@ -98,15 +98,15 @@ export default function Events() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
               >
-                <h2 className="text-xl md:text-2xl font-bold text-slate-900 mb-2">{category}</h2>
+                <h2 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white mb-2">{category}</h2>
                 
                 <div className="flex overflow-x-auto hide-scrollbar gap-4 md:gap-6 pb-6 -mx-4 px-4 sm:mx-0 sm:px-0 snap-x">
                   {catEvents.map((event) => (
                     <div 
                       key={event.id}
-                      className="min-w-[280px] w-[280px] md:min-w-[320px] md:w-[320px] bg-white rounded-[20px] shadow-sm hover:shadow-md transition-shadow border border-slate-100 overflow-hidden flex flex-col snap-start shrink-0"
+                      className="min-w-[280px] w-[280px] md:min-w-[320px] md:w-[320px] bg-white dark:bg-slate-900 rounded-[20px] shadow-sm hover:shadow-md transition-shadow border border-slate-100 dark:border-slate-800 overflow-hidden flex flex-col snap-start shrink-0"
                     >
-                      <div className="h-[160px] md:h-[180px] w-full bg-slate-100 relative">
+                      <div className="h-[160px] md:h-[180px] w-full bg-slate-100 dark:bg-slate-800 relative">
                         <img 
                           src={event.image_url} 
                           alt={event.title}
@@ -114,13 +114,13 @@ export default function Events() {
                         />
                       </div>
                       <div className="p-5 flex flex-col flex-1">
-                        <h3 className="font-bold text-slate-900 leading-snug line-clamp-2 mb-2 text-base">
+                        <h3 className="font-bold text-slate-900 dark:text-white leading-snug line-clamp-2 mb-2 text-base">
                           {event.title}
                         </h3>
-                        <p className="text-sm text-slate-500 mb-4">
+                        <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
                           {new Date(event.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                         </p>
-                        <div className="mt-auto flex items-center text-sm font-medium text-slate-600">
+                        <div className="mt-auto flex items-center text-sm font-medium text-slate-600 dark:text-slate-300">
                           <Ticket className="w-4 h-4 mr-2 text-slate-400" />
                           {event.price || 'Free'}
                         </div>
