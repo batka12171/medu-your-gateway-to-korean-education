@@ -77,14 +77,6 @@ export default function UniversityDetails({ uni, onBack, onSave, savedUnis, isSa
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-4 pt-4">
-                <Button className="bg-gradient-to-b from-amber-400 to-amber-600 hover:from-amber-500 hover:to-amber-700 text-white border-0 shadow-md flex-1 lg:flex-none">
-                  RateMyChances
-                </Button>
-                <Button className="bg-gradient-to-b from-slate-700 to-slate-900 hover:from-slate-800 hover:to-black text-white border-0 shadow-md flex-1 lg:flex-none">
-                  Visa Approval Chances
-                </Button>
-              </div>
             </div>
 
             {/* Right Image */}
@@ -94,28 +86,6 @@ export default function UniversityDetails({ uni, onBack, onSave, savedUnis, isSa
                 alt={uni.name}
                 className="w-full h-full object-cover"
               />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Program Tabs */}
-      <div className="border-b border-slate-200 bg-white sticky top-16 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex overflow-x-auto hide-scrollbar py-2">
-            <div className="flex bg-slate-50 rounded-lg p-1 border border-slate-200">
-              {["Engineering", "Business", "Law", "Medicine", "Undergrad"].map((tab) => (
-                <button
-                  key={tab}
-                  className={`px-6 py-2.5 text-sm font-medium rounded-md transition-colors whitespace-nowrap ${
-                    tab === "Engineering" 
-                      ? "bg-amber-400 text-slate-900 shadow-sm" 
-                      : "text-slate-600 hover:bg-slate-200/50 hover:text-slate-900"
-                  }`}
-                >
-                  {tab}
-                </button>
-              ))}
             </div>
           </div>
         </div>
@@ -179,16 +149,17 @@ export default function UniversityDetails({ uni, onBack, onSave, savedUnis, isSa
               </div>
               <Button 
                 onClick={() => onSave(uni.name)}
-                disabled={isSaving || isSaved}
+                disabled={isSaving}
                 className={`w-full font-bold shadow-sm py-6 ${
                   isSaved 
-                    ? "bg-green-500 hover:bg-green-600 text-white" 
+                    ? "bg-red-50 hover:bg-red-100 text-red-600 border border-red-200" 
                     : "bg-[#ff7300] hover:bg-[#cc5c00] text-white"
                 }`}
+                variant={isSaved ? "outline" : "default"}
               >
                 {isSaved ? (
                   <>
-                    <Check className="w-5 h-5 mr-2" /> Added to Apply List
+                    Remove from List
                   </>
                 ) : (
                   <>

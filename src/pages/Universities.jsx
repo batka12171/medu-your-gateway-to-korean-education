@@ -152,12 +152,23 @@ export default function Universities() {
     }
   });
 
-  const handleSave = (uniName) => {
-    if (savedUnis.some(su => su.university_name === uniName)) {
-      toast.info("Already in your list");
-      return;
+  const removeMutation = useMutation({
+    mutationFn: async (uniId) => {
+      return base44.entities.SavedUniversity.delete(uniId);
+    },
+    onSuccess: () => {
+      toast.success("Removed from your list");
+      queryClient.invalidateQueries({ queryKey: ['saved_universities'] });
     }
-    saveMutation.mutate(uniName);
+  });
+
+  const handleSave = (uniName) => {
+    const existingUni = savedUnis.find(su => su.university_name === uniName);
+    if (existingUni) {
+      removeMutation.mutate(existingUni.id);
+    } else {
+      saveMutation.mutate(uniName);
+    }
   };
   const [locationFilter, setLocationFilter] = useState("all");
   const [typeFilter, setTypeFilter] = useState("all");
@@ -193,7 +204,7 @@ export default function Universities() {
         onBack={() => setSelectedUniversity(null)}
         onSave={handleSave}
         savedUnis={savedUnis}
-        isSaving={saveMutation.isPending}
+        isSaving={saveMutation.isPending || removeMutation.isPending}
       />
     );
   }
@@ -338,7 +349,7 @@ export default function Universities() {
                         : 'text-slate-600 hover:text-[#ff7300] hover:bg-slate-50'
                     }`}
                     onClick={() => handleSave(uni.name)}
-                    disabled={saveMutation.isPending || savedUnis.some(su => su.university_name === uni.name)}
+                    disabled={saveMutation.isPending || removeMutation.isPending}
                   >
                     {savedUnis.some(su => su.university_name === uni.name) ? (
                       <Check className="w-4 h-4" />
