@@ -26,8 +26,10 @@ import {
   Facebook,
   Instagram,
   Twitter,
-  Youtube
+  Youtube,
+  Plus
 } from "lucide-react";
+import { toast } from "sonner";
 
 const steps = [
   { id: "profile", label: "Profile" },
@@ -236,6 +238,21 @@ export default function ApplicationGuide() {
                     </AccordionItem>
                   ))}
                 </Accordion>
+                <div className="p-4 border-t border-slate-100">
+                  <button 
+                    onClick={() => {
+                      if (savedUniversities.length >= 2) {
+                        toast.error("You have reached the maximum limit of 2 universities.");
+                      } else {
+                        window.location.href = createPageUrl("Universities");
+                      }
+                    }}
+                    className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg transition-colors"
+                  >
+                    <Plus className="w-4 h-4" />
+                    Add university
+                  </button>
+                </div>
               </div>
             </div>
           )}
@@ -316,6 +333,22 @@ export default function ApplicationGuide() {
                         <div className="mt-8">
                           <h4 className="font-bold text-slate-800 mb-2">Deadlines</h4>
                           <p className="text-sm text-slate-500">1/4 deadlines added</p>
+                        </div>
+
+                        <div className="mt-8 pt-6 border-t border-slate-100">
+                          <button 
+                            onClick={() => {
+                              if (savedUniversities.length >= 2) {
+                                toast.error("You have reached the maximum limit of 2 universities.");
+                              } else {
+                                window.location.href = createPageUrl("Universities");
+                              }
+                            }}
+                            className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition-colors"
+                          >
+                            <Plus className="w-4 h-4" />
+                            Add university
+                          </button>
                         </div>
                       </AccordionContent>
                     </AccordionItem>
