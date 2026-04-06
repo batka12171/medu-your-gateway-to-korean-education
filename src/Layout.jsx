@@ -49,6 +49,10 @@ export default function Layout({ children, currentPageName }) {
 
   const isHomePage = currentPageName === "Home";
 
+  if (currentPageName === "ApplicationGuide") {
+    return <>{children}</>;
+  }
+
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Header */}

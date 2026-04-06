@@ -30,6 +30,7 @@ import {
   Plus
 } from "lucide-react";
 import { toast } from "sonner";
+import MeduLogo from "@/components/MeduLogo";
 
 const steps = [
   { id: "profile", label: "Profile" },
@@ -97,7 +98,7 @@ export default function ApplicationGuide() {
   );
 
   return (
-    <div className="h-[calc(100vh-80px)] bg-gradient-to-br from-orange-50 via-amber-50/50 to-orange-100/40 py-6 lg:overflow-hidden">
+    <div className="h-screen bg-gradient-to-br from-orange-50 via-amber-50/50 to-orange-100/40 py-6 lg:overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-full">
         <div className="flex flex-col lg:flex-row gap-6 items-stretch h-full">
           
@@ -342,6 +343,13 @@ export default function ApplicationGuide() {
           {/* Main Content */}
           <div className="flex-1 min-w-0 flex flex-col bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden h-full">
             <div className="flex-1 overflow-y-auto p-6 md:p-8">
+              <div className="mb-6 flex items-center gap-3">
+                <MeduLogo size={40} dark={true} className="drop-shadow-sm" />
+                <div className="flex flex-col">
+                  <span className="text-xl font-extrabold tracking-widest leading-none text-slate-800">MEDU</span>
+                  <span className="text-[10px] font-medium tracking-wider mt-0.5 text-[#ff7300]">한국 유학 가이드</span>
+                </div>
+              </div>
             {activeView === "dashboard" ? (
               <>
                 {/* Banner */}
