@@ -106,7 +106,14 @@ export default function ApplicationGuide() {
           {activeView === "dashboard" ? (
             <div className="w-full lg:w-64 flex-shrink-0 flex flex-col h-full">
               <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-y-auto flex-1">
-                <div className="p-2">
+                <div className="p-4 flex items-center gap-3">
+                  <MeduLogo size={32} dark={true} className="drop-shadow-sm" />
+                  <div className="flex flex-col">
+                    <span className="text-lg font-extrabold tracking-widest leading-none text-slate-800">MEDU</span>
+                    <span className="text-[9px] font-medium tracking-wider mt-0.5 text-[#ff7300]">한국 유학 가이드</span>
+                  </div>
+                </div>
+                <div className="px-2 pb-2">
                   <button 
                     onClick={() => setActiveView("dashboard")}
                     className="w-full bg-slate-100 rounded-lg p-3 flex items-center gap-3 font-semibold text-slate-800 mb-4"
@@ -182,6 +189,9 @@ export default function ApplicationGuide() {
             <div className="w-full lg:w-[340px] flex-shrink-0 flex bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden h-full">
               {/* Narrow Sidebar */}
               <div className="w-16 flex-shrink-0 bg-white border-r border-slate-200 flex flex-col items-center py-4 space-y-4 h-full">
+                <div className="mb-2">
+                  <MeduLogo size={28} dark={true} className="drop-shadow-sm" />
+                </div>
                 <button onClick={() => setActiveView("dashboard")} className={`p-3 rounded-lg transition-colors ${activeView === "dashboard" ? "bg-slate-100 text-slate-900" : "hover:bg-slate-100 text-slate-500 hover:text-slate-900"}`} title="Dashboard">
                   <Home className="w-5 h-5" />
                 </button>
@@ -343,13 +353,6 @@ export default function ApplicationGuide() {
           {/* Main Content */}
           <div className="flex-1 min-w-0 flex flex-col bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden h-full">
             <div className="flex-1 overflow-y-auto p-6 md:p-8">
-              <div className="mb-6 flex items-center gap-3">
-                <MeduLogo size={40} dark={true} className="drop-shadow-sm" />
-                <div className="flex flex-col">
-                  <span className="text-xl font-extrabold tracking-widest leading-none text-slate-800">MEDU</span>
-                  <span className="text-[10px] font-medium tracking-wider mt-0.5 text-[#ff7300]">한국 유학 가이드</span>
-                </div>
-              </div>
             {activeView === "dashboard" ? (
               <>
                 {/* Banner */}
