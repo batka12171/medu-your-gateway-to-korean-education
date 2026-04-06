@@ -2,9 +2,8 @@ import React from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import { MapPin, Clock, Users } from "lucide-react";
+import { MoreVertical, Ticket } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 
 export default function Events() {
   const { data: dbEvents = [] } = useQuery({
@@ -16,105 +15,121 @@ export default function Events() {
   const staticEvents = [
     {
       id: 1,
-      title: "Seoul National University Virtual Info Session",
-      event_type: "info_session",
-      date: "2024-11-15T10:00:00Z",
-      location: "Online (Zoom)",
-      description: "Join us for an official virtual info session covering the 2025 Spring intake for international students.",
-      organizer_name: "SNU Admissions",
-      attendees: ["1", "2"],
-      max_attendees: 100
+      title: "Spectrosynthesis Seoul",
+      category: "Үзэсгэлэн & Галерей",
+      date: "2026-03-20T10:00:00Z",
+      price: "~ 10,000₩",
+      image_url: "https://images.unsplash.com/photo-1547822297-ea21be3e4f3a?w=400&q=80",
     },
     {
       id: 2,
-      title: "International Students Meetup in Hongdae",
-      event_type: "meetup",
-      date: "2024-11-20T18:00:00Z",
-      location: "Hongdae, Seoul",
-      description: "Casual meetup for prospective and current international students. Let's make new friends!",
-      organizer_name: "MEDU Community",
-      attendees: ["1", "2", "3"],
-      max_attendees: 30
+      title: "Sak-da: The Poetics of Decomposition",
+      category: "Үзэсгэлэн & Галерей",
+      date: "2026-01-30T10:00:00Z",
+      price: "₩2000",
+      image_url: "https://images.unsplash.com/photo-1518998053901-5314c3e110b5?w=400&q=80",
     },
     {
       id: 3,
-      title: "Visa Application Workshop",
-      event_type: "workshop",
-      date: "2024-12-05T14:00:00Z",
-      location: "Gangnam Study Center",
-      description: "A complete walkthrough of the D-2 student visa application process. Required documents, tips, and Q&A.",
-      organizer_name: "Visa Experts Korea",
-      attendees: [],
-      max_attendees: 50
+      title: "Seoul Art Week Showcase",
+      category: "Үзэсгэлэн & Галерей",
+      date: "2026-04-05T10:00:00Z",
+      price: "Free",
+      image_url: "https://images.unsplash.com/photo-1536924940846-227afb31e2a5?w=400&q=80",
+    },
+    {
+      id: 4,
+      title: "불란서 금고 - 북벽에 오를 자 누구더냐 (Театрын жүжиг)",
+      category: "Солонгос эвент & тоглолт",
+      date: "2026-03-07T19:00:00Z",
+      price: "₩55,000 ~ 77,000",
+      image_url: "https://images.unsplash.com/photo-1507676184212-d0c30a377bb5?w=400&q=80",
+    },
+    {
+      id: 5,
+      title: "World DJ Festival (WDJ FEST 2026)",
+      category: "Солонгос эвент & тоглолт",
+      date: "2026-06-13T14:00:00Z",
+      price: "₩169,000 ~",
+      image_url: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&q=80",
+    },
+    {
+      id: 6,
+      title: "KIM SEONHO FANMEETING <LOVE FACTORY>",
+      category: "Fan Meeting",
+      date: "2026-04-11T18:00:00Z",
+      price: "₩99,000",
+      image_url: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400&q=80",
     }
   ];
 
   const displayEvents = dbEvents.length > 0 ? dbEvents : staticEvents;
 
+  const categories = ["Үзэсгэлэн & Галерей", "Солонгос эвент & тоглолт", "Fan Meeting"];
+
+  const eventsByCategory = categories.reduce((acc, cat) => {
+    acc[cat] = displayEvents.filter(e => e.category === cat || (!e.category && cat === "Солонгос эвент & тоглолт"));
+    return acc;
+  }, {});
+
   return (
-    <div className="min-h-screen bg-slate-50 py-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mb-10">
-          <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-3">
-            Upcoming Events
-          </h1>
-          <p className="text-slate-600 max-w-2xl">
-            Join info sessions, workshops, and student meetups to help your Korean university journey.
-          </p>
-        </div>
+    <div className="min-h-screen bg-white pb-20 max-w-md mx-auto relative shadow-sm border-x border-slate-100">
+      {/* Header */}
+      <div className="bg-white px-4 py-5 flex items-center justify-between sticky top-0 z-20">
+        <h1 className="text-xl font-bold text-slate-900 tracking-tight">
+          Сонирхолтой соёлын эвент
+        </h1>
+        <Button variant="ghost" size="icon" className="-mr-2">
+          <MoreVertical className="w-5 h-5 text-slate-600" />
+        </Button>
+      </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {displayEvents.map((event, index) => (
-            <motion.div
-              key={event.id || index}
-              initial={{ opacity: 0, y: 20 }}
+      <div className="px-4 py-2 space-y-8">
+        {categories.map((category) => {
+          const catEvents = eventsByCategory[category];
+          if (!catEvents || catEvents.length === 0) return null;
+
+          return (
+            <motion.div 
+              key={category} 
+              className="space-y-4"
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              className="bg-white rounded-2xl border border-slate-100 overflow-hidden hover:shadow-lg transition-all flex flex-col"
+              transition={{ duration: 0.4 }}
             >
-              <div className="p-6 flex-1 flex flex-col">
-                <div className="flex justify-between items-start mb-4">
-                  <Badge variant="secondary" className="bg-[#ff7300]/10 text-[#ff7300] uppercase text-xs">
-                    {event.event_type.replace('_', ' ')}
-                  </Badge>
-                  <div className="flex flex-col items-end text-[#ff7300]">
-                    <span className="text-2xl font-bold leading-none">{new Date(event.date).getDate()}</span>
-                    <span className="text-xs uppercase font-medium">{new Date(event.date).toLocaleString('default', { month: 'short' })}</span>
-                  </div>
-                </div>
-                
-                <h3 className="text-lg font-bold text-slate-900 mb-2 line-clamp-2">
-                  {event.title}
-                </h3>
-                
-                <p className="text-slate-500 text-sm mb-6 line-clamp-3 flex-1">
-                  {event.description}
-                </p>
-
-                <div className="space-y-2 text-sm text-slate-600 mb-6">
-                  <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-slate-400" />
-                    {new Date(event.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4 text-slate-400" />
-                    <span className="truncate">{event.location}</span>
-                  </div>
-                  {event.max_attendees && (
-                    <div className="flex items-center gap-2">
-                      <Users className="w-4 h-4 text-slate-400" />
-                      {event.attendees?.length || 0} / {event.max_attendees} attendees
+              <h2 className="text-lg font-bold text-slate-900">{category}</h2>
+              
+              <div className="flex overflow-x-auto hide-scrollbar gap-4 pb-4 -mx-4 px-4 snap-x">
+                {catEvents.map((event) => (
+                  <div 
+                    key={event.id}
+                    className="min-w-[240px] w-[240px] bg-white rounded-[20px] shadow-[0_2px_12px_-4px_rgba(0,0,0,0.08)] border border-slate-100 overflow-hidden flex flex-col snap-start shrink-0"
+                  >
+                    <div className="h-[140px] w-full bg-slate-100 relative">
+                      <img 
+                        src={event.image_url} 
+                        alt={event.title}
+                        className="w-full h-full object-cover"
+                      />
                     </div>
-                  )}
-                </div>
-
-                <Button className="w-full bg-[#ff7300] hover:bg-[#cc5c00] text-white">
-                  RSVP Now
-                </Button>
+                    <div className="p-4 flex flex-col flex-1">
+                      <h3 className="font-bold text-slate-900 leading-snug line-clamp-2 mb-1.5 text-[15px]">
+                        {event.title}
+                      </h3>
+                      <p className="text-[13px] text-slate-500 mb-3">
+                        {new Date(event.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                      </p>
+                      <div className="mt-auto flex items-center text-[13px] font-medium text-slate-600">
+                        <Ticket className="w-3.5 h-3.5 mr-1.5 text-slate-400" />
+                        {event.price || 'Free'}
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </motion.div>
-          ))}
-        </div>
+          );
+        })}
       </div>
     </div>
   );

@@ -1,0 +1,80 @@
+{
+  "name": "Event",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Event title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Event description"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "\u04ae\u0437\u044d\u0441\u0433\u044d\u043b\u044d\u043d & \u0413\u0430\u043b\u0435\u0440\u0435\u0439",
+        "\u0421\u043e\u043b\u043e\u043d\u0433\u043e\u0441 \u044d\u0432\u0435\u043d\u0442 & \u0442\u043e\u0433\u043b\u043e\u043b\u0442",
+        "Fan Meeting"
+      ],
+      "default": "\u0421\u043e\u043b\u043e\u043d\u0433\u043e\u0441 \u044d\u0432\u0435\u043d\u0442 & \u0442\u043e\u0433\u043b\u043e\u043b\u0442",
+      "description": "Event category"
+    },
+    "event_type": {
+      "type": "string",
+      "enum": [
+        "info_session",
+        "meetup",
+        "workshop",
+        "webinar",
+        "social",
+        "exhibition",
+        "concert",
+        "fan_meeting"
+      ],
+      "description": "Type of event"
+    },
+    "date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Event date and time"
+    },
+    "location": {
+      "type": "string",
+      "description": "Event location or online link"
+    },
+    "price": {
+      "type": "string",
+      "description": "Event price"
+    },
+    "image_url": {
+      "type": "string",
+      "description": "Event image"
+    },
+    "organizer_name": {
+      "type": "string",
+      "description": "Organizer name"
+    },
+    "organizer_email": {
+      "type": "string",
+      "description": "Organizer email"
+    },
+    "attendees": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Attendee emails"
+    },
+    "max_attendees": {
+      "type": "number",
+      "description": "Maximum number of attendees"
+    }
+  },
+  "required": [
+    "title",
+    "event_type",
+    "date",
+    "location"
+  ]
+}
