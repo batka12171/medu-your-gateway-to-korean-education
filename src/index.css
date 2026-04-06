@@ -4,11 +4,11 @@
 
 @layer base {
   :root {
-    /* MEDU Brand Palette — extracted from logo */
-    --brand-teal:       27 100% 50%;   /* #ff7300 */
-    --brand-teal-light: 27 100% 60%;   /* #ff9933 */
-    --brand-dark:       27 100% 40%;   /* #cc5c00 */
-    --brand-mid:        27 100% 45%;   /* #e66800 */
+    /* MEDU Brand Palette — Emerald Theme */
+    --brand-teal:       160 84% 39%;   /* #10b981 */
+    --brand-teal-light: 160 84% 50%;   /* #34d399 */
+    --brand-dark:       160 84% 25%;   /* #047857 */
+    --brand-mid:        160 84% 30%;   /* #059669 */
 
     --background: 0 0% 100%;
     --foreground: 215 25% 15%;
@@ -16,27 +16,27 @@
     --card-foreground: 215 25% 15%;
     --popover: 0 0% 100%;
     --popover-foreground: 215 25% 15%;
-    /* Primary → brand teal */
-    --primary: 27 100% 50%;
+    /* Primary → Emerald 500 */
+    --primary: 160 84% 39%;
     --primary-foreground: 0 0% 100%;
-    /* Secondary → very light teal tint */
-    --secondary: 27 40% 95%;
-    --secondary-foreground: 27 100% 40%;
+    /* Secondary */
+    --secondary: 160 20% 96%;
+    --secondary-foreground: 160 84% 39%;
     --muted: 210 20% 96%;
     --muted-foreground: 215 15% 50%;
-    /* Accent → teal mid */
-    --accent: 27 40% 92%;
-    --accent-foreground: 27 100% 40%;
+    /* Accent */
+    --accent: 160 20% 96%;
+    --accent-foreground: 160 84% 39%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 210 20% 90%;
     --input: 210 20% 90%;
-    --ring: 27 100% 50%;
-    --chart-1: 27 100% 50%;
-    --chart-2: 27 100% 40%;
-    --chart-3: 27 100% 60%;
-    --chart-4: 27 60% 65%;
-    --chart-5: 27 80% 30%;
+    --ring: 160 84% 39%;
+    --chart-1: 160 84% 39%;
+    --chart-2: 160 84% 25%;
+    --chart-3: 160 84% 50%;
+    --chart-4: 160 60% 65%;
+    --chart-5: 160 80% 30%;
     --radius: 0.5rem;
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -97,26 +97,26 @@
 }
 
 @layer utilities {
-  /* MEDU gradient — use as: className="btn-brand" */
+  /* MEDU gradient — Emerald Theme */
   .btn-brand {
-    @apply bg-gradient-to-r from-[#cc5c00] to-[#ff7300] text-white font-semibold
-           hover:from-[#b35000] hover:to-[#ff851a] transition-all shadow-md
-           shadow-[#ff7300]/20;
+    @apply bg-gradient-to-r from-[#047857] to-[#10b981] text-white font-semibold
+           hover:from-[#065f46] hover:to-[#059669] transition-all shadow-md
+           shadow-[#10b981]/20;
   }
 
   .text-brand {
-    @apply text-[#ff7300];
+    @apply text-[#10b981];
   }
 
   .bg-brand-subtle {
-    @apply bg-[#ff7300]/8;
+    @apply bg-[#10b981]/10;
   }
 
   .border-brand {
-    @apply border-[#ff7300];
+    @apply border-[#10b981];
   }
 
   .ring-brand {
-    @apply ring-[#ff7300];
+    @apply ring-[#10b981];
   }
 }

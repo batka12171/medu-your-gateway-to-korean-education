@@ -65,7 +65,7 @@ export default function Layout({ children, currentPageName }) {
                 <MeduLogo size={48} dark={!(isScrolled || !isHomePage)} className="drop-shadow-sm" />
                 <div className="flex flex-col">
                   <span className={`text-xl font-extrabold tracking-widest leading-none ${isScrolled || !isHomePage ? 'text-slate-800' : 'text-white'}`}>MEDU</span>
-                  <span className={`text-[10px] font-medium tracking-wider mt-0.5 ${isScrolled || !isHomePage ? 'text-[#ff7300]' : 'text-white/70'}`}>
+                  <span className={`text-[10px] font-medium tracking-wider mt-0.5 ${isScrolled || !isHomePage ? 'text-[#10b981]' : 'text-white/70'}`}>
                     한국 유학 가이드
                   </span>
                 </div>
@@ -80,7 +80,7 @@ export default function Layout({ children, currentPageName }) {
                   to={link.href}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                     isScrolled || !isHomePage
-                      ? 'text-slate-600 hover:text-[#ff7300] hover:bg-[#ff7300]/5'
+                      ? 'text-slate-600 hover:text-[#10b981] hover:bg-[#10b981]/5'
                       : 'text-white/90 hover:text-white hover:bg-white/10'
                   }`}
                 >
@@ -98,7 +98,7 @@ export default function Layout({ children, currentPageName }) {
                       variant="ghost" 
                       className={`gap-2 ${isScrolled || !isHomePage ? 'text-slate-700' : 'text-white'}`}
                     >
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#ff7300] to-[#cc5c00] flex items-center justify-center text-white text-sm font-medium">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#10b981] to-[#059669] flex items-center justify-center text-white text-sm font-medium">
                         {user.full_name?.[0] || user.email?.[0]?.toUpperCase()}
                       </div>
                       <ChevronDown className="w-4 h-4" />
@@ -131,7 +131,7 @@ export default function Layout({ children, currentPageName }) {
               ) : (
                 <Button 
                   onClick={() => base44.auth.redirectToLogin()}
-                  className="bg-[#ff7300] hover:bg-[#ff851a] text-white shadow-lg shadow-[#ff7300]/25"
+                  className="bg-[#10b981] hover:bg-[#34d399] text-white shadow-lg shadow-[#10b981]/25"
                 >
                   Get Started
                 </Button>
@@ -159,7 +159,7 @@ export default function Layout({ children, currentPageName }) {
                   key={link.name}
                   to={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 hover:bg-[#ff7300]/5 hover:text-[#ff7300] transition-all"
+                  className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-700 hover:bg-[#10b981]/5 hover:text-[#10b981] transition-all"
                 >
                   <link.icon className="w-5 h-5" />
                   {link.name}
@@ -184,7 +184,7 @@ export default function Layout({ children, currentPageName }) {
                 <MeduLogo size={44} dark={true} className="drop-shadow-sm" />
                 <div className="flex flex-col">
                   <span className="text-xl font-extrabold tracking-widest leading-none text-white">MEDU</span>
-                  <span className="text-[10px] font-medium tracking-wider mt-0.5 text-[#ff9933]">한국 유학 가이드</span>
+                  <span className="text-[10px] font-medium tracking-wider mt-0.5 text-[#34d399]">한국 유학 가이드</span>
                 </div>
               </div>
               <p className="text-slate-400 text-sm">
@@ -195,27 +195,27 @@ export default function Layout({ children, currentPageName }) {
             <div>
               <h4 className="font-semibold mb-4">Explore</h4>
               <ul className="space-y-2 text-sm text-slate-400">
-                <li><Link to={createPageUrl("Universities")} className="hover:text-[#ff7300] transition">Universities</Link></li>
-                <li><Link to={createPageUrl("Rankings")} className="hover:text-[#ff7300] transition">Rankings</Link></li>
-                <li><Link to={createPageUrl("ApplicationGuide")} className="hover:text-[#ff7300] transition">Application Guide</Link></li>
+                <li><Link to={createPageUrl("Universities")} className="hover:text-[#10b981] transition">Universities</Link></li>
+                <li><Link to={createPageUrl("Rankings")} className="hover:text-[#10b981] transition">Rankings</Link></li>
+                <li><Link to={createPageUrl("ApplicationGuide")} className="hover:text-[#10b981] transition">Application Guide</Link></li>
               </ul>
             </div>
 
             <div>
               <h4 className="font-semibold mb-4">Community</h4>
               <ul className="space-y-2 text-sm text-slate-400">
-                <li><Link to={createPageUrl("Mentors")} className="hover:text-[#ff7300] transition">Find Mentors</Link></li>
-                <li><Link to={createPageUrl("BecomeMentor")} className="hover:text-[#ff7300] transition">Become a Mentor</Link></li>
-                <li><Link to={createPageUrl("Community")} className="hover:text-[#ff7300] transition">Discussion Forum</Link></li>
+                <li><Link to={createPageUrl("Mentors")} className="hover:text-[#10b981] transition">Find Mentors</Link></li>
+                <li><Link to={createPageUrl("BecomeMentor")} className="hover:text-[#10b981] transition">Become a Mentor</Link></li>
+                <li><Link to={createPageUrl("Community")} className="hover:text-[#10b981] transition">Discussion Forum</Link></li>
               </ul>
             </div>
 
             <div>
               <h4 className="font-semibold mb-4">Support</h4>
               <ul className="space-y-2 text-sm text-slate-400">
-                <li><a href="#" className="hover:text-orange-400 transition">Contact Us</a></li>
-                <li><a href="#" className="hover:text-orange-400 transition">FAQ</a></li>
-                <li><a href="#" className="hover:text-orange-400 transition">Privacy Policy</a></li>
+                <li><a href="#" className="hover:text-emerald-400 transition">Contact Us</a></li>
+                <li><a href="#" className="hover:text-emerald-400 transition">FAQ</a></li>
+                <li><a href="#" className="hover:text-emerald-400 transition">Privacy Policy</a></li>
               </ul>
             </div>
           </div>
