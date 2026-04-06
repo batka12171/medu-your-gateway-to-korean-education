@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 import { motion } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -13,7 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Search, MapPin, Trophy, Users, Filter, Sparkles, TrendingUp, TrendingDown, Minus } from "lucide-react";
+import { Search, MapPin, Trophy, Users, Filter, Sparkles, TrendingUp, TrendingDown, Minus, Plus, Check } from "lucide-react";
 
 const staticUniversities = [
   {
@@ -119,6 +120,44 @@ const rankingsData = [
 
 export default function Universities() {
   const [search, setSearch] = useState("");
+  const queryClient = useQueryClient();
+
+  const { data: savedUnis = [] } = useQuery({
+    queryKey: ['saved_universities'],
+    queryFn: async () => {
+      const me = await base44.auth.me().catch(() => null);
+      if (!me) return [];
+      return base44.entities.SavedUniversity.filter({ user_email: me.email });
+    },
+    initialData: [],
+  });
+
+  const saveMutation = useMutation({
+    mutationFn: async (uniName) => {
+      const me = await base44.auth.me().catch(() => null);
+      if (!me) {
+        base44.auth.redirectToLogin();
+        throw new Error("Please log in to save universities");
+      }
+      return base44.entities.SavedUniversity.create({
+        user_email: me.email,
+        university_name: uniName,
+        notes: ""
+      });
+    },
+    onSuccess: () => {
+      toast.success("Added to your list!");
+      queryClient.invalidateQueries({ queryKey: ['saved_universities'] });
+    }
+  });
+
+  const handleSave = (uniName) => {
+    if (savedUnis.some(su => su.university_name === uniName)) {
+      toast.info("Already in your list");
+      return;
+    }
+    saveMutation.mutate(uniName);
+  };
   const [locationFilter, setLocationFilter] = useState("all");
   const [typeFilter, setTypeFilter] = useState("all");
   const [rankingType, setRankingType] = useState("qs_world");
@@ -269,11 +308,28 @@ export default function Universities() {
                     </div>
                   </div>
                 </div>
-                <div className="px-6 pb-6">
-                  <Button className="w-full bg-[#ff7300] hover:bg-[#cc5c00]">
+                <div className="px-6 pb-6 flex gap-2">
+                  <Button className="flex-1 bg-[#ff7300] hover:bg-[#cc5c00] text-white">
                     View Details
                   </Button>
-                  </div>
+                  <Button 
+                    variant="outline" 
+                    size="icon" 
+                    className={`flex-shrink-0 border-slate-200 transition-colors ${
+                      savedUnis.some(su => su.university_name === uni.name) 
+                        ? 'text-green-600 border-green-200 bg-green-50/50 hover:bg-green-50' 
+                        : 'text-slate-600 hover:text-[#ff7300] hover:bg-slate-50'
+                    }`}
+                    onClick={() => handleSave(uni.name)}
+                    disabled={saveMutation.isPending || savedUnis.some(su => su.university_name === uni.name)}
+                  >
+                    {savedUnis.some(su => su.university_name === uni.name) ? (
+                      <Check className="w-4 h-4" />
+                    ) : (
+                      <Plus className="w-4 h-4" />
+                    )}
+                  </Button>
+                </div>
                 </div>
               </motion.div>
               ))}
