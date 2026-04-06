@@ -65,8 +65,8 @@ export default function MentorsSection() {
               {/* Right Column - Scrolling Down */}
               <div className="relative h-full overflow-hidden mt-8 hidden sm:block">
                 <motion.div 
-                  className="flex flex-col gap-6 w-full absolute bottom-0"
-                  animate={{ y: ["50%", "0%"] }}
+                  className="flex flex-col gap-6 w-full"
+                  animate={{ y: ["-50%", "0%"] }}
                   transition={{ 
                     y: { repeat: Infinity, ease: "linear", duration: 25 }
                   }}
