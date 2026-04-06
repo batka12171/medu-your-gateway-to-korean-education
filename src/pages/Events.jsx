@@ -73,63 +73,65 @@ export default function Events() {
   }, {});
 
   return (
-    <div className="min-h-screen bg-white pb-20 max-w-md mx-auto relative shadow-sm border-x border-slate-100">
-      {/* Header */}
-      <div className="bg-white px-4 py-5 flex items-center justify-between sticky top-0 z-20">
-        <h1 className="text-xl font-bold text-slate-900 tracking-tight">
-          Сонирхолтой соёлын эвент
-        </h1>
-        <Button variant="ghost" size="icon" className="-mr-2">
-          <MoreVertical className="w-5 h-5 text-slate-600" />
-        </Button>
-      </div>
+    <div className="min-h-screen bg-slate-50 pb-20 lg:pb-0">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
+          <h1 className="text-2xl md:text-3xl font-bold text-slate-900 tracking-tight">
+            Сонирхолтой соёлын эвент
+          </h1>
+          <Button variant="ghost" size="icon" className="-mr-2 md:hidden">
+            <MoreVertical className="w-5 h-5 text-slate-600" />
+          </Button>
+        </div>
 
-      <div className="px-4 py-2 space-y-8">
-        {categories.map((category) => {
-          const catEvents = eventsByCategory[category];
-          if (!catEvents || catEvents.length === 0) return null;
+        <div className="space-y-10 md:space-y-12">
+          {categories.map((category) => {
+            const catEvents = eventsByCategory[category];
+            if (!catEvents || catEvents.length === 0) return null;
 
-          return (
-            <motion.div 
-              key={category} 
-              className="space-y-4"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-            >
-              <h2 className="text-lg font-bold text-slate-900">{category}</h2>
-              
-              <div className="flex overflow-x-auto hide-scrollbar gap-4 pb-4 -mx-4 px-4 snap-x">
-                {catEvents.map((event) => (
-                  <div 
-                    key={event.id}
-                    className="min-w-[240px] w-[240px] bg-white rounded-[20px] shadow-[0_2px_12px_-4px_rgba(0,0,0,0.08)] border border-slate-100 overflow-hidden flex flex-col snap-start shrink-0"
-                  >
-                    <div className="h-[140px] w-full bg-slate-100 relative">
-                      <img 
-                        src={event.image_url} 
-                        alt={event.title}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="p-4 flex flex-col flex-1">
-                      <h3 className="font-bold text-slate-900 leading-snug line-clamp-2 mb-1.5 text-[15px]">
-                        {event.title}
-                      </h3>
-                      <p className="text-[13px] text-slate-500 mb-3">
-                        {new Date(event.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-                      </p>
-                      <div className="mt-auto flex items-center text-[13px] font-medium text-slate-600">
-                        <Ticket className="w-3.5 h-3.5 mr-1.5 text-slate-400" />
-                        {event.price || 'Free'}
+            return (
+              <motion.div 
+                key={category} 
+                className="space-y-4"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+              >
+                <h2 className="text-xl md:text-2xl font-bold text-slate-900 mb-2">{category}</h2>
+                
+                <div className="flex overflow-x-auto hide-scrollbar gap-4 md:gap-6 pb-6 -mx-4 px-4 sm:mx-0 sm:px-0 snap-x">
+                  {catEvents.map((event) => (
+                    <div 
+                      key={event.id}
+                      className="min-w-[280px] w-[280px] md:min-w-[320px] md:w-[320px] bg-white rounded-[20px] shadow-sm hover:shadow-md transition-shadow border border-slate-100 overflow-hidden flex flex-col snap-start shrink-0"
+                    >
+                      <div className="h-[160px] md:h-[180px] w-full bg-slate-100 relative">
+                        <img 
+                          src={event.image_url} 
+                          alt={event.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <div className="p-5 flex flex-col flex-1">
+                        <h3 className="font-bold text-slate-900 leading-snug line-clamp-2 mb-2 text-base">
+                          {event.title}
+                        </h3>
+                        <p className="text-sm text-slate-500 mb-4">
+                          {new Date(event.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                        </p>
+                        <div className="mt-auto flex items-center text-sm font-medium text-slate-600">
+                          <Ticket className="w-4 h-4 mr-2 text-slate-400" />
+                          {event.price || 'Free'}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          );
-        })}
+                  ))}
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
