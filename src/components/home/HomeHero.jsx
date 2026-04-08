@@ -7,18 +7,9 @@ import ParticleLogo from "./ParticleLogo";
 
 export default function HomeHero() {
   return (
-    <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 px-4 z-10 overflow-hidden">
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.2 }}
-        className="absolute inset-0 lg:inset-y-0 lg:left-auto lg:right-0 w-full lg:w-[55%] -z-10 opacity-40 lg:opacity-100"
-      >
-        <ParticleLogo />
-      </motion.div>
-
+    <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 px-4 z-10">
       <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-12 items-center relative z-10">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -59,6 +50,14 @@ export default function HomeHero() {
             </div>
           </motion.div>
 
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.2 }}
+            className="w-full h-full relative"
+          >
+            <ParticleLogo />
+          </motion.div>
         </div>
 
         {/* Floating Search Bar */}
