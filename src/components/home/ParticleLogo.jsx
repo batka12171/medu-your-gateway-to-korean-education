@@ -350,7 +350,7 @@ export default function ParticleLogo() {
   }, []);
 
   return (
-    <div ref={containerRef} className="w-full h-full min-h-[400px] lg:min-h-[600px] relative rounded-[2.5rem] overflow-hidden bg-black shadow-2xl">
+    <div ref={containerRef} className="w-full h-full relative overflow-hidden">
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full block cursor-none" />
     </div>
   );
