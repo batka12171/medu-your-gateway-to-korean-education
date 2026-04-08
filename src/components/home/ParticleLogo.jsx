@@ -72,11 +72,11 @@ export default function ParticleLogo() {
         this.maxLife = 220 + Math.random() * 300;
         this.absorbed = false;
         const tints = [
-          `rgba(80,100,140,`,
-          `rgba(60,80,120,`,
-          `rgba(100,110,130,`,
-          `rgba(40,50,80,`,
-          `rgba(120,130,150,`,
+          `rgba(255,115,0,`,
+          `rgba(204,92,0,`,
+          `rgba(255,153,51,`,
+          `rgba(230,104,0,`,
+          `rgba(255,179,71,`,
         ];
         this.colorBase = tints[Math.floor(Math.random() * tints.length)];
       }
@@ -216,7 +216,13 @@ export default function ParticleLogo() {
         const s = sampled[Math.floor(i * step)];
         const wx = offsetX + s.x * scaleX;
         const wy = offsetY + s.y * scaleY;
-        const color = `rgba(${s.r},${s.g},${s.b},${(s.a / 255).toFixed(2)})`;
+        
+        const progress = s.x / imgW;
+        const r = Math.floor(255 - progress * 51);
+        const g = Math.floor(179 - progress * 87);
+        const b = Math.floor(71 - progress * 71);
+        
+        const color = `rgba(${r},${g},${b},${(s.a / 255).toFixed(2)})`;
         particles.push(new Particle(wx, wy, color));
       }
 
@@ -225,8 +231,8 @@ export default function ParticleLogo() {
 
     const handleImageLoad = () => {
       const offscreen = document.createElement('canvas');
-      const maxW = Math.min(width * 0.72, 520);
-      const maxH = Math.min(height * 0.72, 520);
+      const maxW = Math.min(width * 1.5, 1200);
+      const maxH = Math.min(height * 1.5, 1200);
       const scaleRatio = Math.min(maxW / img.width, maxH / img.height);
 
       const drawW = img.width * scaleRatio;
@@ -351,7 +357,7 @@ export default function ParticleLogo() {
 
   return (
     <div ref={containerRef} className="w-full h-full relative overflow-hidden bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
-      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full block cursor-none mix-blend-difference dark:mix-blend-screen opacity-60 dark:opacity-80" />
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full block cursor-none opacity-60 dark:opacity-50" />
     </div>
   );
 }
