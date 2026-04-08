@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "../../utils";
-import { GraduationCap, Calendar, Users, ArrowRight } from "lucide-react";
+import { GraduationCap, Calendar, Users, ArrowRight, Search } from "lucide-react";
 import ParticleLogo from "./ParticleLogo";
 
 export default function HomeHero() {
@@ -29,21 +29,21 @@ export default function HomeHero() {
             
             <div className="flex flex-col sm:flex-row items-center gap-4">
               <Link to={createPageUrl("Universities")}>
-                <button className="w-full sm:w-auto px-8 py-4 bg-orange-600 hover:bg-orange-700 text-white rounded-full font-semibold shadow-lg shadow-orange-600/30 transition-all flex items-center justify-center gap-2 group">
+                <button className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-full font-semibold shadow-lg shadow-orange-600/30 shadow-[inset_0_1px_2px_rgba(255,255,255,0.3)] transition-all flex items-center justify-center gap-2 group">
                   <GraduationCap className="w-5 h-5" />
                   Start Application
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
               </Link>
               <Link to={createPageUrl("Events")}>
-                <button className="w-full sm:w-auto px-8 py-4 bg-white border border-slate-200 hover:border-orange-200 hover:bg-orange-50 text-slate-700 rounded-full font-semibold transition-all flex items-center justify-center gap-2">
-                  <Calendar className="w-5 h-5 text-orange-600" />
+                <button className="w-full sm:w-auto px-8 py-4 bg-transparent border border-slate-200 dark:border-slate-700 hover:border-orange-500/50 hover:bg-orange-500/10 text-slate-700 dark:text-slate-300 rounded-full font-semibold transition-all flex items-center justify-center gap-2">
+                  <Calendar className="w-5 h-5 text-orange-500" />
                   Explore Events
                 </button>
               </Link>
               <Link to={createPageUrl("Mentors")}>
-                <button className="w-full sm:w-auto px-8 py-4 bg-white border border-slate-200 hover:border-orange-200 hover:bg-orange-50 text-slate-700 rounded-full font-semibold transition-all flex items-center justify-center gap-2">
-                  <Users className="w-5 h-5 text-orange-600" />
+                <button className="w-full sm:w-auto px-8 py-4 bg-transparent border border-slate-200 dark:border-slate-700 hover:border-orange-500/50 hover:bg-orange-500/10 text-slate-700 dark:text-slate-300 rounded-full font-semibold transition-all flex items-center justify-center gap-2">
+                  <Users className="w-5 h-5 text-orange-500" />
                   Find a Mentor
                 </button>
               </Link>
@@ -59,6 +59,30 @@ export default function HomeHero() {
             <ParticleLogo />
           </motion.div>
         </div>
+
+        {/* Floating Search Bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="mt-16 max-w-4xl mx-auto relative z-20"
+        >
+          <div className="bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl border border-white/20 dark:border-slate-800/50 p-2 sm:p-4 rounded-2xl sm:rounded-full shadow-2xl shadow-slate-200/50 dark:shadow-none flex flex-col sm:flex-row items-center gap-4">
+            <div className="flex-1 flex items-center px-4 w-full">
+              <Search className="w-5 h-5 text-slate-400 mr-3" />
+              <input 
+                type="text" 
+                placeholder="Search University, Major, or City..." 
+                className="w-full bg-transparent border-none outline-none text-slate-900 dark:text-white placeholder:text-slate-500 dark:placeholder:text-slate-400 py-2 sm:py-0"
+              />
+            </div>
+            <Link to={createPageUrl("Universities")} className="w-full sm:w-auto">
+              <button className="w-full sm:w-auto px-8 py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl sm:rounded-full font-semibold shadow-[inset_0_1px_2px_rgba(255,255,255,0.3)] transition-all flex items-center justify-center">
+                Search
+              </button>
+            </Link>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
