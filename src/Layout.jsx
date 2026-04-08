@@ -43,6 +43,7 @@ export default function Layout({ children, currentPageName }) {
   }, []);
 
   const navLinks = [
+    { name: "Universities", href: createPageUrl("Universities"), icon: GraduationCap },
     { name: "Application Process", href: createPageUrl("ApplicationGuide"), icon: BookOpen },
     { name: "Events", href: createPageUrl("Events"), icon: Calendar },
     { name: "Mentors", href: createPageUrl("Mentors"), icon: Users },
