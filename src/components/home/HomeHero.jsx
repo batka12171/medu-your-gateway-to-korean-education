@@ -7,7 +7,7 @@ import ParticleLogo from "./ParticleLogo";
 
 export default function HomeHero() {
   return (
-    <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 px-4 z-10 min-h-[90vh] flex flex-col justify-center items-center overflow-hidden">
+    <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-24 px-4 z-10 min-h-[60vh] flex flex-col justify-center items-center overflow-hidden">
       {/* Absolute Background Animation */}
       <motion.div 
         initial={{ opacity: 0 }}
