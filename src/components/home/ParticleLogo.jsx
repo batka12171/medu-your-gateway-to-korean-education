@@ -350,8 +350,8 @@ export default function ParticleLogo() {
   }, []);
 
   return (
-    <div ref={containerRef} className="w-full h-full min-h-[400px] lg:min-h-[600px] relative rounded-[2.5rem] overflow-hidden bg-black shadow-2xl">
-      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full block cursor-none" />
+    <div ref={containerRef} className="w-full h-full relative overflow-hidden bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full block cursor-none mix-blend-difference dark:mix-blend-screen opacity-60 dark:opacity-80" />
     </div>
   );
 }

@@ -7,27 +7,40 @@ import ParticleLogo from "./ParticleLogo";
 
 export default function HomeHero() {
   return (
-    <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 px-4 z-10">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+    <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 px-4 z-10 min-h-[90vh] flex flex-col justify-center items-center overflow-hidden">
+      {/* Absolute Background Animation */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        className="absolute inset-0 w-full h-full z-0"
+      >
+        <ParticleLogo />
+      </motion.div>
+
+      {/* Overlay to ensure text readability */}
+      <div className="absolute inset-0 bg-white/70 dark:bg-black/70 z-0 pointer-events-none"></div>
+
+      <div className="max-w-4xl mx-auto relative z-10 w-full">
+        <div className="flex flex-col items-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="max-w-2xl"
+            className="w-full flex flex-col items-center text-center"
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-50 border border-orange-200 text-orange-700 text-sm font-medium mb-8">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-600 dark:text-orange-400 text-sm font-medium mb-8 backdrop-blur-sm">
               <span className="flex w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
               The All-in-One Platform for Mongolia to Korea
             </div>
-            <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight leading-tight mb-8 text-left">
-              Study, Connect, and Grow in <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-amber-400">South Korea</span>
+            <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight mb-8">
+              Study, Connect, and Grow in <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-amber-400">South Korea</span>
             </h1>
-            <p className="text-xl text-slate-600 mb-12 max-w-2xl leading-relaxed text-left">
+            <p className="text-xl text-slate-800 dark:text-slate-300 mb-12 max-w-2xl leading-relaxed mx-auto font-medium drop-shadow-sm">
               Navigate the Korean university application process, attend local events, and find expert mentors to guide your journey.
             </p>
             
-            <div className="flex flex-col sm:flex-row items-center gap-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
               <Link to={createPageUrl("Universities")}>
                 <button className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-full font-semibold shadow-lg shadow-orange-600/30 shadow-[inset_0_1px_2px_rgba(255,255,255,0.3)] transition-all flex items-center justify-center gap-2 group">
                   <GraduationCap className="w-5 h-5" />
@@ -36,27 +49,18 @@ export default function HomeHero() {
                 </button>
               </Link>
               <Link to={createPageUrl("Events")}>
-                <button className="w-full sm:w-auto px-8 py-4 bg-transparent border border-slate-200 dark:border-slate-700 hover:border-orange-500/50 hover:bg-orange-500/10 text-slate-700 dark:text-slate-300 rounded-full font-semibold transition-all flex items-center justify-center gap-2">
+                <button className="w-full sm:w-auto px-8 py-4 bg-white/50 dark:bg-black/50 backdrop-blur-md border border-slate-200/50 dark:border-slate-700/50 hover:border-orange-500/50 hover:bg-orange-500/10 text-slate-800 dark:text-slate-100 rounded-full font-semibold transition-all flex items-center justify-center gap-2 shadow-sm">
                   <Calendar className="w-5 h-5 text-orange-500" />
                   Explore Events
                 </button>
               </Link>
               <Link to={createPageUrl("Mentors")}>
-                <button className="w-full sm:w-auto px-8 py-4 bg-transparent border border-slate-200 dark:border-slate-700 hover:border-orange-500/50 hover:bg-orange-500/10 text-slate-700 dark:text-slate-300 rounded-full font-semibold transition-all flex items-center justify-center gap-2">
+                <button className="w-full sm:w-auto px-8 py-4 bg-white/50 dark:bg-black/50 backdrop-blur-md border border-slate-200/50 dark:border-slate-700/50 hover:border-orange-500/50 hover:bg-orange-500/10 text-slate-800 dark:text-slate-100 rounded-full font-semibold transition-all flex items-center justify-center gap-2 shadow-sm">
                   <Users className="w-5 h-5 text-orange-500" />
                   Find a Mentor
                 </button>
               </Link>
             </div>
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.2 }}
-            className="w-full h-full relative"
-          >
-            <ParticleLogo />
           </motion.div>
         </div>
 
