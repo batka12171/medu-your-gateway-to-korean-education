@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { createPageUrl } from "../utils";
 import { base44 } from "@/api/base44Client";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Input } from "@/components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -43,7 +42,8 @@ const steps = [
   { id: "family", label: "Family" },
   { id: "education", label: "Education" },
   { id: "testing", label: "Testing" },
-  { id: "activities", label: "Activities" }
+  { id: "activities", label: "Activities" },
+  { id: "writing", label: "Writing" }
 ];
 
 const faqs = [
@@ -73,6 +73,11 @@ const faqs = [
   }
 ];
 
+const savedUniversitiesData = [
+  { id: 1, name: "Seoul National University", email: "admission@snu.ac.kr", phone: "+82 2-880-5114", address: "1 Gwanak-ro, Gwanak-gu, Seoul, 08826, South Korea", deadline: "July 28, 2026", website: "https://en.snu.ac.kr", fee: 50 },
+  { id: 2, name: "KAIST", email: "admission@kaist.ac.kr", phone: "+82 42-350-2114", address: "291 Daehak-ro, Yuseong-gu, Daejeon, 34141, South Korea", deadline: "August 15, 2026", website: "https://kaist.ac.kr", fee: 60 }
+];
+
 const checklistItemsTemplate = [
   { id: "transcript", label: "Official Transcript", status: "pending", file: null },
   { id: "recommendation1", label: "Recommendation Letter 1", status: "pending", file: null },
@@ -83,109 +88,18 @@ const checklistItemsTemplate = [
 
 export default function ApplicationGuide() {
   const [user, setUser] = useState(null);
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
   const [searchQuery, setSearchQuery] = useState("");
   const [activeView, setActiveView] = useState("dashboard"); // "dashboard" or "universities"
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [selectedUni, setSelectedUni] = useState("overview");
   const [activeAppSection, setActiveAppSection] = useState("profile");
-  const [activeUniSection, setActiveUniSection] = useState("overview");
   
-  const { data: fetchedUniversities = [] } = useQuery({
-    queryKey: ['saved_universities'],
-    queryFn: async () => {
-      const me = await base44.auth.me().catch(() => null);
-      if (!me) return [];
-      return base44.entities.SavedUniversity.filter({ user_email: me.email });
-    },
-    initialData: [],
-  });
-
-  const deleteMutation = useMutation({
-    mutationFn: async (uniId) => {
-      return base44.entities.SavedUniversity.delete(uniId);
-    },
-    onSuccess: () => {
-      toast.success("University removed from your list");
-      queryClient.invalidateQueries({ queryKey: ['saved_universities'] });
-      if (selectedUni && selectedUni.id !== "overview") {
-          setSelectedUni("overview");
-      }
-    }
-  });
-
-  const [savedUniversities, setSavedUniversities] = useState([]);
-  const [uniForms, setUniForms] = useState({});
-  const [appForms, setAppForms] = useState({});
-  const [appSectionStatus, setAppSectionStatus] = useState({
-    profile: false,
-    family: false,
-    education: false,
-    testing: false,
-    activities: false
-  });
-
-  const handleAppFormChange = (field, value) => {
-    setAppForms(prev => ({ ...prev, [field]: value }));
-  };
-
-  const handleAppContinue = (currentSection, nextSection, requiredFields) => {
-    const isFilled = requiredFields.every(field => {
-      const val = appForms[field];
-      return val !== undefined && val !== null && val !== false && String(val).trim() !== '';
-    });
-    
-    if (isFilled) {
-      setAppSectionStatus(prev => ({ ...prev, [currentSection]: true }));
-    }
-    
-    if (nextSection === 'dashboard') {
-      setActiveView('dashboard');
-    } else {
-      setActiveAppSection(nextSection);
-    }
-  };
-
-  useEffect(() => {
-    const formatted = fetchedUniversities.map((uni) => ({
-      id: uni.id,
-      name: uni.university_name,
-      notes: uni.notes,
-      email: "admission@example.ac.kr",
-      phone: "+82 2-000-0000",
-      address: "South Korea",
-      deadline: "August 15, 2026",
-      website: "https://example.ac.kr",
-      fee: 50,
-      checklist: JSON.parse(JSON.stringify(checklistItemsTemplate)),
-      sectionStatus: { general: false, academics: false, additional_documents: false, recommenders: false }
-    }));
-    setSavedUniversities(formatted);
-  }, [fetchedUniversities]);
-
-  const handleUniFormChange = (uniId, field, value) => {
-    setUniForms(prev => ({ ...prev, [uniId]: { ...prev[uniId], [field]: value } }));
-  };
-
-  const handleContinue = (uniId, currentSection, nextSection, requiredFields) => {
-    const form = uniForms[uniId] || {};
-    const isFilled = requiredFields.every(field => {
-      const val = form[field];
-      return val !== undefined && val !== null && val !== false && String(val).trim() !== '';
-    });
-    
-    if (isFilled) {
-      setSavedUniversities(prev => prev.map(uni => {
-        if (uni.id === uniId) {
-          return { ...uni, sectionStatus: { ...uni.sectionStatus, [currentSection]: true } };
-        }
-        return uni;
-      }));
-    }
-    
-    setActiveUniSection(nextSection);
-  };
+  const [savedUniversities, setSavedUniversities] = useState(
+    savedUniversitiesData.map(uni => ({
+      ...uni,
+      checklist: JSON.parse(JSON.stringify(checklistItemsTemplate))
+    }))
+  );
 
   const handleFileUpload = (uniId, itemId, e) => {
     const file = e.target.files[0];
@@ -401,7 +315,7 @@ export default function ApplicationGuide() {
                 </div>
                 <div className="p-2 border-b border-slate-100">
                   <button 
-                    onClick={() => { setSelectedUni("overview"); setActiveUniSection("overview"); }}
+                    onClick={() => setSelectedUni("overview")}
                     className={`w-full text-left px-3 py-2 text-sm font-medium rounded ${selectedUni === "overview" ? "bg-slate-200/50 text-slate-800" : "text-slate-700 hover:bg-slate-50"}`}
                   >
                     Overview
@@ -415,51 +329,28 @@ export default function ApplicationGuide() {
                       </AccordionTrigger>
                       <AccordionContent className="pb-2 pt-0 px-0">
                         <div 
-                          className={`px-4 py-2 text-sm font-medium cursor-pointer transition-colors ${selectedUni.id === uni.id && activeUniSection === 'overview' ? 'bg-slate-200/50 text-slate-800 border-l-4 border-slate-400' : 'text-slate-600 hover:bg-slate-50 border-l-4 border-transparent'}`}
-                          onClick={() => { setSelectedUni(uni); setActiveUniSection("overview"); }}
+                          className={`px-4 py-2 text-sm font-medium cursor-pointer transition-colors ${selectedUni.id === uni.id ? 'bg-slate-200/50 text-slate-800 border-l-4 border-slate-400' : 'text-slate-600 hover:bg-slate-50 border-l-4 border-transparent'}`}
+                          onClick={() => setSelectedUni(uni)}
                         >
                           College information
                         </div>
                         <div className="px-4 py-3">
                           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3">Application</p>
                           <div className="space-y-3 pl-2">
-                            <div 
-                              className={`flex items-center gap-3 text-sm font-medium cursor-pointer transition-colors ${selectedUni.id === uni.id && activeUniSection === 'general' ? 'text-[#ff7300]' : 'text-slate-600 hover:text-[#ff7300]'}`}
-                              onClick={() => { setSelectedUni(uni); setActiveUniSection("general"); }}
-                            >
-                              <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center ${uni.sectionStatus?.general ? 'bg-[#ff7300] border-[#ff7300] text-white' : selectedUni.id === uni.id && activeUniSection === 'general' ? 'border-[#ff7300]' : 'border-dashed border-[#ff9933]/40'}`}>
-                                {uni.sectionStatus?.general && <Check className="w-3 h-3" />}
-                              </div> General
+                            <div className="flex items-center gap-3 text-sm text-slate-600 font-medium">
+                              <CheckCircle className="w-4 h-4 text-green-600" /> General
                             </div>
-                            <div 
-                              className={`flex items-center gap-3 text-sm font-medium cursor-pointer transition-colors ${selectedUni.id === uni.id && activeUniSection === 'academics' ? 'text-[#ff7300]' : 'text-slate-600 hover:text-[#ff7300]'}`}
-                              onClick={() => { setSelectedUni(uni); setActiveUniSection("academics"); }}
-                            >
-                              <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center ${uni.sectionStatus?.academics ? 'bg-[#ff7300] border-[#ff7300] text-white' : selectedUni.id === uni.id && activeUniSection === 'academics' ? 'border-[#ff7300]' : 'border-dashed border-[#ff9933]/40'}`}>
-                                {uni.sectionStatus?.academics && <Check className="w-3 h-3" />}
-                              </div> Academics
+                            <div className="flex items-center gap-3 text-sm text-slate-600">
+                              <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" /> Academics
                             </div>
-                            <div 
-                              className={`flex items-center gap-3 text-sm font-medium cursor-pointer transition-colors ${selectedUni.id === uni.id && activeUniSection === 'additional_documents' ? 'text-[#ff7300]' : 'text-slate-600 hover:text-[#ff7300]'}`}
-                              onClick={() => { setSelectedUni(uni); setActiveUniSection("additional_documents"); }}
-                            >
-                              <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center ${uni.sectionStatus?.additional_documents ? 'bg-[#ff7300] border-[#ff7300] text-white' : selectedUni.id === uni.id && activeUniSection === 'additional_documents' ? 'border-[#ff7300]' : 'border-dashed border-[#ff9933]/40'}`}>
-                                {uni.sectionStatus?.additional_documents && <Check className="w-3 h-3" />}
-                              </div> Additional Documents
+                            <div className="flex items-center gap-3 text-sm text-slate-600">
+                              <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" /> Writing
                             </div>
-                            <div 
-                              className={`flex items-center gap-3 text-sm font-medium cursor-pointer transition-colors ${selectedUni.id === uni.id && activeUniSection === 'recommenders' ? 'text-[#ff7300]' : 'text-slate-600 hover:text-[#ff7300]'}`}
-                              onClick={() => { setSelectedUni(uni); setActiveUniSection("recommenders"); }}
-                            >
-                              <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center ${uni.sectionStatus?.recommenders ? 'bg-[#ff7300] border-[#ff7300] text-white' : selectedUni.id === uni.id && activeUniSection === 'recommenders' ? 'border-[#ff7300]' : 'border-dashed border-[#ff9933]/40'}`}>
-                                {uni.sectionStatus?.recommenders && <Check className="w-3 h-3" />}
-                              </div> Recommenders and FERPA
+                            <div className="flex items-center gap-3 text-sm text-slate-600">
+                              <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" /> Recommenders and FERPA
                             </div>
-                            <div 
-                              className={`flex items-center gap-3 text-sm font-medium cursor-pointer transition-colors ${selectedUni.id === uni.id && activeUniSection === 'review' ? 'text-[#ff7300]' : 'text-slate-600 hover:text-[#ff7300]'}`}
-                              onClick={() => { setSelectedUni(uni); setActiveUniSection("review"); }}
-                            >
-                              <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 flex items-center justify-center ${selectedUni.id === uni.id && activeUniSection === 'review' ? 'border-[#ff7300]' : 'border-dashed border-[#ff9933]/40'}`} /> Review and submit application
+                            <div className="flex items-center gap-3 text-sm text-slate-600">
+                              <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" /> Review and submit application
                             </div>
                           </div>
                         </div>
@@ -473,7 +364,7 @@ export default function ApplicationGuide() {
                       if (savedUniversities.length >= 2) {
                         toast.error("You have reached the maximum limit of 2 universities.");
                       } else {
-                        navigate(createPageUrl("Universities"));
+                        window.location.href = createPageUrl("Universities");
                       }
                     }}
                     className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg transition-colors"
@@ -491,10 +382,7 @@ export default function ApplicationGuide() {
                 <Accordion type="single" collapsible defaultValue="profile" className="w-full">
                   <AccordionItem value="profile" className="border-b border-slate-100">
                     <AccordionTrigger onClick={() => setActiveAppSection("profile")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
-                      <div className="flex items-center gap-2">
-                        {appSectionStatus.profile && <CheckCircle className="w-4 h-4 text-[#ff7300]" />}
-                        Profile
-                      </div>
+                      Profile
                     </AccordionTrigger>
                     <AccordionContent className="pb-2 pt-0 px-0">
                       <div onClick={() => setActiveAppSection("profile")} className={`px-4 py-2 text-sm font-medium cursor-pointer transition-colors ${activeAppSection === "profile" ? "bg-slate-200/50 text-slate-800 border-l-4 border-slate-400" : "text-slate-600 hover:bg-slate-50 border-l-4 border-transparent"}`}>
@@ -523,10 +411,7 @@ export default function ApplicationGuide() {
                   
                   <AccordionItem value="family" className="border-b border-slate-100">
                     <AccordionTrigger onClick={() => setActiveAppSection("family")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
-                      <div className="flex items-center gap-2">
-                        {appSectionStatus.family && <CheckCircle className="w-4 h-4 text-[#ff7300]" />}
-                        Family
-                      </div>
+                      Family
                     </AccordionTrigger>
                     <AccordionContent className="pb-2 pt-0 px-0">
                     </AccordionContent>
@@ -534,10 +419,7 @@ export default function ApplicationGuide() {
 
                   <AccordionItem value="education" className="border-b border-slate-100">
                     <AccordionTrigger onClick={() => setActiveAppSection("education")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
-                      <div className="flex items-center gap-2">
-                        {appSectionStatus.education && <CheckCircle className="w-4 h-4 text-[#ff7300]" />}
-                        Education
-                      </div>
+                      Education
                     </AccordionTrigger>
                     <AccordionContent className="pb-2 pt-0 px-0">
                     </AccordionContent>
@@ -545,10 +427,7 @@ export default function ApplicationGuide() {
 
                   <AccordionItem value="testing" className="border-b border-slate-100">
                     <AccordionTrigger onClick={() => setActiveAppSection("testing")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
-                      <div className="flex items-center gap-2">
-                        {appSectionStatus.testing && <CheckCircle className="w-4 h-4 text-[#ff7300]" />}
-                        Testing
-                      </div>
+                      Testing
                     </AccordionTrigger>
                     <AccordionContent className="pb-2 pt-0 px-0">
                     </AccordionContent>
@@ -556,10 +435,15 @@ export default function ApplicationGuide() {
 
                   <AccordionItem value="activities" className="border-b border-slate-100">
                     <AccordionTrigger onClick={() => setActiveAppSection("activities")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
-                      <div className="flex items-center gap-2">
-                        {appSectionStatus.activities && <CheckCircle className="w-4 h-4 text-[#ff7300]" />}
-                        Activities
-                      </div>
+                      Activities
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-2 pt-0 px-0">
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="writing" className="border-b border-slate-100">
+                    <AccordionTrigger onClick={() => setActiveAppSection("writing")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
+                      Writing
                     </AccordionTrigger>
                     <AccordionContent className="pb-2 pt-0 px-0">
                     </AccordionContent>
@@ -638,12 +522,12 @@ export default function ApplicationGuide() {
                       <AccordionContent className="px-6 pb-6 pt-2">
                         <div className="mb-6 relative">
                           <div className="flex justify-between text-xs font-bold text-slate-500 mb-2">
-                            <span>{Object.values(appSectionStatus).filter(Boolean).length}/5 sections complete</span>
+                            <span>2/6 sections complete</span>
                           </div>
                           <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
                             <motion.div 
                               initial={{ width: 0 }}
-                              animate={{ width: `${(Object.values(appSectionStatus).filter(Boolean).length / 5) * 100}%` }}
+                              animate={{ width: '33%' }}
                               transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
                               className="h-full bg-[#ff7300]" 
                             />
@@ -652,8 +536,8 @@ export default function ApplicationGuide() {
                         
                         <div className="flex flex-wrap sm:flex-nowrap justify-between gap-4 relative z-10">
                           {steps.map((step, idx) => {
-                            const isCompleted = appSectionStatus[step.id];
-                            const isActive = activeAppSection === step.id && activeView === 'application';
+                            const isCompleted = idx < 2; // Simulate completed steps
+                            const isActive = idx === 2;
                             return (
                             <motion.div 
                               key={step.id} 
@@ -726,7 +610,7 @@ export default function ApplicationGuide() {
                               if (savedUniversities.length >= 2) {
                                 toast.error("You have reached the maximum limit of 2 universities.");
                               } else {
-                                navigate(createPageUrl("Universities"));
+                                window.location.href = createPageUrl("Universities");
                               }
                             }}
                             className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition-colors"
@@ -752,6 +636,7 @@ export default function ApplicationGuide() {
                       {activeAppSection === "education" && "Education History"}
                       {activeAppSection === "testing" && "Standardized Testing"}
                       {activeAppSection === "activities" && "Activities"}
+                      {activeAppSection === "writing" && "Personal Essay"}
                     </h1>
                     <div className="flex items-center gap-2 text-sm text-[#ff7300]">
                       <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff7300]/40 flex-shrink-0" />
@@ -770,11 +655,7 @@ export default function ApplicationGuide() {
                         <label className="block text-sm font-bold text-slate-700 mb-2">
                           Legal first/given name<span className="text-red-500">*</span>
                         </label>
-                        <Input 
-                          value={appForms.firstName || 'Bat'} 
-                          onChange={(e) => handleAppFormChange('firstName', e.target.value)}
-                          className="w-full" 
-                        />
+                        <Input defaultValue="Bat" className="w-full" />
                       </div>
 
                       <div className="mb-8">
@@ -800,35 +681,22 @@ export default function ApplicationGuide() {
                         <label className="block text-sm font-bold text-slate-700 mb-2">
                           Middle name
                         </label>
-                        <Input 
-                          value={appForms.middleName || ''}
-                          onChange={(e) => handleAppFormChange('middleName', e.target.value)}
-                          className="w-full" 
-                        />
+                        <Input className="w-full" />
                       </div>
 
                       <div className="mb-8">
                         <label className="block text-sm font-bold text-slate-700 mb-2">
                           Last/family/surname<span className="text-red-500">*</span>
                         </label>
-                        <Input 
-                          value={appForms.lastName || 'Bold'}
-                          onChange={(e) => handleAppFormChange('lastName', e.target.value)}
-                          className="w-full" 
-                        />
+                        <Input defaultValue="Bold" className="w-full" />
                       </div>
                       
                       <div className="mb-8">
                         <label className="block text-sm font-bold text-slate-700 mb-2">
                           Suffix
                         </label>
-                        <Input 
-                          value={appForms.suffix || ''}
-                          onChange={(e) => handleAppFormChange('suffix', e.target.value)}
-                          className="w-full" 
-                        />
+                        <Input className="w-full" />
                       </div>
-                      <button onClick={() => handleAppContinue('profile', 'family', ['firstName', 'lastName'])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
                   )}
 
@@ -838,11 +706,7 @@ export default function ApplicationGuide() {
                         <label className="block text-sm font-bold text-slate-700 mb-2">
                           Parents' marital status
                         </label>
-                        <select 
-                          value={appForms.maritalStatus || ''}
-                          onChange={(e) => handleAppFormChange('maritalStatus', e.target.value)}
-                          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                        >
+                        <select className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
                           <option value="">Select status...</option>
                           <option value="married">Married</option>
                           <option value="separated">Separated</option>
@@ -855,11 +719,7 @@ export default function ApplicationGuide() {
                         <label className="block text-sm font-bold text-slate-700 mb-2">
                           With whom do you make your permanent home?
                         </label>
-                        <select 
-                          value={appForms.permanentHome || ''}
-                          onChange={(e) => handleAppFormChange('permanentHome', e.target.value)}
-                          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                        >
+                        <select className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
                           <option value="">Select...</option>
                           <option value="both_parents">Both parents</option>
                           <option value="parent_1">Parent 1</option>
@@ -875,28 +735,15 @@ export default function ApplicationGuide() {
                         </label>
                         <div className="space-y-3 mb-5">
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input 
-                              type="radio" 
-                              name="hasChildren" 
-                              checked={appForms.hasChildren === 'yes'}
-                              onChange={() => handleAppFormChange('hasChildren', 'yes')}
-                              className="w-4 h-4 border-slate-300 text-[#ff7300]" 
-                            />
+                            <input type="radio" name="hasChildren" className="w-4 h-4 border-slate-300 text-[#ff7300]" />
                             Yes
                           </label>
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input 
-                              type="radio" 
-                              name="hasChildren" 
-                              checked={appForms.hasChildren !== 'yes'}
-                              onChange={() => handleAppFormChange('hasChildren', 'no')}
-                              className="w-4 h-4 border-slate-300 text-[#ff7300]" 
-                            />
+                            <input type="radio" name="hasChildren" defaultChecked className="w-4 h-4 border-slate-300 text-[#ff7300]" />
                             No
                           </label>
                         </div>
                       </div>
-                      <button onClick={() => handleAppContinue('family', 'education', ['maritalStatus', 'permanentHome'])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
                   )}
 
@@ -906,24 +753,14 @@ export default function ApplicationGuide() {
                         <label className="block text-sm font-bold text-slate-700 mb-2">
                           Current or most recent secondary/high school
                         </label>
-                        <Input 
-                          value={appForms.school || ''}
-                          onChange={(e) => handleAppFormChange('school', e.target.value)}
-                          placeholder="Find school..." 
-                          className="w-full" 
-                        />
+                        <Input placeholder="Find school..." className="w-full" />
                         <p className="text-xs text-slate-500 mt-2">Search by school name, city, state, or CEEB code</p>
                       </div>
                       <div className="mb-8">
                         <label className="block text-sm font-bold text-slate-700 mb-2">
                           Date of entry
                         </label>
-                        <Input 
-                          type="month" 
-                          value={appForms.entryDate || ''}
-                          onChange={(e) => handleAppFormChange('entryDate', e.target.value)}
-                          className="w-full" 
-                        />
+                        <Input type="month" className="w-full" />
                       </div>
                       <div className="mb-8">
                         <label className="block text-sm font-bold text-slate-700 mb-2">
@@ -931,23 +768,11 @@ export default function ApplicationGuide() {
                         </label>
                         <div className="space-y-3 mb-5">
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input 
-                              type="radio" 
-                              name="isBoarding" 
-                              checked={appForms.isBoarding === 'yes'}
-                              onChange={() => handleAppFormChange('isBoarding', 'yes')}
-                              className="w-4 h-4 border-slate-300 text-[#ff7300]" 
-                            />
+                            <input type="radio" name="isBoarding" className="w-4 h-4 border-slate-300 text-[#ff7300]" />
                             Yes
                           </label>
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input 
-                              type="radio" 
-                              name="isBoarding" 
-                              checked={appForms.isBoarding !== 'yes'}
-                              onChange={() => handleAppFormChange('isBoarding', 'no')}
-                              className="w-4 h-4 border-slate-300 text-[#ff7300]" 
-                            />
+                            <input type="radio" name="isBoarding" defaultChecked className="w-4 h-4 border-slate-300 text-[#ff7300]" />
                             No
                           </label>
                         </div>
@@ -958,28 +783,15 @@ export default function ApplicationGuide() {
                         </label>
                         <div className="space-y-3 mb-5">
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input 
-                              type="radio" 
-                              name="willGraduate" 
-                              checked={appForms.willGraduate !== 'no'}
-                              onChange={() => handleAppFormChange('willGraduate', 'yes')}
-                              className="w-4 h-4 border-slate-300 text-[#ff7300]" 
-                            />
+                            <input type="radio" name="willGraduate" defaultChecked className="w-4 h-4 border-slate-300 text-[#ff7300]" />
                             Yes
                           </label>
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input 
-                              type="radio" 
-                              name="willGraduate" 
-                              checked={appForms.willGraduate === 'no'}
-                              onChange={() => handleAppFormChange('willGraduate', 'no')}
-                              className="w-4 h-4 border-slate-300 text-[#ff7300]" 
-                            />
+                            <input type="radio" name="willGraduate" className="w-4 h-4 border-slate-300 text-[#ff7300]" />
                             No
                           </label>
                         </div>
                       </div>
-                      <button onClick={() => handleAppContinue('education', 'testing', ['school', 'entryDate'])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
                   )}
 
@@ -994,23 +806,11 @@ export default function ApplicationGuide() {
                         </label>
                         <div className="space-y-3 mb-5">
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input 
-                              type="radio" 
-                              name="reportTests" 
-                              checked={appForms.reportTests === 'yes'}
-                              onChange={() => handleAppFormChange('reportTests', 'yes')}
-                              className="w-4 h-4 border-slate-300 text-[#ff7300]" 
-                            />
+                            <input type="radio" name="reportTests" className="w-4 h-4 border-slate-300 text-[#ff7300]" />
                             Yes
                           </label>
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input 
-                              type="radio" 
-                              name="reportTests" 
-                              checked={appForms.reportTests !== 'yes'}
-                              onChange={() => handleAppFormChange('reportTests', 'no')}
-                              className="w-4 h-4 border-slate-300 text-[#ff7300]" 
-                            />
+                            <input type="radio" name="reportTests" defaultChecked className="w-4 h-4 border-slate-300 text-[#ff7300]" />
                             No
                           </label>
                         </div>
@@ -1025,28 +825,15 @@ export default function ApplicationGuide() {
                         </p>
                         <div className="space-y-3 mb-5">
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input 
-                              type="radio" 
-                              name="intlTests" 
-                              checked={appForms.intlTests === 'yes'}
-                              onChange={() => handleAppFormChange('intlTests', 'yes')}
-                              className="w-4 h-4 border-slate-300 text-[#ff7300]" 
-                            />
+                            <input type="radio" name="intlTests" className="w-4 h-4 border-slate-300 text-[#ff7300]" />
                             Yes
                           </label>
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input 
-                              type="radio" 
-                              name="intlTests" 
-                              checked={appForms.intlTests !== 'yes'}
-                              onChange={() => handleAppFormChange('intlTests', 'no')}
-                              className="w-4 h-4 border-slate-300 text-[#ff7300]" 
-                            />
+                            <input type="radio" name="intlTests" defaultChecked className="w-4 h-4 border-slate-300 text-[#ff7300]" />
                             No
                           </label>
                         </div>
                       </div>
-                      <button onClick={() => handleAppContinue('testing', 'activities', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
                   )}
 
@@ -1061,23 +848,11 @@ export default function ApplicationGuide() {
                         </label>
                         <div className="space-y-3 mb-5">
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input 
-                              type="radio" 
-                              name="reportActivities" 
-                              checked={appForms.reportActivities !== 'no'}
-                              onChange={() => handleAppFormChange('reportActivities', 'yes')}
-                              className="w-4 h-4 border-slate-300 text-[#ff7300]" 
-                            />
+                            <input type="radio" name="reportActivities" defaultChecked className="w-4 h-4 border-slate-300 text-[#ff7300]" />
                             Yes
                           </label>
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input 
-                              type="radio" 
-                              name="reportActivities" 
-                              checked={appForms.reportActivities === 'no'}
-                              onChange={() => handleAppFormChange('reportActivities', 'no')}
-                              className="w-4 h-4 border-slate-300 text-[#ff7300]" 
-                            />
+                            <input type="radio" name="reportActivities" className="w-4 h-4 border-slate-300 text-[#ff7300]" />
                             No
                           </label>
                         </div>
@@ -1086,11 +861,7 @@ export default function ApplicationGuide() {
                       <div className="mb-8 p-6 bg-slate-50 rounded-xl border border-slate-200">
                         <div className="mb-6">
                           <label className="block text-sm font-bold text-slate-700 mb-2">Activity type</label>
-                          <select 
-                            value={appForms.activityType || ''}
-                            onChange={(e) => handleAppFormChange('activityType', e.target.value)}
-                            className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                          >
+                          <select className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
                             <option value="">Select type...</option>
                             <option value="art">Art</option>
                             <option value="athletics">Athletics</option>
@@ -1101,37 +872,58 @@ export default function ApplicationGuide() {
                         </div>
                         <div className="mb-6">
                           <label className="block text-sm font-bold text-slate-700 mb-2">Position/Leadership description</label>
-                          <Input 
-                            value={appForms.activityRole || ''}
-                            onChange={(e) => handleAppFormChange('activityRole', e.target.value)}
-                            placeholder="e.g., President, Captain, Founder" 
-                            className="w-full bg-white" 
-                          />
+                          <Input placeholder="e.g., President, Captain, Founder" className="w-full bg-white" />
                         </div>
                         <div className="mb-6">
                           <label className="block text-sm font-bold text-slate-700 mb-2">Organization name</label>
-                          <Input 
-                            value={appForms.activityOrg || ''}
-                            onChange={(e) => handleAppFormChange('activityOrg', e.target.value)}
-                            className="w-full bg-white" 
-                          />
+                          <Input className="w-full bg-white" />
                         </div>
                         <div className="mb-2">
                           <label className="block text-sm font-bold text-slate-700 mb-2">Description</label>
-                          <textarea 
-                            value={appForms.activityDesc || ''}
-                            onChange={(e) => handleAppFormChange('activityDesc', e.target.value)}
-                            className="flex min-h-[80px] w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" 
-                            placeholder="Please describe this activity, including what you accomplished and any recognition you received, etc."
-                          />
+                          <textarea className="flex min-h-[80px] w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Please describe this activity, including what you accomplished and any recognition you received, etc."></textarea>
                         </div>
                       </div>
                       
-                      <button className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-bold rounded-xl transition-colors mb-6">
+                      <button className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-bold rounded-xl transition-colors">
                         <Plus className="w-4 h-4" />
                         Add another activity
                       </button>
-                      <button onClick={() => handleAppContinue('activities', 'dashboard', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
+                    </>
+                  )}
+
+                  {activeAppSection === "writing" && (
+                    <>
+                      <div className="mb-8">
+                        <p className="text-sm text-slate-700 mb-6 leading-relaxed">
+                          The essay demonstrates your ability to write clearly and concisely on a selected topic and helps you distinguish yourself in your own voice. What do you want the readers of your application to know about you apart from courses, grades, and test scores?
+                        </p>
+                        
+                        <label className="block text-sm font-bold text-slate-700 mb-4">
+                          Please select an essay prompt:
+                        </label>
+                        <div className="space-y-4 mb-8">
+                          <label className="flex items-start gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="essayPrompt" className="mt-1 w-4 h-4 border-slate-300 text-[#ff7300] flex-shrink-0" />
+                            <span>Some students have a background, identity, interest, or talent that is so meaningful they believe their application would be incomplete without it. If this sounds like you, then please share your story.</span>
+                          </label>
+                          <label className="flex items-start gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="essayPrompt" className="mt-1 w-4 h-4 border-slate-300 text-[#ff7300] flex-shrink-0" />
+                            <span>The lessons we take from obstacles we encounter can be fundamental to later success. Recount a time when you faced a challenge, setback, or failure. How did it affect you, and what did you learn from the experience?</span>
+                          </label>
+                          <label className="flex items-start gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="essayPrompt" className="mt-1 w-4 h-4 border-slate-300 text-[#ff7300] flex-shrink-0" />
+                            <span>Reflect on a time when you questioned or challenged a belief or idea. What prompted your thinking? What was the outcome?</span>
+                          </label>
+                        </div>
+
+                        <div className="mb-2">
+                          <div className="flex justify-between items-end mb-2">
+                            <label className="block text-sm font-bold text-slate-700">Essay text</label>
+                            <span className="text-xs text-slate-500">250 - 650 words</span>
+                          </div>
+                          <textarea className="flex min-h-[300px] w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Type or paste your essay here..."></textarea>
+                        </div>
+                      </div>
                     </>
                   )}
                 </div>
@@ -1143,11 +935,8 @@ export default function ApplicationGuide() {
                     <p className="text-sm text-slate-500 mb-1 font-medium">My Colleges</p>
                     <div className="flex justify-between items-start mb-6 pb-6 border-b border-slate-200 border-dashed">
                       <h1 className="text-3xl lg:text-4xl font-bold text-slate-900">Overview</h1>
-                      <button 
-                        onClick={() => navigate(createPageUrl("Universities"))}
-                        className="px-4 py-2 border border-slate-300 rounded-full text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:-translate-y-0.5 hover:shadow-sm active:scale-[0.98] transition-all duration-150 flex items-center gap-2"
-                      >
-                        <Plus className="w-4 h-4" /> Add university
+                      <button className="px-4 py-2 border border-slate-300 rounded-full text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:-translate-y-0.5 hover:shadow-sm active:scale-[0.98] transition-all duration-150 flex items-center gap-2">
+                        <Plus className="w-4 h-4" /> Add a college
                       </button>
                     </div>
                     
@@ -1175,17 +964,7 @@ export default function ApplicationGuide() {
                             </div>
                             <div className="absolute top-5 right-5 flex gap-3">
                               <button className="text-slate-500 hover:text-slate-700"><HelpCircle className="w-5 h-5 fill-slate-500 text-white" /></button>
-                              <button 
-                                className="text-slate-500 hover:text-slate-700"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  if (window.confirm("Are you sure you want to remove this university from your list?")) {
-                                    deleteMutation.mutate(uni.id);
-                                  }
-                                }}
-                              >
-                                <X className="w-5 h-5" />
-                              </button>
+                              <button className="text-slate-500 hover:text-slate-700"><X className="w-5 h-5" /></button>
                             </div>
                           </div>
                           <Accordion type="single" collapsible className="w-full">
@@ -1199,19 +978,19 @@ export default function ApplicationGuide() {
                                     <h4 className="text-[13px] text-slate-500 font-bold mb-3 uppercase tracking-wider">Application Status</h4>
                                     <ul className="space-y-2.5 text-sm text-slate-600 font-medium">
                                       <li className="flex gap-2.5"><FileText className="w-4 h-4 text-[#ff7300] flex-shrink-0 mt-0.5" /> <span><a href="#" className="text-[#ff7300] hover:underline">My Application</a> – <span className="italic font-normal">In progress</span></span></li>
-                                      <li className="flex gap-2.5"><FileText className="w-4 h-4 text-[#ff7300] flex-shrink-0 mt-0.5" /> <span><a href="#" className="text-[#ff7300] hover:underline">Additional Documents</a> – <span className="italic font-normal">In progress</span></span></li>
+                                      <li className="flex gap-2.5"><FileText className="w-4 h-4 text-[#ff7300] flex-shrink-0 mt-0.5" /> <span><a href="#" className="text-[#ff7300] hover:underline">Questions</a> – <span className="italic font-normal">In progress</span></span></li>
                                       <li className="flex gap-2.5"><FileText className="w-4 h-4 text-[#ff7300] flex-shrink-0 mt-0.5" /> <span><a href="#" className="text-[#ff7300] hover:underline">Recommenders and FERPA</a> – <span className="italic font-normal">In progress</span></span></li>
                                     </ul>
                                   </div>
                                   <div>
-                                    <h4 className="text-[13px] text-slate-500 font-bold mb-3 uppercase tracking-wider">Additional Requirements</h4>
+                                    <h4 className="text-[13px] text-slate-500 font-bold mb-3 uppercase tracking-wider">Writing Requirements</h4>
                                     <div className="mb-4">
                                       <a href="#" className="text-sm font-medium text-[#ff7300] hover:underline block mb-1">Common App personal essay</a>
                                       <div className="flex items-center gap-1.5 text-sm font-bold text-red-600"><span className="w-4 h-4 bg-red-600 text-white rounded flex items-center justify-center text-[10px] font-bold">!</span> Required</div>
                                     </div>
                                     <div className="mb-4">
-                                      <a href="#" className="text-sm font-medium text-[#ff7300] hover:underline block mb-1">Additional Documents</a>
-                                      <div className="flex items-center gap-1.5 text-sm font-bold text-red-600"><span className="w-4 h-4 bg-red-600 text-white rounded flex items-center justify-center text-[10px] font-bold">!</span> Optional unless Art Major</div>
+                                      <a href="#" className="text-sm font-medium text-[#ff7300] hover:underline block mb-1">College Questions</a>
+                                      <div className="flex items-center gap-1.5 text-sm font-bold text-red-600"><span className="w-4 h-4 bg-red-600 text-white rounded flex items-center justify-center text-[10px] font-bold">!</span> 1 Required Question</div>
                                     </div>
                                     <div>
                                       <h5 className="text-sm font-medium text-slate-700 mb-1">Writing Supplement</h5>
@@ -1229,309 +1008,147 @@ export default function ApplicationGuide() {
                 ) : selectedUni ? (
                   <div>
                     <p className="text-sm text-slate-500 mb-1 font-medium">Apply to {selectedUni.name}</p>
+                    <div className="flex justify-between items-start mb-6 pb-6 border-b border-slate-200 border-dashed">
+                      <h1 className="text-3xl lg:text-4xl font-bold text-slate-900">{selectedUni.name}</h1>
+                      <div className="w-24 h-12 bg-amber-400 rounded flex items-center justify-center text-white text-xs font-bold px-2 text-center border border-amber-500 shadow-sm">
+                        {selectedUni.name}
+                      </div>
+                    </div>
                     
-                    {activeUniSection === "overview" && (
-                      <>
-                        <div className="flex justify-between items-start mb-6 pb-6 border-b border-slate-200 border-dashed">
-                          <h1 className="text-3xl lg:text-4xl font-bold text-slate-900">{selectedUni.name}</h1>
-                          <div className="w-24 h-12 bg-amber-400 rounded flex items-center justify-center text-white text-xs font-bold px-2 text-center border border-amber-500 shadow-sm">
-                            {selectedUni.name}
-                          </div>
-                        </div>
+                    <div className="text-sm text-slate-600 mb-10 space-y-1 font-medium">
+                      <p>
+                        <a href={`mailto:${selectedUni.email}`} className="text-[#ff7300] hover:underline">{selectedUni.email}</a> 
+                        {' '}• Phone{' '} 
+                        <a href={`tel:${selectedUni.phone}`} className="text-[#ff7300] hover:underline">{selectedUni.phone}</a>
+                      </p>
+                      <p className="max-w-xs text-slate-500 italic mt-2">{selectedUni.address}</p>
+                    </div>
+
+                    <div className="grid sm:grid-cols-2 gap-8 mb-10">
+                      <div>
+                        <h3 className="font-bold text-lg text-slate-900 mb-4">Application deadlines</h3>
+                        <p className="font-bold text-slate-800 mb-1">Fall 2026</p>
+                        <p className="text-sm text-slate-600 font-medium">Rolling Admission • {selectedUni.deadline}</p>
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-lg text-slate-900 mb-4">Links</h3>
+                        <ul className="space-y-3 text-sm font-medium">
+                          <li><a href={selectedUni.website} target="_blank" rel="noopener noreferrer" className="text-[#ff7300] hover:underline flex items-center gap-1.5">College website <ExternalLink className="w-3.5 h-3.5" /></a></li>
+                          <li><a href="#" className="text-[#ff7300] hover:underline flex items-center gap-1.5">Admissions office <ExternalLink className="w-3.5 h-3.5" /></a></li>
+                          <li><a href="#" className="text-[#ff7300] hover:underline flex items-center gap-1.5">Financial aid <ExternalLink className="w-3.5 h-3.5" /></a></li>
+                          <li><a href="#" className="text-[#ff7300] hover:underline flex items-center gap-1.5">Virtual tour <ExternalLink className="w-3.5 h-3.5" /></a></li>
+                        </ul>
                         
-                        <div className="text-sm text-slate-600 mb-10 space-y-1 font-medium">
-                          <p>
-                            <a href={`mailto:${selectedUni.email}`} className="text-[#ff7300] hover:underline">{selectedUni.email}</a> 
-                            {' '}• Phone{' '} 
-                            <a href={`tel:${selectedUni.phone}`} className="text-[#ff7300] hover:underline">{selectedUni.phone}</a>
-                          </p>
-                          <p className="max-w-xs text-slate-500 italic mt-2">{selectedUni.address}</p>
+                        <div className="flex items-center gap-3 mt-6">
+                          <button className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors"><Facebook className="w-4 h-4" /></button>
+                          <button className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors"><Instagram className="w-4 h-4" /></button>
+                          <button className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors"><Twitter className="w-4 h-4" /></button>
+                          <button className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors"><Youtube className="w-4 h-4" /></button>
                         </div>
+                      </div>
+                    </div>
 
-                        <div className="grid sm:grid-cols-2 gap-8 mb-10">
-                          <div>
-                            <h3 className="font-bold text-lg text-slate-900 mb-4">Application deadlines</h3>
-                            <p className="font-bold text-slate-800 mb-1">Fall 2026</p>
-                            <p className="text-sm text-slate-600 font-medium">Rolling Admission • {selectedUni.deadline}</p>
+                    <Accordion type="multiple" defaultValue={["checklist", "info"]} className="w-full space-y-4">
+                      
+                      <AccordionItem value="checklist" className="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
+                        <AccordionTrigger className="px-5 py-4 hover:no-underline font-bold text-slate-800 text-base border-b border-slate-100">
+                          <div className="flex items-center gap-2">
+                            <CheckCircle className="w-5 h-5 text-[#ff7300]" />
+                            Document Checklist
                           </div>
-                          <div>
-                            <h3 className="font-bold text-lg text-slate-900 mb-4">Links</h3>
-                            <ul className="space-y-3 text-sm font-medium">
-                              <li><a href={selectedUni.website} target="_blank" rel="noopener noreferrer" className="text-[#ff7300] hover:underline flex items-center gap-1.5">College website <ExternalLink className="w-3.5 h-3.5" /></a></li>
-                              <li><a href="#" className="text-[#ff7300] hover:underline flex items-center gap-1.5">Admissions office <ExternalLink className="w-3.5 h-3.5" /></a></li>
-                              <li><a href="#" className="text-[#ff7300] hover:underline flex items-center gap-1.5">Financial aid <ExternalLink className="w-3.5 h-3.5" /></a></li>
-                              <li><a href="#" className="text-[#ff7300] hover:underline flex items-center gap-1.5">Virtual tour <ExternalLink className="w-3.5 h-3.5" /></a></li>
-                            </ul>
-                            
-                            <div className="flex items-center gap-3 mt-6">
-                              <button className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors"><Facebook className="w-4 h-4" /></button>
-                              <button className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors"><Instagram className="w-4 h-4" /></button>
-                              <button className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors"><Twitter className="w-4 h-4" /></button>
-                              <button className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors"><Youtube className="w-4 h-4" /></button>
-                            </div>
-                          </div>
-                        </div>
-
-                        <Accordion type="multiple" defaultValue={["checklist", "info"]} className="w-full space-y-4">
-                          
-                          <AccordionItem value="checklist" className="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
-                            <AccordionTrigger className="px-5 py-4 hover:no-underline font-bold text-slate-800 text-base border-b border-slate-100">
-                              <div className="flex items-center gap-2">
-                                <CheckCircle className="w-5 h-5 text-[#ff7300]" />
-                                Document Checklist
-                              </div>
-                            </AccordionTrigger>
-                            <AccordionContent className="p-0">
-                              <div className="divide-y divide-slate-100">
-                                {selectedUni.checklist?.map((item) => (
-                                  <div key={item.id} className="p-4 flex items-center justify-between hover:bg-slate-50 transition-colors">
-                                    <div className="flex items-center gap-3">
-                                      <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                                        item.status === 'verified' ? 'bg-green-100 text-green-600' :
-                                        item.status === 'uploaded' ? 'bg-blue-100 text-blue-600' :
-                                        'bg-slate-100 text-slate-400'
+                        </AccordionTrigger>
+                        <AccordionContent className="p-0">
+                          <div className="divide-y divide-slate-100">
+                            {selectedUni.checklist?.map((item) => (
+                              <div key={item.id} className="p-4 flex items-center justify-between hover:bg-slate-50 transition-colors">
+                                <div className="flex items-center gap-3">
+                                  <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                                    item.status === 'verified' ? 'bg-green-100 text-green-600' :
+                                    item.status === 'uploaded' ? 'bg-blue-100 text-blue-600' :
+                                    'bg-slate-100 text-slate-400'
+                                  }`}>
+                                    {item.status === 'verified' ? <Check className="w-4 h-4" /> :
+                                     item.status === 'uploaded' ? <Clock className="w-4 h-4" /> :
+                                     <div className="w-2 h-2 rounded-full bg-slate-300" />}
+                                  </div>
+                                  <div>
+                                    <p className="font-medium text-slate-800 text-sm">{item.label}</p>
+                                    <div className="flex items-center gap-2 mt-0.5">
+                                      <span className={`text-xs font-bold uppercase tracking-wider ${
+                                        item.status === 'verified' ? 'text-green-600' :
+                                        item.status === 'uploaded' ? 'text-blue-600' :
+                                        'text-slate-400'
                                       }`}>
-                                        {item.status === 'verified' ? <Check className="w-4 h-4" /> :
-                                         item.status === 'uploaded' ? <Clock className="w-4 h-4" /> :
-                                         <div className="w-2 h-2 rounded-full bg-slate-300" />}
-                                      </div>
-                                      <div>
-                                        <p className="font-medium text-slate-800 text-sm">{item.label}</p>
-                                        <div className="flex items-center gap-2 mt-0.5">
-                                          <span className={`text-xs font-bold uppercase tracking-wider ${
-                                            item.status === 'verified' ? 'text-green-600' :
-                                            item.status === 'uploaded' ? 'text-blue-600' :
-                                            'text-slate-400'
-                                          }`}>
-                                            {item.status === 'verified' ? 'Verified' :
-                                             item.status === 'uploaded' ? 'In Review' :
-                                             'Pending'}
-                                          </span>
-                                          {item.file && <span className="text-xs text-slate-500 truncate max-w-[150px]">• {item.file}</span>}
-                                        </div>
-                                      </div>
-                                    </div>
-                                    
-                                    <div className="flex items-center gap-2">
-                                      {item.status === 'pending' ? (
-                                        <>
-                                          <input
-                                            type="file"
-                                            id={`file-${selectedUni.id}-${item.id}`}
-                                            className="hidden"
-                                            onChange={(e) => handleFileUpload(selectedUni.id, item.id, e)}
-                                          />
-                                          <label
-                                            htmlFor={`file-${selectedUni.id}-${item.id}`}
-                                            className="cursor-pointer flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-300 text-slate-600 hover:bg-slate-50 hover:text-slate-900 text-xs font-bold rounded-lg transition-colors shadow-sm"
-                                          >
-                                            <Upload className="w-3.5 h-3.5" /> Upload
-                                          </label>
-                                        </>
-                                      ) : item.status === 'uploaded' ? (
-                                        <button 
-                                          onClick={() => handleStatusChange(selectedUni.id, item.id, 'verified')}
-                                          className="px-3 py-1.5 bg-green-50 text-green-700 hover:bg-green-100 text-xs font-bold rounded-lg transition-colors border border-green-200"
-                                        >
-                                          Mark Verified
-                                        </button>
-                                      ) : (
-                                        <button 
-                                          onClick={() => handleStatusChange(selectedUni.id, item.id, 'pending')}
-                                          className="px-3 py-1.5 text-slate-400 hover:text-slate-600 text-xs font-medium underline"
-                                        >
-                                          Reset
-                                        </button>
-                                      )}
+                                        {item.status === 'verified' ? 'Verified' :
+                                         item.status === 'uploaded' ? 'In Review' :
+                                         'Pending'}
+                                      </span>
+                                      {item.file && <span className="text-xs text-slate-500 truncate max-w-[150px]">• {item.file}</span>}
                                     </div>
                                   </div>
-                                ))}
+                                </div>
+                                
+                                <div className="flex items-center gap-2">
+                                  {item.status === 'pending' ? (
+                                    <>
+                                      <input
+                                        type="file"
+                                        id={`file-${selectedUni.id}-${item.id}`}
+                                        className="hidden"
+                                        onChange={(e) => handleFileUpload(selectedUni.id, item.id, e)}
+                                      />
+                                      <label
+                                        htmlFor={`file-${selectedUni.id}-${item.id}`}
+                                        className="cursor-pointer flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-300 text-slate-600 hover:bg-slate-50 hover:text-slate-900 text-xs font-bold rounded-lg transition-colors shadow-sm"
+                                      >
+                                        <Upload className="w-3.5 h-3.5" /> Upload
+                                      </label>
+                                    </>
+                                  ) : item.status === 'uploaded' ? (
+                                    <button 
+                                      onClick={() => handleStatusChange(selectedUni.id, item.id, 'verified')}
+                                      className="px-3 py-1.5 bg-green-50 text-green-700 hover:bg-green-100 text-xs font-bold rounded-lg transition-colors border border-green-200"
+                                    >
+                                      Mark Verified
+                                    </button>
+                                  ) : (
+                                    <button 
+                                      onClick={() => handleStatusChange(selectedUni.id, item.id, 'pending')}
+                                      className="px-3 py-1.5 text-slate-400 hover:text-slate-600 text-xs font-medium underline"
+                                    >
+                                      Reset
+                                    </button>
+                                  )}
+                                </div>
                               </div>
-                            </AccordionContent>
-                          </AccordionItem>
-
-                          <AccordionItem value="info" className="border border-slate-200 bg-slate-200/50 rounded-xl overflow-hidden">
-                            <AccordionTrigger className="px-5 py-4 hover:no-underline font-bold text-slate-800 text-base">
-                              Application information
-                            </AccordionTrigger>
-                            <AccordionContent className="p-5 bg-white border-t border-slate-200">
-                              <h4 className="font-bold text-slate-900 mb-2">Application Fees:</h4>
-                              <ul className="list-disc pl-5 text-sm text-slate-600 space-y-1 mb-6 font-medium">
-                                <li>First Year International Fee - ${selectedUni.fee}</li>
-                                <li>First Year Domestic Fee - $0</li>
-                              </ul>
-                              
-                              <h4 className="font-bold text-slate-900 mb-2 flex items-center gap-2">
-                                Standardized test policy: 
-                                <div className="w-3.5 h-3.5 rounded-full bg-[#ff7300] text-white flex items-center justify-center text-[9px] font-bold">?</div>
-                              </h4>
-                              <ul className="list-disc pl-5 text-sm text-slate-600 space-y-1 font-medium">
-                                <li>Flexible</li>
-                                <li>See website</li>
-                                <li>Test Policy Information</li>
-                              </ul>
-                            </AccordionContent>
-                          </AccordionItem>
-                        </Accordion>
-                      </>
-                    )}
-
-                    {activeUniSection === "general" && (
-                      <>
-                        <div className="flex justify-between items-start mb-6 pb-6 border-b border-slate-200 border-dashed">
-                          <h1 className="text-3xl lg:text-4xl font-bold text-slate-900">General</h1>
-                          <button className="px-4 py-2 border border-slate-300 rounded-full font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
-                            Preview
-                          </button>
-                        </div>
-                        <div className="max-w-2xl mt-8">
-                          <p className="text-sm text-slate-600 mb-6">The questions on this page are being asked by {selectedUni.name}.</p>
-                          <div className="mb-6">
-                            <label className="block text-sm font-bold text-slate-700 mb-2">Program Type<span className="text-red-500">*</span></label>
-                            <select 
-                              value={uniForms[selectedUni.id]?.programType || ''}
-                              onChange={(e) => handleUniFormChange(selectedUni.id, 'programType', e.target.value)}
-                              className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                            >
-                              <option value="">- Choose an option -</option>
-                              <option value="language">Language Program</option>
-                              <option value="bachelor">Bachelor's Degree</option>
-                              <option value="master">Master's Degree</option>
-                            </select>
+                            ))}
                           </div>
-                          <div className="mb-8">
-                            <label className="block text-sm font-bold text-slate-700 mb-2">Preferred admission season<span className="text-red-500">*</span></label>
-                            <select 
-                              value={uniForms[selectedUni.id]?.startTerm || ''}
-                              onChange={(e) => handleUniFormChange(selectedUni.id, 'startTerm', e.target.value)}
-                              className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                            >
-                              <option value="">- Choose an option -</option>
-                              {uniForms[selectedUni.id]?.programType === 'language' ? (
-                                <>
-                                  <option value="spring">Spring (March)</option>
-                                  <option value="summer">Summer (June)</option>
-                                  <option value="fall">Fall (September)</option>
-                                  <option value="winter">Winter (December)</option>
-                                </>
-                              ) : (
-                                <>
-                                  <option value="spring">Spring (March)</option>
-                                  <option value="fall">Fall (September)</option>
-                                </>
-                              )}
-                            </select>
-                          </div>
-                          <button onClick={() => handleContinue(selectedUni.id, 'general', 'academics', ['programType', 'startTerm'])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
-                        </div>
-                      </>
-                    )}
+                        </AccordionContent>
+                      </AccordionItem>
 
-                    {activeUniSection === "academics" && (
-                      <>
-                        <div className="flex justify-between items-start mb-6 pb-6 border-b border-slate-200 border-dashed">
-                          <h1 className="text-3xl lg:text-4xl font-bold text-slate-900">Academics</h1>
-                          <button className="px-4 py-2 border border-slate-300 rounded-full font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
-                            Preview
-                          </button>
-                        </div>
-                        <div className="max-w-2xl mt-8">
-                          <p className="text-sm text-slate-600 mb-6">The questions on this page are being asked by {selectedUni.name}.</p>
-                          <div className="mb-8">
-                            <label className="block text-sm font-bold text-slate-700 mb-2">What is your preferred academic programme(s)?<span className="text-red-500">*</span></label>
-                            <select 
-                              value={uniForms[selectedUni.id]?.programme || ''}
-                              onChange={(e) => handleUniFormChange(selectedUni.id, 'programme', e.target.value)}
-                              className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                            >
-                              <option value="">- Choose an option -</option>
-                              <option value="cs">Computer Science</option>
-                              <option value="bus">Business Administration</option>
-                              <option value="eng">Mechanical Engineering</option>
-                              <option value="arts">Fine Arts / Design</option>
-                              <option value="lang">Korean Language & Literature</option>
-                            </select>
-                          </div>
-                          <button onClick={() => handleContinue(selectedUni.id, 'academics', 'additional_documents', ['programme'])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
-                        </div>
-                      </>
-                    )}
-
-                    {activeUniSection === "additional_documents" && (
-                      <>
-                        <div className="flex justify-between items-start mb-6 pb-6 border-b border-slate-200 border-dashed">
-                          <h1 className="text-3xl lg:text-4xl font-bold text-slate-900">Additional Documents</h1>
-                          <button className="px-4 py-2 border border-slate-300 rounded-full font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
-                            Preview
-                          </button>
-                        </div>
-                        <div className="max-w-2xl mt-8">
-                           <p className="text-sm text-slate-600 mb-6">Upload any specific documents required by {selectedUni.name} for your chosen program.</p>
-                           
-                           {uniForms[selectedUni.id]?.programme === 'arts' && (
-                             <div className="mb-6 p-4 bg-orange-50 border border-orange-200 rounded-lg">
-                               <h3 className="font-bold text-slate-800 text-sm mb-2">Art Portfolio Required</h3>
-                               <p className="text-xs text-slate-600 mb-3">Since you selected Fine Arts / Design, a portfolio is required for admission.</p>
-                               <input type="file" id="portfolio-upload" className="hidden" onChange={(e) => handleUniFormChange(selectedUni.id, 'portfolio', e.target.files[0]?.name || '')} />
-                               <label htmlFor="portfolio-upload" className="cursor-pointer inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-300 text-slate-700 text-sm font-medium rounded-md hover:bg-slate-50 transition-colors">
-                                 <Upload className="w-4 h-4" /> {uniForms[selectedUni.id]?.portfolio ? uniForms[selectedUni.id].portfolio : "Upload Portfolio PDF"}
-                               </label>
-                             </div>
-                           )}
-
-                           <div className="mb-8">
-                            <label className="block text-sm font-bold text-slate-700 mb-2">Other Optional Documents</label>
-                            <input type="file" id="other-docs-upload" className="hidden" onChange={(e) => handleUniFormChange(selectedUni.id, 'otherDocs', e.target.files[0]?.name || '')} />
-                            <label htmlFor="other-docs-upload" className="cursor-pointer inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-300 text-slate-700 text-sm font-medium rounded-md hover:bg-slate-50 transition-colors">
-                              <Upload className="w-4 h-4" /> {uniForms[selectedUni.id]?.otherDocs ? uniForms[selectedUni.id].otherDocs : "Upload Additional Documents"}
-                            </label>
-                          </div>
-                          <button onClick={() => handleContinue(selectedUni.id, 'additional_documents', 'recommenders', uniForms[selectedUni.id]?.programme === 'arts' ? ['portfolio'] : [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
-                        </div>
-                      </>
-                    )}
-
-                    {activeUniSection === "recommenders" && (
-                      <>
-                        <div className="flex justify-between items-start mb-6 pb-6 border-b border-slate-200 border-dashed">
-                          <h1 className="text-3xl lg:text-4xl font-bold text-slate-900">Recommenders and FERPA</h1>
-                          <button className="px-4 py-2 border border-slate-300 rounded-full font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
-                            Preview
-                          </button>
-                        </div>
-                        <div className="max-w-2xl mt-8">
-                          <p className="text-sm text-slate-600 mb-6">FERPA Release Authorization is required before you can invite recommenders.</p>
-                          <div className="mb-8">
-                            <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                              <input 
-                                type="checkbox" 
-                                checked={uniForms[selectedUni.id]?.ferpa || false}
-                                onChange={(e) => handleUniFormChange(selectedUni.id, 'ferpa', e.target.checked)}
-                                className="w-4 h-4 rounded border-slate-300 text-[#ff7300]" 
-                              />
-                              I authorize the release of my records (FERPA)
-                            </label>
-                          </div>
-                          <button onClick={() => handleContinue(selectedUni.id, 'recommenders', 'review', ['ferpa'])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
-                        </div>
-                      </>
-                    )}
-
-                    {activeUniSection === "review" && (
-                      <>
-                        <div className="flex justify-between items-start mb-6 pb-6 border-b border-slate-200 border-dashed">
-                          <h1 className="text-3xl lg:text-4xl font-bold text-slate-900">Review and submit application</h1>
-                        </div>
-                        <div className="max-w-2xl mt-8">
-                          <p className="text-sm text-slate-600 mb-6">Please review your application carefully before submitting.</p>
-                          <div className="p-6 bg-slate-50 rounded-xl border border-slate-200 text-center">
-                            <p className="text-slate-500 mb-4">You have missing required fields in some sections.</p>
-                            <button className="bg-slate-200 text-slate-400 px-6 py-2 rounded-full font-medium cursor-not-allowed">Review PDF</button>
-                          </div>
-                        </div>
-                      </>
-                    )}
-
+                      <AccordionItem value="info" className="border border-slate-200 bg-slate-200/50 rounded-xl overflow-hidden">
+                        <AccordionTrigger className="px-5 py-4 hover:no-underline font-bold text-slate-800 text-base">
+                          Application information
+                        </AccordionTrigger>
+                        <AccordionContent className="p-5 bg-white border-t border-slate-200">
+                          <h4 className="font-bold text-slate-900 mb-2">Application Fees:</h4>
+                          <ul className="list-disc pl-5 text-sm text-slate-600 space-y-1 mb-6 font-medium">
+                            <li>First Year International Fee - ${selectedUni.fee}</li>
+                            <li>First Year Domestic Fee - $0</li>
+                          </ul>
+                          
+                          <h4 className="font-bold text-slate-900 mb-2 flex items-center gap-2">
+                            Standardized test policy: 
+                            <div className="w-3.5 h-3.5 rounded-full bg-[#ff7300] text-white flex items-center justify-center text-[9px] font-bold">?</div>
+                          </h4>
+                          <ul className="list-disc pl-5 text-sm text-slate-600 space-y-1 font-medium">
+                            <li>Flexible</li>
+                            <li>See website</li>
+                            <li>Test Policy Information</li>
+                          </ul>
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
                   </div>
                 ) : (
                   <div className="text-center py-20 text-slate-500">
