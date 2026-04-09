@@ -8,6 +8,9 @@ export default function EventsSection() {
     { title: "Seoul Tech Meetup", date: "Oct 15", loc: "Gangnam", type: "Networking", img: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&q=80" },
     { title: "Yonsei Campus Tour", date: "Nov 02", loc: "Sinchon", type: "Tour", img: "https://images.unsplash.com/photo-1523580494112-071d324728d3?w=500&q=80" },
     { title: "Language Exchange", date: "Nov 10", loc: "Hongdae", type: "Social", img: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=500&q=80" },
+    { title: "K-Pop Dance Workshop", date: "Nov 15", loc: "Mapo", type: "Workshop", img: "https://images.unsplash.com/photo-1547822297-ea21be3e4f3a?w=500&q=80" },
+    { title: "Traditional Cooking Class", date: "Nov 20", loc: "Jongno", type: "Cultural", img: "https://images.unsplash.com/photo-1518998053901-5314c3e110b5?w=500&q=80" },
+    { title: "Han River Picnic", date: "Nov 25", loc: "Yeouido", type: "Social", img: "https://images.unsplash.com/photo-1536924940846-227afb31e2a5?w=500&q=80" },
   ];
 
   return (
@@ -30,9 +33,9 @@ export default function EventsSection() {
           </Link>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="flex overflow-x-auto gap-6 pb-8 snap-x hide-scrollbar -mx-4 px-4 sm:mx-0 sm:px-0">
           {events.map((ev, i) => (
-            <div key={i} className="group bg-white rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/40 overflow-hidden hover:-translate-y-2 transition-all duration-300 flex flex-col">
+            <div key={i} className="group shrink-0 w-[280px] md:w-[350px] snap-start bg-white rounded-3xl border border-slate-100 shadow-lg shadow-slate-200/40 overflow-hidden hover:-translate-y-2 transition-all duration-300 flex flex-col">
               <div className="h-48 overflow-hidden relative">
                 <img src={ev.img} alt={ev.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-slate-800">
