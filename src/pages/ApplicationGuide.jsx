@@ -98,6 +98,7 @@ export default function ApplicationGuide() {
   const [appSectionStatus, setAppSectionStatus] = useState({});
   const [uniForms, setUniForms] = useState({});
   const [uniSectionStatus, setUniSectionStatus] = useState({});
+  const [showReviewModal, setShowReviewModal] = useState(false);
 
   const handleUniFormChange = (uniId, field, value) => {
     setUniForms(prev => ({ ...prev, [uniId]: { ...(prev[uniId] || {}), [field]: value } }));
@@ -1509,18 +1510,32 @@ export default function ApplicationGuide() {
                       </div>
                     )}
 
-                    {selectedUniSection === 'review' && (
+                    {selectedUniSection === 'review' && (() => {
+                      const isReady = uniSectionStatus[selectedUni.id]?.general && uniSectionStatus[selectedUni.id]?.academics && uniSectionStatus[selectedUni.id]?.additional_documents && uniSectionStatus[selectedUni.id]?.recommenders;
+                      return (
                       <div className="p-6 bg-slate-50 rounded-xl border border-slate-200 text-center">
                         <h3 className="text-lg font-bold text-slate-800 mb-2">Review and Submit</h3>
                         <p className="text-slate-600">Review your application to {selectedUni.name} before final submission.</p>
                         <div className="mt-8 text-left max-w-md mx-auto space-y-4">
-                             <div className="p-4 bg-orange-50 border border-orange-200 rounded-lg">
-                                <p className="text-sm text-orange-800 font-medium">Please complete all required sections before submitting.</p>
-                             </div>
-                             <button onClick={() => handleUniSectionContinue(selectedUni.id, 'review', null)} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors w-full mt-4">Submit Application</button>
+                             {!isReady ? (
+                               <div className="p-4 bg-orange-50 border border-orange-200 rounded-lg">
+                                  <p className="text-sm text-orange-800 font-medium text-center">Please complete all required sections before submitting.</p>
+                               </div>
+                             ) : (
+                               <div className="space-y-4">
+                                 <button onClick={() => setShowReviewModal(true)} className="w-full flex items-center justify-center gap-2 px-4 py-3 border-2 border-[#0066cc] text-[#0066cc] font-bold rounded-full transition-colors hover:bg-blue-50">
+                                   <FileText className="w-5 h-5" /> Review Application PDF
+                                 </button>
+                                 <Link to={createPageUrl("Payment")} className="block w-full">
+                                   <button className="bg-[#0066cc] text-white px-6 py-3 rounded-full font-bold hover:bg-[#0052a3] transition-colors w-full shadow-md shadow-blue-500/20">
+                                     Apply Now
+                                   </button>
+                                 </Link>
+                               </div>
+                             )}
                         </div>
                       </div>
-                    )}
+                    )})()}
                   </div> :
 
                     <div className="text-center py-20 text-slate-500">
@@ -1596,6 +1611,89 @@ export default function ApplicationGuide() {
 
         </div>
       </div>
+
+      <AnimatePresence>
+        {showReviewModal && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-sm">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              className="bg-white w-full max-w-3xl max-h-[90vh] rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+            >
+              <div className="p-4 border-b border-slate-200 flex justify-between items-center bg-slate-50">
+                <h2 className="text-lg font-bold text-slate-800">Application Preview (PDF Format)</h2>
+                <button onClick={() => setShowReviewModal(false)} className="text-slate-500 hover:text-slate-800 p-1">
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              <div className="flex-1 overflow-y-auto p-4 sm:p-8 bg-slate-200/50">
+                <div className="bg-white shadow-sm border border-slate-200 min-h-[800px] w-full p-6 sm:p-10 max-w-2xl mx-auto rounded shadow-xl relative">
+                  
+                  <div className="border-b-2 border-slate-800 pb-4 mb-8 flex justify-between items-end flex-wrap gap-4">
+                    <div>
+                      <h1 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900">{selectedUni?.name}</h1>
+                      <p className="text-slate-600 mt-1 font-serif">International Student Application</p>
+                    </div>
+                    <div className="text-left sm:text-right font-serif text-sm text-slate-500">
+                      <div>Applicant: {user?.full_name || 'Student Name'}</div>
+                      <div>Date: {new Date().toLocaleDateString()}</div>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-8 font-serif">
+                    <section>
+                      <h2 className="text-xl font-bold text-slate-800 border-b border-slate-300 pb-2 mb-4">1. General Information</h2>
+                      <div className="grid sm:grid-cols-2 gap-4 text-sm">
+                        <div>
+                          <span className="font-bold text-slate-700">Program Type:</span>
+                          <p className="mt-1">{uniForms[selectedUni?.id]?.programType || 'N/A'}</p>
+                        </div>
+                        <div>
+                          <span className="font-bold text-slate-700">Admission Season:</span>
+                          <p className="mt-1">{uniForms[selectedUni?.id]?.admissionSeason || 'N/A'}</p>
+                        </div>
+                      </div>
+                    </section>
+
+                    <section>
+                      <h2 className="text-xl font-bold text-slate-800 border-b border-slate-300 pb-2 mb-4">2. Academics</h2>
+                      <div className="text-sm">
+                        <span className="font-bold text-slate-700">Intended Major:</span>
+                        <p className="mt-1">{uniForms[selectedUni?.id]?.intendedMajor || 'N/A'}</p>
+                      </div>
+                    </section>
+
+                    <section>
+                      <h2 className="text-xl font-bold text-slate-800 border-b border-slate-300 pb-2 mb-4">3. Documents & Recommenders</h2>
+                      <div className="text-sm space-y-3">
+                        <div className="flex items-center gap-2">
+                          <Check className="w-4 h-4 text-green-600" />
+                          <span>Statement of Purpose (Uploaded)</span>
+                        </div>
+                        {(uniForms[selectedUni?.id]?.intendedMajor?.toLowerCase().includes('art') || uniForms[selectedUni?.id]?.intendedMajor?.toLowerCase().includes('design')) && (
+                          <div className="flex items-center gap-2">
+                            <Check className="w-4 h-4 text-green-600" />
+                            <span>Art Portfolio (Uploaded)</span>
+                          </div>
+                        )}
+                        <div className="flex items-center gap-2">
+                          <Check className="w-4 h-4 text-green-600" />
+                          <span>Recommenders Added</span>
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+
+                  <div className="absolute bottom-10 left-10 right-10 border-t border-slate-300 pt-4 text-center text-xs text-slate-400 font-serif">
+                    This document is a preview of your application generated on {new Date().toLocaleDateString()}.
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>);
 
 }

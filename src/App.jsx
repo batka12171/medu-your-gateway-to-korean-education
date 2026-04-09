@@ -12,6 +12,7 @@ import AdmissionRoadmap from './pages/AdmissionRoadmap';
 import GlobePage from './pages/GlobePage';
 import Events from './pages/Events';
 import Home from './pages/Home';
+import Payment from './pages/Payment';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -71,6 +72,11 @@ const AuthenticatedApp = () => {
       <Route path="/Events" element={
         <LayoutWrapper currentPageName="Events">
           <Events />
+        </LayoutWrapper>
+      } />
+      <Route path="/Payment" element={
+        <LayoutWrapper currentPageName="Payment">
+          <Payment />
         </LayoutWrapper>
       } />
       <Route path="*" element={<PageNotFound />} />
