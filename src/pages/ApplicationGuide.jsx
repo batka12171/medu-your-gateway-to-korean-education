@@ -96,6 +96,19 @@ export default function ApplicationGuide() {
   const [activeAppSection, setActiveAppSection] = useState("profile");
   const [appForms, setAppForms] = useState({});
   const [appSectionStatus, setAppSectionStatus] = useState({});
+  const [uniForms, setUniForms] = useState({});
+  const [uniSectionStatus, setUniSectionStatus] = useState({});
+
+  const handleUniFormChange = (uniId, field, value) => {
+    setUniForms(prev => ({ ...prev, [uniId]: { ...(prev[uniId] || {}), [field]: value } }));
+  };
+
+  const handleUniSectionContinue = (uniId, currentSection, nextSection) => {
+    setUniSectionStatus(prev => ({ ...prev, [uniId]: { ...(prev[uniId] || {}), [currentSection]: true } }));
+    if (nextSection) {
+      setSelectedUniSection(nextSection);
+    }
+  };
   const isProfileComplete = appSectionStatus['profile'] && appSectionStatus['profile_address'] && appSectionStatus['profile_contact'] && appSectionStatus['profile_demographics'] && appSectionStatus['profile_language'] && appSectionStatus['profile_geography'] && appSectionStatus['profile_fee_waiver'];
 
   const handleAppFormChange = (field, value) => {
@@ -365,27 +378,27 @@ export default function ApplicationGuide() {
                             <div 
                               onClick={() => { setSelectedUni(uni); setSelectedUniSection('general'); }}
                               className={`flex items-center gap-3 text-sm px-2 py-1.5 rounded cursor-pointer ${selectedUni.id === uni.id && selectedUniSection === 'general' ? 'bg-slate-100 text-slate-900 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}>
-                              <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" /> General
+                              {uniSectionStatus[uni.id]?.general ? <CheckCircle className="w-4 h-4 text-green-600" /> : <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" />} General
                             </div>
                             <div 
                               onClick={() => { setSelectedUni(uni); setSelectedUniSection('academics'); }}
                               className={`flex items-center gap-3 text-sm px-2 py-1.5 rounded cursor-pointer ${selectedUni.id === uni.id && selectedUniSection === 'academics' ? 'bg-slate-100 text-slate-900 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}>
-                              <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" /> Academics
+                              {uniSectionStatus[uni.id]?.academics ? <CheckCircle className="w-4 h-4 text-green-600" /> : <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" />} Academics
                             </div>
                             <div 
-                              onClick={() => { setSelectedUni(uni); setSelectedUniSection('writing'); }}
-                              className={`flex items-center gap-3 text-sm px-2 py-1.5 rounded cursor-pointer ${selectedUni.id === uni.id && selectedUniSection === 'writing' ? 'bg-slate-100 text-slate-900 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}>
-                              <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" /> Writing
+                              onClick={() => { setSelectedUni(uni); setSelectedUniSection('additional_documents'); }}
+                              className={`flex items-center gap-3 text-sm px-2 py-1.5 rounded cursor-pointer ${selectedUni.id === uni.id && selectedUniSection === 'additional_documents' ? 'bg-slate-100 text-slate-900 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}>
+                              {uniSectionStatus[uni.id]?.additional_documents ? <CheckCircle className="w-4 h-4 text-green-600" /> : <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" />} Additional documents
                             </div>
                             <div 
                               onClick={() => { setSelectedUni(uni); setSelectedUniSection('recommenders'); }}
                               className={`flex items-center gap-3 text-sm px-2 py-1.5 rounded cursor-pointer ${selectedUni.id === uni.id && selectedUniSection === 'recommenders' ? 'bg-slate-100 text-slate-900 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}>
-                              <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" /> Recommenders and FERPA
+                              {uniSectionStatus[uni.id]?.recommenders ? <CheckCircle className="w-4 h-4 text-green-600" /> : <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" />} Recommenders and FERPA
                             </div>
                             <div 
                               onClick={() => { setSelectedUni(uni); setSelectedUniSection('review'); }}
                               className={`flex items-center gap-3 text-sm px-2 py-1.5 rounded cursor-pointer ${selectedUni.id === uni.id && selectedUniSection === 'review' ? 'bg-slate-100 text-slate-900 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}>
-                              <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" /> Review and submit application
+                              {uniSectionStatus[uni.id]?.review ? <CheckCircle className="w-4 h-4 text-green-600" /> : <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" />} Review and submit application
                             </div>
                           </div>
                         </div>
@@ -1240,7 +1253,7 @@ export default function ApplicationGuide() {
                         {selectedUniSection === 'college_info' && selectedUni.name}
                         {selectedUniSection === 'general' && "General"}
                         {selectedUniSection === 'academics' && "Academics"}
-                        {selectedUniSection === 'writing' && "Writing"}
+                        {selectedUniSection === 'additional_documents' && "Additional documents"}
                         {selectedUniSection === 'recommenders' && "Recommenders and FERPA"}
                         {selectedUniSection === 'review' && "Review and Submit"}
                       </h1>
@@ -1394,17 +1407,42 @@ export default function ApplicationGuide() {
                         <p className="text-slate-600">Please provide your general application details for {selectedUni.name}.</p>
                         <div className="mt-8 text-left max-w-md mx-auto space-y-4">
                             <div className="space-y-2">
-                                <label className="text-sm font-bold text-slate-700">Preferred Start Term</label>
-                                <select className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background">
-                                    <option>Fall 2026</option>
-                                    <option>Spring 2027</option>
+                                <label className="text-sm font-bold text-slate-700">Program Type</label>
+                                <select 
+                                  value={uniForms[selectedUni.id]?.programType || ''}
+                                  onChange={(e) => handleUniFormChange(selectedUni.id, 'programType', e.target.value)}
+                                  className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background"
+                                >
+                                    <option value="">Select program...</option>
+                                    <option value="language">Language Program</option>
+                                    <option value="bachelor">Bachelor</option>
+                                    <option value="master">Master</option>
                                 </select>
                             </div>
                             <div className="space-y-2">
-                                <label className="text-sm font-bold text-slate-700">Intended Major</label>
-                                <Input placeholder="e.g. Computer Science" className="bg-white" />
+                                <label className="text-sm font-bold text-slate-700">Preferred Admission Season</label>
+                                <select 
+                                  value={uniForms[selectedUni.id]?.admissionSeason || ''}
+                                  onChange={(e) => handleUniFormChange(selectedUni.id, 'admissionSeason', e.target.value)}
+                                  className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background"
+                                >
+                                    <option value="">Select season...</option>
+                                    {uniForms[selectedUni.id]?.programType === 'language' ? (
+                                      <>
+                                        <option value="spring">Spring (March)</option>
+                                        <option value="summer">Summer (June)</option>
+                                        <option value="fall">Fall (September)</option>
+                                        <option value="winter">Winter (December)</option>
+                                      </>
+                                    ) : (
+                                      <>
+                                        <option value="spring">Spring 2027</option>
+                                        <option value="fall">Fall 2026</option>
+                                      </>
+                                    )}
+                                </select>
                             </div>
-                            <button className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors w-full mt-4">Save and Continue</button>
+                            <button onClick={() => handleUniSectionContinue(selectedUni.id, 'general', 'academics')} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors w-full mt-4">Continue</button>
                         </div>
                       </div>
                     )}
@@ -1414,23 +1452,46 @@ export default function ApplicationGuide() {
                         <h3 className="text-lg font-bold text-slate-800 mb-2">Academics</h3>
                         <p className="text-slate-600">Academic history and requirements specific to {selectedUni.name}.</p>
                         <div className="mt-8 text-left max-w-md mx-auto space-y-4">
-                             <p className="text-sm text-slate-600">No additional academic information required for this institution beyond the Common App profile.</p>
-                             <button className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors w-full mt-4">Save and Continue</button>
+                            <div className="space-y-2">
+                                <label className="text-sm font-bold text-slate-700">Intended Major</label>
+                                <Input 
+                                  value={uniForms[selectedUni.id]?.intendedMajor || ''}
+                                  onChange={(e) => handleUniFormChange(selectedUni.id, 'intendedMajor', e.target.value)}
+                                  placeholder="e.g. Computer Science, Fine Arts" 
+                                  className="bg-white" 
+                                />
+                            </div>
+                             <button onClick={() => handleUniSectionContinue(selectedUni.id, 'academics', 'additional_documents')} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors w-full mt-4">Continue</button>
                         </div>
                       </div>
                     )}
 
-                    {selectedUniSection === 'writing' && (
+                    {selectedUniSection === 'additional_documents' && (
                       <div className="p-6 bg-slate-50 rounded-xl border border-slate-200 text-center">
-                        <h3 className="text-lg font-bold text-slate-800 mb-2">Writing Supplements</h3>
-                        <p className="text-slate-600">Additional essays or short answers required by {selectedUni.name}.</p>
+                        <h3 className="text-lg font-bold text-slate-800 mb-2">Additional Documents</h3>
+                        <p className="text-slate-600">Documents required by {selectedUni.name}.</p>
                         <div className="mt-8 text-left w-full mx-auto space-y-4">
-                            <div className="space-y-2">
-                                <label className="text-sm font-bold text-slate-700">Why {selectedUni.name}?</label>
-                                <p className="text-xs text-slate-500 mb-2">Please explain your interest in studying at this institution. (Max 250 words)</p>
-                                <textarea className="flex min-h-[150px] w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background" placeholder="Type your answer here..."></textarea>
+                            <div className="space-y-2 border border-slate-200 p-4 rounded-xl bg-white">
+                                <div className="flex justify-between items-center">
+                                  <label className="text-sm font-bold text-slate-700">Statement of Purpose</label>
+                                  <span className="text-xs font-bold text-red-600">Required</span>
+                                </div>
+                                <p className="text-xs text-slate-500 mb-2">Please explain your interest in studying at this institution.</p>
+                                <input type="file" className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-[#ff7300] hover:file:bg-orange-100" />
                             </div>
-                            <button className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors mt-4">Save and Continue</button>
+                            
+                            {(uniForms[selectedUni.id]?.intendedMajor?.toLowerCase().includes('art') || uniForms[selectedUni.id]?.intendedMajor?.toLowerCase().includes('design')) && (
+                              <div className="space-y-2 border border-slate-200 p-4 rounded-xl bg-white">
+                                  <div className="flex justify-between items-center">
+                                    <label className="text-sm font-bold text-slate-700">Art Portfolio</label>
+                                    <span className="text-xs font-bold text-red-600">Required for Art Majors</span>
+                                  </div>
+                                  <p className="text-xs text-slate-500 mb-2">Please upload your portfolio (PDF format, max 50MB).</p>
+                                  <input type="file" className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-[#ff7300] hover:file:bg-orange-100" />
+                              </div>
+                            )}
+
+                            <button onClick={() => handleUniSectionContinue(selectedUni.id, 'additional_documents', 'recommenders')} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors mt-4 w-full">Continue</button>
                         </div>
                       </div>
                     )}
@@ -1443,6 +1504,7 @@ export default function ApplicationGuide() {
                             <button className="w-full flex items-center justify-center gap-2 px-4 py-2 border border-slate-300 text-slate-700 font-bold rounded-xl transition-colors hover:bg-white bg-slate-100">
                                 <Plus className="w-4 h-4" /> Add Recommender
                             </button>
+                            <button onClick={() => handleUniSectionContinue(selectedUni.id, 'recommenders', 'review')} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors w-full mt-4">Continue</button>
                         </div>
                       </div>
                     )}
@@ -1455,6 +1517,7 @@ export default function ApplicationGuide() {
                              <div className="p-4 bg-orange-50 border border-orange-200 rounded-lg">
                                 <p className="text-sm text-orange-800 font-medium">Please complete all required sections before submitting.</p>
                              </div>
+                             <button onClick={() => handleUniSectionContinue(selectedUni.id, 'review', null)} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors w-full mt-4">Submit Application</button>
                         </div>
                       </div>
                     )}
