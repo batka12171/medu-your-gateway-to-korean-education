@@ -8,8 +8,8 @@ import {
   Accordion,
   AccordionContent,
   AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+  AccordionTrigger } from
+"@/components/ui/accordion";
 import {
   Home,
   FileText,
@@ -32,59 +32,59 @@ import {
   X,
   Upload,
   Check,
-  Clock
-} from "lucide-react";
+  Clock } from
+"lucide-react";
 import { toast } from "sonner";
 import MeduLogo from "@/components/MeduLogo";
 
 const steps = [
-  { id: "profile", label: "Profile" },
-  { id: "family", label: "Family" },
-  { id: "education", label: "Education" },
-  { id: "testing", label: "Testing" },
-  { id: "activities", label: "Activities" },
-  { id: "writing", label: "Writing" }
-];
+{ id: "profile", label: "Profile" },
+{ id: "family", label: "Family" },
+{ id: "education", label: "Education" },
+{ id: "testing", label: "Testing" },
+{ id: "activities", label: "Activities" },
+{ id: "writing", label: "Writing" }];
+
 
 const faqs = [
-  {
-    question: "What are the typical application deadlines?",
-    answer: "Most Korean universities have two intake periods: Spring (March) and Fall (September). Spring admission applications are typically due in September-November, while Fall admission applications are due in March-May. Check each university's specific deadlines as they may vary."
-  },
-  {
-    question: "Do I need to know Korean to study in Korea?",
-    answer: "It depends on your program. Many graduate programs and some undergraduate programs are offered in English. However, for Korean-taught programs, you'll typically need TOPIK Level 3-4 minimum. Even for English programs, basic Korean is helpful for daily life."
-  },
-  {
-    question: "What scholarships are available for international students?",
-    answer: "Popular scholarships include: Korean Government Scholarship (GKS/KGSP), university-specific scholarships, NIIED scholarships, and foundation scholarships. Many cover tuition, living expenses, and even flight tickets."
-  },
-  {
-    question: "What documents do I need for application?",
-    answer: "Common requirements include: academic transcripts, graduation certificate, passport copy, personal statement, study plan, recommendation letters (1-3), language proficiency scores, and financial documents. Some programs may require portfolio or research proposals."
-  },
-  {
-    question: "How much does it cost to study in Korea?",
-    answer: "Tuition varies widely: National universities cost $2,000-5,000/semester, while private universities range from $4,000-8,000/semester. Living expenses in Seoul are approximately $800-1,200/month. Many students offset costs through scholarships and part-time work."
-  },
-  {
-    question: "Can international students work in Korea?",
-    answer: "Yes! D-2 visa holders can work part-time up to 20 hours/week during semesters and unlimited hours during breaks, after obtaining work permission from immigration. Common jobs include tutoring, cafe work, and campus positions."
-  }
-];
+{
+  question: "What are the typical application deadlines?",
+  answer: "Most Korean universities have two intake periods: Spring (March) and Fall (September). Spring admission applications are typically due in September-November, while Fall admission applications are due in March-May. Check each university's specific deadlines as they may vary."
+},
+{
+  question: "Do I need to know Korean to study in Korea?",
+  answer: "It depends on your program. Many graduate programs and some undergraduate programs are offered in English. However, for Korean-taught programs, you'll typically need TOPIK Level 3-4 minimum. Even for English programs, basic Korean is helpful for daily life."
+},
+{
+  question: "What scholarships are available for international students?",
+  answer: "Popular scholarships include: Korean Government Scholarship (GKS/KGSP), university-specific scholarships, NIIED scholarships, and foundation scholarships. Many cover tuition, living expenses, and even flight tickets."
+},
+{
+  question: "What documents do I need for application?",
+  answer: "Common requirements include: academic transcripts, graduation certificate, passport copy, personal statement, study plan, recommendation letters (1-3), language proficiency scores, and financial documents. Some programs may require portfolio or research proposals."
+},
+{
+  question: "How much does it cost to study in Korea?",
+  answer: "Tuition varies widely: National universities cost $2,000-5,000/semester, while private universities range from $4,000-8,000/semester. Living expenses in Seoul are approximately $800-1,200/month. Many students offset costs through scholarships and part-time work."
+},
+{
+  question: "Can international students work in Korea?",
+  answer: "Yes! D-2 visa holders can work part-time up to 20 hours/week during semesters and unlimited hours during breaks, after obtaining work permission from immigration. Common jobs include tutoring, cafe work, and campus positions."
+}];
+
 
 const savedUniversitiesData = [
-  { id: 1, name: "Seoul National University", email: "admission@snu.ac.kr", phone: "+82 2-880-5114", address: "1 Gwanak-ro, Gwanak-gu, Seoul, 08826, South Korea", deadline: "July 28, 2026", website: "https://en.snu.ac.kr", fee: 50 },
-  { id: 2, name: "KAIST", email: "admission@kaist.ac.kr", phone: "+82 42-350-2114", address: "291 Daehak-ro, Yuseong-gu, Daejeon, 34141, South Korea", deadline: "August 15, 2026", website: "https://kaist.ac.kr", fee: 60 }
-];
+{ id: 1, name: "Seoul National University", email: "admission@snu.ac.kr", phone: "+82 2-880-5114", address: "1 Gwanak-ro, Gwanak-gu, Seoul, 08826, South Korea", deadline: "July 28, 2026", website: "https://en.snu.ac.kr", fee: 50 },
+{ id: 2, name: "KAIST", email: "admission@kaist.ac.kr", phone: "+82 42-350-2114", address: "291 Daehak-ro, Yuseong-gu, Daejeon, 34141, South Korea", deadline: "August 15, 2026", website: "https://kaist.ac.kr", fee: 60 }];
+
 
 const checklistItemsTemplate = [
-  { id: "transcript", label: "Official Transcript", status: "pending", file: null },
-  { id: "recommendation1", label: "Recommendation Letter 1", status: "pending", file: null },
-  { id: "recommendation2", label: "Recommendation Letter 2", status: "pending", file: null },
-  { id: "personal_statement", label: "Personal Statement", status: "pending", file: null },
-  { id: "portfolio", label: "Portfolio (Optional)", status: "pending", file: null }
-];
+{ id: "transcript", label: "Official Transcript", status: "pending", file: null },
+{ id: "recommendation1", label: "Recommendation Letter 1", status: "pending", file: null },
+{ id: "recommendation2", label: "Recommendation Letter 2", status: "pending", file: null },
+{ id: "personal_statement", label: "Personal Statement", status: "pending", file: null },
+{ id: "portfolio", label: "Portfolio (Optional)", status: "pending", file: null }];
+
 
 export default function ApplicationGuide() {
   const [user, setUser] = useState(null);
@@ -93,9 +93,9 @@ export default function ApplicationGuide() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [selectedUni, setSelectedUni] = useState("overview");
   const [activeAppSection, setActiveAppSection] = useState("profile");
-  
+
   const [savedUniversities, setSavedUniversities] = useState(
-    savedUniversitiesData.map(uni => ({
+    savedUniversitiesData.map((uni) => ({
       ...uni,
       checklist: JSON.parse(JSON.stringify(checklistItemsTemplate))
     }))
@@ -105,11 +105,11 @@ export default function ApplicationGuide() {
     const file = e.target.files[0];
     if (!file) return;
 
-    setSavedUniversities(prev => prev.map(uni => {
+    setSavedUniversities((prev) => prev.map((uni) => {
       if (uni.id === uniId) {
         return {
           ...uni,
-          checklist: uni.checklist.map(item => {
+          checklist: uni.checklist.map((item) => {
             if (item.id === itemId) {
               return { ...item, status: "uploaded", file: file.name };
             }
@@ -123,11 +123,11 @@ export default function ApplicationGuide() {
   };
 
   const handleStatusChange = (uniId, itemId, newStatus) => {
-    setSavedUniversities(prev => prev.map(uni => {
+    setSavedUniversities((prev) => prev.map((uni) => {
       if (uni.id === uniId) {
         return {
           ...uni,
-          checklist: uni.checklist.map(item => {
+          checklist: uni.checklist.map((item) => {
             if (item.id === itemId) {
               return { ...item, status: newStatus };
             }
@@ -151,43 +151,43 @@ export default function ApplicationGuide() {
     loadUser();
   }, []);
 
-  const filteredFaqs = faqs.filter(faq => 
-    faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    faq.answer.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredFaqs = faqs.filter((faq) =>
+  faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  faq.answer.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const NavItem = ({ active, onClick, icon: Icon, label, narrow }) => (
-    <button 
-      onClick={onClick}
-      className={`relative w-full flex items-center ${narrow ? 'justify-center p-3' : 'gap-3 px-3 py-2.5'} text-sm font-medium rounded-lg transition-all duration-200 group ${active ? "text-slate-900 bg-slate-50" : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"}`}
-      title={narrow ? label : undefined}
-    >
-      {active && (
-        <motion.div 
-          layoutId="activeTab" 
-          className={`absolute left-0 top-1.5 bottom-1.5 w-1 bg-[#ff7300] rounded-r-md`} 
-          transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }} 
-        />
-      )}
+  const NavItem = ({ active, onClick, icon: Icon, label, narrow }) =>
+  <button
+    onClick={onClick}
+    className={`relative w-full flex items-center ${narrow ? 'justify-center p-3' : 'gap-3 px-3 py-2.5'} text-sm font-medium rounded-lg transition-all duration-200 group ${active ? "text-slate-900 bg-slate-50" : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"}`}
+    title={narrow ? label : undefined}>
+    
+      {active &&
+    <motion.div
+      layoutId="activeTab"
+      className={`absolute left-0 top-1.5 bottom-1.5 w-1 bg-[#ff7300] rounded-r-md`}
+      transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }} />
+
+    }
       <motion.div className="flex items-center justify-center transition-transform duration-200 group-hover:scale-105 group-active:scale-95">
         <Icon className={`w-5 h-5 ${active ? "text-[#ff7300]" : ""}`} />
       </motion.div>
       {!narrow && label && <span>{label}</span>}
-    </button>
-  );
+    </button>;
 
-  const NavLinkItem = ({ to, icon: Icon, label, narrow }) => (
-    <Link 
-      to={to}
-      className={`relative w-full flex items-center ${narrow ? 'justify-center p-3' : 'gap-3 px-3 py-2.5'} text-sm font-medium rounded-lg transition-all duration-200 group text-slate-500 hover:bg-slate-50 hover:text-slate-900`}
-      title={narrow ? label : undefined}
-    >
+
+  const NavLinkItem = ({ to, icon: Icon, label, narrow }) =>
+  <Link
+    to={to}
+    className={`relative w-full flex items-center ${narrow ? 'justify-center p-3' : 'gap-3 px-3 py-2.5'} text-sm font-medium rounded-lg transition-all duration-200 group text-slate-500 hover:bg-slate-50 hover:text-slate-900`}
+    title={narrow ? label : undefined}>
+    
       <motion.div className="flex items-center justify-center transition-transform duration-200 group-hover:scale-105 group-active:scale-95">
         <Icon className="w-5 h-5 group-hover:text-[#ff7300] transition-colors" />
       </motion.div>
       {!narrow && label && <span>{label}</span>}
-    </Link>
-  );
+    </Link>;
+
 
   return (
     <div className="h-screen bg-gradient-to-br from-orange-50 via-amber-50/50 to-orange-100/40 py-6 lg:overflow-hidden">
@@ -195,21 +195,21 @@ export default function ApplicationGuide() {
         <div className="flex flex-col lg:flex-row gap-6 items-stretch h-full">
           
           {/* Left Sidebar Layout */}
-          <motion.div 
+          <motion.div
             layout
             initial={false}
-            className={`hidden lg:flex flex-shrink-0 flex-col h-full transition-all duration-300 ease-in-out ${activeView === "dashboard" ? "w-64" : "w-[340px]"}`}
-          >
+            className={`hidden lg:flex flex-shrink-0 flex-col h-full transition-all duration-300 ease-in-out ${activeView === "dashboard" ? "w-64" : "w-[340px]"}`}>
+            
             <AnimatePresence mode="wait">
-              {activeView === "dashboard" ? (
-                <motion.div
-                  key="dashboard-sidebar"
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -10 }}
-                  transition={{ duration: 0.2 }}
-                  className="w-full h-full flex flex-col"
-                >
+              {activeView === "dashboard" ?
+              <motion.div
+                key="dashboard-sidebar"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -10 }}
+                transition={{ duration: 0.2 }}
+                className="w-full h-full flex flex-col">
+                
                   <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-y-auto flex-1">
                     <Link to={createPageUrl("Home")} className="p-4 flex items-center gap-3 hover:opacity-80 transition-opacity">
                   <MeduLogo size={32} dark={true} className="drop-shadow-sm" />
@@ -252,7 +252,7 @@ export default function ApplicationGuide() {
                   </button>
                 </div>
 
-                {user && (
+                {user &&
                   <Link to={createPageUrl("Profile")} className="border-t border-slate-100 p-4 flex items-center gap-3 hover:bg-slate-50 transition-colors">
                     <div className="w-10 h-10 rounded-full bg-[#ff7300] flex items-center justify-center text-white font-bold flex-shrink-0">
                       {user.full_name?.[0] || user.email?.[0]?.toUpperCase()}
@@ -262,27 +262,27 @@ export default function ApplicationGuide() {
                       <p className="text-xs text-slate-500 truncate">{user.email}</p>
                     </div>
                   </Link>
-                )}
+                  }
               </div>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="secondary-sidebar"
-              initial={{ opacity: 0, x: 10, width: 340 }}
-              animate={{ opacity: 1, x: 0, width: isSidebarOpen ? 340 : 64 }}
-              exit={{ opacity: 0, x: 10, width: 340 }}
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="hidden lg:flex flex-shrink-0 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden h-full"
-            >
+            </motion.div> :
+
+              <motion.div
+                key="secondary-sidebar"
+                initial={{ opacity: 0, x: 10, width: 340 }}
+                animate={{ opacity: 1, x: 0, width: isSidebarOpen ? 340 : 64 }}
+                exit={{ opacity: 0, x: 10, width: 340 }}
+                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                className="hidden lg:flex flex-shrink-0 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden h-full">
+                
               {/* Narrow Sidebar */}
               <div className="w-16 flex-shrink-0 bg-white border-r border-slate-200 flex flex-col items-center py-4 h-full">
                 <Link to={createPageUrl("Home")} className="mb-2 hover:opacity-80 transition-opacity">
                   <MeduLogo size={28} dark={true} className="drop-shadow-sm" />
                 </Link>
                 <div className="flex flex-col items-center space-y-1.5 flex-1 mt-4 w-full px-2">
-                  <NavItem active={activeView === "dashboard"} onClick={() => { setActiveView("dashboard"); setIsSidebarOpen(true); }} icon={Home} label="Dashboard" narrow={true} />
-                  <NavItem active={activeView === "application"} onClick={() => { if (activeView === "application") setIsSidebarOpen(!isSidebarOpen); else { setActiveView("application"); setIsSidebarOpen(true); } }} icon={FileText} label="My Application" narrow={true} />
-                  <NavItem active={activeView === "universities"} onClick={() => { if (activeView === "universities") setIsSidebarOpen(!isSidebarOpen); else { setActiveView("universities"); setIsSidebarOpen(true); } }} icon={GraduationCap} label="My Universities" narrow={true} />
+                  <NavItem active={activeView === "dashboard"} onClick={() => {setActiveView("dashboard");setIsSidebarOpen(true);}} icon={Home} label="Dashboard" narrow={true} />
+                  <NavItem active={activeView === "application"} onClick={() => {if (activeView === "application") setIsSidebarOpen(!isSidebarOpen);else {setActiveView("application");setIsSidebarOpen(true);}}} icon={FileText} label="My Application" narrow={true} />
+                  <NavItem active={activeView === "universities"} onClick={() => {if (activeView === "universities") setIsSidebarOpen(!isSidebarOpen);else {setActiveView("universities");setIsSidebarOpen(true);}}} icon={GraduationCap} label="My Universities" narrow={true} />
                   <NavLinkItem to={createPageUrl("Universities")} icon={Search} label="University search" narrow={true} />
                 </div>
 
@@ -294,44 +294,44 @@ export default function ApplicationGuide() {
                     <LogOut className="w-5 h-5" />
                   </button>
                   <Link to={createPageUrl("Profile")} className="hover:opacity-80 transition-opacity">
-                    {user ? (
+                    {user ?
                       <div className="w-8 h-8 rounded-full bg-[#ff7300] flex items-center justify-center text-white font-bold text-xs" title={user.full_name}>
                         {user.full_name?.[0] || user.email?.[0]?.toUpperCase()}
-                      </div>
-                    ) : (
+                      </div> :
+
                       <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-500 font-bold text-xs">
                         ?
                       </div>
-                    )}
+                      }
                   </Link>
                 </div>
               </div>
 
               {/* Secondary Sidebar */}
-              {activeView === "universities" ? (
+              {activeView === "universities" ?
                 <div className="w-[276px] flex-shrink-0 bg-white overflow-y-auto h-full">
                 <div className="p-4 border-b border-slate-100">
                   <h2 className="font-bold text-lg text-slate-800">My Universities</h2>
                 </div>
                 <div className="p-2 border-b border-slate-100">
-                  <button 
-                    onClick={() => setSelectedUni("overview")}
-                    className={`w-full text-left px-3 py-2 text-sm font-medium rounded ${selectedUni === "overview" ? "bg-slate-200/50 text-slate-800" : "text-slate-700 hover:bg-slate-50"}`}
-                  >
+                  <button
+                      onClick={() => setSelectedUni("overview")}
+                      className={`w-full text-left px-3 py-2 text-sm font-medium rounded ${selectedUni === "overview" ? "bg-slate-200/50 text-slate-800" : "text-slate-700 hover:bg-slate-50"}`}>
+                      
                     Overview
                   </button>
                 </div>
                 <Accordion type="single" collapsible defaultValue={`uni-${selectedUni.id}`} className="w-full">
-                  {savedUniversities.map(uni => (
+                  {savedUniversities.map((uni) =>
                     <AccordionItem value={`uni-${uni.id}`} key={uni.id} className="border-b-0 border-t border-slate-100">
                       <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
                         {uni.name}
                       </AccordionTrigger>
                       <AccordionContent className="pb-2 pt-0 px-0">
-                        <div 
+                        <div
                           className={`px-4 py-2 text-sm font-medium cursor-pointer transition-colors ${selectedUni.id === uni.id ? 'bg-slate-200/50 text-slate-800 border-l-4 border-slate-400' : 'text-slate-600 hover:bg-slate-50 border-l-4 border-transparent'}`}
-                          onClick={() => setSelectedUni(uni)}
-                        >
+                          onClick={() => setSelectedUni(uni)}>
+                          
                           College information
                         </div>
                         <div className="px-4 py-3">
@@ -356,26 +356,26 @@ export default function ApplicationGuide() {
                         </div>
                       </AccordionContent>
                     </AccordionItem>
-                  ))}
+                    )}
                 </Accordion>
                 <div className="p-4 border-t border-slate-100">
-                  <button 
-                    onClick={() => {
-                      if (savedUniversities.length >= 2) {
-                        toast.error("You have reached the maximum limit of 2 universities.");
-                      } else {
-                        window.location.href = createPageUrl("Universities");
-                      }
-                    }}
-                    className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg transition-colors"
-                  >
+                  <button
+                      onClick={() => {
+                        if (savedUniversities.length >= 2) {
+                          toast.error("You have reached the maximum limit of 2 universities.");
+                        } else {
+                          window.location.href = createPageUrl("Universities");
+                        }
+                      }}
+                      className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg transition-colors">
+                      
                     <Plus className="w-4 h-4" />
                     Add university
                   </button>
                 </div>
-              </div>
-              ) : (
-              <div className="w-[276px] flex-shrink-0 bg-white overflow-y-auto h-full">
+              </div> :
+
+                <div className="w-[276px] flex-shrink-0 bg-white overflow-y-auto h-full">
                 <div className="p-4 border-b border-slate-100">
                   <h2 className="font-bold text-lg text-slate-800">My Application</h2>
                 </div>
@@ -450,28 +450,28 @@ export default function ApplicationGuide() {
                   </AccordionItem>
                 </Accordion>
               </div>
-              )}
+                }
             </motion.div>
-          )}
+              }
             </AnimatePresence>
           </motion.div>
 
           {/* Mobile Sidebar Layout */}
           <div className="flex lg:hidden w-full mb-4 flex-shrink-0">
              {/* We can just put a simple mobile switcher here or rely on the same structure */}
-             {activeView === "dashboard" ? (
-               <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-y-auto w-full p-4 flex gap-2">
+             {activeView === "dashboard" ?
+            <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-y-auto w-full p-4 flex gap-2">
+                 <NavItem active={activeView === "dashboard"} onClick={() => setActiveView("dashboard")} icon={Home} label="Dashboard" narrow={true} />
+                 <NavItem active={activeView === "application"} onClick={() => setActiveView("application")} icon={FileText} label="App" narrow={true} />
+                 <NavItem active={activeView === "universities"} onClick={() => setActiveView("universities")} icon={GraduationCap} label="Uni" narrow={true} />
+               </div> :
+
+            <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-y-auto w-full p-4 flex gap-2">
                  <NavItem active={activeView === "dashboard"} onClick={() => setActiveView("dashboard")} icon={Home} label="Dashboard" narrow={true} />
                  <NavItem active={activeView === "application"} onClick={() => setActiveView("application")} icon={FileText} label="App" narrow={true} />
                  <NavItem active={activeView === "universities"} onClick={() => setActiveView("universities")} icon={GraduationCap} label="Uni" narrow={true} />
                </div>
-             ) : (
-               <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-y-auto w-full p-4 flex gap-2">
-                 <NavItem active={activeView === "dashboard"} onClick={() => setActiveView("dashboard")} icon={Home} label="Dashboard" narrow={true} />
-                 <NavItem active={activeView === "application"} onClick={() => setActiveView("application")} icon={FileText} label="App" narrow={true} />
-                 <NavItem active={activeView === "universities"} onClick={() => setActiveView("universities")} icon={GraduationCap} label="Uni" narrow={true} />
-               </div>
-             )}
+            }
           </div>
 
           {/* Main Content */}
@@ -484,24 +484,24 @@ export default function ApplicationGuide() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.99, transition: { duration: 0.15 } }}
                   transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                  className="min-h-full"
-                >
-            {activeView === "dashboard" ? (
-              <>
+                  className="min-h-full">
+                  
+            {activeView === "dashboard" ?
+                  <>
                 {/* Banner */}
-                <motion.div 
-                  initial={{ opacity: 0, y: -12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                  className="bg-[#fff0e6] rounded-2xl p-8 mb-8 flex items-center justify-between relative overflow-hidden"
-                >
+                <motion.div
+                      initial={{ opacity: 0, y: -12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                      className="bg-[#fff0e6] rounded-2xl p-8 mb-8 flex items-center justify-between relative overflow-hidden">
+                      
                   <div className="relative z-10">
                     <h1 className="text-3xl md:text-4xl font-bold text-[#cc5c00] flex items-center gap-3">
                       <motion.div
-                        initial={{ rotate: -45, scale: 0.8 }}
-                        animate={{ rotate: 0, scale: 1 }}
-                        transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}
-                      >
+                            initial={{ rotate: -45, scale: 0.8 }}
+                            animate={{ rotate: 0, scale: 1 }}
+                            transition={{ duration: 0.5, delay: 0.1, ease: "easeOut" }}>
+                            
                         <Sun className="w-8 h-8 text-[#ff7300]" />
                       </motion.div>
                       Good morning{user?.full_name ? `, ${user.full_name.split(' ')[0]}` : ""}!
@@ -525,53 +525,53 @@ export default function ApplicationGuide() {
                             <span>2/6 sections complete</span>
                           </div>
                           <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
-                            <motion.div 
-                              initial={{ width: 0 }}
-                              animate={{ width: '33%' }}
-                              transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-                              className="h-full bg-[#ff7300]" 
-                            />
+                            <motion.div
+                                  initial={{ width: 0 }}
+                                  animate={{ width: '33%' }}
+                                  transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+                                  className="h-full bg-[#ff7300]" />
+                                
                           </div>
                         </div>
                         
                         <div className="flex flex-wrap sm:flex-nowrap justify-between gap-4 relative z-10">
                           {steps.map((step, idx) => {
-                            const isCompleted = idx < 2; // Simulate completed steps
-                            const isActive = idx === 2;
-                            return (
-                            <motion.div 
-                              key={step.id} 
-                              className="flex flex-col items-center gap-2 flex-1 min-w-[60px] group cursor-pointer"
-                              whileHover={{ y: -2 }}
-                              transition={{ duration: 0.15 }}
-                            >
-                              <motion.div 
-                                initial={{ scale: 0.95 }}
-                                animate={{ scale: 1 }}
-                                transition={{ duration: 0.24, delay: idx * 0.05 }}
-                                className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-colors duration-200 ${
-                                  isCompleted ? 'bg-[#ff7300] border-[#ff7300] text-white shadow-sm' : 
-                                  isActive ? 'border-[#ff7300] text-[#ff7300]' : 
-                                  'border-dashed border-slate-300 text-slate-400 group-hover:border-[#ff7300]/50'
-                                }`}
-                              >
-                                {isCompleted ? (
-                                  <motion.div initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.2 }}>
+                                const isCompleted = idx < 2; // Simulate completed steps
+                                const isActive = idx === 2;
+                                return (
+                                  <motion.div
+                                    key={step.id}
+                                    className="flex flex-col items-center gap-2 flex-1 min-w-[60px] group cursor-pointer"
+                                    whileHover={{ y: -2 }}
+                                    transition={{ duration: 0.15 }}>
+                                    
+                              <motion.div
+                                      initial={{ scale: 0.95 }}
+                                      animate={{ scale: 1 }}
+                                      transition={{ duration: 0.24, delay: idx * 0.05 }}
+                                      className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-colors duration-200 ${
+                                      isCompleted ? 'bg-[#ff7300] border-[#ff7300] text-white shadow-sm' :
+                                      isActive ? 'border-[#ff7300] text-[#ff7300]' :
+                                      'border-dashed border-slate-300 text-slate-400 group-hover:border-[#ff7300]/50'}`
+                                      }>
+                                      
+                                {isCompleted ?
+                                      <motion.div initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.2 }}>
                                     <CheckCircle className="w-4 h-4" />
-                                  </motion.div>
-                                ) : isActive ? (
-                                  <div className="w-2 h-2 rounded-full bg-[#ff7300]" />
-                                ) : (
-                                  <div className="w-2 h-2 rounded-full bg-transparent" />
-                                )}
+                                  </motion.div> :
+                                      isActive ?
+                                      <div className="w-2 h-2 rounded-full bg-[#ff7300]" /> :
+
+                                      <div className="w-2 h-2 rounded-full bg-transparent" />
+                                      }
                               </motion.div>
                               <span className={`text-xs font-medium transition-colors duration-200 ${
-                                isCompleted || isActive ? 'text-slate-800' : 'text-slate-500 group-hover:text-slate-700'
-                              }`}>
+                                    isCompleted || isActive ? 'text-slate-800' : 'text-slate-500 group-hover:text-slate-700'}`
+                                    }>
                                 {step.label}
                               </span>
-                            </motion.div>
-                          )})}
+                            </motion.div>);
+                              })}
                         </div>
                       </AccordionContent>
                     </AccordionItem>
@@ -605,16 +605,16 @@ export default function ApplicationGuide() {
                         </div>
 
                         <div className="mt-8 pt-6 border-t border-slate-100">
-                          <button 
-                            onClick={() => {
-                              if (savedUniversities.length >= 2) {
-                                toast.error("You have reached the maximum limit of 2 universities.");
-                              } else {
-                                window.location.href = createPageUrl("Universities");
-                              }
-                            }}
-                            className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition-colors"
-                          >
+                          <button
+                                onClick={() => {
+                                  if (savedUniversities.length >= 2) {
+                                    toast.error("You have reached the maximum limit of 2 universities.");
+                                  } else {
+                                    window.location.href = createPageUrl("Universities");
+                                  }
+                                }}
+                                className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition-colors">
+                                
                             <Plus className="w-4 h-4" />
                             Add university
                           </button>
@@ -624,9 +624,9 @@ export default function ApplicationGuide() {
 
                   </Accordion>
                 </div>
-              </>
-            ) : activeView === "application" ? (
-              <div className="min-h-full">
+              </> :
+                  activeView === "application" ?
+                  <div className="min-h-full">
                 <div className="flex justify-between items-start mb-6">
                   <div>
                     <p className="text-sm text-slate-500 mb-1 font-medium">Complete your Application</p>
@@ -643,14 +643,14 @@ export default function ApplicationGuide() {
                       In progress
                     </div>
                   </div>
-                  <button className="px-4 py-2 border border-slate-300 rounded-full font-semibold text-slate-700 hover:bg-slate-50 transition-colors">
-                    Preview
-                  </button>
+                  
+
+                      
                 </div>
 
                 <div className="max-w-2xl mt-8">
-                  {activeAppSection === "profile" && (
-                    <>
+                  {activeAppSection === "profile" &&
+                      <>
                       <div className="mb-8">
                         <label className="block text-sm font-bold text-slate-700 mb-2">
                           Legal first/given name<span className="text-red-500">*</span>
@@ -698,10 +698,10 @@ export default function ApplicationGuide() {
                         <Input className="w-full" />
                       </div>
                     </>
-                  )}
+                      }
 
-                  {activeAppSection === "family" && (
-                    <>
+                  {activeAppSection === "family" &&
+                      <>
                       <div className="mb-8">
                         <label className="block text-sm font-bold text-slate-700 mb-2">
                           Parents' marital status
@@ -745,10 +745,10 @@ export default function ApplicationGuide() {
                         </div>
                       </div>
                     </>
-                  )}
+                      }
 
-                  {activeAppSection === "education" && (
-                    <>
+                  {activeAppSection === "education" &&
+                      <>
                       <div className="mb-8">
                         <label className="block text-sm font-bold text-slate-700 mb-2">
                           Current or most recent secondary/high school
@@ -793,10 +793,10 @@ export default function ApplicationGuide() {
                         </div>
                       </div>
                     </>
-                  )}
+                      }
 
-                  {activeAppSection === "testing" && (
-                    <>
+                  {activeAppSection === "testing" &&
+                      <>
                       <div className="mb-8">
                         <p className="text-sm text-slate-700 mb-4 leading-relaxed">
                           In addition to sending official score reports as required by colleges, you have the option to self-report scores or future test dates for any of the following standardized tests: ACT, SAT/SAT Subject Tests, AP, IB, TOEFL, PTE Academic, and IELTS.
@@ -835,10 +835,10 @@ export default function ApplicationGuide() {
                         </div>
                       </div>
                     </>
-                  )}
+                      }
 
-                  {activeAppSection === "activities" && (
-                    <>
+                  {activeAppSection === "activities" &&
+                      <>
                       <div className="mb-8">
                         <p className="text-sm text-slate-700 mb-4 leading-relaxed">
                           Reporting activities can help a college better understand your life outside of the classroom. Your activities may include arts, athletics, clubs, employment, personal commitments, and other pursuits.
@@ -889,10 +889,10 @@ export default function ApplicationGuide() {
                         Add another activity
                       </button>
                     </>
-                  )}
+                      }
 
-                  {activeAppSection === "writing" && (
-                    <>
+                  {activeAppSection === "writing" &&
+                      <>
                       <div className="mb-8">
                         <p className="text-sm text-slate-700 mb-6 leading-relaxed">
                           The essay demonstrates your ability to write clearly and concisely on a selected topic and helps you distinguish yourself in your own voice. What do you want the readers of your application to know about you apart from courses, grades, and test scores?
@@ -925,13 +925,13 @@ export default function ApplicationGuide() {
                         </div>
                       </div>
                     </>
-                  )}
+                      }
                 </div>
-              </div>
-            ) : (
-              <div className="min-h-full">
-                {selectedUni === "overview" ? (
-                  <div>
+              </div> :
+
+                  <div className="min-h-full">
+                {selectedUni === "overview" ?
+                    <div>
                     <p className="text-sm text-slate-500 mb-1 font-medium">My Colleges</p>
                     <div className="flex justify-between items-start mb-6 pb-6 border-b border-slate-200 border-dashed">
                       <h1 className="text-3xl lg:text-4xl font-bold text-slate-900">Overview</h1>
@@ -946,17 +946,17 @@ export default function ApplicationGuide() {
                     </div>
 
                     <div className="space-y-4">
-                      {savedUniversities.map((uni) => (
+                      {savedUniversities.map((uni) =>
                         <div key={uni.id} className="border border-slate-200 rounded-lg overflow-hidden bg-white">
                           <div className="p-5 flex gap-4 relative">
                             <div className="w-20 h-14 bg-amber-400 rounded flex items-center justify-center text-white text-[10px] font-bold px-2 text-center leading-tight shadow-sm border border-amber-500">
                               {uni.name}
                             </div>
                             <div className="flex-1 pt-1">
-                              <h3 
+                              <h3
                                 className="text-[#ff7300] font-medium text-lg hover:underline cursor-pointer pr-16"
-                                onClick={() => setSelectedUni(uni)}
-                              >
+                                onClick={() => setSelectedUni(uni)}>
+                                
                                 {uni.name}
                               </h3>
                               <p className="text-slate-800 font-bold text-sm mb-1.5">{uni.deadline}</p>
@@ -1002,11 +1002,11 @@ export default function ApplicationGuide() {
                             </AccordionItem>
                           </Accordion>
                         </div>
-                      ))}
+                        )}
                     </div>
-                  </div>
-                ) : selectedUni ? (
-                  <div>
+                  </div> :
+                    selectedUni ?
+                    <div>
                     <p className="text-sm text-slate-500 mb-1 font-medium">Apply to {selectedUni.name}</p>
                     <div className="flex justify-between items-start mb-6 pb-6 border-b border-slate-200 border-dashed">
                       <h1 className="text-3xl lg:text-4xl font-bold text-slate-900">{selectedUni.name}</h1>
@@ -1059,29 +1059,29 @@ export default function ApplicationGuide() {
                         </AccordionTrigger>
                         <AccordionContent className="p-0">
                           <div className="divide-y divide-slate-100">
-                            {selectedUni.checklist?.map((item) => (
+                            {selectedUni.checklist?.map((item) =>
                               <div key={item.id} className="p-4 flex items-center justify-between hover:bg-slate-50 transition-colors">
                                 <div className="flex items-center gap-3">
                                   <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                                    item.status === 'verified' ? 'bg-green-100 text-green-600' :
-                                    item.status === 'uploaded' ? 'bg-blue-100 text-blue-600' :
-                                    'bg-slate-100 text-slate-400'
-                                  }`}>
+                                  item.status === 'verified' ? 'bg-green-100 text-green-600' :
+                                  item.status === 'uploaded' ? 'bg-blue-100 text-blue-600' :
+                                  'bg-slate-100 text-slate-400'}`
+                                  }>
                                     {item.status === 'verified' ? <Check className="w-4 h-4" /> :
-                                     item.status === 'uploaded' ? <Clock className="w-4 h-4" /> :
-                                     <div className="w-2 h-2 rounded-full bg-slate-300" />}
+                                    item.status === 'uploaded' ? <Clock className="w-4 h-4" /> :
+                                    <div className="w-2 h-2 rounded-full bg-slate-300" />}
                                   </div>
                                   <div>
                                     <p className="font-medium text-slate-800 text-sm">{item.label}</p>
                                     <div className="flex items-center gap-2 mt-0.5">
                                       <span className={`text-xs font-bold uppercase tracking-wider ${
-                                        item.status === 'verified' ? 'text-green-600' :
-                                        item.status === 'uploaded' ? 'text-blue-600' :
-                                        'text-slate-400'
-                                      }`}>
+                                      item.status === 'verified' ? 'text-green-600' :
+                                      item.status === 'uploaded' ? 'text-blue-600' :
+                                      'text-slate-400'}`
+                                      }>
                                         {item.status === 'verified' ? 'Verified' :
-                                         item.status === 'uploaded' ? 'In Review' :
-                                         'Pending'}
+                                        item.status === 'uploaded' ? 'In Review' :
+                                        'Pending'}
                                       </span>
                                       {item.file && <span className="text-xs text-slate-500 truncate max-w-[150px]">• {item.file}</span>}
                                     </div>
@@ -1089,39 +1089,39 @@ export default function ApplicationGuide() {
                                 </div>
                                 
                                 <div className="flex items-center gap-2">
-                                  {item.status === 'pending' ? (
-                                    <>
+                                  {item.status === 'pending' ?
+                                  <>
                                       <input
-                                        type="file"
-                                        id={`file-${selectedUni.id}-${item.id}`}
-                                        className="hidden"
-                                        onChange={(e) => handleFileUpload(selectedUni.id, item.id, e)}
-                                      />
+                                      type="file"
+                                      id={`file-${selectedUni.id}-${item.id}`}
+                                      className="hidden"
+                                      onChange={(e) => handleFileUpload(selectedUni.id, item.id, e)} />
+                                    
                                       <label
-                                        htmlFor={`file-${selectedUni.id}-${item.id}`}
-                                        className="cursor-pointer flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-300 text-slate-600 hover:bg-slate-50 hover:text-slate-900 text-xs font-bold rounded-lg transition-colors shadow-sm"
-                                      >
+                                      htmlFor={`file-${selectedUni.id}-${item.id}`}
+                                      className="cursor-pointer flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-300 text-slate-600 hover:bg-slate-50 hover:text-slate-900 text-xs font-bold rounded-lg transition-colors shadow-sm">
+                                      
                                         <Upload className="w-3.5 h-3.5" /> Upload
                                       </label>
-                                    </>
-                                  ) : item.status === 'uploaded' ? (
-                                    <button 
-                                      onClick={() => handleStatusChange(selectedUni.id, item.id, 'verified')}
-                                      className="px-3 py-1.5 bg-green-50 text-green-700 hover:bg-green-100 text-xs font-bold rounded-lg transition-colors border border-green-200"
-                                    >
+                                    </> :
+                                  item.status === 'uploaded' ?
+                                  <button
+                                    onClick={() => handleStatusChange(selectedUni.id, item.id, 'verified')}
+                                    className="px-3 py-1.5 bg-green-50 text-green-700 hover:bg-green-100 text-xs font-bold rounded-lg transition-colors border border-green-200">
+                                    
                                       Mark Verified
-                                    </button>
-                                  ) : (
-                                    <button 
-                                      onClick={() => handleStatusChange(selectedUni.id, item.id, 'pending')}
-                                      className="px-3 py-1.5 text-slate-400 hover:text-slate-600 text-xs font-medium underline"
-                                    >
+                                    </button> :
+
+                                  <button
+                                    onClick={() => handleStatusChange(selectedUni.id, item.id, 'pending')}
+                                    className="px-3 py-1.5 text-slate-400 hover:text-slate-600 text-xs font-medium underline">
+                                    
                                       Reset
                                     </button>
-                                  )}
+                                  }
                                 </div>
                               </div>
-                            ))}
+                              )}
                           </div>
                         </AccordionContent>
                       </AccordionItem>
@@ -1149,26 +1149,26 @@ export default function ApplicationGuide() {
                         </AccordionContent>
                       </AccordionItem>
                     </Accordion>
-                  </div>
-                ) : (
-                  <div className="text-center py-20 text-slate-500">
+                  </div> :
+
+                    <div className="text-center py-20 text-slate-500">
                     Please select a university to view details.
                   </div>
-                )}
+                    }
               </div>
-            )}
+                  }
                 </motion.div>
               </AnimatePresence>
             </div>
           </div>
 
           {/* Right Sidebar */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-            className="w-full lg:w-80 flex-shrink-0 flex flex-col h-full"
-          >
+            className="w-full lg:w-80 flex-shrink-0 flex flex-col h-full">
+            
             <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 flex-1 flex flex-col overflow-hidden">
               <div className="flex items-center gap-2 font-bold text-slate-800 text-lg mb-6">
                 <HelpCircle className="w-5 h-5" />
@@ -1178,13 +1178,13 @@ export default function ApplicationGuide() {
               <div className="mb-6">
                 <label className="text-sm font-medium text-slate-700 mb-2 block">Search FAQs</label>
                 <div className="relative">
-                  <Input 
-                    type="text" 
-                    placeholder="Search..." 
+                  <Input
+                    type="text"
+                    placeholder="Search..."
                     className="pr-10 bg-white"
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                  />
+                    onChange={(e) => setSearchQuery(e.target.value)} />
+                  
                   <div className="absolute right-0 top-0 h-full w-10 flex items-center justify-center border-l border-slate-200 bg-slate-50 rounded-r-md">
                     <Search className="w-4 h-4 text-slate-500" />
                   </div>
@@ -1193,9 +1193,9 @@ export default function ApplicationGuide() {
               </div>
 
               <div className="space-y-4 flex-1 overflow-y-auto pr-2">
-                {filteredFaqs.length > 0 ? (
-                  filteredFaqs.map((faq, index) => (
-                    <div key={index} className="pt-4 border-t border-slate-100 first:border-0 first:pt-0">
+                {filteredFaqs.length > 0 ?
+                filteredFaqs.map((faq, index) =>
+                <div key={index} className="pt-4 border-t border-slate-100 first:border-0 first:pt-0">
                       <h4 className="font-bold text-sm text-slate-800 mb-1">{faq.question}</h4>
                       <p className="text-sm text-slate-600 line-clamp-2">{faq.answer}</p>
                       <Accordion type="single" collapsible className="w-full border-none">
@@ -1209,10 +1209,10 @@ export default function ApplicationGuide() {
                         </AccordionItem>
                       </Accordion>
                     </div>
-                  ))
-                ) : (
-                  <p className="text-sm text-slate-500">No FAQs found matching your search.</p>
-                )}
+                ) :
+
+                <p className="text-sm text-slate-500">No FAQs found matching your search.</p>
+                }
                 <div className="pt-4 border-t border-slate-100">
                   <a href="#" className="text-sm font-medium text-[#ff7300] hover:underline flex items-center gap-1.5">
                     All help topics <ExternalLink className="w-3.5 h-3.5" />
@@ -1224,6 +1224,6 @@ export default function ApplicationGuide() {
 
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 }
