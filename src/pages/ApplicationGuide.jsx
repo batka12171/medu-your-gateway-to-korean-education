@@ -402,10 +402,12 @@ export default function ApplicationGuide() {
                 <div className="p-4 border-b border-slate-100">
                   <h2 className="font-bold text-lg text-slate-800">My Application</h2>
                 </div>
-                <Accordion type="single" collapsible defaultValue="profile" className="w-full">
+                <Accordion type="single" collapsible value={activeAppSection.split('_')[0]} onValueChange={(val) => { if(val) setActiveAppSection(val); }} className="w-full">
                   <AccordionItem value="profile" className="border-b border-slate-100">
-                    <AccordionTrigger onClick={() => setActiveAppSection("profile")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
-                      Profile
+                    <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
+                      <div className="flex items-center gap-2">
+                        {appSectionStatus['profile'] ? <CheckCircle className="w-4 h-4 text-green-600" /> : <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40" />} Profile
+                      </div>
                     </AccordionTrigger>
                     <AccordionContent className="pb-2 pt-0 px-0">
                       <div onClick={() => setActiveAppSection("profile")} className={`px-4 py-2 text-sm font-medium cursor-pointer transition-colors ${activeAppSection === "profile" ? "bg-slate-200/50 text-slate-800 border-l-4 border-slate-400" : "text-slate-600 hover:bg-slate-50 border-l-4 border-transparent"}`}>
@@ -433,40 +435,50 @@ export default function ApplicationGuide() {
                   </AccordionItem>
                   
                   <AccordionItem value="family" className="border-b border-slate-100">
-                    <AccordionTrigger onClick={() => setActiveAppSection("family")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
-                      Family
+                    <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
+                      <div className="flex items-center gap-2">
+                        {appSectionStatus['family'] ? <CheckCircle className="w-4 h-4 text-green-600" /> : <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40" />} Family
+                      </div>
                     </AccordionTrigger>
                     <AccordionContent className="pb-2 pt-0 px-0">
                     </AccordionContent>
                   </AccordionItem>
 
                   <AccordionItem value="education" className="border-b border-slate-100">
-                    <AccordionTrigger onClick={() => setActiveAppSection("education")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
-                      Education
+                    <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
+                      <div className="flex items-center gap-2">
+                        {appSectionStatus['education'] ? <CheckCircle className="w-4 h-4 text-green-600" /> : <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40" />} Education
+                      </div>
                     </AccordionTrigger>
                     <AccordionContent className="pb-2 pt-0 px-0">
                     </AccordionContent>
                   </AccordionItem>
 
                   <AccordionItem value="testing" className="border-b border-slate-100">
-                    <AccordionTrigger onClick={() => setActiveAppSection("testing")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
-                      Testing
+                    <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
+                      <div className="flex items-center gap-2">
+                        {appSectionStatus['testing'] ? <CheckCircle className="w-4 h-4 text-green-600" /> : <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40" />} Testing
+                      </div>
                     </AccordionTrigger>
                     <AccordionContent className="pb-2 pt-0 px-0">
                     </AccordionContent>
                   </AccordionItem>
 
                   <AccordionItem value="activities" className="border-b border-slate-100">
-                    <AccordionTrigger onClick={() => setActiveAppSection("activities")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
-                      Activities
+                    <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
+                      <div className="flex items-center gap-2">
+                        {appSectionStatus['activities'] ? <CheckCircle className="w-4 h-4 text-green-600" /> : <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40" />} Activities
+                      </div>
                     </AccordionTrigger>
                     <AccordionContent className="pb-2 pt-0 px-0">
                     </AccordionContent>
                   </AccordionItem>
 
                   <AccordionItem value="writing" className="border-b border-slate-100">
-                    <AccordionTrigger onClick={() => setActiveAppSection("writing")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
-                      Writing
+                    <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
+                      <div className="flex items-center gap-2">
+                        {appSectionStatus['writing'] ? <CheckCircle className="w-4 h-4 text-green-600" /> : <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40" />} Writing
+                      </div>
                     </AccordionTrigger>
                     <AccordionContent className="pb-2 pt-0 px-0">
                     </AccordionContent>
@@ -545,12 +557,12 @@ export default function ApplicationGuide() {
                       <AccordionContent className="px-6 pb-6 pt-2">
                         <div className="mb-6 relative">
                           <div className="flex justify-between text-xs font-bold text-slate-500 mb-2">
-                            <span>2/6 sections complete</span>
+                            <span>{['profile', 'family', 'education', 'testing', 'activities', 'writing'].filter(k => appSectionStatus[k]).length}/6 sections complete</span>
                           </div>
                           <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
                             <motion.div
                                   initial={{ width: 0 }}
-                                  animate={{ width: '33%' }}
+                                  animate={{ width: `${(['profile', 'family', 'education', 'testing', 'activities', 'writing'].filter(k => appSectionStatus[k]).length / 6) * 100}%` }}
                                   transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
                                   className="h-full bg-[#ff7300]" />
                                 
@@ -559,8 +571,8 @@ export default function ApplicationGuide() {
                         
                         <div className="flex flex-wrap sm:flex-nowrap justify-between gap-4 relative z-10">
                           {steps.map((step, idx) => {
-                                const isCompleted = idx < 2; // Simulate completed steps
-                                const isActive = idx === 2;
+                                const isCompleted = !!appSectionStatus[step.id];
+                                const isActive = activeAppSection.startsWith(step.id);
                                 return (
                                   <motion.div
                                     key={step.id}
