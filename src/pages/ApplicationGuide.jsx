@@ -102,11 +102,11 @@ export default function ApplicationGuide() {
   const [uniToDelete, setUniToDelete] = useState(null);
 
   const handleUniFormChange = (uniId, field, value) => {
-    setUniForms(prev => ({ ...prev, [uniId]: { ...(prev[uniId] || {}), [field]: value } }));
+    setUniForms((prev) => ({ ...prev, [uniId]: { ...(prev[uniId] || {}), [field]: value } }));
   };
 
   const handleUniSectionContinue = (uniId, currentSection, nextSection) => {
-    setUniSectionStatus(prev => ({ ...prev, [uniId]: { ...(prev[uniId] || {}), [currentSection]: true } }));
+    setUniSectionStatus((prev) => ({ ...prev, [uniId]: { ...(prev[uniId] || {}), [currentSection]: true } }));
     if (nextSection) {
       setSelectedUniSection(nextSection);
     }
@@ -370,35 +370,35 @@ export default function ApplicationGuide() {
                       <AccordionContent className="pb-2 pt-0 px-0">
                         <div
                           className={`px-4 py-2 text-sm font-medium cursor-pointer transition-colors ${selectedUni.id === uni.id && selectedUniSection === 'college_info' ? 'bg-slate-200/50 text-slate-800 border-l-4 border-slate-400' : 'text-slate-600 hover:bg-slate-50 border-l-4 border-transparent'}`}
-                          onClick={() => { setSelectedUni(uni); setSelectedUniSection('college_info'); }}>
+                          onClick={() => {setSelectedUni(uni);setSelectedUniSection('college_info');}}>
                           
                           College information
                         </div>
                         <div className="px-4 py-3">
                           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3">Application</p>
                           <div className="space-y-1 pl-2">
-                            <div 
-                              onClick={() => { setSelectedUni(uni); setSelectedUniSection('general'); }}
+                            <div
+                              onClick={() => {setSelectedUni(uni);setSelectedUniSection('general');}}
                               className={`flex items-center gap-3 text-sm px-2 py-1.5 rounded cursor-pointer ${selectedUni.id === uni.id && selectedUniSection === 'general' ? 'bg-slate-100 text-slate-900 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}>
                               {uniSectionStatus[uni.id]?.general ? <CheckCircle className="w-4 h-4 text-green-600" /> : <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" />} General
                             </div>
-                            <div 
-                              onClick={() => { setSelectedUni(uni); setSelectedUniSection('academics'); }}
+                            <div
+                              onClick={() => {setSelectedUni(uni);setSelectedUniSection('academics');}}
                               className={`flex items-center gap-3 text-sm px-2 py-1.5 rounded cursor-pointer ${selectedUni.id === uni.id && selectedUniSection === 'academics' ? 'bg-slate-100 text-slate-900 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}>
                               {uniSectionStatus[uni.id]?.academics ? <CheckCircle className="w-4 h-4 text-green-600" /> : <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" />} Academics
                             </div>
-                            <div 
-                              onClick={() => { setSelectedUni(uni); setSelectedUniSection('additional_documents'); }}
+                            <div
+                              onClick={() => {setSelectedUni(uni);setSelectedUniSection('additional_documents');}}
                               className={`flex items-center gap-3 text-sm px-2 py-1.5 rounded cursor-pointer ${selectedUni.id === uni.id && selectedUniSection === 'additional_documents' ? 'bg-slate-100 text-slate-900 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}>
                               {uniSectionStatus[uni.id]?.additional_documents ? <CheckCircle className="w-4 h-4 text-green-600" /> : <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" />} Additional documents
                             </div>
-                            <div 
-                              onClick={() => { setSelectedUni(uni); setSelectedUniSection('recommenders'); }}
+                            <div
+                              onClick={() => {setSelectedUni(uni);setSelectedUniSection('recommenders');}}
                               className={`flex items-center gap-3 text-sm px-2 py-1.5 rounded cursor-pointer ${selectedUni.id === uni.id && selectedUniSection === 'recommenders' ? 'bg-slate-100 text-slate-900 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}>
                               {uniSectionStatus[uni.id]?.recommenders ? <CheckCircle className="w-4 h-4 text-green-600" /> : <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" />} Recommenders and FERPA
                             </div>
-                            <div 
-                              onClick={() => { setSelectedUni(uni); setSelectedUniSection('review'); }}
+                            <div
+                              onClick={() => {setSelectedUni(uni);setSelectedUniSection('review');}}
                               className={`flex items-center gap-3 text-sm px-2 py-1.5 rounded cursor-pointer ${selectedUni.id === uni.id && selectedUniSection === 'review' ? 'bg-slate-100 text-slate-900 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}>
                               {uniSectionStatus[uni.id]?.review ? <CheckCircle className="w-4 h-4 text-green-600" /> : <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" />} Review and submit application
                             </div>
@@ -429,7 +429,7 @@ export default function ApplicationGuide() {
                 <div className="p-4 border-b border-slate-100">
                   <h2 className="font-bold text-lg text-slate-800">My Application</h2>
                 </div>
-                <Accordion type="single" collapsible value={activeAppSection.split('_')[0]} onValueChange={(val) => { if(val) setActiveAppSection(val); }} className="w-full">
+                <Accordion type="single" collapsible value={activeAppSection.split('_')[0]} onValueChange={(val) => {if (val) setActiveAppSection(val);}} className="w-full">
                   <AccordionItem value="profile" className="border-b border-slate-100">
                     <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
                       <div className="flex items-center gap-2">
@@ -591,12 +591,12 @@ export default function ApplicationGuide() {
                       <AccordionContent className="px-6 pb-6 pt-2">
                         <div className="mb-6 relative">
                           <div className="flex justify-between text-xs font-bold text-slate-500 mb-2">
-                            <span>{['profile', 'family', 'education', 'testing', 'activities', 'writing'].filter(k => appSectionStatus[k]).length}/6 sections complete</span>
+                            <span>{['profile', 'family', 'education', 'testing', 'activities', 'writing'].filter((k) => appSectionStatus[k]).length}/6 sections complete</span>
                           </div>
                           <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
                             <motion.div
                                   initial={{ width: 0 }}
-                                  animate={{ width: `${(['profile', 'family', 'education', 'testing', 'activities', 'writing'].filter(k => appSectionStatus[k]).length / 6) * 100}%` }}
+                                  animate={{ width: `${['profile', 'family', 'education', 'testing', 'activities', 'writing'].filter((k) => appSectionStatus[k]).length / 6 * 100}%` }}
                                   transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
                                   className="h-full bg-[#ff7300]" />
                                 
@@ -770,81 +770,81 @@ export default function ApplicationGuide() {
                         <label className="block text-sm font-bold text-slate-700 mb-2">
                           Suffix
                         </label>
-                        <Input 
-                          value={appForms.suffix || ''}
-                          onChange={(e) => handleAppFormChange('suffix', e.target.value)}
-                          className="w-full" 
-                        />
+                        <Input
+                            value={appForms.suffix || ''}
+                            onChange={(e) => handleAppFormChange('suffix', e.target.value)}
+                            className="w-full" />
+                          
                       </div>
                       <button onClick={() => handleAppContinue('profile', 'profile_address', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
                       }
 
                   {activeAppSection === "profile_address" &&
-                    <>
+                      <>
                       <div className="mb-8">
                         <label className="block text-sm font-bold text-slate-700 mb-2">
                           Permanent home address<span className="text-red-500">*</span>
                         </label>
-                        <Input 
-                          value={appForms.address || ''}
-                          onChange={(e) => handleAppFormChange('address', e.target.value)}
-                          className="w-full mb-2" 
-                          placeholder="Street address"
-                        />
-                        <Input 
-                          value={appForms.city || ''}
-                          onChange={(e) => handleAppFormChange('city', e.target.value)}
-                          className="w-full mb-2" 
-                          placeholder="City"
-                        />
+                        <Input
+                            value={appForms.address || ''}
+                            onChange={(e) => handleAppFormChange('address', e.target.value)}
+                            className="w-full mb-2"
+                            placeholder="Street address" />
+                          
+                        <Input
+                            value={appForms.city || ''}
+                            onChange={(e) => handleAppFormChange('city', e.target.value)}
+                            className="w-full mb-2"
+                            placeholder="City" />
+                          
                         <div className="flex gap-2">
-                          <Input 
-                            value={appForms.state || ''}
-                            onChange={(e) => handleAppFormChange('state', e.target.value)}
-                            className="w-1/2" 
-                            placeholder="State/Province"
-                          />
-                          <Input 
-                            value={appForms.zip || ''}
-                            onChange={(e) => handleAppFormChange('zip', e.target.value)}
-                            className="w-1/2" 
-                            placeholder="Postal code"
-                          />
+                          <Input
+                              value={appForms.state || ''}
+                              onChange={(e) => handleAppFormChange('state', e.target.value)}
+                              className="w-1/2"
+                              placeholder="State/Province" />
+                            
+                          <Input
+                              value={appForms.zip || ''}
+                              onChange={(e) => handleAppFormChange('zip', e.target.value)}
+                              className="w-1/2"
+                              placeholder="Postal code" />
+                            
                         </div>
                       </div>
                       <button onClick={() => handleAppContinue('profile_address', 'profile_contact', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
-                  }
+                      }
 
                   {activeAppSection === "profile_contact" &&
-                    <>
+                      <>
                       <div className="mb-8">
                         <label className="block text-sm font-bold text-slate-700 mb-2">
                           Preferred phone number<span className="text-red-500">*</span>
                         </label>
-                        <Input 
-                          value={appForms.phone || ''}
-                          onChange={(e) => handleAppFormChange('phone', e.target.value)}
-                          className="w-full" 
-                          placeholder="+82 10-0000-0000"
-                        />
+                        <Input
+                            value={appForms.phone || ''}
+                            onChange={(e) => handleAppFormChange('phone', e.target.value)}
+                            className="w-full"
+                            placeholder="+82 10-0000-0000" />
+                          
                       </div>
                       <button onClick={() => handleAppContinue('profile_contact', 'profile_demographics', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
-                  }
+                      }
 
                   {activeAppSection === "profile_demographics" &&
-                    <>
+                      <>
                       <div className="mb-8">
                         <label className="block text-sm font-bold text-slate-700 mb-2">
                           Gender
                         </label>
-                        <select 
-                          value={appForms.gender || ''}
-                          onChange={(e) => handleAppFormChange('gender', e.target.value)}
-                          className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                        >
+                        <select
+                            value={appForms.gender || ''}
+                            onChange={(e) => handleAppFormChange('gender', e.target.value)}
+                            className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                            
                           <option value="">Select gender...</option>
                           <option value="female">Female</option>
                           <option value="male">Male</option>
@@ -854,19 +854,19 @@ export default function ApplicationGuide() {
                       </div>
                       <button onClick={() => handleAppContinue('profile_demographics', 'profile_language', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
-                  }
+                      }
 
                   {activeAppSection === "profile_language" &&
-                    <>
+                      <>
                       <div className="mb-8">
                         <label className="block text-sm font-bold text-slate-700 mb-2">
                           Number of languages you are proficient in
                         </label>
-                        <select 
-                          value={appForms.languageCount || ''}
-                          onChange={(e) => handleAppFormChange('languageCount', e.target.value)}
-                          className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                        >
+                        <select
+                            value={appForms.languageCount || ''}
+                            onChange={(e) => handleAppFormChange('languageCount', e.target.value)}
+                            className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                            
                           <option value="">Select number...</option>
                           <option value="1">1</option>
                           <option value="2">2</option>
@@ -876,19 +876,19 @@ export default function ApplicationGuide() {
                       </div>
                       <button onClick={() => handleAppContinue('profile_language', 'profile_geography', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
-                  }
+                      }
 
                   {activeAppSection === "profile_geography" &&
-                    <>
+                      <>
                       <div className="mb-8">
                         <label className="block text-sm font-bold text-slate-700 mb-2">
                           Citizenship status<span className="text-red-500">*</span>
                         </label>
-                        <select 
-                          value={appForms.citizenship || ''}
-                          onChange={(e) => handleAppFormChange('citizenship', e.target.value)}
-                          className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                        >
+                        <select
+                            value={appForms.citizenship || ''}
+                            onChange={(e) => handleAppFormChange('citizenship', e.target.value)}
+                            className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                            
                           <option value="">Select citizenship status...</option>
                           <option value="us">US Citizen or US National</option>
                           <option value="dual">US Dual Citizen</option>
@@ -899,10 +899,10 @@ export default function ApplicationGuide() {
                       </div>
                       <button onClick={() => handleAppContinue('profile_geography', 'profile_fee_waiver', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
-                  }
+                      }
 
                   {activeAppSection === "profile_fee_waiver" &&
-                    <>
+                      <>
                       <div className="mb-8">
                         <label className="block text-sm font-bold text-slate-700 mb-2">
                           Do you qualify for a Common App fee waiver?
@@ -912,30 +912,30 @@ export default function ApplicationGuide() {
                         </p>
                         <div className="space-y-3 mb-5">
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input 
-                              type="radio" 
-                              name="feeWaiver" 
-                              checked={appForms.feeWaiver === 'yes'}
-                              onChange={() => handleAppFormChange('feeWaiver', 'yes')}
-                              className="w-4 h-4 border-slate-300 text-[#ff7300]" 
-                            />
+                            <input
+                                type="radio"
+                                name="feeWaiver"
+                                checked={appForms.feeWaiver === 'yes'}
+                                onChange={() => handleAppFormChange('feeWaiver', 'yes')}
+                                className="w-4 h-4 border-slate-300 text-[#ff7300]" />
+                              
                             Yes
                           </label>
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input 
-                              type="radio" 
-                              name="feeWaiver" 
-                              checked={appForms.feeWaiver !== 'yes'}
-                              onChange={() => handleAppFormChange('feeWaiver', 'no')}
-                              className="w-4 h-4 border-slate-300 text-[#ff7300]" 
-                            />
+                            <input
+                                type="radio"
+                                name="feeWaiver"
+                                checked={appForms.feeWaiver !== 'yes'}
+                                onChange={() => handleAppFormChange('feeWaiver', 'no')}
+                                className="w-4 h-4 border-slate-300 text-[#ff7300]" />
+                              
                             No
                           </label>
                         </div>
                       </div>
                       <button onClick={() => handleAppContinue('profile_fee_waiver', 'family', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
-                  }
+                      }
 
                   {activeAppSection === "family" &&
                       <>
@@ -1178,12 +1178,12 @@ export default function ApplicationGuide() {
                     <div className="flex justify-between items-start mb-6 pb-6 border-b border-slate-200 border-dashed">
                       <h1 className="text-3xl lg:text-4xl font-bold text-slate-900">Overview</h1>
                       <button onClick={() => {
-                        if (savedUniversities.length >= 2) {
-                          toast.error("You have reached the maximum limit of 2 universities.");
-                        } else {
-                          window.location.href = createPageUrl("Universities");
-                        }
-                      }} className="px-4 py-2 border border-slate-300 rounded-full text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:-translate-y-0.5 hover:shadow-sm active:scale-[0.98] transition-all duration-150 flex items-center gap-2">
+                          if (savedUniversities.length >= 2) {
+                            toast.error("You have reached the maximum limit of 2 universities.");
+                          } else {
+                            window.location.href = createPageUrl("Universities");
+                          }
+                        }} className="px-4 py-2 border border-slate-300 rounded-full text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:-translate-y-0.5 hover:shadow-sm active:scale-[0.98] transition-all duration-150 flex items-center gap-2">
                         <Plus className="w-4 h-4" /> Add a college
                       </button>
                     </div>
@@ -1203,7 +1203,7 @@ export default function ApplicationGuide() {
                             <div className="flex-1 pt-1">
                               <h3
                                 className="text-[#ff7300] font-medium text-lg hover:underline cursor-pointer pr-16"
-                                onClick={() => { setSelectedUni(uni); setSelectedUniSection('college_info'); }}>
+                                onClick={() => {setSelectedUni(uni);setSelectedUniSection('college_info');}}>
                                 
                                 {uni.name}
                               </h3>
@@ -1270,7 +1270,7 @@ export default function ApplicationGuide() {
                       </div>
                     </div>
                     
-                    {selectedUniSection === 'college_info' && (
+                    {selectedUniSection === 'college_info' &&
                       <>
                         <div className="text-sm text-slate-600 mb-10 space-y-1 font-medium">
                           <p>
@@ -1317,28 +1317,28 @@ export default function ApplicationGuide() {
                             <AccordionContent className="p-0">
                               <div className="divide-y divide-slate-100">
                                 {selectedUni.checklist?.map((item) =>
-                                  <div key={item.id} className="p-4 flex items-center justify-between hover:bg-slate-50 transition-colors">
+                                <div key={item.id} className="p-4 flex items-center justify-between hover:bg-slate-50 transition-colors">
                                     <div className="flex items-center gap-3">
                                       <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                                      item.status === 'verified' ? 'bg-green-100 text-green-600' :
-                                      item.status === 'uploaded' ? 'bg-blue-100 text-blue-600' :
-                                      'bg-slate-100 text-slate-400'}`
-                                      }>
+                                    item.status === 'verified' ? 'bg-green-100 text-green-600' :
+                                    item.status === 'uploaded' ? 'bg-blue-100 text-blue-600' :
+                                    'bg-slate-100 text-slate-400'}`
+                                    }>
                                         {item.status === 'verified' ? <Check className="w-4 h-4" /> :
-                                        item.status === 'uploaded' ? <Clock className="w-4 h-4" /> :
-                                        <div className="w-2 h-2 rounded-full bg-slate-300" />}
+                                      item.status === 'uploaded' ? <Clock className="w-4 h-4" /> :
+                                      <div className="w-2 h-2 rounded-full bg-slate-300" />}
                                       </div>
                                       <div>
                                         <p className="font-medium text-slate-800 text-sm">{item.label}</p>
                                         <div className="flex items-center gap-2 mt-0.5">
                                           <span className={`text-xs font-bold uppercase tracking-wider ${
-                                          item.status === 'verified' ? 'text-green-600' :
-                                          item.status === 'uploaded' ? 'text-blue-600' :
-                                          'text-slate-400'}`
-                                          }>
+                                        item.status === 'verified' ? 'text-green-600' :
+                                        item.status === 'uploaded' ? 'text-blue-600' :
+                                        'text-slate-400'}`
+                                        }>
                                             {item.status === 'verified' ? 'Verified' :
-                                            item.status === 'uploaded' ? 'In Review' :
-                                            'Pending'}
+                                          item.status === 'uploaded' ? 'In Review' :
+                                          'Pending'}
                                           </span>
                                           {item.file && <span className="text-xs text-slate-500 truncate max-w-[150px]">• {item.file}</span>}
                                         </div>
@@ -1347,38 +1347,38 @@ export default function ApplicationGuide() {
                                     
                                     <div className="flex items-center gap-2">
                                       {item.status === 'pending' ?
-                                      <>
+                                    <>
                                           <input
-                                          type="file"
-                                          id={`file-${selectedUni.id}-${item.id}`}
-                                          className="hidden"
-                                          onChange={(e) => handleFileUpload(selectedUni.id, item.id, e)} />
+                                        type="file"
+                                        id={`file-${selectedUni.id}-${item.id}`}
+                                        className="hidden"
+                                        onChange={(e) => handleFileUpload(selectedUni.id, item.id, e)} />
                                         
                                           <label
-                                          htmlFor={`file-${selectedUni.id}-${item.id}`}
-                                          className="cursor-pointer flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-300 text-slate-600 hover:bg-slate-50 hover:text-slate-900 text-xs font-bold rounded-lg transition-colors shadow-sm">
+                                        htmlFor={`file-${selectedUni.id}-${item.id}`}
+                                        className="cursor-pointer flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-300 text-slate-600 hover:bg-slate-50 hover:text-slate-900 text-xs font-bold rounded-lg transition-colors shadow-sm">
                                           
                                             <Upload className="w-3.5 h-3.5" /> Upload
                                           </label>
                                         </> :
-                                      item.status === 'uploaded' ?
-                                      <button
-                                        onClick={() => handleStatusChange(selectedUni.id, item.id, 'verified')}
-                                        className="px-3 py-1.5 bg-green-50 text-green-700 hover:bg-green-100 text-xs font-bold rounded-lg transition-colors border border-green-200">
+                                    item.status === 'uploaded' ?
+                                    <button
+                                      onClick={() => handleStatusChange(selectedUni.id, item.id, 'verified')}
+                                      className="px-3 py-1.5 bg-green-50 text-green-700 hover:bg-green-100 text-xs font-bold rounded-lg transition-colors border border-green-200">
                                         
                                           Mark Verified
                                         </button> :
 
-                                      <button
-                                        onClick={() => handleStatusChange(selectedUni.id, item.id, 'pending')}
-                                        className="px-3 py-1.5 text-slate-400 hover:text-slate-600 text-xs font-medium underline">
+                                    <button
+                                      onClick={() => handleStatusChange(selectedUni.id, item.id, 'pending')}
+                                      className="px-3 py-1.5 text-slate-400 hover:text-slate-600 text-xs font-medium underline">
                                         
                                           Reset
                                         </button>
-                                      }
+                                    }
                                     </div>
                                   </div>
-                                  )}
+                                )}
                               </div>
                             </AccordionContent>
                           </AccordionItem>
@@ -1407,20 +1407,20 @@ export default function ApplicationGuide() {
                           </AccordionItem>
                         </Accordion>
                       </>
-                    )}
+                      }
 
-                    {selectedUniSection === 'general' && (
+                    {selectedUniSection === 'general' &&
                       <div className="p-6 bg-slate-50 rounded-xl border border-slate-200 text-center">
                         <h3 className="text-lg font-bold text-slate-800 mb-2">General Information</h3>
                         <p className="text-slate-600">Please provide your general application details for {selectedUni.name}.</p>
                         <div className="mt-8 text-left max-w-md mx-auto space-y-4">
                             <div className="space-y-2">
                                 <label className="text-sm font-bold text-slate-700">Program Type</label>
-                                <select 
-                                  value={uniForms[selectedUni.id]?.programType || ''}
-                                  onChange={(e) => handleUniFormChange(selectedUni.id, 'programType', e.target.value)}
-                                  className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background"
-                                >
+                                <select
+                              value={uniForms[selectedUni.id]?.programType || ''}
+                              onChange={(e) => handleUniFormChange(selectedUni.id, 'programType', e.target.value)}
+                              className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background">
+                              
                                     <option value="">Select program...</option>
                                     <option value="language">Language Program</option>
                                     <option value="bachelor">Bachelor</option>
@@ -1429,52 +1429,52 @@ export default function ApplicationGuide() {
                             </div>
                             <div className="space-y-2">
                                 <label className="text-sm font-bold text-slate-700">Preferred Admission Season</label>
-                                <select 
-                                  value={uniForms[selectedUni.id]?.admissionSeason || ''}
-                                  onChange={(e) => handleUniFormChange(selectedUni.id, 'admissionSeason', e.target.value)}
-                                  className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background"
-                                >
+                                <select
+                              value={uniForms[selectedUni.id]?.admissionSeason || ''}
+                              onChange={(e) => handleUniFormChange(selectedUni.id, 'admissionSeason', e.target.value)}
+                              className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background">
+                              
                                     <option value="">Select season...</option>
-                                    {uniForms[selectedUni.id]?.programType === 'language' ? (
-                                      <>
+                                    {uniForms[selectedUni.id]?.programType === 'language' ?
+                              <>
                                         <option value="spring">Spring (March)</option>
                                         <option value="summer">Summer (June)</option>
                                         <option value="fall">Fall (September)</option>
                                         <option value="winter">Winter (December)</option>
-                                      </>
-                                    ) : (
-                                      <>
+                                      </> :
+
+                              <>
                                         <option value="spring">Spring 2027</option>
                                         <option value="fall">Fall 2026</option>
                                       </>
-                                    )}
+                              }
                                 </select>
                             </div>
-                            <button onClick={() => handleUniSectionContinue(selectedUni.id, 'general', 'academics')} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors w-full mt-4">Continue</button>
+                            <button onClick={() => handleUniSectionContinue(selectedUni.id, 'general', 'academics')} className="bg-[#1d2530] text-white mt-4 px-6 py-2 font-medium rounded-full hover:bg-[#0052a3] transition-colors w-full">Continue</button>
                         </div>
                       </div>
-                    )}
+                      }
 
-                    {selectedUniSection === 'academics' && (
+                    {selectedUniSection === 'academics' &&
                       <div className="p-6 bg-slate-50 rounded-xl border border-slate-200 text-center">
                         <h3 className="text-lg font-bold text-slate-800 mb-2">Academics</h3>
                         <p className="text-slate-600">Academic history and requirements specific to {selectedUni.name}.</p>
                         <div className="mt-8 text-left max-w-md mx-auto space-y-4">
                             <div className="space-y-2">
                                 <label className="text-sm font-bold text-slate-700">Intended Major</label>
-                                <Input 
-                                  value={uniForms[selectedUni.id]?.intendedMajor || ''}
-                                  onChange={(e) => handleUniFormChange(selectedUni.id, 'intendedMajor', e.target.value)}
-                                  placeholder="e.g. Computer Science, Fine Arts" 
-                                  className="bg-white" 
-                                />
+                                <Input
+                              value={uniForms[selectedUni.id]?.intendedMajor || ''}
+                              onChange={(e) => handleUniFormChange(selectedUni.id, 'intendedMajor', e.target.value)}
+                              placeholder="e.g. Computer Science, Fine Arts"
+                              className="bg-white" />
+                            
                             </div>
                              <button onClick={() => handleUniSectionContinue(selectedUni.id, 'academics', 'additional_documents')} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors w-full mt-4">Continue</button>
                         </div>
                       </div>
-                    )}
+                      }
 
-                    {selectedUniSection === 'additional_documents' && (
+                    {selectedUniSection === 'additional_documents' &&
                       <div className="p-6 bg-slate-50 rounded-xl border border-slate-200 text-center">
                         <h3 className="text-lg font-bold text-slate-800 mb-2">Additional Documents</h3>
                         <p className="text-slate-600">Documents required by {selectedUni.name}.</p>
@@ -1488,8 +1488,8 @@ export default function ApplicationGuide() {
                                 <input type="file" className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-[#ff7300] hover:file:bg-orange-100" />
                             </div>
                             
-                            {(uniForms[selectedUni.id]?.intendedMajor?.toLowerCase().includes('art') || uniForms[selectedUni.id]?.intendedMajor?.toLowerCase().includes('design')) && (
-                              <div className="space-y-2 border border-slate-200 p-4 rounded-xl bg-white">
+                            {(uniForms[selectedUni.id]?.intendedMajor?.toLowerCase().includes('art') || uniForms[selectedUni.id]?.intendedMajor?.toLowerCase().includes('design')) &&
+                          <div className="space-y-2 border border-slate-200 p-4 rounded-xl bg-white">
                                   <div className="flex justify-between items-center">
                                     <label className="text-sm font-bold text-slate-700">Art Portfolio</label>
                                     <span className="text-xs font-bold text-red-600">Required for Art Majors</span>
@@ -1497,14 +1497,14 @@ export default function ApplicationGuide() {
                                   <p className="text-xs text-slate-500 mb-2">Please upload your portfolio (PDF format, max 50MB).</p>
                                   <input type="file" className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-orange-50 file:text-[#ff7300] hover:file:bg-orange-100" />
                               </div>
-                            )}
+                          }
 
                             <button onClick={() => handleUniSectionContinue(selectedUni.id, 'additional_documents', 'recommenders')} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors mt-4 w-full">Continue</button>
                         </div>
                       </div>
-                    )}
+                      }
 
-                    {selectedUniSection === 'recommenders' && (
+                    {selectedUniSection === 'recommenders' &&
                       <div className="p-6 bg-slate-50 rounded-xl border border-slate-200 text-center">
                         <h3 className="text-lg font-bold text-slate-800 mb-2">Recommenders and FERPA</h3>
                         <p className="text-slate-600">Manage your recommenders for {selectedUni.name}.</p>
@@ -1515,21 +1515,21 @@ export default function ApplicationGuide() {
                             <button onClick={() => handleUniSectionContinue(selectedUni.id, 'recommenders', 'review')} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors w-full mt-4">Continue</button>
                         </div>
                       </div>
-                    )}
+                      }
 
                     {selectedUniSection === 'review' && (() => {
-                      const isReady = uniSectionStatus[selectedUni.id]?.general && uniSectionStatus[selectedUni.id]?.academics && uniSectionStatus[selectedUni.id]?.additional_documents && uniSectionStatus[selectedUni.id]?.recommenders;
-                      return (
-                      <div className="p-6 bg-slate-50 rounded-xl border border-slate-200 text-center">
+                        const isReady = uniSectionStatus[selectedUni.id]?.general && uniSectionStatus[selectedUni.id]?.academics && uniSectionStatus[selectedUni.id]?.additional_documents && uniSectionStatus[selectedUni.id]?.recommenders;
+                        return (
+                          <div className="p-6 bg-slate-50 rounded-xl border border-slate-200 text-center">
                         <h3 className="text-lg font-bold text-slate-800 mb-2">Review and Submit</h3>
                         <p className="text-slate-600">Review your application to {selectedUni.name} before final submission.</p>
                         <div className="mt-8 text-left max-w-md mx-auto space-y-4">
-                             {!isReady ? (
-                               <div className="p-4 bg-orange-50 border border-orange-200 rounded-lg">
+                             {!isReady ?
+                              <div className="p-4 bg-orange-50 border border-orange-200 rounded-lg">
                                   <p className="text-sm text-orange-800 font-medium text-center">Please complete all required sections before submitting.</p>
-                               </div>
-                             ) : (
-                               <div className="space-y-4">
+                               </div> :
+
+                              <div className="space-y-4">
                                  <button onClick={() => setShowReviewModal(true)} className="w-full flex items-center justify-center gap-2 px-4 py-3 border-2 border-[#0066cc] text-[#0066cc] font-bold rounded-full transition-colors hover:bg-blue-50">
                                    <FileText className="w-5 h-5" /> Review Application PDF
                                  </button>
@@ -1539,10 +1539,10 @@ export default function ApplicationGuide() {
                                    </button>
                                  </Link>
                                </div>
-                             )}
+                              }
                         </div>
-                      </div>
-                    )})()}
+                      </div>);
+                      })()}
                   </div> :
 
                     <div className="text-center py-20 text-slate-500">
@@ -1620,14 +1620,14 @@ export default function ApplicationGuide() {
       </div>
 
       <AnimatePresence>
-        {showReviewModal && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-sm">
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.95, y: 10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 10 }}
-              className="bg-white w-full max-w-3xl max-h-[90vh] rounded-2xl shadow-2xl flex flex-col overflow-hidden"
-            >
+        {showReviewModal &&
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-sm">
+            <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 10 }}
+            className="bg-white w-full max-w-3xl max-h-[90vh] rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+            
               <div className="p-4 border-b border-slate-200 flex justify-between items-center bg-slate-50">
                 <h2 className="text-lg font-bold text-slate-800">Application Preview (PDF Format)</h2>
                 <button onClick={() => setShowReviewModal(false)} className="text-slate-500 hover:text-slate-800 p-1">
@@ -1678,12 +1678,12 @@ export default function ApplicationGuide() {
                           <Check className="w-4 h-4 text-green-600" />
                           <span>Statement of Purpose (Uploaded)</span>
                         </div>
-                        {(uniForms[selectedUni?.id]?.intendedMajor?.toLowerCase().includes('art') || uniForms[selectedUni?.id]?.intendedMajor?.toLowerCase().includes('design')) && (
-                          <div className="flex items-center gap-2">
+                        {(uniForms[selectedUni?.id]?.intendedMajor?.toLowerCase().includes('art') || uniForms[selectedUni?.id]?.intendedMajor?.toLowerCase().includes('design')) &&
+                      <div className="flex items-center gap-2">
                             <Check className="w-4 h-4 text-green-600" />
                             <span>Art Portfolio (Uploaded)</span>
                           </div>
-                        )}
+                      }
                         <div className="flex items-center gap-2">
                           <Check className="w-4 h-4 text-green-600" />
                           <span>Recommenders Added</span>
@@ -1699,44 +1699,44 @@ export default function ApplicationGuide() {
               </div>
             </motion.div>
           </div>
-        )}
+        }
       </AnimatePresence>
 
       <AnimatePresence>
-        {uniToDelete && (
-          <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-sm">
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.95, y: 10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 10 }}
-              className="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6"
-            >
+        {uniToDelete &&
+        <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-sm">
+            <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 10 }}
+            className="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6">
+            
               <h2 className="text-xl font-bold text-slate-900 mb-2">Remove University?</h2>
               <p className="text-slate-600 mb-6">Are you sure you want to remove {uniToDelete.name} from your list? All application progress for this university will be lost.</p>
               <div className="flex justify-end gap-3">
-                <button 
-                  onClick={() => setUniToDelete(null)} 
-                  className="px-4 py-2 text-sm font-bold text-slate-600 hover:bg-slate-50 rounded-full transition-colors"
-                >
+                <button
+                onClick={() => setUniToDelete(null)}
+                className="px-4 py-2 text-sm font-bold text-slate-600 hover:bg-slate-50 rounded-full transition-colors">
+                
                   Cancel
                 </button>
-                <button 
-                  onClick={() => {
-                    setSavedUniversities(prev => prev.filter(u => u.id !== uniToDelete.id));
-                    if (selectedUni?.id === uniToDelete.id) {
-                      setSelectedUni("overview");
-                    }
-                    toast.success("University removed from your list");
-                    setUniToDelete(null);
-                  }} 
-                  className="px-4 py-2 text-sm font-bold text-white bg-red-600 hover:bg-red-700 rounded-full transition-colors shadow-md shadow-red-500/20"
-                >
+                <button
+                onClick={() => {
+                  setSavedUniversities((prev) => prev.filter((u) => u.id !== uniToDelete.id));
+                  if (selectedUni?.id === uniToDelete.id) {
+                    setSelectedUni("overview");
+                  }
+                  toast.success("University removed from your list");
+                  setUniToDelete(null);
+                }}
+                className="px-4 py-2 text-sm font-bold text-white bg-red-600 hover:bg-red-700 rounded-full transition-colors shadow-md shadow-red-500/20">
+                
                   Yes, Remove
                 </button>
               </div>
             </motion.div>
           </div>
-        )}
+        }
       </AnimatePresence>
     </div>);
 
