@@ -117,6 +117,35 @@ export default function ApplicationGuide() {
 
   const [savedUniversities, setSavedUniversities] = useState([]);
   const [uniForms, setUniForms] = useState({});
+  const [appForms, setAppForms] = useState({});
+  const [appSectionStatus, setAppSectionStatus] = useState({
+    profile: false,
+    family: false,
+    education: false,
+    testing: false,
+    activities: false
+  });
+
+  const handleAppFormChange = (field, value) => {
+    setAppForms(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handleAppContinue = (currentSection, nextSection, requiredFields) => {
+    const isFilled = requiredFields.every(field => {
+      const val = appForms[field];
+      return val !== undefined && val !== null && val !== false && String(val).trim() !== '';
+    });
+    
+    if (isFilled) {
+      setAppSectionStatus(prev => ({ ...prev, [currentSection]: true }));
+    }
+    
+    if (nextSection === 'dashboard') {
+      setActiveView('dashboard');
+    } else {
+      setActiveAppSection(nextSection);
+    }
+  };
 
   useEffect(() => {
     const formatted = fetchedUniversities.map((uni) => ({
@@ -462,7 +491,10 @@ export default function ApplicationGuide() {
                 <Accordion type="single" collapsible defaultValue="profile" className="w-full">
                   <AccordionItem value="profile" className="border-b border-slate-100">
                     <AccordionTrigger onClick={() => setActiveAppSection("profile")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
-                      Profile
+                      <div className="flex items-center gap-2">
+                        {appSectionStatus.profile && <CheckCircle className="w-4 h-4 text-[#ff7300]" />}
+                        Profile
+                      </div>
                     </AccordionTrigger>
                     <AccordionContent className="pb-2 pt-0 px-0">
                       <div onClick={() => setActiveAppSection("profile")} className={`px-4 py-2 text-sm font-medium cursor-pointer transition-colors ${activeAppSection === "profile" ? "bg-slate-200/50 text-slate-800 border-l-4 border-slate-400" : "text-slate-600 hover:bg-slate-50 border-l-4 border-transparent"}`}>
@@ -491,7 +523,10 @@ export default function ApplicationGuide() {
                   
                   <AccordionItem value="family" className="border-b border-slate-100">
                     <AccordionTrigger onClick={() => setActiveAppSection("family")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
-                      Family
+                      <div className="flex items-center gap-2">
+                        {appSectionStatus.family && <CheckCircle className="w-4 h-4 text-[#ff7300]" />}
+                        Family
+                      </div>
                     </AccordionTrigger>
                     <AccordionContent className="pb-2 pt-0 px-0">
                     </AccordionContent>
@@ -499,7 +534,10 @@ export default function ApplicationGuide() {
 
                   <AccordionItem value="education" className="border-b border-slate-100">
                     <AccordionTrigger onClick={() => setActiveAppSection("education")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
-                      Education
+                      <div className="flex items-center gap-2">
+                        {appSectionStatus.education && <CheckCircle className="w-4 h-4 text-[#ff7300]" />}
+                        Education
+                      </div>
                     </AccordionTrigger>
                     <AccordionContent className="pb-2 pt-0 px-0">
                     </AccordionContent>
@@ -507,7 +545,10 @@ export default function ApplicationGuide() {
 
                   <AccordionItem value="testing" className="border-b border-slate-100">
                     <AccordionTrigger onClick={() => setActiveAppSection("testing")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
-                      Testing
+                      <div className="flex items-center gap-2">
+                        {appSectionStatus.testing && <CheckCircle className="w-4 h-4 text-[#ff7300]" />}
+                        Testing
+                      </div>
                     </AccordionTrigger>
                     <AccordionContent className="pb-2 pt-0 px-0">
                     </AccordionContent>
@@ -515,7 +556,10 @@ export default function ApplicationGuide() {
 
                   <AccordionItem value="activities" className="border-b border-slate-100">
                     <AccordionTrigger onClick={() => setActiveAppSection("activities")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
-                      Activities
+                      <div className="flex items-center gap-2">
+                        {appSectionStatus.activities && <CheckCircle className="w-4 h-4 text-[#ff7300]" />}
+                        Activities
+                      </div>
                     </AccordionTrigger>
                     <AccordionContent className="pb-2 pt-0 px-0">
                     </AccordionContent>
@@ -594,12 +638,12 @@ export default function ApplicationGuide() {
                       <AccordionContent className="px-6 pb-6 pt-2">
                         <div className="mb-6 relative">
                           <div className="flex justify-between text-xs font-bold text-slate-500 mb-2">
-                            <span>2/5 sections complete</span>
+                            <span>{Object.values(appSectionStatus).filter(Boolean).length}/5 sections complete</span>
                           </div>
                           <div className="w-full h-3 bg-slate-100 rounded-full overflow-hidden border border-slate-200">
                             <motion.div 
                               initial={{ width: 0 }}
-                              animate={{ width: '40%' }}
+                              animate={{ width: `${(Object.values(appSectionStatus).filter(Boolean).length / 5) * 100}%` }}
                               transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
                               className="h-full bg-[#ff7300]" 
                             />
@@ -608,8 +652,8 @@ export default function ApplicationGuide() {
                         
                         <div className="flex flex-wrap sm:flex-nowrap justify-between gap-4 relative z-10">
                           {steps.map((step, idx) => {
-                            const isCompleted = idx < 2; // Simulate completed steps
-                            const isActive = idx === 2;
+                            const isCompleted = appSectionStatus[step.id];
+                            const isActive = activeAppSection === step.id && activeView === 'application';
                             return (
                             <motion.div 
                               key={step.id} 
@@ -726,7 +770,11 @@ export default function ApplicationGuide() {
                         <label className="block text-sm font-bold text-slate-700 mb-2">
                           Legal first/given name<span className="text-red-500">*</span>
                         </label>
-                        <Input defaultValue="Bat" className="w-full" />
+                        <Input 
+                          value={appForms.firstName || 'Bat'} 
+                          onChange={(e) => handleAppFormChange('firstName', e.target.value)}
+                          className="w-full" 
+                        />
                       </div>
 
                       <div className="mb-8">
@@ -752,23 +800,35 @@ export default function ApplicationGuide() {
                         <label className="block text-sm font-bold text-slate-700 mb-2">
                           Middle name
                         </label>
-                        <Input className="w-full" />
+                        <Input 
+                          value={appForms.middleName || ''}
+                          onChange={(e) => handleAppFormChange('middleName', e.target.value)}
+                          className="w-full" 
+                        />
                       </div>
 
                       <div className="mb-8">
                         <label className="block text-sm font-bold text-slate-700 mb-2">
                           Last/family/surname<span className="text-red-500">*</span>
                         </label>
-                        <Input defaultValue="Bold" className="w-full" />
+                        <Input 
+                          value={appForms.lastName || 'Bold'}
+                          onChange={(e) => handleAppFormChange('lastName', e.target.value)}
+                          className="w-full" 
+                        />
                       </div>
                       
                       <div className="mb-8">
                         <label className="block text-sm font-bold text-slate-700 mb-2">
                           Suffix
                         </label>
-                        <Input className="w-full" />
+                        <Input 
+                          value={appForms.suffix || ''}
+                          onChange={(e) => handleAppFormChange('suffix', e.target.value)}
+                          className="w-full" 
+                        />
                       </div>
-                      <button onClick={() => setActiveAppSection("family")} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
+                      <button onClick={() => handleAppContinue('profile', 'family', ['firstName', 'lastName'])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
                   )}
 
@@ -778,7 +838,11 @@ export default function ApplicationGuide() {
                         <label className="block text-sm font-bold text-slate-700 mb-2">
                           Parents' marital status
                         </label>
-                        <select className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                        <select 
+                          value={appForms.maritalStatus || ''}
+                          onChange={(e) => handleAppFormChange('maritalStatus', e.target.value)}
+                          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        >
                           <option value="">Select status...</option>
                           <option value="married">Married</option>
                           <option value="separated">Separated</option>
@@ -791,7 +855,11 @@ export default function ApplicationGuide() {
                         <label className="block text-sm font-bold text-slate-700 mb-2">
                           With whom do you make your permanent home?
                         </label>
-                        <select className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                        <select 
+                          value={appForms.permanentHome || ''}
+                          onChange={(e) => handleAppFormChange('permanentHome', e.target.value)}
+                          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        >
                           <option value="">Select...</option>
                           <option value="both_parents">Both parents</option>
                           <option value="parent_1">Parent 1</option>
@@ -807,16 +875,28 @@ export default function ApplicationGuide() {
                         </label>
                         <div className="space-y-3 mb-5">
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="hasChildren" className="w-4 h-4 border-slate-300 text-[#ff7300]" />
+                            <input 
+                              type="radio" 
+                              name="hasChildren" 
+                              checked={appForms.hasChildren === 'yes'}
+                              onChange={() => handleAppFormChange('hasChildren', 'yes')}
+                              className="w-4 h-4 border-slate-300 text-[#ff7300]" 
+                            />
                             Yes
                           </label>
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="hasChildren" defaultChecked className="w-4 h-4 border-slate-300 text-[#ff7300]" />
+                            <input 
+                              type="radio" 
+                              name="hasChildren" 
+                              checked={appForms.hasChildren !== 'yes'}
+                              onChange={() => handleAppFormChange('hasChildren', 'no')}
+                              className="w-4 h-4 border-slate-300 text-[#ff7300]" 
+                            />
                             No
                           </label>
                         </div>
                       </div>
-                      <button onClick={() => setActiveAppSection("education")} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
+                      <button onClick={() => handleAppContinue('family', 'education', ['maritalStatus', 'permanentHome'])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
                   )}
 
@@ -826,14 +906,24 @@ export default function ApplicationGuide() {
                         <label className="block text-sm font-bold text-slate-700 mb-2">
                           Current or most recent secondary/high school
                         </label>
-                        <Input placeholder="Find school..." className="w-full" />
+                        <Input 
+                          value={appForms.school || ''}
+                          onChange={(e) => handleAppFormChange('school', e.target.value)}
+                          placeholder="Find school..." 
+                          className="w-full" 
+                        />
                         <p className="text-xs text-slate-500 mt-2">Search by school name, city, state, or CEEB code</p>
                       </div>
                       <div className="mb-8">
                         <label className="block text-sm font-bold text-slate-700 mb-2">
                           Date of entry
                         </label>
-                        <Input type="month" className="w-full" />
+                        <Input 
+                          type="month" 
+                          value={appForms.entryDate || ''}
+                          onChange={(e) => handleAppFormChange('entryDate', e.target.value)}
+                          className="w-full" 
+                        />
                       </div>
                       <div className="mb-8">
                         <label className="block text-sm font-bold text-slate-700 mb-2">
@@ -841,11 +931,23 @@ export default function ApplicationGuide() {
                         </label>
                         <div className="space-y-3 mb-5">
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="isBoarding" className="w-4 h-4 border-slate-300 text-[#ff7300]" />
+                            <input 
+                              type="radio" 
+                              name="isBoarding" 
+                              checked={appForms.isBoarding === 'yes'}
+                              onChange={() => handleAppFormChange('isBoarding', 'yes')}
+                              className="w-4 h-4 border-slate-300 text-[#ff7300]" 
+                            />
                             Yes
                           </label>
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="isBoarding" defaultChecked className="w-4 h-4 border-slate-300 text-[#ff7300]" />
+                            <input 
+                              type="radio" 
+                              name="isBoarding" 
+                              checked={appForms.isBoarding !== 'yes'}
+                              onChange={() => handleAppFormChange('isBoarding', 'no')}
+                              className="w-4 h-4 border-slate-300 text-[#ff7300]" 
+                            />
                             No
                           </label>
                         </div>
@@ -856,16 +958,28 @@ export default function ApplicationGuide() {
                         </label>
                         <div className="space-y-3 mb-5">
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="willGraduate" defaultChecked className="w-4 h-4 border-slate-300 text-[#ff7300]" />
+                            <input 
+                              type="radio" 
+                              name="willGraduate" 
+                              checked={appForms.willGraduate !== 'no'}
+                              onChange={() => handleAppFormChange('willGraduate', 'yes')}
+                              className="w-4 h-4 border-slate-300 text-[#ff7300]" 
+                            />
                             Yes
                           </label>
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="willGraduate" className="w-4 h-4 border-slate-300 text-[#ff7300]" />
+                            <input 
+                              type="radio" 
+                              name="willGraduate" 
+                              checked={appForms.willGraduate === 'no'}
+                              onChange={() => handleAppFormChange('willGraduate', 'no')}
+                              className="w-4 h-4 border-slate-300 text-[#ff7300]" 
+                            />
                             No
                           </label>
                         </div>
                       </div>
-                      <button onClick={() => setActiveAppSection("testing")} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
+                      <button onClick={() => handleAppContinue('education', 'testing', ['school', 'entryDate'])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
                   )}
 
@@ -880,11 +994,23 @@ export default function ApplicationGuide() {
                         </label>
                         <div className="space-y-3 mb-5">
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="reportTests" className="w-4 h-4 border-slate-300 text-[#ff7300]" />
+                            <input 
+                              type="radio" 
+                              name="reportTests" 
+                              checked={appForms.reportTests === 'yes'}
+                              onChange={() => handleAppFormChange('reportTests', 'yes')}
+                              className="w-4 h-4 border-slate-300 text-[#ff7300]" 
+                            />
                             Yes
                           </label>
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="reportTests" defaultChecked className="w-4 h-4 border-slate-300 text-[#ff7300]" />
+                            <input 
+                              type="radio" 
+                              name="reportTests" 
+                              checked={appForms.reportTests !== 'yes'}
+                              onChange={() => handleAppFormChange('reportTests', 'no')}
+                              className="w-4 h-4 border-slate-300 text-[#ff7300]" 
+                            />
                             No
                           </label>
                         </div>
@@ -899,16 +1025,28 @@ export default function ApplicationGuide() {
                         </p>
                         <div className="space-y-3 mb-5">
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="intlTests" className="w-4 h-4 border-slate-300 text-[#ff7300]" />
+                            <input 
+                              type="radio" 
+                              name="intlTests" 
+                              checked={appForms.intlTests === 'yes'}
+                              onChange={() => handleAppFormChange('intlTests', 'yes')}
+                              className="w-4 h-4 border-slate-300 text-[#ff7300]" 
+                            />
                             Yes
                           </label>
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="intlTests" defaultChecked className="w-4 h-4 border-slate-300 text-[#ff7300]" />
+                            <input 
+                              type="radio" 
+                              name="intlTests" 
+                              checked={appForms.intlTests !== 'yes'}
+                              onChange={() => handleAppFormChange('intlTests', 'no')}
+                              className="w-4 h-4 border-slate-300 text-[#ff7300]" 
+                            />
                             No
                           </label>
                         </div>
                       </div>
-                      <button onClick={() => setActiveAppSection("activities")} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
+                      <button onClick={() => handleAppContinue('testing', 'activities', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
                   )}
 
@@ -923,11 +1061,23 @@ export default function ApplicationGuide() {
                         </label>
                         <div className="space-y-3 mb-5">
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="reportActivities" defaultChecked className="w-4 h-4 border-slate-300 text-[#ff7300]" />
+                            <input 
+                              type="radio" 
+                              name="reportActivities" 
+                              checked={appForms.reportActivities !== 'no'}
+                              onChange={() => handleAppFormChange('reportActivities', 'yes')}
+                              className="w-4 h-4 border-slate-300 text-[#ff7300]" 
+                            />
                             Yes
                           </label>
                           <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="reportActivities" className="w-4 h-4 border-slate-300 text-[#ff7300]" />
+                            <input 
+                              type="radio" 
+                              name="reportActivities" 
+                              checked={appForms.reportActivities === 'no'}
+                              onChange={() => handleAppFormChange('reportActivities', 'no')}
+                              className="w-4 h-4 border-slate-300 text-[#ff7300]" 
+                            />
                             No
                           </label>
                         </div>
@@ -936,7 +1086,11 @@ export default function ApplicationGuide() {
                       <div className="mb-8 p-6 bg-slate-50 rounded-xl border border-slate-200">
                         <div className="mb-6">
                           <label className="block text-sm font-bold text-slate-700 mb-2">Activity type</label>
-                          <select className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                          <select 
+                            value={appForms.activityType || ''}
+                            onChange={(e) => handleAppFormChange('activityType', e.target.value)}
+                            className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                          >
                             <option value="">Select type...</option>
                             <option value="art">Art</option>
                             <option value="athletics">Athletics</option>
@@ -947,15 +1101,29 @@ export default function ApplicationGuide() {
                         </div>
                         <div className="mb-6">
                           <label className="block text-sm font-bold text-slate-700 mb-2">Position/Leadership description</label>
-                          <Input placeholder="e.g., President, Captain, Founder" className="w-full bg-white" />
+                          <Input 
+                            value={appForms.activityRole || ''}
+                            onChange={(e) => handleAppFormChange('activityRole', e.target.value)}
+                            placeholder="e.g., President, Captain, Founder" 
+                            className="w-full bg-white" 
+                          />
                         </div>
                         <div className="mb-6">
                           <label className="block text-sm font-bold text-slate-700 mb-2">Organization name</label>
-                          <Input className="w-full bg-white" />
+                          <Input 
+                            value={appForms.activityOrg || ''}
+                            onChange={(e) => handleAppFormChange('activityOrg', e.target.value)}
+                            className="w-full bg-white" 
+                          />
                         </div>
                         <div className="mb-2">
                           <label className="block text-sm font-bold text-slate-700 mb-2">Description</label>
-                          <textarea className="flex min-h-[80px] w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Please describe this activity, including what you accomplished and any recognition you received, etc."></textarea>
+                          <textarea 
+                            value={appForms.activityDesc || ''}
+                            onChange={(e) => handleAppFormChange('activityDesc', e.target.value)}
+                            className="flex min-h-[80px] w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" 
+                            placeholder="Please describe this activity, including what you accomplished and any recognition you received, etc."
+                          />
                         </div>
                       </div>
                       
@@ -963,7 +1131,7 @@ export default function ApplicationGuide() {
                         <Plus className="w-4 h-4" />
                         Add another activity
                       </button>
-                      <button onClick={() => setActiveView("universities")} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
+                      <button onClick={() => handleAppContinue('activities', 'dashboard', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
                   )}
                 </div>
