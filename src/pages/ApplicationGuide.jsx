@@ -93,6 +93,29 @@ export default function ApplicationGuide() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [selectedUni, setSelectedUni] = useState("overview");
   const [activeAppSection, setActiveAppSection] = useState("profile");
+  const [appForms, setAppForms] = useState({});
+  const [appSectionStatus, setAppSectionStatus] = useState({});
+
+  const handleAppFormChange = (field, value) => {
+    setAppForms((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleAppContinue = (currentSection, nextSection, requiredFields) => {
+    const isFilled = requiredFields.every((field) => {
+      const val = appForms[field];
+      return val !== undefined && val !== null && val !== false && String(val).trim() !== '';
+    });
+
+    if (isFilled && currentSection) {
+      setAppSectionStatus((prev) => ({ ...prev, [currentSection]: true }));
+    }
+
+    if (nextSection === 'dashboard') {
+      setActiveView('dashboard');
+    } else {
+      setActiveAppSection(nextSection);
+    }
+  };
 
   const [savedUniversities, setSavedUniversities] = useState(
     savedUniversitiesData.map((uni) => ({
