@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { createPageUrl } from "../utils";
 import { base44 } from "@/api/base44Client";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Input } from "@/components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -73,11 +74,6 @@ const faqs = [
   }
 ];
 
-const savedUniversitiesData = [
-  { id: 1, name: "Seoul National University", email: "admission@snu.ac.kr", phone: "+82 2-880-5114", address: "1 Gwanak-ro, Gwanak-gu, Seoul, 08826, South Korea", deadline: "July 28, 2026", website: "https://en.snu.ac.kr", fee: 50 },
-  { id: 2, name: "KAIST", email: "admission@kaist.ac.kr", phone: "+82 42-350-2114", address: "291 Daehak-ro, Yuseong-gu, Daejeon, 34141, South Korea", deadline: "August 15, 2026", website: "https://kaist.ac.kr", fee: 60 }
-];
-
 const checklistItemsTemplate = [
   { id: "transcript", label: "Official Transcript", status: "pending", file: null },
   { id: "recommendation1", label: "Recommendation Letter 1", status: "pending", file: null },
@@ -88,18 +84,54 @@ const checklistItemsTemplate = [
 
 export default function ApplicationGuide() {
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [searchQuery, setSearchQuery] = useState("");
   const [activeView, setActiveView] = useState("dashboard"); // "dashboard" or "universities"
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [selectedUni, setSelectedUni] = useState("overview");
   const [activeAppSection, setActiveAppSection] = useState("profile");
   
-  const [savedUniversities, setSavedUniversities] = useState(
-    savedUniversitiesData.map(uni => ({
-      ...uni,
+  const { data: fetchedUniversities = [] } = useQuery({
+    queryKey: ['saved_universities'],
+    queryFn: async () => {
+      const me = await base44.auth.me().catch(() => null);
+      if (!me) return [];
+      return base44.entities.SavedUniversity.filter({ user_email: me.email });
+    },
+    initialData: [],
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: async (uniId) => {
+      return base44.entities.SavedUniversity.delete(uniId);
+    },
+    onSuccess: () => {
+      toast.success("University removed from your list");
+      queryClient.invalidateQueries({ queryKey: ['saved_universities'] });
+      if (selectedUni && selectedUni.id !== "overview") {
+          setSelectedUni("overview");
+      }
+    }
+  });
+
+  const [savedUniversities, setSavedUniversities] = useState([]);
+
+  useEffect(() => {
+    const formatted = fetchedUniversities.map((uni) => ({
+      id: uni.id,
+      name: uni.university_name,
+      notes: uni.notes,
+      email: "admission@example.ac.kr",
+      phone: "+82 2-000-0000",
+      address: "South Korea",
+      deadline: "August 15, 2026",
+      website: "https://example.ac.kr",
+      fee: 50,
       checklist: JSON.parse(JSON.stringify(checklistItemsTemplate))
-    }))
-  );
+    }));
+    setSavedUniversities(formatted);
+  }, [fetchedUniversities]);
 
   const handleFileUpload = (uniId, itemId, e) => {
     const file = e.target.files[0];
@@ -364,7 +396,7 @@ export default function ApplicationGuide() {
                       if (savedUniversities.length >= 2) {
                         toast.error("You have reached the maximum limit of 2 universities.");
                       } else {
-                        window.location.href = createPageUrl("Universities");
+                        navigate(createPageUrl("Universities"));
                       }
                     }}
                     className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg transition-colors"
@@ -610,7 +642,7 @@ export default function ApplicationGuide() {
                               if (savedUniversities.length >= 2) {
                                 toast.error("You have reached the maximum limit of 2 universities.");
                               } else {
-                                window.location.href = createPageUrl("Universities");
+                                navigate(createPageUrl("Universities"));
                               }
                             }}
                             className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition-colors"
@@ -935,8 +967,11 @@ export default function ApplicationGuide() {
                     <p className="text-sm text-slate-500 mb-1 font-medium">My Colleges</p>
                     <div className="flex justify-between items-start mb-6 pb-6 border-b border-slate-200 border-dashed">
                       <h1 className="text-3xl lg:text-4xl font-bold text-slate-900">Overview</h1>
-                      <button className="px-4 py-2 border border-slate-300 rounded-full text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:-translate-y-0.5 hover:shadow-sm active:scale-[0.98] transition-all duration-150 flex items-center gap-2">
-                        <Plus className="w-4 h-4" /> Add a college
+                      <button 
+                        onClick={() => navigate(createPageUrl("Universities"))}
+                        className="px-4 py-2 border border-slate-300 rounded-full text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:-translate-y-0.5 hover:shadow-sm active:scale-[0.98] transition-all duration-150 flex items-center gap-2"
+                      >
+                        <Plus className="w-4 h-4" /> Add university
                       </button>
                     </div>
                     
@@ -964,7 +999,17 @@ export default function ApplicationGuide() {
                             </div>
                             <div className="absolute top-5 right-5 flex gap-3">
                               <button className="text-slate-500 hover:text-slate-700"><HelpCircle className="w-5 h-5 fill-slate-500 text-white" /></button>
-                              <button className="text-slate-500 hover:text-slate-700"><X className="w-5 h-5" /></button>
+                              <button 
+                                className="text-slate-500 hover:text-slate-700"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  if (window.confirm("Are you sure you want to remove this university from your list?")) {
+                                    deleteMutation.mutate(uni.id);
+                                  }
+                                }}
+                              >
+                                <X className="w-5 h-5" />
+                              </button>
                             </div>
                           </div>
                           <Accordion type="single" collapsible className="w-full">
