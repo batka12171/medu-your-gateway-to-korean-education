@@ -1092,6 +1092,7 @@ export default function ApplicationGuide() {
                           </label>
                         </div>
                       </div>
+                      <button onClick={() => handleAppContinue('family', 'education', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
                       }
 
@@ -1140,6 +1141,7 @@ export default function ApplicationGuide() {
                           </label>
                         </div>
                       </div>
+                      <button onClick={() => handleAppContinue('education', 'testing', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
                       }
 
@@ -1182,6 +1184,7 @@ export default function ApplicationGuide() {
                           </label>
                         </div>
                       </div>
+                      <button onClick={() => handleAppContinue('testing', 'activities', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
                       }
 
@@ -1232,10 +1235,11 @@ export default function ApplicationGuide() {
                         </div>
                       </div>
                       
-                      <button className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-bold rounded-xl transition-colors">
+                      <button className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-bold rounded-xl transition-colors mb-8">
                         <Plus className="w-4 h-4" />
                         Add another activity
                       </button>
+                      <button onClick={() => handleAppContinue('activities', 'writing', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
                       }
 
@@ -1272,6 +1276,7 @@ export default function ApplicationGuide() {
                           <textarea className="flex min-h-[300px] w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Type or paste your essay here..."></textarea>
                         </div>
                       </div>
+                      <button onClick={() => handleAppContinue('writing', 'dashboard', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue to Dashboard</button>
                     </>
                       }
                 </div>
