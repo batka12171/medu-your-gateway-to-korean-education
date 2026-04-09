@@ -768,6 +768,7 @@ export default function ApplicationGuide() {
                         </label>
                         <Input className="w-full" />
                       </div>
+                      <button onClick={() => setActiveAppSection("family")} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
                   )}
 
@@ -815,6 +816,7 @@ export default function ApplicationGuide() {
                           </label>
                         </div>
                       </div>
+                      <button onClick={() => setActiveAppSection("education")} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
                   )}
 
@@ -863,6 +865,7 @@ export default function ApplicationGuide() {
                           </label>
                         </div>
                       </div>
+                      <button onClick={() => setActiveAppSection("testing")} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
                   )}
 
@@ -905,6 +908,7 @@ export default function ApplicationGuide() {
                           </label>
                         </div>
                       </div>
+                      <button onClick={() => setActiveAppSection("activities")} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
                   )}
 
@@ -955,10 +959,11 @@ export default function ApplicationGuide() {
                         </div>
                       </div>
                       
-                      <button className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-bold rounded-xl transition-colors">
+                      <button className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-bold rounded-xl transition-colors mb-6">
                         <Plus className="w-4 h-4" />
                         Add another activity
                       </button>
+                      <button onClick={() => setActiveView("universities")} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
                   )}
                 </div>
