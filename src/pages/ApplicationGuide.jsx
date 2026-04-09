@@ -33,20 +33,10 @@ import {
   X,
   Upload,
   Check,
-  Clock,
-  User,
-  Activity,
-  Paperclip,
-  Landmark
+  Clock
 } from "lucide-react";
 import { toast } from "sonner";
 import MeduLogo from "@/components/MeduLogo";
-import ProfileSection from "@/components/application/ProfileSection";
-import FamilySection from "@/components/application/FamilySection";
-import EducationSection from "@/components/application/EducationSection";
-import TestingSection from "@/components/application/TestingSection";
-import ActivitiesSection from "@/components/application/ActivitiesSection";
-import AdditionalDocumentsSection from "@/components/application/AdditionalDocumentsSection";
 
 const steps = [
   { id: "profile", label: "Profile" },
@@ -240,87 +230,292 @@ export default function ApplicationGuide() {
           <motion.div 
             layout
             initial={false}
-            className="hidden lg:flex flex-shrink-0 flex-col h-full transition-all duration-300 ease-in-out w-64"
+            className={`hidden lg:flex flex-shrink-0 flex-col h-full transition-all duration-300 ease-in-out ${activeView === "dashboard" ? "w-64" : "w-[340px]"}`}
           >
-            <div className="w-full h-full flex flex-col bg-white rounded-xl shadow-sm border border-slate-200 overflow-y-auto hide-scrollbar">
-              <Link to={createPageUrl("Home")} className="p-4 flex items-center gap-3 hover:opacity-80 transition-opacity">
-                <MeduLogo size={32} dark={true} className="drop-shadow-sm" />
-                <div className="flex flex-col">
-                  <span className="text-lg font-extrabold tracking-widest leading-none text-slate-800">MEDU</span>
-                  <span className="text-[9px] font-medium tracking-wider mt-0.5 text-[#ff7300]">한국 유학 가이드</span>
-                </div>
-              </Link>
-              <div className="px-2 pb-2">
-                <div className="space-y-0.5 mb-6 mt-2">
-                  <NavItem active={activeView === "dashboard"} onClick={() => setActiveView("dashboard")} icon={Home} label="Dashboard" />
+            <AnimatePresence mode="wait">
+              {activeView === "dashboard" ? (
+                <motion.div
+                  key="dashboard-sidebar"
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -10 }}
+                  transition={{ duration: 0.2 }}
+                  className="w-full h-full flex flex-col"
+                >
+                  <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-y-auto flex-1">
+                    <Link to={createPageUrl("Home")} className="p-4 flex items-center gap-3 hover:opacity-80 transition-opacity">
+                  <MeduLogo size={32} dark={true} className="drop-shadow-sm" />
+                  <div className="flex flex-col">
+                    <span className="text-lg font-extrabold tracking-widest leading-none text-slate-800">MEDU</span>
+                    <span className="text-[9px] font-medium tracking-wider mt-0.5 text-[#ff7300]">한국 유학 가이드</span>
+                  </div>
+                </Link>
+                <div className="px-2 pb-2">
+                  <div className="space-y-0.5 mb-6 mt-2">
+                    <NavItem active={activeView === "dashboard"} onClick={() => setActiveView("dashboard")} icon={Home} label="Dashboard" />
+                  </div>
+                  
+                  <div className="px-3 mb-2 text-[10px] font-bold text-slate-400 tracking-wider uppercase">
+                    Apply
+                  </div>
+                  <div className="space-y-0.5 mb-6">
+                    <NavItem active={activeView === "application"} onClick={() => setActiveView("application")} icon={FileText} label="My Application" />
+                    <NavItem active={activeView === "universities"} onClick={() => setActiveView("universities")} icon={GraduationCap} label="My Universities" />
+                  </div>
+
+                  <div className="px-3 mb-2 text-[10px] font-bold text-slate-400 tracking-wider uppercase">
+                    Explore
+                  </div>
+                  <div className="space-y-0.5 mb-6">
+                    <NavLinkItem to={createPageUrl("Universities")} icon={Search} label="University search" />
+                    <NavLinkItem to={createPageUrl("Events")} icon={Calendar} label="Events" />
+                    <NavLinkItem to={createPageUrl("Mentors")} icon={Users} label="Mentors" />
+                  </div>
                 </div>
                 
-                <div className="px-3 mb-2 text-[10px] font-bold text-slate-400 tracking-wider uppercase">
-                  My Application
-                </div>
-                <div className="space-y-0.5 mb-6">
-                  <NavItem active={activeView === "profile"} onClick={() => setActiveView("profile")} icon={User} label="Profile" />
-                  <NavItem active={activeView === "family"} onClick={() => setActiveView("family")} icon={Users} label="Family" />
-                  <NavItem active={activeView === "education"} onClick={() => setActiveView("education")} icon={GraduationCap} label="Education" />
-                  <NavItem active={activeView === "testing"} onClick={() => setActiveView("testing")} icon={FileText} label="Testing" />
-                  <NavItem active={activeView === "activities"} onClick={() => setActiveView("activities")} icon={Activity} label="Activities" />
-                  <NavItem active={activeView === "additional_documents"} onClick={() => setActiveView("additional_documents")} icon={Paperclip} label="Documents" />
-                </div>
-
-                <div className="px-3 mb-2 text-[10px] font-bold text-slate-400 tracking-wider uppercase">
-                  Colleges
-                </div>
-                <div className="space-y-0.5 mb-6">
-                  <NavItem active={activeView === "universities"} onClick={() => setActiveView("universities")} icon={Landmark} label="My Universities" />
+                <div className="border-t border-slate-100 p-2">
+                  <Link to={createPageUrl("Profile")} className="w-full flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 rounded-md transition-colors">
+                    <Settings className="w-5 h-5" />
+                    Settings
+                  </Link>
+                  <button className="w-full flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 rounded-md transition-colors" onClick={() => base44.auth.logout()}>
+                    <LogOut className="w-5 h-5" />
+                    Sign out
+                  </button>
                 </div>
 
-                <div className="px-3 mb-2 text-[10px] font-bold text-slate-400 tracking-wider uppercase">
-                  Explore
+                {user && (
+                  <Link to={createPageUrl("Profile")} className="border-t border-slate-100 p-4 flex items-center gap-3 hover:bg-slate-50 transition-colors">
+                    <div className="w-10 h-10 rounded-full bg-[#ff7300] flex items-center justify-center text-white font-bold flex-shrink-0">
+                      {user.full_name?.[0] || user.email?.[0]?.toUpperCase()}
+                    </div>
+                    <div className="overflow-hidden">
+                      <p className="text-sm font-bold text-slate-900 truncate">{user.full_name}</p>
+                      <p className="text-xs text-slate-500 truncate">{user.email}</p>
+                    </div>
+                  </Link>
+                )}
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="secondary-sidebar"
+              initial={{ opacity: 0, x: 10, width: 340 }}
+              animate={{ opacity: 1, x: 0, width: isSidebarOpen ? 340 : 64 }}
+              exit={{ opacity: 0, x: 10, width: 340 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="hidden lg:flex flex-shrink-0 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden h-full"
+            >
+              {/* Narrow Sidebar */}
+              <div className="w-16 flex-shrink-0 bg-white border-r border-slate-200 flex flex-col items-center py-4 h-full">
+                <Link to={createPageUrl("Home")} className="mb-2 hover:opacity-80 transition-opacity">
+                  <MeduLogo size={28} dark={true} className="drop-shadow-sm" />
+                </Link>
+                <div className="flex flex-col items-center space-y-1.5 flex-1 mt-4 w-full px-2">
+                  <NavItem active={activeView === "dashboard"} onClick={() => { setActiveView("dashboard"); setIsSidebarOpen(true); }} icon={Home} label="Dashboard" narrow={true} />
+                  <NavItem active={activeView === "application"} onClick={() => { if (activeView === "application") setIsSidebarOpen(!isSidebarOpen); else { setActiveView("application"); setIsSidebarOpen(true); } }} icon={FileText} label="My Application" narrow={true} />
+                  <NavItem active={activeView === "universities"} onClick={() => { if (activeView === "universities") setIsSidebarOpen(!isSidebarOpen); else { setActiveView("universities"); setIsSidebarOpen(true); } }} icon={GraduationCap} label="My Universities" narrow={true} />
+                  <NavLinkItem to={createPageUrl("Universities")} icon={Search} label="University search" narrow={true} />
                 </div>
-                <div className="space-y-0.5 mb-6">
-                  <NavLinkItem to={createPageUrl("Universities")} icon={Search} label="University search" />
-                  <NavLinkItem to={createPageUrl("Events")} icon={Calendar} label="Events" />
-                  <NavLinkItem to={createPageUrl("Mentors")} icon={Users} label="Mentors" />
+
+                <div className="flex flex-col items-center space-y-4 mt-auto pt-4 w-full">
+                  <Link to={createPageUrl("Profile")} className="text-slate-500 hover:text-slate-900 transition-colors" title="Settings">
+                    <Settings className="w-5 h-5" />
+                  </Link>
+                  <button onClick={() => base44.auth.logout()} className="text-slate-500 hover:text-slate-900 transition-colors" title="Sign out">
+                    <LogOut className="w-5 h-5" />
+                  </button>
+                  <Link to={createPageUrl("Profile")} className="hover:opacity-80 transition-opacity">
+                    {user ? (
+                      <div className="w-8 h-8 rounded-full bg-[#ff7300] flex items-center justify-center text-white font-bold text-xs" title={user.full_name}>
+                        {user.full_name?.[0] || user.email?.[0]?.toUpperCase()}
+                      </div>
+                    ) : (
+                      <div className="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center text-slate-500 font-bold text-xs">
+                        ?
+                      </div>
+                    )}
+                  </Link>
                 </div>
               </div>
-              
-              <div className="mt-auto border-t border-slate-100 p-2">
-                <Link to={createPageUrl("Profile")} className="w-full flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 rounded-md transition-colors">
-                  <Settings className="w-5 h-5" />
-                  Settings
-                </Link>
-                <button className="w-full flex items-center gap-3 px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 rounded-md transition-colors" onClick={() => base44.auth.logout()}>
-                  <LogOut className="w-5 h-5" />
-                  Sign out
-                </button>
-              </div>
 
-              {user && (
-                <Link to={createPageUrl("Profile")} className="border-t border-slate-100 p-4 flex items-center gap-3 hover:bg-slate-50 transition-colors">
-                  <div className="w-10 h-10 rounded-full bg-[#ff7300] flex items-center justify-center text-white font-bold flex-shrink-0">
-                    {user.full_name?.[0] || user.email?.[0]?.toUpperCase()}
-                  </div>
-                  <div className="overflow-hidden">
-                    <p className="text-sm font-bold text-slate-900 truncate">{user.full_name}</p>
-                    <p className="text-xs text-slate-500 truncate">{user.email}</p>
-                  </div>
-                </Link>
+              {/* Secondary Sidebar */}
+              {activeView === "universities" ? (
+                <div className="w-[276px] flex-shrink-0 bg-white overflow-y-auto h-full">
+                <div className="p-4 border-b border-slate-100">
+                  <h2 className="font-bold text-lg text-slate-800">My Universities</h2>
+                </div>
+                <div className="p-2 border-b border-slate-100">
+                  <button 
+                    onClick={() => setSelectedUni("overview")}
+                    className={`w-full text-left px-3 py-2 text-sm font-medium rounded ${selectedUni === "overview" ? "bg-slate-200/50 text-slate-800" : "text-slate-700 hover:bg-slate-50"}`}
+                  >
+                    Overview
+                  </button>
+                </div>
+                <Accordion type="single" collapsible defaultValue={`uni-${selectedUni.id}`} className="w-full">
+                  {savedUniversities.map(uni => (
+                    <AccordionItem value={`uni-${uni.id}`} key={uni.id} className="border-b-0 border-t border-slate-100">
+                      <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
+                        {uni.name}
+                      </AccordionTrigger>
+                      <AccordionContent className="pb-2 pt-0 px-0">
+                        <div 
+                          className={`px-4 py-2 text-sm font-medium cursor-pointer transition-colors ${selectedUni.id === uni.id ? 'bg-slate-200/50 text-slate-800 border-l-4 border-slate-400' : 'text-slate-600 hover:bg-slate-50 border-l-4 border-transparent'}`}
+                          onClick={() => setSelectedUni(uni)}
+                        >
+                          College information
+                        </div>
+                        <div className="px-4 py-3">
+                          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3">Application</p>
+                          <div className="space-y-3 pl-2">
+                            <div 
+                              className="flex items-center gap-3 text-sm text-slate-600 font-medium cursor-pointer hover:text-[#ff7300] transition-colors"
+                              onClick={() => { setActiveView("application"); setActiveAppSection("profile"); }}
+                            >
+                              <CheckCircle className="w-4 h-4 text-green-600" /> General
+                            </div>
+                            <div 
+                              className="flex items-center gap-3 text-sm text-slate-600 cursor-pointer hover:text-[#ff7300] transition-colors"
+                              onClick={() => { setActiveView("application"); setActiveAppSection("education"); }}
+                            >
+                              <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" /> Academics
+                            </div>
+                            <div 
+                              className="flex items-center gap-3 text-sm text-slate-600 cursor-pointer hover:text-[#ff7300] transition-colors"
+                              onClick={() => { setActiveView("application"); setActiveAppSection("additional_documents"); }}
+                            >
+                              <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" /> Additional Documents
+                            </div>
+                            <div 
+                              className="flex items-center gap-3 text-sm text-slate-600 cursor-pointer hover:text-[#ff7300] transition-colors"
+                              onClick={() => { setActiveView("application"); setActiveAppSection("family"); }}
+                            >
+                              <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" /> Recommenders and FERPA
+                            </div>
+                            <div className="flex items-center gap-3 text-sm text-slate-600">
+                              <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" /> Review and submit application
+                            </div>
+                          </div>
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+                <div className="p-4 border-t border-slate-100">
+                  <button 
+                    onClick={() => {
+                      if (savedUniversities.length >= 2) {
+                        toast.error("You have reached the maximum limit of 2 universities.");
+                      } else {
+                        navigate(createPageUrl("Universities"));
+                      }
+                    }}
+                    className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-lg transition-colors"
+                  >
+                    <Plus className="w-4 h-4" />
+                    Add university
+                  </button>
+                </div>
+              </div>
+              ) : (
+              <div className="w-[276px] flex-shrink-0 bg-white overflow-y-auto h-full">
+                <div className="p-4 border-b border-slate-100">
+                  <h2 className="font-bold text-lg text-slate-800">My Application</h2>
+                </div>
+                <Accordion type="single" collapsible defaultValue="profile" className="w-full">
+                  <AccordionItem value="profile" className="border-b border-slate-100">
+                    <AccordionTrigger onClick={() => setActiveAppSection("profile")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
+                      Profile
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-2 pt-0 px-0">
+                      <div onClick={() => setActiveAppSection("profile")} className={`px-4 py-2 text-sm font-medium cursor-pointer transition-colors ${activeAppSection === "profile" ? "bg-slate-200/50 text-slate-800 border-l-4 border-slate-400" : "text-slate-600 hover:bg-slate-50 border-l-4 border-transparent"}`}>
+                        Personal Information
+                      </div>
+                      <div className="px-4 py-2 text-sm font-medium cursor-pointer transition-colors text-slate-600 hover:bg-slate-50 border-l-4 border-transparent">
+                        Address
+                      </div>
+                      <div className="px-4 py-2 text-sm font-medium cursor-pointer transition-colors text-slate-600 hover:bg-slate-50 border-l-4 border-transparent">
+                        Contact Details
+                      </div>
+                      <div className="px-4 py-2 text-sm font-medium cursor-pointer transition-colors text-slate-600 hover:bg-slate-50 border-l-4 border-transparent">
+                        Demographics
+                      </div>
+                      <div className="px-4 py-2 text-sm font-medium cursor-pointer transition-colors text-slate-600 hover:bg-slate-50 border-l-4 border-transparent">
+                        Language
+                      </div>
+                      <div className="px-4 py-2 text-sm font-medium cursor-pointer transition-colors text-slate-600 hover:bg-slate-50 border-l-4 border-transparent">
+                        Geography and Nationality
+                      </div>
+                      <div className="px-4 py-2 text-sm font-medium cursor-pointer transition-colors text-slate-600 hover:bg-slate-50 border-l-4 border-transparent">
+                        Common App Fee Waiver
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                  
+                  <AccordionItem value="family" className="border-b border-slate-100">
+                    <AccordionTrigger onClick={() => setActiveAppSection("family")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
+                      Family
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-2 pt-0 px-0">
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="education" className="border-b border-slate-100">
+                    <AccordionTrigger onClick={() => setActiveAppSection("education")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
+                      Education
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-2 pt-0 px-0">
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="testing" className="border-b border-slate-100">
+                    <AccordionTrigger onClick={() => setActiveAppSection("testing")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
+                      Testing
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-2 pt-0 px-0">
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="activities" className="border-b border-slate-100">
+                    <AccordionTrigger onClick={() => setActiveAppSection("activities")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
+                      Activities
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-2 pt-0 px-0">
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="additional_documents" className="border-b border-slate-100">
+                    <AccordionTrigger onClick={() => setActiveAppSection("additional_documents")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
+                      Additional Documents
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-2 pt-0 px-0">
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+              </div>
               )}
-            </div>
+            </motion.div>
+          )}
+            </AnimatePresence>
           </motion.div>
 
           {/* Mobile Sidebar Layout */}
           <div className="flex lg:hidden w-full mb-4 flex-shrink-0">
-             <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-x-auto hide-scrollbar w-full p-2 flex gap-1">
-               <NavItem active={activeView === "dashboard"} onClick={() => setActiveView("dashboard")} icon={Home} label="Dashboard" narrow={true} />
-               <NavItem active={activeView === "profile"} onClick={() => setActiveView("profile")} icon={User} label="Profile" narrow={true} />
-               <NavItem active={activeView === "family"} onClick={() => setActiveView("family")} icon={Users} label="Family" narrow={true} />
-               <NavItem active={activeView === "education"} onClick={() => setActiveView("education")} icon={GraduationCap} label="Education" narrow={true} />
-               <NavItem active={activeView === "testing"} onClick={() => setActiveView("testing")} icon={FileText} label="Testing" narrow={true} />
-               <NavItem active={activeView === "activities"} onClick={() => setActiveView("activities")} icon={Activity} label="Activities" narrow={true} />
-               <NavItem active={activeView === "additional_documents"} onClick={() => setActiveView("additional_documents")} icon={Paperclip} label="Docs" narrow={true} />
-               <NavItem active={activeView === "universities"} onClick={() => setActiveView("universities")} icon={Landmark} label="Uni" narrow={true} />
-             </div>
+             {/* We can just put a simple mobile switcher here or rely on the same structure */}
+             {activeView === "dashboard" ? (
+               <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-y-auto w-full p-4 flex gap-2">
+                 <NavItem active={activeView === "dashboard"} onClick={() => setActiveView("dashboard")} icon={Home} label="Dashboard" narrow={true} />
+                 <NavItem active={activeView === "application"} onClick={() => setActiveView("application")} icon={FileText} label="App" narrow={true} />
+                 <NavItem active={activeView === "universities"} onClick={() => setActiveView("universities")} icon={GraduationCap} label="Uni" narrow={true} />
+               </div>
+             ) : (
+               <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-y-auto w-full p-4 flex gap-2">
+                 <NavItem active={activeView === "dashboard"} onClick={() => setActiveView("dashboard")} icon={Home} label="Dashboard" narrow={true} />
+                 <NavItem active={activeView === "application"} onClick={() => setActiveView("application")} icon={FileText} label="App" narrow={true} />
+                 <NavItem active={activeView === "universities"} onClick={() => setActiveView("universities")} icon={GraduationCap} label="Uni" narrow={true} />
+               </div>
+             )}
           </div>
 
           {/* Main Content */}
@@ -390,7 +585,6 @@ export default function ApplicationGuide() {
                             return (
                             <motion.div 
                               key={step.id} 
-                              onClick={() => setActiveView(step.id)}
                               className="flex flex-col items-center gap-2 flex-1 min-w-[60px] group cursor-pointer"
                               whileHover={{ y: -2 }}
                               transition={{ duration: 0.15 }}
@@ -475,18 +669,18 @@ export default function ApplicationGuide() {
                   </Accordion>
                 </div>
               </>
-            ) : ["profile", "family", "education", "testing", "activities", "additional_documents"].includes(activeView) ? (
+            ) : activeView === "application" ? (
               <div className="min-h-full">
                 <div className="flex justify-between items-start mb-6">
                   <div>
                     <p className="text-sm text-slate-500 mb-1 font-medium">Complete your Application</p>
                     <h1 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-2">
-                      {activeView === "profile" && "Personal Information"}
-                      {activeView === "family" && "Family Details"}
-                      {activeView === "education" && "Education History"}
-                      {activeView === "testing" && "Standardized Testing"}
-                      {activeView === "activities" && "Activities"}
-                      {activeView === "additional_documents" && "Additional Documents"}
+                      {activeAppSection === "profile" && "Personal Information"}
+                      {activeAppSection === "family" && "Family Details"}
+                      {activeAppSection === "education" && "Education History"}
+                      {activeAppSection === "testing" && "Standardized Testing"}
+                      {activeAppSection === "activities" && "Activities"}
+                      {activeAppSection === "additional_documents" && "Additional Documents"}
                     </h1>
                     <div className="flex items-center gap-2 text-sm text-[#ff7300]">
                       <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff7300]/40 flex-shrink-0" />
@@ -499,15 +693,276 @@ export default function ApplicationGuide() {
                 </div>
 
                 <div className="max-w-2xl mt-8">
-                  {activeView === "profile" && <ProfileSection />}
-                  {activeView === "family" && <FamilySection />}
-                  {activeView === "education" && <EducationSection />}
-                  {activeView === "testing" && <TestingSection />}
-                  {activeView === "activities" && <ActivitiesSection />}
-                  {activeView === "additional_documents" && <AdditionalDocumentsSection />}
+                  {activeAppSection === "profile" && (
+                    <>
+                      <div className="mb-8">
+                        <label className="block text-sm font-bold text-slate-700 mb-2">
+                          Legal first/given name<span className="text-red-500">*</span>
+                        </label>
+                        <Input defaultValue="Bat" className="w-full" />
+                      </div>
+
+                      <div className="mb-8">
+                        <label className="block text-sm font-bold text-slate-700 mb-3">
+                          Would you like to share a different first name that people call you?
+                        </label>
+                        <div className="space-y-3 mb-5">
+                          <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="diffName" className="w-4 h-4 border-slate-300 text-[#ff7300]" />
+                            Yes
+                          </label>
+                          <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="diffName" defaultChecked className="w-4 h-4 border-slate-300 text-[#ff7300]" />
+                            No
+                          </label>
+                        </div>
+                        <button className="px-4 py-1.5 border border-slate-300 rounded-full text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+                          Clear answer
+                        </button>
+                      </div>
+
+                      <div className="mb-8">
+                        <label className="block text-sm font-bold text-slate-700 mb-2">
+                          Middle name
+                        </label>
+                        <Input className="w-full" />
+                      </div>
+
+                      <div className="mb-8">
+                        <label className="block text-sm font-bold text-slate-700 mb-2">
+                          Last/family/surname<span className="text-red-500">*</span>
+                        </label>
+                        <Input defaultValue="Bold" className="w-full" />
+                      </div>
+                      
+                      <div className="mb-8">
+                        <label className="block text-sm font-bold text-slate-700 mb-2">
+                          Suffix
+                        </label>
+                        <Input className="w-full" />
+                      </div>
+                    </>
+                  )}
+
+                  {activeAppSection === "family" && (
+                    <>
+                      <div className="mb-8">
+                        <label className="block text-sm font-bold text-slate-700 mb-2">
+                          Parents' marital status
+                        </label>
+                        <select className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                          <option value="">Select status...</option>
+                          <option value="married">Married</option>
+                          <option value="separated">Separated</option>
+                          <option value="divorced">Divorced</option>
+                          <option value="never_married">Never married</option>
+                          <option value="widowed">Widowed</option>
+                        </select>
+                      </div>
+                      <div className="mb-8">
+                        <label className="block text-sm font-bold text-slate-700 mb-2">
+                          With whom do you make your permanent home?
+                        </label>
+                        <select className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                          <option value="">Select...</option>
+                          <option value="both_parents">Both parents</option>
+                          <option value="parent_1">Parent 1</option>
+                          <option value="parent_2">Parent 2</option>
+                          <option value="legal_guardian">Legal Guardian</option>
+                          <option value="ward_of_court">Ward of the Court/State</option>
+                          <option value="other">Other</option>
+                        </select>
+                      </div>
+                      <div className="mb-8">
+                        <label className="block text-sm font-bold text-slate-700 mb-2">
+                          Do you have any children?
+                        </label>
+                        <div className="space-y-3 mb-5">
+                          <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="hasChildren" className="w-4 h-4 border-slate-300 text-[#ff7300]" />
+                            Yes
+                          </label>
+                          <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="hasChildren" defaultChecked className="w-4 h-4 border-slate-300 text-[#ff7300]" />
+                            No
+                          </label>
+                        </div>
+                      </div>
+                    </>
+                  )}
+
+                  {activeAppSection === "education" && (
+                    <>
+                      <div className="mb-8">
+                        <label className="block text-sm font-bold text-slate-700 mb-2">
+                          Current or most recent secondary/high school
+                        </label>
+                        <Input placeholder="Find school..." className="w-full" />
+                        <p className="text-xs text-slate-500 mt-2">Search by school name, city, state, or CEEB code</p>
+                      </div>
+                      <div className="mb-8">
+                        <label className="block text-sm font-bold text-slate-700 mb-2">
+                          Date of entry
+                        </label>
+                        <Input type="month" className="w-full" />
+                      </div>
+                      <div className="mb-8">
+                        <label className="block text-sm font-bold text-slate-700 mb-2">
+                          Is this a boarding school?
+                        </label>
+                        <div className="space-y-3 mb-5">
+                          <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="isBoarding" className="w-4 h-4 border-slate-300 text-[#ff7300]" />
+                            Yes
+                          </label>
+                          <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="isBoarding" defaultChecked className="w-4 h-4 border-slate-300 text-[#ff7300]" />
+                            No
+                          </label>
+                        </div>
+                      </div>
+                      <div className="mb-8">
+                        <label className="block text-sm font-bold text-slate-700 mb-2">
+                          Did or will you graduate from this school?
+                        </label>
+                        <div className="space-y-3 mb-5">
+                          <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="willGraduate" defaultChecked className="w-4 h-4 border-slate-300 text-[#ff7300]" />
+                            Yes
+                          </label>
+                          <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="willGraduate" className="w-4 h-4 border-slate-300 text-[#ff7300]" />
+                            No
+                          </label>
+                        </div>
+                      </div>
+                    </>
+                  )}
+
+                  {activeAppSection === "testing" && (
+                    <>
+                      <div className="mb-8">
+                        <p className="text-sm text-slate-700 mb-4 leading-relaxed">
+                          In addition to sending official score reports as required by colleges, you have the option to self-report scores or future test dates for any of the following standardized tests: ACT, SAT/SAT Subject Tests, AP, IB, TOEFL, PTE Academic, and IELTS.
+                        </p>
+                        <label className="block text-sm font-bold text-slate-700 mb-3">
+                          Do you wish to self-report scores or future test dates for any of these standardized tests?
+                        </label>
+                        <div className="space-y-3 mb-5">
+                          <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="reportTests" className="w-4 h-4 border-slate-300 text-[#ff7300]" />
+                            Yes
+                          </label>
+                          <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="reportTests" defaultChecked className="w-4 h-4 border-slate-300 text-[#ff7300]" />
+                            No
+                          </label>
+                        </div>
+                      </div>
+
+                      <div className="mb-8 border-t border-slate-200 pt-8">
+                        <label className="block text-sm font-bold text-slate-700 mb-2">
+                          International Applicants
+                        </label>
+                        <p className="text-sm text-slate-700 mb-4 leading-relaxed">
+                          Is promotion within your educational system based upon standard leaving examinations given at the end of lower and/or senior secondary school by a state or national leaving examinations board? (Students studying in the US typically answer no to this question.)
+                        </p>
+                        <div className="space-y-3 mb-5">
+                          <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="intlTests" className="w-4 h-4 border-slate-300 text-[#ff7300]" />
+                            Yes
+                          </label>
+                          <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="intlTests" defaultChecked className="w-4 h-4 border-slate-300 text-[#ff7300]" />
+                            No
+                          </label>
+                        </div>
+                      </div>
+                    </>
+                  )}
+
+                  {activeAppSection === "activities" && (
+                    <>
+                      <div className="mb-8">
+                        <p className="text-sm text-slate-700 mb-4 leading-relaxed">
+                          Reporting activities can help a college better understand your life outside of the classroom. Your activities may include arts, athletics, clubs, employment, personal commitments, and other pursuits.
+                        </p>
+                        <label className="block text-sm font-bold text-slate-700 mb-3">
+                          Do you have any activities that you wish to report?
+                        </label>
+                        <div className="space-y-3 mb-5">
+                          <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="reportActivities" defaultChecked className="w-4 h-4 border-slate-300 text-[#ff7300]" />
+                            Yes
+                          </label>
+                          <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
+                            <input type="radio" name="reportActivities" className="w-4 h-4 border-slate-300 text-[#ff7300]" />
+                            No
+                          </label>
+                        </div>
+                      </div>
+
+                      <div className="mb-8 p-6 bg-slate-50 rounded-xl border border-slate-200">
+                        <div className="mb-6">
+                          <label className="block text-sm font-bold text-slate-700 mb-2">Activity type</label>
+                          <select className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                            <option value="">Select type...</option>
+                            <option value="art">Art</option>
+                            <option value="athletics">Athletics</option>
+                            <option value="club">Club/Organization</option>
+                            <option value="community">Community Service</option>
+                            <option value="work">Work/Employment</option>
+                          </select>
+                        </div>
+                        <div className="mb-6">
+                          <label className="block text-sm font-bold text-slate-700 mb-2">Position/Leadership description</label>
+                          <Input placeholder="e.g., President, Captain, Founder" className="w-full bg-white" />
+                        </div>
+                        <div className="mb-6">
+                          <label className="block text-sm font-bold text-slate-700 mb-2">Organization name</label>
+                          <Input className="w-full bg-white" />
+                        </div>
+                        <div className="mb-2">
+                          <label className="block text-sm font-bold text-slate-700 mb-2">Description</label>
+                          <textarea className="flex min-h-[80px] w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Please describe this activity, including what you accomplished and any recognition you received, etc."></textarea>
+                        </div>
+                      </div>
+                      
+                      <button className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-bold rounded-xl transition-colors">
+                        <Plus className="w-4 h-4" />
+                        Add another activity
+                      </button>
+                    </>
+                  )}
+
+                  {activeAppSection === "additional_documents" && (
+                    <>
+                      <div className="mb-8">
+                        <p className="text-sm text-slate-700 mb-4 leading-relaxed">
+                          Please provide links to any additional documents you wish to submit.
+                        </p>
+                        <label className="block text-sm font-bold text-slate-700 mb-2">
+                          General Documents URL
+                        </label>
+                        <Input placeholder="e.g., Google Drive link, personal website" className="w-full" />
+                      </div>
+                      <div className="mb-8">
+                        <label className="block text-sm font-bold text-slate-700 mb-2">
+                          University-Specific Documents URL
+                        </label>
+                        <Input placeholder="e.g., specific essays, portfolios for a particular university" className="w-full" />
+                      </div>
+                      <div className="mb-8">
+                        <label className="block text-sm font-bold text-slate-700 mb-2">
+                          Portfolio URL (if applicable)
+                        </label>
+                        <Input placeholder="e.g., Behance, ArtStation, personal portfolio site" className="w-full" />
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
-            ) : activeView === "universities" ? (
+            ) : (
               <div className="min-h-full">
                 {selectedUni === "overview" ? (
                   <div>
@@ -569,9 +1024,9 @@ export default function ApplicationGuide() {
                                   <div>
                                     <h4 className="text-[13px] text-slate-500 font-bold mb-3 uppercase tracking-wider">Application Status</h4>
                                     <ul className="space-y-2.5 text-sm text-slate-600 font-medium">
-                                      <li className="flex gap-2.5"><FileText className="w-4 h-4 text-[#ff7300] flex-shrink-0 mt-0.5" /> <span><button onClick={() => setActiveView("profile")} className="text-[#ff7300] hover:underline">My Application</button> – <span className="italic font-normal">In progress</span></span></li>
-                                      <li className="flex gap-2.5"><FileText className="w-4 h-4 text-[#ff7300] flex-shrink-0 mt-0.5" /> <span><button onClick={() => setActiveView("additional_documents")} className="text-[#ff7300] hover:underline">Questions</button> – <span className="italic font-normal">In progress</span></span></li>
-                                      <li className="flex gap-2.5"><FileText className="w-4 h-4 text-[#ff7300] flex-shrink-0 mt-0.5" /> <span><button onClick={() => setActiveView("family")} className="text-[#ff7300] hover:underline">Recommenders and FERPA</button> – <span className="italic font-normal">In progress</span></span></li>
+                                      <li className="flex gap-2.5"><FileText className="w-4 h-4 text-[#ff7300] flex-shrink-0 mt-0.5" /> <span><a href="#" className="text-[#ff7300] hover:underline">My Application</a> – <span className="italic font-normal">In progress</span></span></li>
+                                      <li className="flex gap-2.5"><FileText className="w-4 h-4 text-[#ff7300] flex-shrink-0 mt-0.5" /> <span><a href="#" className="text-[#ff7300] hover:underline">Questions</a> – <span className="italic font-normal">In progress</span></span></li>
+                                      <li className="flex gap-2.5"><FileText className="w-4 h-4 text-[#ff7300] flex-shrink-0 mt-0.5" /> <span><a href="#" className="text-[#ff7300] hover:underline">Recommenders and FERPA</a> – <span className="italic font-normal">In progress</span></span></li>
                                     </ul>
                                   </div>
                                   <div>
@@ -748,7 +1203,7 @@ export default function ApplicationGuide() {
                   </div>
                 )}
               </div>
-            ) : null}
+            )}
                 </motion.div>
               </AnimatePresence>
             </div>
