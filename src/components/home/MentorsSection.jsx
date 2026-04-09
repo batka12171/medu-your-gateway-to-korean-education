@@ -106,7 +106,7 @@ export default function MentorsSection() {
             
             <div className="flex flex-wrap gap-4">
               <Link to={createPageUrl("Mentors")}>
-                <button className="px-6 py-3 bg-orange-500 hover:bg-orange-400 text-white rounded-full font-medium transition-all flex items-center gap-2">
+                <button className="bg-[hsl(var(--brand-dark))] text-white px-6 py-3 font-medium rounded-full hover:bg-orange-400 transition-all flex items-center gap-2">
                   Browse All Mentors <ArrowRight className="w-4 h-4" />
                 </button>
               </Link>
