@@ -44,7 +44,7 @@ const steps = [
   { id: "education", label: "Education" },
   { id: "testing", label: "Testing" },
   { id: "activities", label: "Activities" },
-  { id: "writing", label: "Writing" }
+  { id: "additional_documents", label: "Additional Documents" }
 ];
 
 const faqs = [
@@ -369,16 +369,28 @@ export default function ApplicationGuide() {
                         <div className="px-4 py-3">
                           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3">Application</p>
                           <div className="space-y-3 pl-2">
-                            <div className="flex items-center gap-3 text-sm text-slate-600 font-medium">
+                            <div 
+                              className="flex items-center gap-3 text-sm text-slate-600 font-medium cursor-pointer hover:text-[#ff7300] transition-colors"
+                              onClick={() => { setActiveView("application"); setActiveAppSection("profile"); }}
+                            >
                               <CheckCircle className="w-4 h-4 text-green-600" /> General
                             </div>
-                            <div className="flex items-center gap-3 text-sm text-slate-600">
+                            <div 
+                              className="flex items-center gap-3 text-sm text-slate-600 cursor-pointer hover:text-[#ff7300] transition-colors"
+                              onClick={() => { setActiveView("application"); setActiveAppSection("education"); }}
+                            >
                               <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" /> Academics
                             </div>
-                            <div className="flex items-center gap-3 text-sm text-slate-600">
-                              <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" /> Writing
+                            <div 
+                              className="flex items-center gap-3 text-sm text-slate-600 cursor-pointer hover:text-[#ff7300] transition-colors"
+                              onClick={() => { setActiveView("application"); setActiveAppSection("additional_documents"); }}
+                            >
+                              <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" /> Additional Documents
                             </div>
-                            <div className="flex items-center gap-3 text-sm text-slate-600">
+                            <div 
+                              className="flex items-center gap-3 text-sm text-slate-600 cursor-pointer hover:text-[#ff7300] transition-colors"
+                              onClick={() => { setActiveView("application"); setActiveAppSection("family"); }}
+                            >
                               <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" /> Recommenders and FERPA
                             </div>
                             <div className="flex items-center gap-3 text-sm text-slate-600">
@@ -473,9 +485,9 @@ export default function ApplicationGuide() {
                     </AccordionContent>
                   </AccordionItem>
 
-                  <AccordionItem value="writing" className="border-b border-slate-100">
-                    <AccordionTrigger onClick={() => setActiveAppSection("writing")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
-                      Writing
+                  <AccordionItem value="additional_documents" className="border-b border-slate-100">
+                    <AccordionTrigger onClick={() => setActiveAppSection("additional_documents")} className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
+                      Additional Documents
                     </AccordionTrigger>
                     <AccordionContent className="pb-2 pt-0 px-0">
                     </AccordionContent>
@@ -668,7 +680,7 @@ export default function ApplicationGuide() {
                       {activeAppSection === "education" && "Education History"}
                       {activeAppSection === "testing" && "Standardized Testing"}
                       {activeAppSection === "activities" && "Activities"}
-                      {activeAppSection === "writing" && "Personal Essay"}
+                      {activeAppSection === "additional_documents" && "Additional Documents"}
                     </h1>
                     <div className="flex items-center gap-2 text-sm text-[#ff7300]">
                       <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff7300]/40 flex-shrink-0" />
@@ -923,38 +935,28 @@ export default function ApplicationGuide() {
                     </>
                   )}
 
-                  {activeAppSection === "writing" && (
+                  {activeAppSection === "additional_documents" && (
                     <>
                       <div className="mb-8">
-                        <p className="text-sm text-slate-700 mb-6 leading-relaxed">
-                          The essay demonstrates your ability to write clearly and concisely on a selected topic and helps you distinguish yourself in your own voice. What do you want the readers of your application to know about you apart from courses, grades, and test scores?
+                        <p className="text-sm text-slate-700 mb-4 leading-relaxed">
+                          Please provide links to any additional documents you wish to submit.
                         </p>
-                        
-                        <label className="block text-sm font-bold text-slate-700 mb-4">
-                          Please select an essay prompt:
+                        <label className="block text-sm font-bold text-slate-700 mb-2">
+                          General Documents URL
                         </label>
-                        <div className="space-y-4 mb-8">
-                          <label className="flex items-start gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="essayPrompt" className="mt-1 w-4 h-4 border-slate-300 text-[#ff7300] flex-shrink-0" />
-                            <span>Some students have a background, identity, interest, or talent that is so meaningful they believe their application would be incomplete without it. If this sounds like you, then please share your story.</span>
-                          </label>
-                          <label className="flex items-start gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="essayPrompt" className="mt-1 w-4 h-4 border-slate-300 text-[#ff7300] flex-shrink-0" />
-                            <span>The lessons we take from obstacles we encounter can be fundamental to later success. Recount a time when you faced a challenge, setback, or failure. How did it affect you, and what did you learn from the experience?</span>
-                          </label>
-                          <label className="flex items-start gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input type="radio" name="essayPrompt" className="mt-1 w-4 h-4 border-slate-300 text-[#ff7300] flex-shrink-0" />
-                            <span>Reflect on a time when you questioned or challenged a belief or idea. What prompted your thinking? What was the outcome?</span>
-                          </label>
-                        </div>
-
-                        <div className="mb-2">
-                          <div className="flex justify-between items-end mb-2">
-                            <label className="block text-sm font-bold text-slate-700">Essay text</label>
-                            <span className="text-xs text-slate-500">250 - 650 words</span>
-                          </div>
-                          <textarea className="flex min-h-[300px] w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50" placeholder="Type or paste your essay here..."></textarea>
-                        </div>
+                        <Input placeholder="e.g., Google Drive link, personal website" className="w-full" />
+                      </div>
+                      <div className="mb-8">
+                        <label className="block text-sm font-bold text-slate-700 mb-2">
+                          University-Specific Documents URL
+                        </label>
+                        <Input placeholder="e.g., specific essays, portfolios for a particular university" className="w-full" />
+                      </div>
+                      <div className="mb-8">
+                        <label className="block text-sm font-bold text-slate-700 mb-2">
+                          Portfolio URL (if applicable)
+                        </label>
+                        <Input placeholder="e.g., Behance, ArtStation, personal portfolio site" className="w-full" />
                       </div>
                     </>
                   )}
