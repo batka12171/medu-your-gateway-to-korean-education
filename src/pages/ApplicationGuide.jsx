@@ -99,6 +99,7 @@ export default function ApplicationGuide() {
   const [uniForms, setUniForms] = useState({});
   const [uniSectionStatus, setUniSectionStatus] = useState({});
   const [showReviewModal, setShowReviewModal] = useState(false);
+  const [uniToDelete, setUniToDelete] = useState(null);
 
   const handleUniFormChange = (uniId, field, value) => {
     setUniForms(prev => ({ ...prev, [uniId]: { ...(prev[uniId] || {}), [field]: value } }));
@@ -1176,7 +1177,13 @@ export default function ApplicationGuide() {
                     <p className="text-sm text-slate-500 mb-1 font-medium">My Colleges</p>
                     <div className="flex justify-between items-start mb-6 pb-6 border-b border-slate-200 border-dashed">
                       <h1 className="text-3xl lg:text-4xl font-bold text-slate-900">Overview</h1>
-                      <button className="px-4 py-2 border border-slate-300 rounded-full text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:-translate-y-0.5 hover:shadow-sm active:scale-[0.98] transition-all duration-150 flex items-center gap-2">
+                      <button onClick={() => {
+                        if (savedUniversities.length >= 2) {
+                          toast.error("You have reached the maximum limit of 2 universities.");
+                        } else {
+                          window.location.href = createPageUrl("Universities");
+                        }
+                      }} className="px-4 py-2 border border-slate-300 rounded-full text-sm font-semibold text-slate-700 hover:bg-slate-50 hover:-translate-y-0.5 hover:shadow-sm active:scale-[0.98] transition-all duration-150 flex items-center gap-2">
                         <Plus className="w-4 h-4" /> Add a college
                       </button>
                     </div>
@@ -1205,7 +1212,7 @@ export default function ApplicationGuide() {
                             </div>
                             <div className="absolute top-5 right-5 flex gap-3">
                               <button className="text-slate-500 hover:text-slate-700"><HelpCircle className="w-5 h-5 fill-slate-500 text-white" /></button>
-                              <button className="text-slate-500 hover:text-slate-700"><X className="w-5 h-5" /></button>
+                              <button onClick={() => setUniToDelete(uni)} className="text-slate-500 hover:text-slate-700"><X className="w-5 h-5" /></button>
                             </div>
                           </div>
                           <Accordion type="single" collapsible className="w-full">
@@ -1689,6 +1696,43 @@ export default function ApplicationGuide() {
                     This document is a preview of your application generated on {new Date().toLocaleDateString()}.
                   </div>
                 </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {uniToDelete && (
+          <div className="fixed inset-0 z-[110] flex items-center justify-center p-4 sm:p-6 bg-slate-900/60 backdrop-blur-sm">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              className="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6"
+            >
+              <h2 className="text-xl font-bold text-slate-900 mb-2">Remove University?</h2>
+              <p className="text-slate-600 mb-6">Are you sure you want to remove {uniToDelete.name} from your list? All application progress for this university will be lost.</p>
+              <div className="flex justify-end gap-3">
+                <button 
+                  onClick={() => setUniToDelete(null)} 
+                  className="px-4 py-2 text-sm font-bold text-slate-600 hover:bg-slate-50 rounded-full transition-colors"
+                >
+                  Cancel
+                </button>
+                <button 
+                  onClick={() => {
+                    setSavedUniversities(prev => prev.filter(u => u.id !== uniToDelete.id));
+                    if (selectedUni?.id === uniToDelete.id) {
+                      setSelectedUni("overview");
+                    }
+                    toast.success("University removed from your list");
+                    setUniToDelete(null);
+                  }} 
+                  className="px-4 py-2 text-sm font-bold text-white bg-red-600 hover:bg-red-700 rounded-full transition-colors shadow-md shadow-red-500/20"
+                >
+                  Yes, Remove
+                </button>
               </div>
             </motion.div>
           </div>
