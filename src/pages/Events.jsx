@@ -40,7 +40,7 @@ export default function Events() {
     {
       id: 4,
       title: "불란서 금고 - 북벽에 오를 자 누구더냐 (Театрын жүжиг)",
-      category: "Солонгос эвент & тоглолт",
+      category: "Солонгос эвэнт & тоглолт",
       date: "2026-03-07T19:00:00Z",
       price: "₩55,000 ~ 77,000",
       image_url: "https://images.unsplash.com/photo-1507676184212-d0c30a377bb5?w=400&q=80",
@@ -48,7 +48,7 @@ export default function Events() {
     {
       id: 5,
       title: "World DJ Festival (WDJ FEST 2026)",
-      category: "Солонгос эвент & тоглолт",
+      category: "Солонгос эвэнт & тоглолт",
       date: "2026-06-13T14:00:00Z",
       price: "₩169,000 ~",
       image_url: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400&q=80",
@@ -65,10 +65,10 @@ export default function Events() {
 
   const displayEvents = dbEvents.length > 0 ? dbEvents : staticEvents;
 
-  const categories = ["Үзэсгэлэн & Галерей", "Солонгос эвент & тоглолт", "Fan Meeting"];
+  const categories = ["Үзэсгэлэн & Галерей", "Солонгос эвэнт & тоглолт", "Fan Meeting"];
 
   const eventsByCategory = categories.reduce((acc, cat) => {
-    acc[cat] = displayEvents.filter(e => e.category === cat || (!e.category && cat === "Солонгос эвент & тоглолт"));
+    acc[cat] = displayEvents.filter(e => e.category === cat || (!e.category && cat === "Солонгос эвэнт & тоглолт"));
     return acc;
   }, {});
 
