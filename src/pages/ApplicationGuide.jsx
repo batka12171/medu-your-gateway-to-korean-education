@@ -92,6 +92,7 @@ export default function ApplicationGuide() {
   const [activeView, setActiveView] = useState("dashboard"); // "dashboard" or "universities"
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [selectedUni, setSelectedUni] = useState("overview");
+  const [selectedUniSection, setSelectedUniSection] = useState("college_info");
   const [activeAppSection, setActiveAppSection] = useState("profile");
   const [appForms, setAppForms] = useState({});
   const [appSectionStatus, setAppSectionStatus] = useState({});
@@ -353,27 +354,37 @@ export default function ApplicationGuide() {
                       </AccordionTrigger>
                       <AccordionContent className="pb-2 pt-0 px-0">
                         <div
-                          className={`px-4 py-2 text-sm font-medium cursor-pointer transition-colors ${selectedUni.id === uni.id ? 'bg-slate-200/50 text-slate-800 border-l-4 border-slate-400' : 'text-slate-600 hover:bg-slate-50 border-l-4 border-transparent'}`}
-                          onClick={() => setSelectedUni(uni)}>
+                          className={`px-4 py-2 text-sm font-medium cursor-pointer transition-colors ${selectedUni.id === uni.id && selectedUniSection === 'college_info' ? 'bg-slate-200/50 text-slate-800 border-l-4 border-slate-400' : 'text-slate-600 hover:bg-slate-50 border-l-4 border-transparent'}`}
+                          onClick={() => { setSelectedUni(uni); setSelectedUniSection('college_info'); }}>
                           
                           College information
                         </div>
                         <div className="px-4 py-3">
                           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-3">Application</p>
-                          <div className="space-y-3 pl-2">
-                            <div className="flex items-center gap-3 text-sm text-slate-600 font-medium">
-                              <CheckCircle className="w-4 h-4 text-green-600" /> General
+                          <div className="space-y-1 pl-2">
+                            <div 
+                              onClick={() => { setSelectedUni(uni); setSelectedUniSection('general'); }}
+                              className={`flex items-center gap-3 text-sm px-2 py-1.5 rounded cursor-pointer ${selectedUni.id === uni.id && selectedUniSection === 'general' ? 'bg-slate-100 text-slate-900 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}>
+                              <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" /> General
                             </div>
-                            <div className="flex items-center gap-3 text-sm text-slate-600">
+                            <div 
+                              onClick={() => { setSelectedUni(uni); setSelectedUniSection('academics'); }}
+                              className={`flex items-center gap-3 text-sm px-2 py-1.5 rounded cursor-pointer ${selectedUni.id === uni.id && selectedUniSection === 'academics' ? 'bg-slate-100 text-slate-900 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}>
                               <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" /> Academics
                             </div>
-                            <div className="flex items-center gap-3 text-sm text-slate-600">
+                            <div 
+                              onClick={() => { setSelectedUni(uni); setSelectedUniSection('writing'); }}
+                              className={`flex items-center gap-3 text-sm px-2 py-1.5 rounded cursor-pointer ${selectedUni.id === uni.id && selectedUniSection === 'writing' ? 'bg-slate-100 text-slate-900 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}>
                               <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" /> Writing
                             </div>
-                            <div className="flex items-center gap-3 text-sm text-slate-600">
+                            <div 
+                              onClick={() => { setSelectedUni(uni); setSelectedUniSection('recommenders'); }}
+                              className={`flex items-center gap-3 text-sm px-2 py-1.5 rounded cursor-pointer ${selectedUni.id === uni.id && selectedUniSection === 'recommenders' ? 'bg-slate-100 text-slate-900 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}>
                               <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" /> Recommenders and FERPA
                             </div>
-                            <div className="flex items-center gap-3 text-sm text-slate-600">
+                            <div 
+                              onClick={() => { setSelectedUni(uni); setSelectedUniSection('review'); }}
+                              className={`flex items-center gap-3 text-sm px-2 py-1.5 rounded cursor-pointer ${selectedUni.id === uni.id && selectedUniSection === 'review' ? 'bg-slate-100 text-slate-900 font-bold' : 'text-slate-600 hover:bg-slate-50'}`}>
                               <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40 flex-shrink-0" /> Review and submit application
                             </div>
                           </div>
@@ -1171,7 +1182,7 @@ export default function ApplicationGuide() {
                             <div className="flex-1 pt-1">
                               <h3
                                 className="text-[#ff7300] font-medium text-lg hover:underline cursor-pointer pr-16"
-                                onClick={() => setSelectedUni(uni)}>
+                                onClick={() => { setSelectedUni(uni); setSelectedUniSection('college_info'); }}>
                                 
                                 {uni.name}
                               </h3>
@@ -1225,146 +1236,228 @@ export default function ApplicationGuide() {
                     <div>
                     <p className="text-sm text-slate-500 mb-1 font-medium">Apply to {selectedUni.name}</p>
                     <div className="flex justify-between items-start mb-6 pb-6 border-b border-slate-200 border-dashed">
-                      <h1 className="text-3xl lg:text-4xl font-bold text-slate-900">{selectedUni.name}</h1>
+                      <h1 className="text-3xl lg:text-4xl font-bold text-slate-900">
+                        {selectedUniSection === 'college_info' && selectedUni.name}
+                        {selectedUniSection === 'general' && "General"}
+                        {selectedUniSection === 'academics' && "Academics"}
+                        {selectedUniSection === 'writing' && "Writing"}
+                        {selectedUniSection === 'recommenders' && "Recommenders and FERPA"}
+                        {selectedUniSection === 'review' && "Review and Submit"}
+                      </h1>
                       <div className="w-24 h-12 bg-amber-400 rounded flex items-center justify-center text-white text-xs font-bold px-2 text-center border border-amber-500 shadow-sm">
                         {selectedUni.name}
                       </div>
                     </div>
                     
-                    <div className="text-sm text-slate-600 mb-10 space-y-1 font-medium">
-                      <p>
-                        <a href={`mailto:${selectedUni.email}`} className="text-[#ff7300] hover:underline">{selectedUni.email}</a> 
-                        {' '}• Phone{' '} 
-                        <a href={`tel:${selectedUni.phone}`} className="text-[#ff7300] hover:underline">{selectedUni.phone}</a>
-                      </p>
-                      <p className="max-w-xs text-slate-500 italic mt-2">{selectedUni.address}</p>
-                    </div>
-
-                    <div className="grid sm:grid-cols-2 gap-8 mb-10">
-                      <div>
-                        <h3 className="font-bold text-lg text-slate-900 mb-4">Application deadlines</h3>
-                        <p className="font-bold text-slate-800 mb-1">Fall 2026</p>
-                        <p className="text-sm text-slate-600 font-medium">Rolling Admission • {selectedUni.deadline}</p>
-                      </div>
-                      <div>
-                        <h3 className="font-bold text-lg text-slate-900 mb-4">Links</h3>
-                        <ul className="space-y-3 text-sm font-medium">
-                          <li><a href={selectedUni.website} target="_blank" rel="noopener noreferrer" className="text-[#ff7300] hover:underline flex items-center gap-1.5">College website <ExternalLink className="w-3.5 h-3.5" /></a></li>
-                          <li><a href="#" className="text-[#ff7300] hover:underline flex items-center gap-1.5">Admissions office <ExternalLink className="w-3.5 h-3.5" /></a></li>
-                          <li><a href="#" className="text-[#ff7300] hover:underline flex items-center gap-1.5">Financial aid <ExternalLink className="w-3.5 h-3.5" /></a></li>
-                          <li><a href="#" className="text-[#ff7300] hover:underline flex items-center gap-1.5">Virtual tour <ExternalLink className="w-3.5 h-3.5" /></a></li>
-                        </ul>
-                        
-                        <div className="flex items-center gap-3 mt-6">
-                          <button className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors"><Facebook className="w-4 h-4" /></button>
-                          <button className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors"><Instagram className="w-4 h-4" /></button>
-                          <button className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors"><Twitter className="w-4 h-4" /></button>
-                          <button className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors"><Youtube className="w-4 h-4" /></button>
+                    {selectedUniSection === 'college_info' && (
+                      <>
+                        <div className="text-sm text-slate-600 mb-10 space-y-1 font-medium">
+                          <p>
+                            <a href={`mailto:${selectedUni.email}`} className="text-[#ff7300] hover:underline">{selectedUni.email}</a> 
+                            {' '}• Phone{' '} 
+                            <a href={`tel:${selectedUni.phone}`} className="text-[#ff7300] hover:underline">{selectedUni.phone}</a>
+                          </p>
+                          <p className="max-w-xs text-slate-500 italic mt-2">{selectedUni.address}</p>
                         </div>
-                      </div>
-                    </div>
 
-                    <Accordion type="multiple" defaultValue={["checklist", "info"]} className="w-full space-y-4">
-                      
-                      <AccordionItem value="checklist" className="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
-                        <AccordionTrigger className="px-5 py-4 hover:no-underline font-bold text-slate-800 text-base border-b border-slate-100">
-                          <div className="flex items-center gap-2">
-                            <CheckCircle className="w-5 h-5 text-[#ff7300]" />
-                            Document Checklist
+                        <div className="grid sm:grid-cols-2 gap-8 mb-10">
+                          <div>
+                            <h3 className="font-bold text-lg text-slate-900 mb-4">Application deadlines</h3>
+                            <p className="font-bold text-slate-800 mb-1">Fall 2026</p>
+                            <p className="text-sm text-slate-600 font-medium">Rolling Admission • {selectedUni.deadline}</p>
                           </div>
-                        </AccordionTrigger>
-                        <AccordionContent className="p-0">
-                          <div className="divide-y divide-slate-100">
-                            {selectedUni.checklist?.map((item) =>
-                              <div key={item.id} className="p-4 flex items-center justify-between hover:bg-slate-50 transition-colors">
-                                <div className="flex items-center gap-3">
-                                  <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                                  item.status === 'verified' ? 'bg-green-100 text-green-600' :
-                                  item.status === 'uploaded' ? 'bg-blue-100 text-blue-600' :
-                                  'bg-slate-100 text-slate-400'}`
-                                  }>
-                                    {item.status === 'verified' ? <Check className="w-4 h-4" /> :
-                                    item.status === 'uploaded' ? <Clock className="w-4 h-4" /> :
-                                    <div className="w-2 h-2 rounded-full bg-slate-300" />}
-                                  </div>
-                                  <div>
-                                    <p className="font-medium text-slate-800 text-sm">{item.label}</p>
-                                    <div className="flex items-center gap-2 mt-0.5">
-                                      <span className={`text-xs font-bold uppercase tracking-wider ${
-                                      item.status === 'verified' ? 'text-green-600' :
-                                      item.status === 'uploaded' ? 'text-blue-600' :
-                                      'text-slate-400'}`
+                          <div>
+                            <h3 className="font-bold text-lg text-slate-900 mb-4">Links</h3>
+                            <ul className="space-y-3 text-sm font-medium">
+                              <li><a href={selectedUni.website} target="_blank" rel="noopener noreferrer" className="text-[#ff7300] hover:underline flex items-center gap-1.5">College website <ExternalLink className="w-3.5 h-3.5" /></a></li>
+                              <li><a href="#" className="text-[#ff7300] hover:underline flex items-center gap-1.5">Admissions office <ExternalLink className="w-3.5 h-3.5" /></a></li>
+                              <li><a href="#" className="text-[#ff7300] hover:underline flex items-center gap-1.5">Financial aid <ExternalLink className="w-3.5 h-3.5" /></a></li>
+                              <li><a href="#" className="text-[#ff7300] hover:underline flex items-center gap-1.5">Virtual tour <ExternalLink className="w-3.5 h-3.5" /></a></li>
+                            </ul>
+                            
+                            <div className="flex items-center gap-3 mt-6">
+                              <button className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors"><Facebook className="w-4 h-4" /></button>
+                              <button className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors"><Instagram className="w-4 h-4" /></button>
+                              <button className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors"><Twitter className="w-4 h-4" /></button>
+                              <button className="w-8 h-8 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:text-slate-900 hover:bg-slate-50 transition-colors"><Youtube className="w-4 h-4" /></button>
+                            </div>
+                          </div>
+                        </div>
+
+                        <Accordion type="multiple" defaultValue={["checklist", "info"]} className="w-full space-y-4">
+                          
+                          <AccordionItem value="checklist" className="border border-slate-200 rounded-xl overflow-hidden bg-white shadow-sm">
+                            <AccordionTrigger className="px-5 py-4 hover:no-underline font-bold text-slate-800 text-base border-b border-slate-100">
+                              <div className="flex items-center gap-2">
+                                <CheckCircle className="w-5 h-5 text-[#ff7300]" />
+                                Document Checklist
+                              </div>
+                            </AccordionTrigger>
+                            <AccordionContent className="p-0">
+                              <div className="divide-y divide-slate-100">
+                                {selectedUni.checklist?.map((item) =>
+                                  <div key={item.id} className="p-4 flex items-center justify-between hover:bg-slate-50 transition-colors">
+                                    <div className="flex items-center gap-3">
+                                      <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                                      item.status === 'verified' ? 'bg-green-100 text-green-600' :
+                                      item.status === 'uploaded' ? 'bg-blue-100 text-blue-600' :
+                                      'bg-slate-100 text-slate-400'}`
                                       }>
-                                        {item.status === 'verified' ? 'Verified' :
-                                        item.status === 'uploaded' ? 'In Review' :
-                                        'Pending'}
-                                      </span>
-                                      {item.file && <span className="text-xs text-slate-500 truncate max-w-[150px]">• {item.file}</span>}
+                                        {item.status === 'verified' ? <Check className="w-4 h-4" /> :
+                                        item.status === 'uploaded' ? <Clock className="w-4 h-4" /> :
+                                        <div className="w-2 h-2 rounded-full bg-slate-300" />}
+                                      </div>
+                                      <div>
+                                        <p className="font-medium text-slate-800 text-sm">{item.label}</p>
+                                        <div className="flex items-center gap-2 mt-0.5">
+                                          <span className={`text-xs font-bold uppercase tracking-wider ${
+                                          item.status === 'verified' ? 'text-green-600' :
+                                          item.status === 'uploaded' ? 'text-blue-600' :
+                                          'text-slate-400'}`
+                                          }>
+                                            {item.status === 'verified' ? 'Verified' :
+                                            item.status === 'uploaded' ? 'In Review' :
+                                            'Pending'}
+                                          </span>
+                                          {item.file && <span className="text-xs text-slate-500 truncate max-w-[150px]">• {item.file}</span>}
+                                        </div>
+                                      </div>
+                                    </div>
+                                    
+                                    <div className="flex items-center gap-2">
+                                      {item.status === 'pending' ?
+                                      <>
+                                          <input
+                                          type="file"
+                                          id={`file-${selectedUni.id}-${item.id}`}
+                                          className="hidden"
+                                          onChange={(e) => handleFileUpload(selectedUni.id, item.id, e)} />
+                                        
+                                          <label
+                                          htmlFor={`file-${selectedUni.id}-${item.id}`}
+                                          className="cursor-pointer flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-300 text-slate-600 hover:bg-slate-50 hover:text-slate-900 text-xs font-bold rounded-lg transition-colors shadow-sm">
+                                          
+                                            <Upload className="w-3.5 h-3.5" /> Upload
+                                          </label>
+                                        </> :
+                                      item.status === 'uploaded' ?
+                                      <button
+                                        onClick={() => handleStatusChange(selectedUni.id, item.id, 'verified')}
+                                        className="px-3 py-1.5 bg-green-50 text-green-700 hover:bg-green-100 text-xs font-bold rounded-lg transition-colors border border-green-200">
+                                        
+                                          Mark Verified
+                                        </button> :
+
+                                      <button
+                                        onClick={() => handleStatusChange(selectedUni.id, item.id, 'pending')}
+                                        className="px-3 py-1.5 text-slate-400 hover:text-slate-600 text-xs font-medium underline">
+                                        
+                                          Reset
+                                        </button>
+                                      }
                                     </div>
                                   </div>
-                                </div>
-                                
-                                <div className="flex items-center gap-2">
-                                  {item.status === 'pending' ?
-                                  <>
-                                      <input
-                                      type="file"
-                                      id={`file-${selectedUni.id}-${item.id}`}
-                                      className="hidden"
-                                      onChange={(e) => handleFileUpload(selectedUni.id, item.id, e)} />
-                                    
-                                      <label
-                                      htmlFor={`file-${selectedUni.id}-${item.id}`}
-                                      className="cursor-pointer flex items-center gap-2 px-3 py-1.5 bg-white border border-slate-300 text-slate-600 hover:bg-slate-50 hover:text-slate-900 text-xs font-bold rounded-lg transition-colors shadow-sm">
-                                      
-                                        <Upload className="w-3.5 h-3.5" /> Upload
-                                      </label>
-                                    </> :
-                                  item.status === 'uploaded' ?
-                                  <button
-                                    onClick={() => handleStatusChange(selectedUni.id, item.id, 'verified')}
-                                    className="px-3 py-1.5 bg-green-50 text-green-700 hover:bg-green-100 text-xs font-bold rounded-lg transition-colors border border-green-200">
-                                    
-                                      Mark Verified
-                                    </button> :
-
-                                  <button
-                                    onClick={() => handleStatusChange(selectedUni.id, item.id, 'pending')}
-                                    className="px-3 py-1.5 text-slate-400 hover:text-slate-600 text-xs font-medium underline">
-                                    
-                                      Reset
-                                    </button>
-                                  }
-                                </div>
+                                  )}
                               </div>
-                              )}
-                          </div>
-                        </AccordionContent>
-                      </AccordionItem>
+                            </AccordionContent>
+                          </AccordionItem>
 
-                      <AccordionItem value="info" className="border border-slate-200 bg-slate-200/50 rounded-xl overflow-hidden">
-                        <AccordionTrigger className="px-5 py-4 hover:no-underline font-bold text-slate-800 text-base">
-                          Application information
-                        </AccordionTrigger>
-                        <AccordionContent className="p-5 bg-white border-t border-slate-200">
-                          <h4 className="font-bold text-slate-900 mb-2">Application Fees:</h4>
-                          <ul className="list-disc pl-5 text-sm text-slate-600 space-y-1 mb-6 font-medium">
-                            <li>First Year International Fee - ${selectedUni.fee}</li>
-                            <li>First Year Domestic Fee - $0</li>
-                          </ul>
-                          
-                          <h4 className="font-bold text-slate-900 mb-2 flex items-center gap-2">
-                            Standardized test policy: 
-                            <div className="w-3.5 h-3.5 rounded-full bg-[#ff7300] text-white flex items-center justify-center text-[9px] font-bold">?</div>
-                          </h4>
-                          <ul className="list-disc pl-5 text-sm text-slate-600 space-y-1 font-medium">
-                            <li>Flexible</li>
-                            <li>See website</li>
-                            <li>Test Policy Information</li>
-                          </ul>
-                        </AccordionContent>
-                      </AccordionItem>
-                    </Accordion>
+                          <AccordionItem value="info" className="border border-slate-200 bg-slate-200/50 rounded-xl overflow-hidden">
+                            <AccordionTrigger className="px-5 py-4 hover:no-underline font-bold text-slate-800 text-base">
+                              Application information
+                            </AccordionTrigger>
+                            <AccordionContent className="p-5 bg-white border-t border-slate-200">
+                              <h4 className="font-bold text-slate-900 mb-2">Application Fees:</h4>
+                              <ul className="list-disc pl-5 text-sm text-slate-600 space-y-1 mb-6 font-medium">
+                                <li>First Year International Fee - ${selectedUni.fee}</li>
+                                <li>First Year Domestic Fee - $0</li>
+                              </ul>
+                              
+                              <h4 className="font-bold text-slate-900 mb-2 flex items-center gap-2">
+                                Standardized test policy: 
+                                <div className="w-3.5 h-3.5 rounded-full bg-[#ff7300] text-white flex items-center justify-center text-[9px] font-bold">?</div>
+                              </h4>
+                              <ul className="list-disc pl-5 text-sm text-slate-600 space-y-1 font-medium">
+                                <li>Flexible</li>
+                                <li>See website</li>
+                                <li>Test Policy Information</li>
+                              </ul>
+                            </AccordionContent>
+                          </AccordionItem>
+                        </Accordion>
+                      </>
+                    )}
+
+                    {selectedUniSection === 'general' && (
+                      <div className="p-6 bg-slate-50 rounded-xl border border-slate-200 text-center">
+                        <h3 className="text-lg font-bold text-slate-800 mb-2">General Information</h3>
+                        <p className="text-slate-600">Please provide your general application details for {selectedUni.name}.</p>
+                        <div className="mt-8 text-left max-w-md mx-auto space-y-4">
+                            <div className="space-y-2">
+                                <label className="text-sm font-bold text-slate-700">Preferred Start Term</label>
+                                <select className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background">
+                                    <option>Fall 2026</option>
+                                    <option>Spring 2027</option>
+                                </select>
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-sm font-bold text-slate-700">Intended Major</label>
+                                <Input placeholder="e.g. Computer Science" className="bg-white" />
+                            </div>
+                            <button className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors w-full mt-4">Save and Continue</button>
+                        </div>
+                      </div>
+                    )}
+
+                    {selectedUniSection === 'academics' && (
+                      <div className="p-6 bg-slate-50 rounded-xl border border-slate-200 text-center">
+                        <h3 className="text-lg font-bold text-slate-800 mb-2">Academics</h3>
+                        <p className="text-slate-600">Academic history and requirements specific to {selectedUni.name}.</p>
+                        <div className="mt-8 text-left max-w-md mx-auto space-y-4">
+                             <p className="text-sm text-slate-600">No additional academic information required for this institution beyond the Common App profile.</p>
+                             <button className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors w-full mt-4">Save and Continue</button>
+                        </div>
+                      </div>
+                    )}
+
+                    {selectedUniSection === 'writing' && (
+                      <div className="p-6 bg-slate-50 rounded-xl border border-slate-200 text-center">
+                        <h3 className="text-lg font-bold text-slate-800 mb-2">Writing Supplements</h3>
+                        <p className="text-slate-600">Additional essays or short answers required by {selectedUni.name}.</p>
+                        <div className="mt-8 text-left w-full mx-auto space-y-4">
+                            <div className="space-y-2">
+                                <label className="text-sm font-bold text-slate-700">Why {selectedUni.name}?</label>
+                                <p className="text-xs text-slate-500 mb-2">Please explain your interest in studying at this institution. (Max 250 words)</p>
+                                <textarea className="flex min-h-[150px] w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background" placeholder="Type your answer here..."></textarea>
+                            </div>
+                            <button className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors mt-4">Save and Continue</button>
+                        </div>
+                      </div>
+                    )}
+
+                    {selectedUniSection === 'recommenders' && (
+                      <div className="p-6 bg-slate-50 rounded-xl border border-slate-200 text-center">
+                        <h3 className="text-lg font-bold text-slate-800 mb-2">Recommenders and FERPA</h3>
+                        <p className="text-slate-600">Manage your recommenders for {selectedUni.name}.</p>
+                        <div className="mt-8 text-left max-w-md mx-auto space-y-4">
+                            <button className="w-full flex items-center justify-center gap-2 px-4 py-2 border border-slate-300 text-slate-700 font-bold rounded-xl transition-colors hover:bg-white bg-slate-100">
+                                <Plus className="w-4 h-4" /> Add Recommender
+                            </button>
+                        </div>
+                      </div>
+                    )}
+
+                    {selectedUniSection === 'review' && (
+                      <div className="p-6 bg-slate-50 rounded-xl border border-slate-200 text-center">
+                        <h3 className="text-lg font-bold text-slate-800 mb-2">Review and Submit</h3>
+                        <p className="text-slate-600">Review your application to {selectedUni.name} before final submission.</p>
+                        <div className="mt-8 text-left max-w-md mx-auto space-y-4">
+                             <div className="p-4 bg-orange-50 border border-orange-200 rounded-lg">
+                                <p className="text-sm text-orange-800 font-medium">Please complete all required sections before submitting.</p>
+                             </div>
+                        </div>
+                      </div>
+                    )}
                   </div> :
 
                     <div className="text-center py-20 text-slate-500">
