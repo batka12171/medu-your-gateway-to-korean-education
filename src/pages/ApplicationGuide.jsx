@@ -95,6 +95,7 @@ export default function ApplicationGuide() {
   const [activeAppSection, setActiveAppSection] = useState("profile");
   const [appForms, setAppForms] = useState({});
   const [appSectionStatus, setAppSectionStatus] = useState({});
+  const isProfileComplete = appSectionStatus['profile'] && appSectionStatus['profile_address'] && appSectionStatus['profile_contact'] && appSectionStatus['profile_demographics'] && appSectionStatus['profile_language'] && appSectionStatus['profile_geography'] && appSectionStatus['profile_fee_waiver'];
 
   const handleAppFormChange = (field, value) => {
     setAppForms((prev) => ({ ...prev, [field]: value }));
@@ -406,30 +407,37 @@ export default function ApplicationGuide() {
                   <AccordionItem value="profile" className="border-b border-slate-100">
                     <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-slate-50 text-sm font-bold text-slate-800 text-left">
                       <div className="flex items-center gap-2">
-                        {appSectionStatus['profile'] ? <CheckCircle className="w-4 h-4 text-green-600" /> : <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40" />} Profile
+                        {isProfileComplete ? <CheckCircle className="w-4 h-4 text-green-600" /> : <div className="w-4 h-4 rounded-full border-2 border-dashed border-[#ff9933]/40" />} Profile
                       </div>
                     </AccordionTrigger>
                     <AccordionContent className="pb-2 pt-0 px-0">
-                      <div onClick={() => setActiveAppSection("profile")} className={`px-4 py-2 text-sm font-medium cursor-pointer transition-colors ${activeAppSection === "profile" ? "bg-slate-200/50 text-slate-800 border-l-4 border-slate-400" : "text-slate-600 hover:bg-slate-50 border-l-4 border-transparent"}`}>
-                        Personal Information
+                      <div onClick={() => setActiveAppSection("profile")} className={`px-4 py-2 text-sm font-medium flex justify-between items-center cursor-pointer transition-colors ${activeAppSection === "profile" ? "bg-slate-200/50 text-slate-800 border-l-4 border-slate-400" : "text-slate-600 hover:bg-slate-50 border-l-4 border-transparent"}`}>
+                        <span>Personal Information</span>
+                        {appSectionStatus["profile"] && <Check className="w-4 h-4 text-green-600" />}
                       </div>
-                      <div onClick={() => setActiveAppSection("profile_address")} className={`px-4 py-2 text-sm font-medium cursor-pointer transition-colors ${activeAppSection === "profile_address" ? "bg-slate-200/50 text-slate-800 border-l-4 border-slate-400" : "text-slate-600 hover:bg-slate-50 border-l-4 border-transparent"}`}>
-                        Address
+                      <div onClick={() => setActiveAppSection("profile_address")} className={`px-4 py-2 text-sm font-medium flex justify-between items-center cursor-pointer transition-colors ${activeAppSection === "profile_address" ? "bg-slate-200/50 text-slate-800 border-l-4 border-slate-400" : "text-slate-600 hover:bg-slate-50 border-l-4 border-transparent"}`}>
+                        <span>Address</span>
+                        {appSectionStatus["profile_address"] && <Check className="w-4 h-4 text-green-600" />}
                       </div>
-                      <div onClick={() => setActiveAppSection("profile_contact")} className={`px-4 py-2 text-sm font-medium cursor-pointer transition-colors ${activeAppSection === "profile_contact" ? "bg-slate-200/50 text-slate-800 border-l-4 border-slate-400" : "text-slate-600 hover:bg-slate-50 border-l-4 border-transparent"}`}>
-                        Contact Details
+                      <div onClick={() => setActiveAppSection("profile_contact")} className={`px-4 py-2 text-sm font-medium flex justify-between items-center cursor-pointer transition-colors ${activeAppSection === "profile_contact" ? "bg-slate-200/50 text-slate-800 border-l-4 border-slate-400" : "text-slate-600 hover:bg-slate-50 border-l-4 border-transparent"}`}>
+                        <span>Contact Details</span>
+                        {appSectionStatus["profile_contact"] && <Check className="w-4 h-4 text-green-600" />}
                       </div>
-                      <div onClick={() => setActiveAppSection("profile_demographics")} className={`px-4 py-2 text-sm font-medium cursor-pointer transition-colors ${activeAppSection === "profile_demographics" ? "bg-slate-200/50 text-slate-800 border-l-4 border-slate-400" : "text-slate-600 hover:bg-slate-50 border-l-4 border-transparent"}`}>
-                        Demographics
+                      <div onClick={() => setActiveAppSection("profile_demographics")} className={`px-4 py-2 text-sm font-medium flex justify-between items-center cursor-pointer transition-colors ${activeAppSection === "profile_demographics" ? "bg-slate-200/50 text-slate-800 border-l-4 border-slate-400" : "text-slate-600 hover:bg-slate-50 border-l-4 border-transparent"}`}>
+                        <span>Demographics</span>
+                        {appSectionStatus["profile_demographics"] && <Check className="w-4 h-4 text-green-600" />}
                       </div>
-                      <div onClick={() => setActiveAppSection("profile_language")} className={`px-4 py-2 text-sm font-medium cursor-pointer transition-colors ${activeAppSection === "profile_language" ? "bg-slate-200/50 text-slate-800 border-l-4 border-slate-400" : "text-slate-600 hover:bg-slate-50 border-l-4 border-transparent"}`}>
-                        Language
+                      <div onClick={() => setActiveAppSection("profile_language")} className={`px-4 py-2 text-sm font-medium flex justify-between items-center cursor-pointer transition-colors ${activeAppSection === "profile_language" ? "bg-slate-200/50 text-slate-800 border-l-4 border-slate-400" : "text-slate-600 hover:bg-slate-50 border-l-4 border-transparent"}`}>
+                        <span>Language</span>
+                        {appSectionStatus["profile_language"] && <Check className="w-4 h-4 text-green-600" />}
                       </div>
-                      <div onClick={() => setActiveAppSection("profile_geography")} className={`px-4 py-2 text-sm font-medium cursor-pointer transition-colors ${activeAppSection === "profile_geography" ? "bg-slate-200/50 text-slate-800 border-l-4 border-slate-400" : "text-slate-600 hover:bg-slate-50 border-l-4 border-transparent"}`}>
-                        Geography and Nationality
+                      <div onClick={() => setActiveAppSection("profile_geography")} className={`px-4 py-2 text-sm font-medium flex justify-between items-center cursor-pointer transition-colors ${activeAppSection === "profile_geography" ? "bg-slate-200/50 text-slate-800 border-l-4 border-slate-400" : "text-slate-600 hover:bg-slate-50 border-l-4 border-transparent"}`}>
+                        <span>Geography and Nationality</span>
+                        {appSectionStatus["profile_geography"] && <Check className="w-4 h-4 text-green-600" />}
                       </div>
-                      <div onClick={() => setActiveAppSection("profile_fee_waiver")} className={`px-4 py-2 text-sm font-medium cursor-pointer transition-colors ${activeAppSection === "profile_fee_waiver" ? "bg-slate-200/50 text-slate-800 border-l-4 border-slate-400" : "text-slate-600 hover:bg-slate-50 border-l-4 border-transparent"}`}>
-                        Common App Fee Waiver
+                      <div onClick={() => setActiveAppSection("profile_fee_waiver")} className={`px-4 py-2 text-sm font-medium flex justify-between items-center cursor-pointer transition-colors ${activeAppSection === "profile_fee_waiver" ? "bg-slate-200/50 text-slate-800 border-l-4 border-slate-400" : "text-slate-600 hover:bg-slate-50 border-l-4 border-transparent"}`}>
+                        <span>Common App Fee Waiver</span>
+                        {appSectionStatus["profile_fee_waiver"] && <Check className="w-4 h-4 text-green-600" />}
                       </div>
                     </AccordionContent>
                   </AccordionItem>
@@ -571,7 +579,7 @@ export default function ApplicationGuide() {
                         
                         <div className="flex flex-wrap sm:flex-nowrap justify-between gap-4 relative z-10">
                           {steps.map((step, idx) => {
-                                const isCompleted = !!appSectionStatus[step.id];
+                                const isCompleted = step.id === 'profile' ? isProfileComplete : !!appSectionStatus[step.id];
                                 const isActive = activeAppSection.startsWith(step.id);
                                 return (
                                   <motion.div
@@ -742,7 +750,7 @@ export default function ApplicationGuide() {
                           className="w-full" 
                         />
                       </div>
-                      <button onClick={() => handleAppContinue(null, 'profile_address', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
+                      <button onClick={() => handleAppContinue('profile', 'profile_address', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
                       }
 
@@ -779,7 +787,7 @@ export default function ApplicationGuide() {
                           />
                         </div>
                       </div>
-                      <button onClick={() => handleAppContinue(null, 'profile_contact', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
+                      <button onClick={() => handleAppContinue('profile_address', 'profile_contact', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
                   }
 
@@ -796,7 +804,7 @@ export default function ApplicationGuide() {
                           placeholder="+82 10-0000-0000"
                         />
                       </div>
-                      <button onClick={() => handleAppContinue(null, 'profile_demographics', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
+                      <button onClick={() => handleAppContinue('profile_contact', 'profile_demographics', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
                   }
 
@@ -818,7 +826,7 @@ export default function ApplicationGuide() {
                           <option value="prefer_not_to_say">Prefer not to say</option>
                         </select>
                       </div>
-                      <button onClick={() => handleAppContinue(null, 'profile_language', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
+                      <button onClick={() => handleAppContinue('profile_demographics', 'profile_language', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
                   }
 
@@ -840,7 +848,7 @@ export default function ApplicationGuide() {
                           <option value="4+">4 or more</option>
                         </select>
                       </div>
-                      <button onClick={() => handleAppContinue(null, 'profile_geography', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
+                      <button onClick={() => handleAppContinue('profile_language', 'profile_geography', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
                   }
 
@@ -863,7 +871,7 @@ export default function ApplicationGuide() {
                           <option value="international">Other (Non-US)</option>
                         </select>
                       </div>
-                      <button onClick={() => handleAppContinue(null, 'profile_fee_waiver', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
+                      <button onClick={() => handleAppContinue('profile_geography', 'profile_fee_waiver', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
                   }
 
@@ -899,164 +907,7 @@ export default function ApplicationGuide() {
                           </label>
                         </div>
                       </div>
-                      <button onClick={() => handleAppContinue('profile', 'family', ['firstName', 'lastName'])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
-                    </>
-                  }
-
-                  {activeAppSection === "profile_address" &&
-                    <>
-                      <div className="mb-8">
-                        <label className="block text-sm font-bold text-slate-700 mb-2">
-                          Permanent home address<span className="text-red-500">*</span>
-                        </label>
-                        <Input 
-                          value={appForms.address || ''}
-                          onChange={(e) => handleAppFormChange('address', e.target.value)}
-                          className="w-full mb-2" 
-                          placeholder="Street address"
-                        />
-                        <Input 
-                          value={appForms.city || ''}
-                          onChange={(e) => handleAppFormChange('city', e.target.value)}
-                          className="w-full mb-2" 
-                          placeholder="City"
-                        />
-                        <div className="flex gap-2">
-                          <Input 
-                            value={appForms.state || ''}
-                            onChange={(e) => handleAppFormChange('state', e.target.value)}
-                            className="w-1/2" 
-                            placeholder="State/Province"
-                          />
-                          <Input 
-                            value={appForms.zip || ''}
-                            onChange={(e) => handleAppFormChange('zip', e.target.value)}
-                            className="w-1/2" 
-                            placeholder="Postal code"
-                          />
-                        </div>
-                      </div>
-                      <button onClick={() => handleAppContinue(null, 'profile_contact', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
-                    </>
-                  }
-
-                  {activeAppSection === "profile_contact" &&
-                    <>
-                      <div className="mb-8">
-                        <label className="block text-sm font-bold text-slate-700 mb-2">
-                          Preferred phone number<span className="text-red-500">*</span>
-                        </label>
-                        <Input 
-                          value={appForms.phone || ''}
-                          onChange={(e) => handleAppFormChange('phone', e.target.value)}
-                          className="w-full" 
-                          placeholder="+82 10-0000-0000"
-                        />
-                      </div>
-                      <button onClick={() => handleAppContinue(null, 'profile_demographics', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
-                    </>
-                  }
-
-                  {activeAppSection === "profile_demographics" &&
-                    <>
-                      <div className="mb-8">
-                        <label className="block text-sm font-bold text-slate-700 mb-2">
-                          Gender
-                        </label>
-                        <select 
-                          value={appForms.gender || ''}
-                          onChange={(e) => handleAppFormChange('gender', e.target.value)}
-                          className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                        >
-                          <option value="">Select gender...</option>
-                          <option value="female">Female</option>
-                          <option value="male">Male</option>
-                          <option value="other">Other</option>
-                          <option value="prefer_not_to_say">Prefer not to say</option>
-                        </select>
-                      </div>
-                      <button onClick={() => handleAppContinue(null, 'profile_language', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
-                    </>
-                  }
-
-                  {activeAppSection === "profile_language" &&
-                    <>
-                      <div className="mb-8">
-                        <label className="block text-sm font-bold text-slate-700 mb-2">
-                          Number of languages you are proficient in
-                        </label>
-                        <select 
-                          value={appForms.languageCount || ''}
-                          onChange={(e) => handleAppFormChange('languageCount', e.target.value)}
-                          className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                        >
-                          <option value="">Select number...</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4+">4 or more</option>
-                        </select>
-                      </div>
-                      <button onClick={() => handleAppContinue(null, 'profile_geography', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
-                    </>
-                  }
-
-                  {activeAppSection === "profile_geography" &&
-                    <>
-                      <div className="mb-8">
-                        <label className="block text-sm font-bold text-slate-700 mb-2">
-                          Citizenship status<span className="text-red-500">*</span>
-                        </label>
-                        <select 
-                          value={appForms.citizenship || ''}
-                          onChange={(e) => handleAppFormChange('citizenship', e.target.value)}
-                          className="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                        >
-                          <option value="">Select citizenship status...</option>
-                          <option value="us">US Citizen or US National</option>
-                          <option value="dual">US Dual Citizen</option>
-                          <option value="pr">US Permanent Resident</option>
-                          <option value="refugee">US Refugee or Asylee</option>
-                          <option value="international">Other (Non-US)</option>
-                        </select>
-                      </div>
-                      <button onClick={() => handleAppContinue(null, 'profile_fee_waiver', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
-                    </>
-                  }
-
-                  {activeAppSection === "profile_fee_waiver" &&
-                    <>
-                      <div className="mb-8">
-                        <label className="block text-sm font-bold text-slate-700 mb-2">
-                          Do you qualify for a Common App fee waiver?
-                        </label>
-                        <p className="text-sm text-slate-500 mb-4">
-                          You may qualify if you meet certain economic indicators.
-                        </p>
-                        <div className="space-y-3 mb-5">
-                          <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input 
-                              type="radio" 
-                              name="feeWaiver" 
-                              checked={appForms.feeWaiver === 'yes'}
-                              onChange={() => handleAppFormChange('feeWaiver', 'yes')}
-                              className="w-4 h-4 border-slate-300 text-[#ff7300]" 
-                            />
-                            Yes
-                          </label>
-                          <label className="flex items-center gap-3 text-sm text-slate-700 cursor-pointer">
-                            <input 
-                              type="radio" 
-                              name="feeWaiver" 
-                              checked={appForms.feeWaiver !== 'yes'}
-                              onChange={() => handleAppFormChange('feeWaiver', 'no')}
-                              className="w-4 h-4 border-slate-300 text-[#ff7300]" 
-                            />
-                            No
-                          </label>
-                        </div>
-                      </div>
-                      <button onClick={() => handleAppContinue('profile', 'family', ['firstName', 'lastName'])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
+                      <button onClick={() => handleAppContinue('profile_fee_waiver', 'family', [])} className="bg-[#0066cc] text-white px-6 py-2 rounded-full font-medium hover:bg-[#0052a3] transition-colors">Continue</button>
                     </>
                   }
 
