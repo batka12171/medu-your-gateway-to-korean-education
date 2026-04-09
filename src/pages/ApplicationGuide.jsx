@@ -230,7 +230,7 @@ export default function ApplicationGuide() {
 
 
   return (
-    <div className="bg-[#ffe999] text-black py-6 h-screen from-orange-50 via-amber-50/50 to-orange-100/40 lg:overflow-hidden">
+    <div className="bg-[#fff0e5] text-black py-6 h-screen from-orange-50 via-amber-50/50 to-orange-100/40 lg:overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 h-full">
         <div className="flex flex-col lg:flex-row gap-6 items-stretch h-full">
           
